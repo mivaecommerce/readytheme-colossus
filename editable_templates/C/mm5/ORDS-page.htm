@@ -1,0 +1,68 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<div class="u-printable">
+		<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+	
+		<section class="o-layout">
+			<div class="o-layout__item u-width-12">
+				<section class="t-expanded-block t-account-landing-section u-bg-white">
+					<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+						<mvt:item name="breadcrumbs" />
+						
+						<div class="o-layout o-layout--align-center o-layout--justify-between">
+							<span class="o-layout__item c-heading-delta t-account-landing-section__heading">
+								Order #&mvt:order:id;
+								<span class="c-heading--subheading">Placed on &mvt:order:date;</span>
+							</span>
+							<section class="o-layout__item u-text-right">
+								<button class="c-button c-button--large u-bg-black u-color-white u-font-tiny u-text-uppercase" data-hook="print-invoice">Print Invoice</button>
+							</section>
+						</div>
+						
+						<div class="o-layout">
+							<div class="o-layout__item">
+								<mvt:item name="hdft" param="header" file="ORDS-header-item.htm" />
+								<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="t-expanded-block t-account-landing-section u-bg-white">
+					<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+						<section class="o-layout o-layout--wide">
+							<div class="o-layout__item u-width-12 u-width-8--l">
+								<mvt:item name="view_order" file="ORDS-view_order-item.htm" />
+							</div>
+							<aside class="o-layout__item u-width-12 u-width-4--l">
+								<mvt:item name="order_customer" file="cssui-invccustfields-item.htm" />
+							</aside>
+						</section>
+		
+						<section class="o-layout">
+							<div class="o-layout__item">
+								<mvt:item name="hdft" param="footer" file="ORDS-footer-item.htm" />
+							</div>
+						</section>
+					</div>
+				</section>
+			</div>
+		</section>
+	
+		<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+	</div>
+	<mvt:item name="printer_friendly_content" file="ORDS-printer_friendly_content-item.htm" />
+</body>
+</html>

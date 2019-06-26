@@ -1,0 +1,38 @@
+<nav class="c-navigation u-text-uppercase x-drop-down-navigation" data-hook="drop-down-navigation">
+	<input id="&mvte:readytheme:code;" class="c-navigation__trigger" type="checkbox">
+	<label class="c-navigation__label" for="&mvte:readytheme:code;">Drop-Down Menu</label>
+	<ul class="c-navigation__row x-drop-down-navigation__row">
+		<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+			<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+				<mvt:assign name="l.settings:has:children" value="'has-drop-down' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'has-drop-down'"/>
+			<mvt:else>
+				<mvt:assign name="l.settings:has:children" value="''"/>
+			</mvt:if>
+			<li class="c-navigation__list &mvt:has:children;">
+				<a class="c-navigation__link" href="&mvt:navigationitem:url;">&mvt:navigationitem:name;</a>
+				<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+					<ul class="c-navigation__row">
+						<mvt:assign name="l.settings:has:children" value="''"/>
+						<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+							<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+								<mvt:assign name="l.settings:has:children" value="'has-drop-down'"/>
+							<mvt:else>
+								<mvt:assign name="l.settings:has:children" value="''"/>
+							</mvt:if>
+							<li class="c-navigation__list &mvt:has:children;">
+								<a class="c-navigation__link" href="&mvt:navigationitem_level2:url;">&mvt:navigationitem_level2:name;</a>
+								<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+									<ul class="c-navigation__row">
+										<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+											<li><a class="c-navigation__link" href="&mvt:navigationitem_level3:url;">&mvt:navigationitem_level3:name;</a></li>
+										</mvt:foreach>
+									</ul>
+								</mvt:if>
+							</li>
+						</mvt:foreach>
+					</ul>
+				</mvt:if>
+			</li>
+		</mvt:foreach>
+	</ul>
+</nav>

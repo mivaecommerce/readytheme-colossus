@@ -1,0 +1,116 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:product:page_title">
+		<title>&mvt:product:page_title;</title>
+	<mvt:elseif expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:product:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+	<mvt:item name="attributemachine" param="head_deferred" />
+	<mvt:item name="product_display_imagemachine" param="head_deferred" />
+	<mvt:assign name="g.socialURL" value="l.settings:product:link" />
+	<mvt:assign name="g.socialText" value="'Check out the deal on ' $ l.settings:product:name $ ' at ' $ g.store:name" />
+	<mvt:do file="g.Module_Library_DB" name="l.success" value="ImageType_Load_Code('main', l.settings:imagetype)" />
+	<mvt:do name="l.success" file="g.Module_Library_DB" value="ProductImage_Load_Type(l.settings:product:id, 1, l.settings:imagetype)" />
+	<mvt:do name="l.success" file="g.Module_Library_DB" value="Image_Load_ID(l.settings:imagetype:image_id, l.settings:imagedata)" />
+	<mvt:assign name="g.socialImage" value="g.baseurl $ l.settings:imagedata:image" />
+	<meta property="og:title" content="&mvte:product:name;">
+	<meta property="og:type" content="product">
+	<meta property="og:image" content="&mvt:global:socialImage;">
+	<meta property="og:url" content="&mvt:global:socialURL;">
+	<meta property="og:site_name" content="&mvte:global:store:name;">
+	<meta property="og:description" content="&mvte:global:socialText;">
+	<meta property="og:locale" content="en_US">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@TWITTER_ACCOUNT">
+	<meta name="twitter:creator" content="@TWITTER_ACCOUNT">
+	<meta name="twitter:url" content="&mvt:global:socialURL;">
+	<meta name="twitter:title" content="&mvte:product:name;">
+	<meta name="twitter:description" content="&mvte:global:socialText;">
+	<meta name="twitter:image" content="&mvt:global:socialImage;">
+	<meta name="twitter:image:alt" content="&mvte:product:name;">
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="PROD-header-item.htm" />
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="prod_ctgy_hdft" param="prod_header" />
+		</div>
+	</section>
+	
+	<!-- Start: Google Rich Snippets -->
+	<mvt:comment>Strip any HTML from the product description.</mvt:comment>
+	<mvt:assign name="l.settings:product:stripped_descrip" value="miva_html_strip(l.settings:product:descrip, '')"/>
+
+	<div itemscope itemtype="http://schema.org/Product">
+		<meta itemprop="name" content="&mvte:product:name;" />
+		<meta itemprop="image" content="&mvt:global:socialImage;" />
+		<meta itemprop="category" content="&mvte:category:name;" />
+		<meta itemprop="description" content="&mvte:product:stripped_descrip;" />
+		<mvt:if expr="NOT ISNULL l.settings:product:customfield_values:customfields:brand">
+			<meta itemprop="brand" content="&mvte:product:customfield_values:customfields:brand;" />
+		</mvt:if>
+		<mvt:if expr="NOT ISNULL l.settings:product:sku">
+			<meta itemprop="sku" content="&mvte:product:sku;" />
+		<mvt:else>
+			<meta itemprop="sku" content="&mvte:product:code;" />
+		</mvt:if>
+		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+			<mvt:if expr="NOT ISNULL l.settings:product:sku">
+				<meta itemprop="sku" content="&mvte:product:sku;" />
+			<mvt:else>
+				<meta itemprop="sku" content="&mvte:product:code;" />
+			</mvt:if>
+			<mvt:item name="product_display" file="cssui-prodlayout-item.htm" />
+			<mvt:item name="attributemachine" param="body_deferred" />
+			<script>
+				if (typeof am&mvt:product:id; !== 'undefined') {
+					var attrMachCall = am&mvt:product:id;,
+						attrPossible = amPossible&mvt:product:id;;
+				};
+			</script>
+			<meta itemprop="priceCurrency" content="USD" />
+			<meta itemprop="seller" content="&mvte:global:store:name;" />
+			<meta itemprop="itemCondition" content="new" />
+			<mvt:if expr="l.settings:product:inv_active OR l.settings:attributemachine:product:inv_active">
+				<meta itemprop="availability" content="&mvte:product:inv_short;" />
+				<meta itemprop="inventoryLevel" content="&mvte:product:inv_available;" />
+			</mvt:if>
+			<meta itemprop="url" content="&mvte:product:link;" />
+		</div>
+	</div>
+	<!-- End: Google Rich Snippets -->
+	
+	<mvt:if expr="l.settings:related_product_count NE 0">
+		<mvt:item name="related_products" file="PROD-prodlist-item.htm" />
+	</mvt:if>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="prod_ctgy_hdft" param="prod_footer" />
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="PROD-footer-item.htm" />
+		</div>
+	</section>
+	
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

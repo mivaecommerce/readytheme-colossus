@@ -1,0 +1,58 @@
+<section class="o-layout u-grids-1 u-grids-3--m t-checkout-customer-summary u-bg-gray-10">
+	<div class="o-layout__item">
+		<p class="c-heading-echo u-text-uppercase u-text-bold">Shipping Address</p>
+		<hr class="c-keyline">
+		<p class="u-font-small">
+			<mvt:if expr="g.Basket:ship_fname OR g.Basket:ship_lname">
+				<strong>&mvte:global:Basket:ship_fname; &mvte:global:Basket:ship_lname;</strong><br>
+			</mvt:if>
+			<span>
+				<mvt:if expr="g.Basket:ship_comp">
+					&mvte:global:Basket:ship_comp;<br>
+				</mvt:if>
+				<mvt:if expr="g.Basket:ship_addr1 OR g.Basket:ship_addr2 OR g.Basket:ship_city OR g.Basket:ship_state OR g.Basket:ship_zip OR g.Basket:ship_cntry OR g.Basket:ship_res">
+					&mvte:global:Basket:ship_addr1;<br>
+					<mvt:if expr="g.Basket:ship_addr2">
+						&mvte:global:Basket:ship_addr2;<br>
+					</mvt:if>
+					<mvt:if expr="(NOT ISNULL g.Basket:ship_city) AND (NOT ISNULL g.Basket:ship_state)">
+						&mvte:global:Basket:ship_city;, &mvte:global:Basket:ship_state;	&mvte:global:Basket:ship_zip; &mvte:global:Basket:ship_cntry;
+					<mvt:else>
+						&mvte:global:Basket:ship_city; &mvte:global:Basket:ship_state;	&mvte:global:Basket:ship_zip; &mvte:global:Basket:ship_cntry;
+					</mvt:if>
+					<mvt:if expr="g.Basket:ship_res">
+						<br>Residential Address
+					</mvt:if>
+				</mvt:if>
+			</span>
+			<br>
+			<mvt:if expr="g.BasketPaymentGateway EQ 1">
+				<a class="u-text-uppercase u-font-tiny u-color-black" href="&mvt:global:secure_sessionurl;Store_Code=&mvta:global:Store_Code;&amp;Action=PAL1&amp;Screen=PAL1&amp;NextScreen=&mvta:global:Screen;&amp;CancelScreen=&mvta:global:Screen;">Edit</a>
+			<mvt:else>
+				<a class="u-text-uppercase u-font-tiny u-color-black" href="&mvte:urls:OCST:secure;">Edit</a>
+			</mvt:if>
+		</p>
+	</div>
+	<div class="o-layout__item">
+		<p class="c-heading-echo u-text-uppercase u-text-bold">Shipping Method</p>
+		<hr class="c-keyline">
+		<p class="u-font-small">
+			<mvt:foreach iterator="charge" array="basket:charges">
+				<mvt:if expr="l.settings:charge:type EQ 'SHIPPING'">
+					<mvt:eval expr="glosub(l.settings:charge:descrip, 'Shipping:', '')"/><br>
+				</mvt:if>
+			</mvt:foreach>
+			<a class="u-text-uppercase u-font-tiny u-color-black" href="&mvte:urls:OSEL:secure;">Edit</a>
+		</p>
+	</div>
+	<div class="o-layout__item">
+		<p class="c-heading-echo u-text-uppercase u-text-bold">Delivery Notes</p>
+		<hr class="c-keyline">
+		<p class="u-font-small">
+			<mvt:if expr="g.order_instructions">
+				&mvte:global:order_instructions;<br>
+			</mvt:if>
+			<a class="u-text-uppercase u-font-tiny u-color-black" href="&mvte:urls:OSEL:secure;">Edit</a>
+		</p>
+	</div>
+</section>

@@ -1,0 +1,30 @@
+/* ==========================================================================
+   UTILITIES / Z-INDEX
+   ========================================================================== */
+
+/**
+ * Utility classes to set display relevance on the 'Z' axis.
+ */
+.u-below-content {
+	z-index: -1;
+}
+
+.u-over-content {
+	z-index: 100;
+}
+
+.u-over-control {
+	z-index: 200;
+}
+
+.u-over-page {
+	z-index: 300;
+}
+
+.u-over-screen {
+	z-index: 400;
+}
+
+.u-over-everything {
+	z-index: 500;
+}

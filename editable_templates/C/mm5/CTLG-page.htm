@@ -1,0 +1,72 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+	
+	<section class="u-bg-white t-expanded-block">
+		<div class="o-wrapper t-wrapper">
+			<mvt:item name="facets" file="cssui-prodlist-facets-item.htm" />
+
+			<div class="o-layout o-layout--column-reverse o-layout--row-reverse--l o-layout--wide">
+				<div class="o-layout__item u-width-12 u-width-9--l">
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="header" file="CTLG-header-item.htm" />
+						</div>
+					</section>
+					
+					<section class="o-layout u-grids-2 u-grids-3--l x-product-list">
+						<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent('', l.settings:parent_categories)" />
+						<mvt:foreach iterator="parent" array="parent_categories">
+							<mvt:assign name="l.settings:catalog_item" value="''" />
+							<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:parent:code, l.settings:catalog)" />
+							<mvt:do name="l.module_loaded" file="g.Module_Library_DB" value="Module_Load_Code('cmp-cssui-cattree', l.module)" />
+							<mvt:if expr="l.module_loaded">
+								<mvt:do name="l.result" file="g.Module_Root $ l.module:module" value="CSSUI_CatTree_Load(l.settings:catalog:id, l.settings:catalog_item)" />
+							</mvt:if>
+							<mvt:do file="g.Module_Feature_URI_UT" name="l.settings:catalog:link" value="Store_Category_URL(l.settings:catalog, NULL)" />
+							<div class="o-layout__item u-text-center x-product-list__item">
+								<a class="u-block x-product-list__link" href="&mvte:catalog:link;">
+									<figure class="x-product-list__figure">
+										<mvt:if expr="l.settings:catalog_item:image">
+											<img class="x-product-list__image" src="&mvt:catalog_item:image;" alt="&mvt:catalog:name;">
+										</mvt:if>
+										<figcaption>
+											<strong class="x-product-list__name u-text-uppercase">&mvte:catalog:name;</strong>
+										</figcaption>
+									</figure>
+								</a>
+							</div>
+						</mvt:foreach>
+					</section>
+					
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="footer" file="CTLG-footer-item.htm" />
+						</div>
+					</section>
+				</div>
+				<aside class="o-layout__item u-block--l u-hidden u-width-3--l">
+					<mvt:item name="category_tree" file="" />
+				</aside>
+				
+			</div>
+		</div>
+	</section>
+	<br>
+	
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

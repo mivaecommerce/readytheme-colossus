@@ -1,0 +1,41 @@
+<nav class="x-collapsing-breadcrumbs" data-hook="collapsing-breadcrumbs">
+	<ul class="o-list-inline x-collapsing-breadcrumbs__group u-hidden" data-hook="collapsing-breadcrumbs__group"></ul>
+	<ul class="o-list-inline x-collapsing-breadcrumbs__list" data-hook="collapsing-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList">
+		<li class="o-list-inline__item u-hidden" data-hook="collapsing-breadcrumbs__trigger-area">
+			<button class="c-button c-button--hollow u-border-none u-color-black u-bg-transparent x-collapsing-breadcrumbs__button" data-hook="collapsing-breadcrumbs__button">&hellip;</button>
+		</li>
+		<li class="o-list-inline__item" data-hook="collapsing-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<a class="u-color-black" href="&mvt:breadcrumbs:homelink;" title="Home" itemprop="item">
+				<span itemprop="name">Home</span>
+			</a>
+			<meta itemprop="position" content="1" />
+		</li>
+		<mvt:assign name="l.settings:breadcrumb:position" value="1"/>
+		<mvt:foreach iterator="cats" array="breadcrumbs:links">
+			<mvt:assign name="l.settings:breadcrumb:position" value="l.settings:breadcrumb:position + 1"/>
+			<mvt:if expr="l.settings:cats:name EQ '...'">
+				<li class="o-list-inline__item" data-hook="collapsing-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a class="u-color-black" href="&mvt:cats:link;" title="&mvt:cats:name;" itemprop="item">
+						<span itemprop="name">&mvt:cats:name;</span>
+					</a>
+					<meta itemprop="position" content="&mvt:breadcrumb:position;" />
+				</li>
+			<mvt:elseif expr="l.settings:cats:code EQ l.settings:breadcrumbs:current_item:code">
+				<li class="o-list-inline__item u-text-bold" data-hook="collapsing-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a class="u-color-black" href="&mvt:cats:link;" title="&mvt:cats:name;" itemprop="item">
+						<span itemprop="name">&mvt:cats:name;</span>
+					</a>
+					<meta itemprop="position" content="&mvt:breadcrumb:position;" />
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item" data-hook="collapsing-breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a class="u-color-black" href="&mvt:cats:link;" title="&mvt:cats:name;" itemprop="item">
+						<span itemprop="name">&mvt:cats:name;</span>
+					</a>
+					<meta itemprop="position" content="&mvt:breadcrumb:position;" />
+				</li>
+			</mvt:if>
+		</mvt:foreach>
+	</ul>
+</nav>
+<!-- end .x-collapsing-breadcrumbs -->

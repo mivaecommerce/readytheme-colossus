@@ -1,0 +1,23 @@
+/* ==========================================================================
+   EXTENSIONS / QUANTIFY / QUANTIFY
+   ========================================================================== */
+
+/**
+ * This extension allows for the use of buttons to increase/decrease item
+ * quantities on the product and basket pages. When used on the basket page,
+ * the decrease button becomes a remove button if the quantity is 1.
+ */
+.x-quantify {}
+
+	.x-quantify .c-control-group__button {
+		border-color: #c0c0c0;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	
+	.x-quantify .c-control-group__field {
+		height: auto;
+		border-left-width: 0;
+	}

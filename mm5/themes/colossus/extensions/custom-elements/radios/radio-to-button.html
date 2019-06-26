@@ -1,0 +1,18 @@
+<!-- This is an excerpt from the product attribute template code included in Colossus. -->
+
+<mvt:foreach iterator="option" array="attribute:options">
+	<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline x-radio-to-button" title="&mvt:option:prompt;">
+		<mvt:if expr="((g.Product_Attributes[l.settings:attribute:index]:value EQ 0) AND (l.settings:option:id EQ l.settings:attribute:default_id)) OR (g.Product_Attributes[l.settings:attribute:index]:value EQ l.settings:option:code)">
+			<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:option:price;" data-regular-price="" type="radio" name="Product_Attributes[&mvte:attribute:index;]:value" value="&mvte:option:code;" checked &mvt:required_attribute;>
+		<mvt:else>
+			<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:option:price;" data-regular-price="" type="radio" name="Product_Attributes[&mvte:attribute:index;]:value" value="&mvte:option:code;" &mvt:required_attribute;>
+		</mvt:if>
+		<span class="c-form-checkbox__caption">
+			<mvt:if expr="l.settings:option:image">
+				<img src="&mvte:option:image;" alt="&mvte:option:prompt;" title="&mvte:option:prompt;" />
+			<mvt:else>
+				&mvte:option:prompt;
+			</mvt:if>
+		</span>
+	</label>
+</mvt:foreach>

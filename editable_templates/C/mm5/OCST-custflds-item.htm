@@ -1,0 +1,373 @@
+<mvt:item name="readytheme" param="contentsection( 'checkout_steps' )" />
+
+<mvt:if expr="l.settings:PaypalExButton:ExpressCheckoutToken">
+	<mvt:comment>
+		<!-- If you are using PayPal Express Checkout, having the log in will disrupt this process! -->
+	</mvt:comment>
+	<p class="x-messages x-messages--info">To continue with your PayPal checkout, enter any required information below and click on "Continue to Shipping".</p>
+<mvt:else>
+	<mvt:if expr="g.Basket:cust_id EQ 0">
+		<div class="x-messages t-ocst-account-message">
+			<input id="checkoutLogIn" class="u-hidden t-checkout-log-in__trigger" type="checkbox">
+			Already have an account? <label class="t-checkout-log-in__label u-color-black u-text-bold" for="checkoutLogIn" title="Click Here to Log Into Your Account">Click here to log in</label> or you can continue as a guest.
+	
+			<form class="t-checkout-log-in__form" method="post" action="&mvte:urls:CACT:secure;" autocomplete="off">
+				<fieldset>
+					<legend>&mvt:page:name;</legend>
+					<input type="hidden" name="current_location" value="&mvte:urls:OINF:secure_sep;">
+					<input type="hidden" name="Order" value="&mvte:global:Order;">
+					<div class="o-layout u-grids-1 u-grids-3--s">
+						<div class="o-layout__item">
+							<input class="c-form-input c-form-input--large c-control-group__field" type="email" name="register_email" value="&mvte:global:register_email;" autocomplete="email" aria-label="Email Address" placeholder="Email" required>
+						</div>
+						<div class="o-layout__item">
+							<input class="c-form-input c-form-input--large" type="password" name="register_password" autocomplete="current-password" aria-label="Password" placeholder="Password" required>
+						</div>
+						<div class="o-layout__item">
+							<input class="c-button c-button--full c-button--huge u-bg-gray-50 u-font-small u-text-bold u-text-uppercase" type="submit" value="Log In">
+						</div>
+					</div>
+				</fieldset>
+			</form>
+	
+		</div>
+		<hr class="c-keyline">
+	<mvt:else>
+		<p class="u-text-center"><span class="c-heading-echo u-text-bold">Welcome! You're logged in as &mvt:global:customer:ship_fname; &mvt:global:customer:ship_lname;.</span> Not you? <a href="&mvte:urls:OCST:secure_sep;Action=LOGO">Logout</a>.</p>
+		<hr class="c-keyline">
+	</mvt:if>
+</mvt:if>
+
+<mvt:item name="customfields" param="Read_Basket('basket', g.saved_fields)" />
+<mvt:if expr="NOT ISNULL g.saved_fields" >
+	<mvt:assign name="g.ShipFirstName" value="g.saved_fields:ship_fname" />
+	<mvt:assign name="g.ShipLastName" value="g.saved_fields:ship_lname" />
+	<mvt:assign name="g.ShipEmail" value="g.saved_fields:ship_email" />
+	<mvt:assign name="g.ShipCompany" value="g.saved_fields:ship_comp" />
+	<mvt:assign name="g.ShipPhone" value="g.saved_fields:ship_phone" />
+	<mvt:assign name="g.ShipFax" value="g.saved_fields:ship_fax" />
+	<mvt:assign name="g.ShipAddress1" value="g.saved_fields:ship_addr1" />
+	<mvt:assign name="g.ShipAddress2" value="g.saved_fields:ship_addr2" />
+	<mvt:assign name="g.ShipCity" value="g.saved_fields:ship_city" />
+	<mvt:assign name="g.ShipState" value="g.saved_fields:ship_state" />
+	<mvt:assign name="g.ShipZip" value="g.saved_fields:ship_zip" />
+	<mvt:assign name="g.ShipCountry" value="g.saved_fields:ship_cntry" />
+	<mvt:assign name="g.BillFirstName" value="g.saved_fields:bill_fname" />
+	<mvt:assign name="g.BillLastName" value="g.saved_fields:bill_lname" />
+	<mvt:assign name="g.BillEmail" value="g.saved_fields:bill_email" />
+	<mvt:assign name="g.BillCompany" value="g.saved_fields:bill_comp" />
+	<mvt:assign name="g.BillPhone" value="g.saved_fields:bill_phone" />
+	<mvt:assign name="g.BillFax" value="g.saved_fields:bill_fax" />
+	<mvt:assign name="g.BillAddress1" value="g.saved_fields:bill_addr1" />
+	<mvt:assign name="g.BillAddress2" value="g.saved_fields:bill_addr2" />
+	<mvt:assign name="g.BillCity" value="g.saved_fields:bill_city" />
+	<mvt:assign name="g.BillState" value="g.saved_fields:bill_state" />
+	<mvt:assign name="g.BillZip" value="g.saved_fields:bill_zip" />
+	<mvt:assign name="g.BillCountry" value="g.saved_fields:bill_cntry" />
+</mvt:if>
+
+<mvt:if expr="l.settings:customer:primaddr EQ 'shipping'">
+	<mvt:assign name="l.settings:shipping_required" value="'required'" />
+<mvt:elseif expr="l.settings:customer:primaddr EQ 'billing'">
+	<mvt:assign name="l.settings:billing_required" value="'required'" />
+</mvt:if>
+
+<mvt:if expr="l.settings:basket:total GT 0">
+	<mvt:assign name="l.settings:action" value="'ORDR'" />
+	<mvt:assign name="l.settings:url" value="l.settings:urls:OUSL:secure" />
+<mvt:elseif expr="g.Store:req_frship">
+	<mvt:assign name="l.settings:action" value="'ORDR'" />
+	<mvt:assign name="l.settings:url" value="l.settings:urls:OSEL:secure" />
+<mvt:else>
+	<mvt:assign name="l.settings:action" value="'ORDR,SHIP,CTAX,AUTH'" />
+	<mvt:assign name="l.settings:url" value="l.settings:urls:INVC:secure" />
+</mvt:if>
+
+<form method="post" action="&mvte:url;">
+	<fieldset>
+		<legend>&mvt:page:name;</legend>
+		<input type="hidden" name="Action" value="&mvte:action;" />
+		<mvt:if expr="g.Action EQ 'PAL2'">
+			<input type="hidden" name="BasketPaymentGateway" value="1" />
+			<mvt:item name="customfields" param="Write_Basket('BasketPaymentGateway', '1')" />
+		</mvt:if>
+		<ul class="c-form-list o-layout o-layout--wide u-text-uppercase">
+			<li class="c-form-list__item c-form-list__item--full o-layout__item c-heading-echo u-text-bold u-text-uppercase">Shipping Information</li>
+			<li class="c-form-list__item o-layout__item u-width-12 u-hidden" id="shipping_controls">
+				<label class="c-form-checkbox">
+					<input id="shipping_to_show" class="c-form-checkbox__input" type="checkbox" name="shipping_to_show" value="1" checked>
+					<span class="c-form-checkbox__caption u-font-tiny">Shipping Information Same as Billing</span>
+				</label>
+			</li>
+			<mvt:if expr="g.Basket:cust_id AND g.Customer_Session_Verified">
+				<li class="c-form-list__item o-layout__item &mvte:global:ShipID_Row;">
+					<label class="c-form-label u-text-bold is-required u-font-tiny" for="shipping_selector">Saved Address</label>
+					<div class="c-form-select">
+						<select id="shipping_selector" class="c-form-select__dropdown c-form-input--large" name="ShipID">
+							<option value="-1">&lt;New&gt;</option>
+							<mvt:foreach iterator="address" array="customer:addresses">
+								<mvt:if expr="toupper( l.settings:address:fname ) EQ toupper( g.ShipFirstName ) AND toupper( l.settings:address:lname ) EQ toupper( g.ShipLastName ) AND toupper( l.settings:address:email ) EQ toupper( g.ShipEmail ) AND toupper( l.settings:address:comp ) EQ toupper( g.ShipCompany ) AND toupper( l.settings:address:phone ) EQ toupper( g.ShipPhone ) AND toupper( l.settings:address:fax ) EQ toupper( g.ShipFax ) AND toupper( l.settings:address:addr1 ) EQ toupper( g.ShipAddress1 ) AND toupper( l.settings:address:addr2 ) EQ toupper( g.ShipAddress2 ) AND toupper( l.settings:address:city ) EQ toupper( g.ShipCity ) AND ( ( ( NOT ISNULL g.ShipStateSelect ) AND ( toupper( l.settings:address:state ) EQ toupper( g.ShipStateSelect ) ) ) OR ( ( ISNULL g.ShipStateSelect ) AND ( toupper( l.settings:address:state ) EQ toupper( g.ShipState ) ) ) ) AND toupper( l.settings:address:zip ) EQ toupper( g.ShipZip ) AND toupper( l.settings:address:cntry ) EQ toupper( g.ShipCountry )">
+									<option value="&mvte:address:id;" selected>&mvte:address:descrip;</option>
+								<mvt:else>
+									<option value="&mvte:address:id;">&mvte:address:descrip;</option>
+								</mvt:if>
+							</mvt:foreach>
+						</select>
+					</div>
+				</li>
+			</mvt:if>
+		</ul>
+		
+		<section id="shipping_fields">
+			<ul class="c-form-list o-layout o-layout--wide u-text-uppercase">
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipFirstName_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipFirstName">First Name</label>
+					<input id="l-ShipFirstName" class="c-form-input c-form-input--large" type="text" name="ShipFirstName" value="&mvte:global:ShipFirstName;" &mvt:shipping_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipLastName_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipLastName">Last Name</label>
+					<input id="l-ShipLastName" class="c-form-input c-form-input--large" type="text" name="ShipLastName" value="&mvte:global:ShipLastName;" &mvt:shipping_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipCompany_Row;">
+					<label class="c-form-label u-text-italic u-font-tiny" for="l-ShipCompany">Company (Optional)</label>
+					<input id="l-ShipCompany" class="c-form-input c-form-input--large" type="text" name="ShipCompany" value="&mvte:global:ShipCompany;">
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:ShipEmail_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipEmail">Email Address</label>
+					<input id="l-ShipEmail" class="c-form-input c-form-input--large" data-hook="ShipEmail" type="email" name="ShipEmail" value="&mvte:global:ShipEmail;" &mvt:shipping_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipPhone_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipPhone">Phone Number</label>
+					<input id="l-ShipPhone" class="c-form-input c-form-input--large" type="tel" name="ShipPhone" value="&mvte:global:ShipPhone;" &mvt:shipping_required;>
+				</li>
+				<!--
+					Due to the lack of use in most stores, the fax field is commented out.
+					If you find that you, or a client, needs the field, remove the HTML comment tags and adjust
+					the width class of the email address to u-width-4--m.
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipFax_Row;">
+					<label class="c-form-label u-text-italic u-font-tiny" for="l-ShipFax">Fax Number</label>
+					<input id="l-ShipFax" class="c-form-input c-form-input--large" type="tel" name="ShipFax" value="&mvte:global:ShipFax;">
+				</li>
+				-->
+				<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:ShipAddress1_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipAddress1">Address</label>
+					<input id="l-ShipAddress1" class="c-form-input c-form-input--large" type="text" name="ShipAddress1" value="&mvte:global:ShipAddress1;" &mvt:shipping_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipAddress2_Row;">
+					<label class="c-form-label u-text-italic u-font-tiny" for="l-ShipAddress2">Address 2</label>
+					<input id="l-ShipAddress2" class="c-form-input c-form-input--large" type="text" name="ShipAddress2" value="&mvte:global:ShipAddress2;">
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:ShipCity_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipCity">City</label>
+					<input id="l-ShipCity" class="c-form-input c-form-input--large" type="text" name="ShipCity" value="&mvte:global:ShipCity;" &mvt:shipping_required;>
+				</li>
+				<mvt:if expr="g.States_Empty">
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipState_Row;">
+						<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipState">State/Province</label>
+						<input id="l-ShipState" class="c-form-input c-form-input--large" type="text" name="ShipState" value="&mvte:global:ShipState;" &mvt:shipping_required;>
+					</li>
+				<mvt:else>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipState_Row;" data-classlist="c-form-select__dropdown c-form-input--large" data-id="ShipStateSelect" data-hook="mvt-select ShipState">
+						<label class="c-form-label u-text-medium is-required u-font-tiny" for="ShipStateSelect">State/Province</label>
+						<div class="c-form-select">
+							<mvt:item name="states" param="ShipStateSelect" />
+						</div>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipState_Row;">
+						<label class="c-form-label u-text-italic u-font-tiny" for="l-ShipState">Other State/Province</label>
+						<input id="l-ShipState" class="c-form-input c-form-input--large" type="text" name="ShipState" value="&mvte:global:ShipState;">
+					</li>
+				</mvt:if>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipCountry_Row;" data-classlist="c-form-select__dropdown c-form-input--large" data-id="ShipCountry" data-hook="mvt-select ShipCountry">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="ShipCountry">Country</label>
+					<div class="c-form-select">
+						<mvt:item name="countries" param="ShipCountry" />
+					</div>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:ShipZip_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-ShipZip">Zip/Postal Code</label>
+					<input id="l-ShipZip" class="c-form-input c-form-input--large" type="text" name="ShipZip" value="&mvte:global:ShipZip;">
+				</li>
+			</ul>
+			<hr class="c-keyline">
+		</section>
+		
+		<ul class="c-form-list o-layout o-layout--wide u-text-uppercase">
+			<li class="c-form-list__item c-form-list__item--full o-layout__item c-heading-echo u-text-bold u-text-uppercase">Billing Information</li>
+			<li class="c-form-list__item o-layout__item u-width-12 u-font-small" id="billing_controls">
+				<label class="c-form-checkbox">
+					<input id="billing_to_show" class="c-form-checkbox__input" type="checkbox" name="billing_to_show" value="1" checked>
+					<span class="c-form-checkbox__caption u-font-small u-text-uppercase">Billing Information Same as Shipping</span>
+				</label>
+			</li>
+		</ul>
+		
+		<section id="billing_fields">
+			<mvt:if expr="g.Basket:cust_id AND g.Customer_Session_Verified">
+				<ul class="c-form-list o-layout o-layout--wide u-text-uppercase">
+					<li class="c-form-list__item o-layout__item &mvte:global:BillID_Row;">
+						<label class="c-form-label u-text-bold is-required u-font-tiny" for="billing_selector">Saved Address</label>
+						<div class="c-form-select">
+							<select id="billing_selector" class="c-form-select__dropdown c-form-input--large" name="BillID">
+								<option value="-1">&lt;New&gt;</option>
+								<mvt:foreach iterator="address" array="customer:addresses">
+									<mvt:if expr="toupper( l.settings:address:fname ) EQ toupper( g.BillFirstName ) AND toupper( l.settings:address:lname ) EQ toupper( g.BillLastName ) AND toupper( l.settings:address:email ) EQ toupper( g.BillEmail ) AND toupper( l.settings:address:comp ) EQ toupper( g.BillCompany ) AND toupper( l.settings:address:phone ) EQ toupper( g.BillPhone ) AND toupper( l.settings:address:fax ) EQ toupper( g.BillFax ) AND toupper( l.settings:address:addr1 ) EQ toupper( g.BillAddress1 ) AND toupper( l.settings:address:addr2 ) EQ toupper( g.BillAddress2 ) AND toupper( l.settings:address:city ) EQ toupper( g.BillCity ) AND ( ( ( NOT ISNULL g.BillStateSelect ) AND ( toupper( l.settings:address:state ) EQ toupper( g.BillStateSelect ) ) ) OR ( ( ISNULL g.BillStateSelect ) AND ( toupper( l.settings:address:state ) EQ toupper( g.BillState ) ) ) ) AND toupper( l.settings:address:zip ) EQ toupper( g.BillZip ) AND toupper( l.settings:address:cntry ) EQ toupper( g.BillCountry )">
+										<option value="&mvte:address:id;" selected>&mvte:address:descrip;</option>
+									<mvt:else>
+										<option value="&mvte:address:id;">&mvte:address:descrip;</option>
+									</mvt:if>
+								</mvt:foreach>
+							</select>
+						</div>
+					</li>
+				</ul>
+			</mvt:if>
+			<ul class="c-form-list o-layout o-layout--wide u-text-uppercase">
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillFirstName_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillFirstName">First Name</label>
+					<input id="l-BillFirstName" class="c-form-input c-form-input--large" type="text" name="BillFirstName" value="&mvte:global:BillFirstName;" &mvt:billing_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillLastName_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillLastName">Last Name</label>
+					<input id="l-BillLastName" class="c-form-input c-form-input--large" type="text" name="BillLastName" value="&mvte:global:BillLastName;" &mvt:billing_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillCompany_Row;">
+					<label class="c-form-label u-text-italic u-font-tiny" for="l-BillCompany">Company (Optional)</label>
+					<input id="l-BillCompany" class="c-form-input c-form-input--large" type="text" name="BillCompany" value="&mvte:global:BillCompany;">
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:BillEmail_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillEmail">Email Address</label>
+					<input id="l-BillEmail" class="c-form-input c-form-input--large" data-hook="BillEmail" type="email" name="BillEmail" value="&mvte:global:BillEmail;" &mvt:billing_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillPhone_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillPhone">Phone Number</label>
+					<input id="l-BillPhone" class="c-form-input c-form-input--large" type="tel" name="BillPhone" value="&mvte:global:BillPhone;" &mvt:billing_required;>
+				</li>
+				<!--
+					Due to the lack of use in most stores, the fax field is commented out.
+					If you find that you, or a client, needs the field, remove the HTML comment tags and adjust
+					the width class of the email address to u-width-4--m.
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillFax_Row;">
+					<label class="c-form-label u-text-italic u-font-tiny" for="l-BillFax">Fax Number</label>
+					<input id="l-BillFax" class="c-form-input c-form-input--large" type="tel" name="BillFax" value="&mvte:global:BillFax;">
+				</li>
+				-->
+				<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:BillAddress1_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillAddress1">Address</label>
+					<input id="l-BillAddress1" class="c-form-input c-form-input--large" type="text" name="BillAddress1" value="&mvte:global:BillAddress1;" &mvt:billing_required;>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillAddress2_Row;">
+					<label class="c-form-label u-text-italic u-font-tiny" for="l-BillAddress2">Address 2</label>
+					<input id="l-BillAddress2" class="c-form-input c-form-input--large" type="text" name="BillAddress2" value="&mvte:global:BillAddress2;">
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:BillCity_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillCity">City</label>
+					<input id="l-BillCity" class="c-form-input c-form-input--large" type="text" name="BillCity" value="&mvte:global:BillCity;" &mvt:billing_required;>
+				</li>
+				<mvt:if expr="g.States_Empty">
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillState_Row;">
+						<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillState">State/Province</label>
+						<input id="l-BillState" class="c-form-input c-form-input--large" type="text" name="BillState" value="&mvte:global:BillState;" &mvt:billing_required;>
+					</li>
+				<mvt:else>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillState_Row;" data-classlist="c-form-select__dropdown c-form-input--large" data-id="BillStateSelect" data-hook="mvt-select ShipState">
+						<label class="c-form-label u-text-medium is-required u-font-tiny" for="BillStateSelect">State/Province</label>
+						<div class="c-form-select">
+							<mvt:item name="states" param="BillStateSelect" />
+						</div>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillState_Row;">
+						<label class="c-form-label u-text-italic u-font-tiny" for="l-BillState">Other State/Province</label>
+						<input id="l-BillState" class="c-form-input c-form-input--large" type="text" name="BillState" value="&mvte:global:BillState;">
+					</li>
+				</mvt:if>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillCountry_Row;" data-classlist="c-form-select__dropdown c-form-input--large" data-id="BillCountry" data-hook="mvt-select ShipCountry">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="BillCountry">Country</label>
+					<div class="c-form-select">
+						<mvt:item name="countries" param="BillCountry" />
+					</div>
+				</li>
+				<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:BillZip_Row;">
+					<label class="c-form-label u-text-medium is-required u-font-tiny" for="l-BillZip">Zip/Postal Code</label>
+					<input id="l-BillZip" class="c-form-input c-form-input--large" type="text" name="BillZip" value="&mvte:global:BillZip;">
+				</li>
+			</ul>
+			<hr class="c-keyline">
+		</section>
+
+		<ul class="c-form-list u-text-uppercase">
+			<mvt:foreach array="tax:fields" iterator="field">
+				<mvt:if expr="l.settings:field:invalid">
+					<li class="c-form-list__item u-text-bold is-error" data-classlist="c-form-select__dropdown c-form-input--large" data-hook="mvt-select" data-id="tax">
+						<label class="c-form-label u-font-small" for="tax">&mvt:field:prompt;</label>
+						<div class="c-form-select">
+							<mvt:item name="tax" param="field:code" />
+						</div>
+					</li>
+				<mvt:else>
+					<li class="c-form-list__item u-text-bold" data-classlist="c-form-select__dropdown c-form-input--large" data-hook="mvt-select" data-id="tax">
+						<label class="c-form-label u-font-small" for="tax">&mvt:field:prompt;</label>
+						<div class="c-form-select">
+							<mvt:item name="tax" param="field:code" />
+						</div>
+					</li>
+				</mvt:if>
+			</mvt:foreach>
+			<mvt:if expr="g.Basket:cust_id">
+				<li class="c-form-list__item c-form-list__item--full u-font-small">
+					<label class="c-form-checkbox">
+						<mvt:if expr="g.Update_Customer">
+							<input class="c-form-checkbox__input" type="checkbox" name="Update_Customer" value="Yes" checked>
+						<mvt:else>
+							<input class="c-form-checkbox__input" type="checkbox" name="Update_Customer" value="Yes">
+						</mvt:if>
+						<span class="c-form-checkbox__caption u-font-small">Update Customer Record With This Information</span>
+					</label>
+				</li>
+			</mvt:if>
+		</ul>
+		
+		<mvt:if expr="l.settings:customer:match">
+			<mvt:if expr="l.settings:customer:primaddr EQ 'shipping'">
+				<script>document.getElementById('billing_to_show').checked = true;</script>
+			<mvt:elseif expr="l.settings:customer:primaddr EQ 'billing'">
+				<script>document.getElementById('shipping_to_show').checked = true;</script>
+			</mvt:if>
+		</mvt:if>
+		
+		<mvt:if expr="g.Basket:cust_id AND g.Customer_Session_Verified AND l.settings:customer:address_count">
+			<script>
+				var MvCustomerAddresses = [];
+	
+				<mvt:foreach iterator="address" array="customer:addresses">
+					MvCustomerAddresses[<mvt:eval expr="int( l.settings:address:id )" />] = {
+						"id": <mvt:eval expr="int( l.settings:address:id )" />,
+						"cust_id": <mvt:eval expr="int( l.settings:address:cust_id )" />,
+						"descrip": "&mvtj:address:descrip;",
+						"fname": "&mvtj:address:fname;",
+						"lname": "&mvtj:address:lname;",
+						"email": "&mvtj:address:email;",
+						"comp": "&mvtj:address:comp;",
+						"phone": "&mvtj:address:phone;",
+						"fax": "&mvtj:address:fax;",
+						"addr1": "&mvtj:address:addr1;",
+						"addr2": "&mvtj:address:addr2;",
+						"city": "&mvtj:address:city;",
+						"state": "&mvtj:address:state;",
+						"zip": "&mvtj:address:zip;",
+						"cntry": "&mvtj:address:cntry;",
+						"resdntl": <mvt:if expr="l.settings:address:resdntl">true<mvt:else>false</mvt:if>
+					};
+				</mvt:foreach>
+			</script>
+		</mvt:if>
+		
+		<ul class="c-form-list">
+			<li class="c-form-list__item c-form-list__item--full u-text-center u-text-right--l">
+				<input class="c-button c-button--huge u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" type="submit" value="Continue to Shipping">
+			</li>
+		</ul>
+	</fieldset>
+</form>
+
+<script src="&mvte:global:clientside_url;Store_Code=&mvta:store:code;&amp;Filename=ToggleDetails.js&amp;Primaddr=shipping&amp;Shipping=D&amp;Billing=O"></script>

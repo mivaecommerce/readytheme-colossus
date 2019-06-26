@@ -1,0 +1,168 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="WLST-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<mvt:if expr="g.Basket:cust_id AND g.Customer_Session_Verified">
+		<section class="t-expanded-block t-account-landing-section u-bg-white">
+			<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+				<mvt:item name="breadcrumbs" />
+				<div class="o-layout o-layout--align-center o-layout--justify-between">
+					<span class="o-layout__item c-heading-delta t-account-landing-section__heading u-width-12 u-width-4--l u-width-7--w">&mvt:page:name;</span>
+					<section class="o-layout__item t-account-filtering u-width-12 u-width-8--l u-width-5--w">
+						<form class="t-account-filtering__search" method="post" action="&mvte:urls:_self:auto_sep;">
+							<input type="hidden" name="Sort_By" value="&mvte:global:Sort_By;" />
+							<input type="hidden" name="Per_Page" value="&mvte:global:Per_Page;" />
+							<fieldset>
+								<legend>Search Wish Lists</legend>
+								<ul class="c-form-list">
+									<li class="c-form-list__item c-control-group u-flex">
+										<input id="WishListSearch" class="c-form-input c-control-group__field" type="search" name="WishListSearch" value="&mvte:global:WishListSearch;" aria-label="Find A Wish List" placeholder="find a wish list" required>
+										<input class="c-button c-control-group__button u-bg-gray-50 u-text-uppercase" type="submit" value="Find">
+									</li>
+								</ul>
+							</fieldset>
+						</form>
+						<form class="t-account-filtering__sort-by" method="get" action="&mvte:urls:_self:auto_sep;">
+							<fieldset>
+								<legend>Number of Wish Lists to View</legend>
+								<input type="hidden" name="Sort_By" value="&mvte:global:Sort_By;" />
+								<input type="hidden" name="WishListSearch" value="&mvte:global:WishListSearch;"/>
+								<ul class="c-form-list">
+									<li class="c-form-list__item">
+										<label class="c-form-label u-font-tiny u-text-uppercase u-text-normal u-hidden" for="l-Per_Page">View</label>
+										<div class="c-form-select">
+											<select id="l-Per_Page" class="c-form-select__dropdown u-font-small u-text-uppercase u-text-bold" data-hook="custom-select" data-label="View" name="Per_Page" onChange="this.form.submit();">
+												<mvt:if expr="g.Per_Page EQ 12">
+													<option value="12" selected="selected">12 Wish Lists/Page</option>
+												<mvt:else>
+													<option value="12">12 Wish Lists/Page</option>
+												</mvt:if>
+												<mvt:if expr="g.Per_Page EQ 24">
+													<option value="24" selected="selected">24 Wish Lists/Page</option>
+												<mvt:else>
+													<option value="24">24 Wish Lists/Page</option>
+												</mvt:if>
+												<mvt:if expr="g.Per_Page EQ 48">
+													<option value="48" selected="selected">48 Wish Lists/Page</option>
+												<mvt:else>
+													<option value="48">48 Wish Lists/Page</option>
+												</mvt:if>
+												<mvt:if expr="g.Per_Page EQ -1">
+													<option value="-1" selected="selected">All Wish Lists</option>
+												<mvt:else>
+													<option value="-1">All Wish Lists</option>
+												</mvt:if>
+											</select>
+										</div>
+									</li>
+								</ul>
+							</fieldset>
+						</form>
+						<mvt:if expr="NOT ISNULL g.WishListSearch">
+							<a class="c-button c-button--clear u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:WLST:secure;" title="My Wish Lists"><span class="u-font-tiny u-icon-chevron-left"></span> My Wish Lists</a>
+						<mvt:else>
+							<a class="c-button c-button--clear u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:WLAD:secure;" title="Add New Wish List"><span class="u-bg-gray-50 u-color-white u-font-tiny u-icon-add t-circled-icon"></span> Add New Wish List</a>
+						</mvt:if>
+					</section>
+				</div>
+			</div>
+			<mvt:if expr="(NOT ISNULL g.WishListSearch) OR (g.Basket:cust_id AND g.Customer_Session_Verified)">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<mvt:item name="wishlists" file="WLST-wishlists-item.htm" />
+				</div>
+			</mvt:if>
+		</section>
+	<mvt:else>
+		<section class="t-expanded-block t-account-landing-section u-bg-white">
+			<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+				<div class="o-layout o-layout--wide o-layout--justify-around">
+					<div class="o-layout__item u-width-12 u-width-6--l u-width-4--w t-customer-profile">
+						<div class="t-account-landing-section__header">
+							<span class="c-heading-delta t-account-landing-section__heading">Current Customer?</span><br>
+							<span>Please sign in to create or access your wish list.</span>
+						</div>
+						<form method="post" action="&mvte:urls:WLST:secure;">
+							<fieldset>
+								<legend>&mvt:page:name;</legend>
+								<input type="hidden" name="Action" value="LOGN" />
+								<ul class="c-form-list">
+									<li class="c-form-list__item">
+										<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required &mvt:global:invalid_credentials;" for="l-Customer_LoginEmail">Email Address</label>
+										<input id="l-Customer_LoginEmail" class="c-form-input c-form-input--large" type="email" name="Customer_LoginEmail" value="&mvte:global:Customer_LoginEmail;" autocomplete="email" required>
+									</li>
+									<li class="c-form-list__item">
+										<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required &mvt:global:invalid_credentials;" for="l-Customer_Password">Password:</label>
+										<input id="l-Customer_Password" class="c-form-input c-form-input--large" type="password" name="Customer_Password" autocomplete="current-password" required>
+									</li>
+									<li class="c-form-list__item u-text-right">
+										<mvt:item name="buttons" param="Login" file="cssui-buttonLogin-item.htm" />
+									</li>
+								</ul>
+							</fieldset>
+						</form>
+						<p class="u-font-small"><a data-mini-modal data-mini-modal-type="inline" data-mini-modal-content="data-forgot-password" href="&mvte:urls:FPWD:secure;" title="Forgot Password">Forgot your password?</a></p>
+						<mvt:item name="readytheme" param="contentsection( 'forgot-password' )" />
+					</div>
+					<div class="o-layout__item u-width-12 u-width-6--l u-width-4--w">
+						<div class="t-account-landing-section__header">
+							<span class="c-heading-delta t-account-landing-section__heading">Find A Wish List</span><br>
+							<span>Search all public wish lists.</span>
+						</div>
+						<form class="t-wish-list-search" method="post" action="&mvte:urls:WLST:rr;">
+							<fieldset>
+								<legend>Search Wish Lists</legend>
+								<input type="hidden" name="Sort_By" value="&mvte:global:Sort_By;" />
+								<input type="hidden" name="Per_Page" value="&mvte:global:Per_Page;" />
+								<ul class="c-form-list">
+									<li class="c-form-list__item">
+										<label class="c-form-label u-block u-font-tiny u-text-bold u-text-uppercase is-required u-invisible" for="l-WishListSearch">Search</label>
+										<div class="c-control-group u-flex">
+											<input id="l-WishListSearch" class="c-form-input c-control-group__field u-bg-transparent u-border-none" type="search" name="WishListSearch" value="&mvte:global:WishListSearch;" required>
+											<button class="c-button c-button--large c-control-group__button u-bg-transparent u-color-gray-50 u-icon-search u-border-none t-wish-list-search__button" type="submit"></button>
+										</div>
+									</li>
+								</ul>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+			<mvt:if expr="(NOT ISNULL g.WishListSearch) OR (g.Basket:cust_id AND g.Customer_Session_Verified)">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<br>
+					<hr class="c-keyline">
+					<mvt:item name="wishlists" file="WLST-wishlists-item.htm" />
+				</div>
+			</mvt:if>
+		</section>
+	</mvt:if>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="WLST-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

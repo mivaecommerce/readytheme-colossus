@@ -1,0 +1,164 @@
+/* ==========================================================================
+   EXTENSIONS / PRODUCT LAYOUT / IMAGERY / PRODUCT IMAGERY
+   ========================================================================== */
+
+/**
+ * With this extension you can display the image thumbnails in a vertical carouse next to the main image.
+ * Then, when you click to zoom, you can view all the product images as a carousel in a light-box.
+ */
+
+.x-product-imagery {
+	display: flex;
+	flex-direction: column-reverse;
+	margin-bottom: 1.5rem;
+}
+
+	.x-product-imagery__thumbnail-list:empty {
+		display: none;
+	}
+
+	.x-product-imagery__thumbnail-list {
+		padding: 0 3rem;
+		opacity: 0;
+		overflow: hidden;
+		transition: opacity ease-in-out 0.3s, visibility ease-in-out 0.3s;
+		visibility: hidden;
+	}
+
+		.x-product-imagery__thumbnail-list .slick-track {
+			display: flex;
+			flex-flow: row nowrap;
+		}
+
+			.x-product-imagery__thumbnail-list .slick-slide {
+				display: flex;
+				height: auto;
+				margin: 0 0.25rem;
+			}
+
+				.x-product-imagery__thumbnail-list .slick-slide > div {
+					display: flex;
+				}
+
+		.x-product-layout-images__thumbnail-image {
+			display: inline-block;
+			margin-bottom: 0;
+			padding: 0.5rem;
+			border: 1px solid #ededed;
+		}
+
+			.x-product-layout-images__thumbnail-image img {
+				position: relative;
+				top: 50%;
+				pointer-events: none;
+				-webkit-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+
+	.x-product-imagery__showcase {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 1 1 100%;
+		margin: 0 0 0.5rem;
+		padding: 2rem 0;
+		border: 1px solid #ededed;
+		opacity: 0;
+		overflow: hidden;
+		transition: opacity ease-in-out 0.3s, visibility ease-in-out 0.3s;
+		visibility: hidden;
+	}
+
+	.x-product-imagery__thumbnail-list:empty + .x-product-imagery__showcase,
+	.x-product-imagery__thumbnail-list.slick-initialized + .x-product-imagery__showcase {
+		opacity: 1;
+		overflow: visible;
+		visibility: visible;
+	}
+
+		.x-product-layout-images__image {
+			margin: 0;
+		}
+
+
+	.x-photo-gallery-template {
+		height: 0;
+		opacity: 0;
+		overflow: hidden;
+		transition: opacity ease-in-out 0.3s, visibility ease-in-out 0.3s;
+		visibility: hidden;
+	}
+
+	.x-photo-gallery-template.is-active {
+		height: auto;
+		opacity: 1;
+		overflow: visible;
+		visibility: visible;
+	}
+
+		.x-product-photo-gallery .slick-slide div {
+			text-align: center;
+		}
+
+			.x-product-photo-gallery .slick-slide img {
+				width: auto !important;
+				max-height: 75vh;
+				margin: auto;
+			}
+
+@media (min-width: 48em) {
+	.x-product-imagery {
+		flex-direction: row;
+	}
+
+		.x-product-imagery__thumbnail-list {
+			display: flex;
+			flex-flow: column nowrap;
+			align-self: stretch;
+			justify-content: space-between;
+			margin-right: 1rem;
+			padding: 0;
+		}
+
+			.x-product-imagery__thumbnail-list .slick-track {
+				flex-direction: column;
+			}
+
+				.x-product-imagery__thumbnail-list .slick-slide {
+					display: block;
+					height: 100%;
+					margin: 0;
+				}
+
+					.x-product-imagery__thumbnail-list .slick-slide > div {
+						display: block;
+					}
+
+					.x-product-imagery__thumbnail-list .slick-next,
+					.x-product-imagery__thumbnail-list .slick-prev {
+						width: 100%;
+						height: 2rem;
+						position: relative;
+						top: auto;
+						right: auto;
+						left: auto;
+						-webkit-transform: none;
+						-ms-transform: none;
+						transform: none;
+					}
+
+					.x-product-imagery__thumbnail-list .slick-next::before {
+						content: '\31';
+					}
+
+					.x-product-imagery__thumbnail-list .slick-prev::before {
+						content: '\30';
+					}
+}
+
+@media (min-width: 60em) {
+	.x-product-imagery {
+		margin-bottom: 0;
+	}
+}

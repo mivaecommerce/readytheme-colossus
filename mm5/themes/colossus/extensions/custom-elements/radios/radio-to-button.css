@@ -1,0 +1,33 @@
+/* ==========================================================================
+   EXTENSIONS / CUSTOM-ELEMENTS / RADIOS / RADIO-TO-BUTTON
+   ========================================================================== */
+
+/**
+ * This extension automatically converts the `radio` style product attribute into a more usable button.
+ */
+
+.x-radio-to-button {
+	margin: 0 1em 0.5em 0;
+	font-size: 0.875rem;
+}
+
+	.x-radio-to-button .c-form-checkbox__caption {
+		display: block;
+		margin: 2px;
+		padding: 0.5em 1rem;
+		font-weight: 600;
+		outline: 1px solid currentColor;
+		opacity: 0.85;
+		transition: opacity ease-in-out 0.3s;
+	}
+
+	.x-radio-to-button .c-form-checkbox__caption::before,
+	.x-radio-to-button .c-form-checkbox__caption::after {
+		display: none;
+	}
+
+	.x-radio-to-button .c-form-checkbox__input:hover + .c-form-checkbox__caption,
+	.x-radio-to-button .c-form-checkbox__input:checked + .c-form-checkbox__caption {
+		outline-width: 2px;
+		opacity: 1;
+	}

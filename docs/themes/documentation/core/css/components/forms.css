@@ -1,0 +1,367 @@
+/* ==========================================================================
+   COMPONENTS / FORMS
+   ========================================================================== */
+
+/* Form list
+  =========================================== */
+
+/**
+ * All form fields should be presented in a list so that
+ *
+ *   a) they are easier to navigate using a screen reader;
+ *   b) if CSS fails to load for any reason, the user is still presented with a
+ *      well-formatted list of fields.
+ */
+.c-form-list:not(.o-layout) {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+	.c-form-list__item {
+		display: block;
+		margin-bottom: calc(1em / 2);
+		width: 100%;
+	}
+	
+	@media (min-width: 48em) {
+		.c-form-list__item {
+			max-width: 20em;
+		}
+		
+			/* For any inputs that need to be displayed full-width */
+			.c-form-list__item--full {
+				max-width: 100%;
+			}
+	}
+
+
+
+/* Form labels
+  =========================================== */
+
+/**
+ * All LABEL elements must also carry a class of `.c-form-label`. By applying
+ * these styles to a class and not to the LABEL element directly, we are free
+ * to reuse the same look-and-feel on spoofed LABEL elements. E.g. when we have
+ * a ‘meta label’ covering a number of sub labels:
+ *
+ *   Gender
+ *   • Male  • Female  • Rather not say
+ *
+ */
+.c-form-label {
+	display: inline-block;
+	margin-bottom: calc(1em / 4);
+}
+
+
+/* Form text inputs
+  =========================================== */
+
+/**
+ * All text-like form inputs require a class of `.c-form-input`: we do not use
+ * selectors like `input[type="text"] {}`.
+ *
+ * 1. Fix for IE 10/11 removing vertical padding from inputs which was being
+ *	  ignored.
+ * 2. Padding added via line-height/height to re-center text for all browsers
+ * 	  (38px to account for border).
+ */
+.c-form-input {
+	display: inline-block;
+	margin-bottom: calc(1em / 4);
+	padding: 0 calc(1em / 2); /* [1] */
+	width: 100%;
+	height: calc(2.5em - (1px * 2)); /* [2] */
+	line-height: calc(2.5em - (1px * 2)); /* [2] */
+	background-color: #fff;
+	border: 1px solid #c0c0c0;
+	border-radius: 0.125em;
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+	outline: 0;
+	transition: box-shadow 0.25s ease, border-color 0.25s ease;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+	.c-form-input:focus {
+		border-color: #fff;
+		box-shadow: inset 0 0 0.5em 0 rgba(0, 0, 0, 0.2);
+		outline: none;
+	}
+
+	/**
+	 * For use on large text inputs such as textareas
+	 */
+	.c-form-input--long {
+		height: 6em;
+		resize: vertical;
+	}
+	
+	.c-form-input--file {
+		padding: 0;
+		line-height: calc(2em - (1px * 2));
+	}
+
+	
+
+/* Form select inputs
+  =========================================== */
+.c-form-select {
+	display: inline-block;
+	position: relative;
+	margin-bottom: calc(1em / 4);
+	width: 100%;
+	font-size: 1em;
+	line-height: 1.5;
+	cursor: pointer;
+}
+
+	/**
+	* Gradient to hide the overflow of long labels
+	*
+	* 1. Stretch to full height on the right (taking into account border width)
+	*/
+	.c-form-select::before {
+		position: absolute;
+		top: 1px; /* [1] */
+		right: 1px; /* [1] */
+		bottom: 1px; /* [1] */
+		width: calc(1em * 2);
+		background: #fff;
+		background: -ms-linear-gradient(right, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0));
+		background: linear-gradient(to left, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 0));
+		border-radius: 0 0.125em 0.125em 0;
+		content: "";
+		pointer-events: none;
+	}
+	
+	/**
+	* Custom drop-down indicator icon
+	*/
+	.c-form-select::after {
+		position: absolute;
+		top: 50%;
+		right: calc(1em / 2);
+		margin-bottom: calc(1em / 4);
+		width: calc(1em / 2);
+		height: calc(1em / 2);
+		background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPVJREFUeNrk2s0NgzAMhmFno47EKGzQETpSR2CEjkCjyEg0aiAhP7Y/IuUSuLyPhDg4RLycc5PfH78fBLy48/3TyYcrb1iEv53RISxCqpM4dkVGSMSHTakHKAhH8RvAExXhLD58AvziCw0hJz7+E8AgFMcjIVyOR0CojreM0CzeIkLzeEsI3eItIHSP14wwLF4jwvB4TQhi8RoQxOMlEdTESyCoix+JoDZ+BIL6+J4IZuJ7IJiLb4lgNr4Fgvn4GgSY+CsIcPGFCDP0bCIDAXowU4OANZ8sRMCcUGciYN9ROEGAv6BxhHCP+B3CvLubsEjFfwUYAKjtGJxFvDJsAAAAAElFTkSuQmCC") no-repeat center center;
+		background-size: contain;
+		content: "";
+		pointer-events: none;
+		-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
+
+	.c-form-select__dropdown {
+		width: 100%;
+		height: calc(2.5em - (1px * 2));
+		padding: calc(1em / 2) calc(1em / 2);
+		font-size: inherit;
+		background-color: #fff;
+		border: 1px solid #c0c0c0;
+		border-radius: 0.125em;
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+		outline: 0;
+		transition: box-shadow 0.25s ease, border-color 0.25s ease;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+	
+		.c-form-select__dropdown::-ms-expand {
+			display: none;
+		}
+		
+		.c-form-select__dropdown:focus {
+			/*border-color: #fff;
+			box-shadow: inset 0 0 0.5em 0 rgba(0, 0, 0, 0.2);*/
+		}
+
+
+/* Form checkbox inputs
+  =========================================== */
+.c-form-checkbox {
+	display: inline-block;
+	margin-bottom: calc(1em / 4);
+	width: 100%;
+	cursor: pointer;
+	font-size: 1em;
+}
+	
+	/**
+	 * For cases where checkboxes or radio buttons need to display inline.
+	 */
+	.c-form-checkbox--inline {
+		width: auto;
+		margin-right: calc(1em * 2);
+	}
+	
+	/**
+	 * Hide the default input visually to utilise keyboard functionality and allow
+	 * for custom input styles.
+	 */
+	.c-form-checkbox__input {
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		position: absolute;
+		overflow: hidden;
+		border: 0;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+	
+	.c-form-checkbox__caption {
+		display: flex;
+		align-items: center;
+		position: relative;
+		margin-left: calc(1em + 1em);
+		user-select: none;
+	}
+	
+	.c-form-checkbox__caption::before {
+		display: inline-block;
+		position: relative;
+		width: 1em;
+		height: 1em;
+		margin-right: 1em;
+		margin-left: calc(0px - (1em + 1em));
+		background-color: #fff;
+		border: 1px solid #c0c0c0;
+		content: "";
+		transition: border-color 0.25s ease;
+	}
+	
+	.c-form-checkbox--radio .c-form-checkbox__caption::before {
+		border-radius: 100%;
+	}
+	
+	.c-form-checkbox__input:focus + .c-form-checkbox__caption::before {
+		outline: none;
+	}
+	
+	.c-form-checkbox__input:checked + .c-form-checkbox__caption::before {
+		box-shadow: inset 0 0 0.5em 0 rgba(0, 0, 0, 0.2);
+		transition: border-color 0.25s ease, background-color 0.25s ease;
+	}
+	
+	.c-form-checkbox__input:checked + .c-form-checkbox__caption::after {
+		position: absolute;
+		left: calc(0px - (1em + 1em));
+		width: calc(1em + 1px);
+		height: calc(1em + 1px);
+		background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEyOCAxMjgiIGhlaWdodD0iMTI4cHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjggMTI4IiB3aWR0aD0iMTI4cHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0xMTYuMTU4LDI5LjMzNmwtNC45NzUtNC45NzVjLTMuNDY5LTMuNDY5LTkuMDg4LTMuNDc4LTEyLjU0OS0wLjAxOUw0OC4xMDMsNzQuODc1TDI5LjM2NCw1Ni4xMzYgIGMtMy40NTktMy40Ni05LjA3OC0zLjQ1LTEyLjU0OSwwLjAyMWwtNC45NzQsNC45NzRjLTMuNDcsMy40Ny0zLjQ4LDkuMDg5LTAuMDIsMTIuNTQ5TDQxLjgsMTAzLjY1NyAgYzEuNzQxLDEuNzQxLDQuMDI2LDIuNjAyLDYuMzEsMi41ODhjMi4yNzksMC4wMTEsNC41NTktMC44NTIsNi4yOTctMi41OWw2MS43NzEtNjEuNzcxICBDMTE5LjYzNywzOC40MjQsMTE5LjYzMSwzMi44MDcsMTE2LjE1OCwyOS4zMzZ6IiBmaWxsPSIjMjMyMzIzIi8+PC9zdmc+") no-repeat center center;
+		background-size: contain;
+		content: "";
+	}
+	
+	.c-form-checkbox--radio .c-form-checkbox__input:checked + .c-form-checkbox__caption::after {
+		background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIyMHB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyMCAyMCIgd2lkdGg9IjIwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48dGl0bGUvPjxkZXNjLz48ZGVmcy8+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSI+PGcgZmlsbD0iIzAwMDAwMCIgaWQ9IkNvcmUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMzguMDAwMDAwLCAtMzM4LjAwMDAwMCkiPjxnIGlkPSJyYWRpby1idXR0b24tb24iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMzOC4wMDAwMDAsIDMzOC4wMDAwMDApIj48cGF0aCBkPSJNMTAsNSBDNy4yLDUgNSw3LjIgNSwxMCBDNSwxMi44IDcuMiwxNSAxMCwxNSBDMTIuOCwxNSAxNSwxMi44IDE1LDEwIEMxNSw3LjIgMTIuOCw1IDEwLDUgTDEwLDUgWiBNMTAsMCBDNC41LDAgMCw0LjUgMCwxMCBDMCwxNS41IDQuNSwyMCAxMCwyMCBDMTUuNSwyMCAyMCwxNS41IDIwLDEwIEMyMCw0LjUgMTUuNSwwIDEwLDAgTDEwLDAgWiBNMTAsMTggQzUuNiwxOCAyLDE0LjQgMiwxMCBDMiw1LjYgNS42LDIgMTAsMiBDMTQuNCwyIDE4LDUuNiAxOCwxMCBDMTgsMTQuNCAxNC40LDE4IDEwLDE4IEwxMCwxOCBaIiBpZD0iU2hhcGUiLz48L2c+PC9nPjwvZz48L3N2Zz4=");
+		border-radius: 100%;
+	}
+	
+	.c-form-checkbox__input:disabled + .c-form-checkbox__caption {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+	.c-form-checkbox__input:disabled + .c-form-checkbox__caption::before {
+		background-color: #c0c0c0;
+		border-color: #c0c0c0;
+	}
+
+  
+/* Form modifiers
+  =========================================== */
+/**
+ * Since the majority of form field in an ecommerce site are required, all LABEL
+ * elements without the `is-required` class will automatically italicized.
+ */
+.c-form-label:not(.is-required):not(.u-text-normal) {
+	/*font-style: italic;*/
+}
+
+
+/* Disabled Form Elements
+   =========================================== */
+.c-form-input[disabled],
+.c-form-select__dropdown[disabled],
+.c-form-checkbox__input[disabled] {
+	background-color: #c0c0c0;
+}
+
+
+/* Form errors
+  =========================================== */
+/**
+ * Errors are handled by adding the .has-error class to the field's parent –
+ * usually the .c-form-list__item.
+ *
+ * The `invalid` class is included here to work with code output by Miva Merchant on some pages.
+ */
+
+.has-error,
+.invalid {
+  color: #c8102e;
+}
+	
+	/**
+	 * Change form field styles
+	 */
+	.has-error .c-form-input,
+	.invalid .c-form-input,
+	.c-form-input.has-error,
+	/*.c-form-input:not(:focus):invalid,*/
+	.has-error .c-form-select__dropdown,
+	.invalid .c-form-select__dropdown,
+	.c-form-select__dropdown.has-error/*,
+	.c-form-select__dropdown:not(:focus):invalid*/ {
+		border-color: #c8102e;
+	}
+	
+		.has-error .c-form-input:focus,
+		.invalid .c-form-input:focus,
+		.c-form-input.has-error:focus,
+		/*.c-form-input:invalid:focus,*/
+		.has-error .c-form-select__dropdown:focus,
+		.invalid .c-form-select__dropdown:focus,
+		.c-form-select__dropdown.has-error:focus/*,
+		.c-form-select__dropdown:invalid:focus*/ {
+			border-color: #fff;
+			box-shadow: inset 0 0 0.5em 0 rgba(200, 16, 46, 0.75);
+		}
+	
+	
+	/**
+	 * Change checkbox/radio indicator border color
+	 */
+	.has-error .c-form-checkbox__caption::before,
+	.invalid .c-form-checkbox__caption::before,
+	.c-form-checkbox__caption.has-error::before,
+	.c-form-checkbox__caption:invalid::before {
+		border-color: #c8102e;
+	}
+
+
+
+
+
+/* Input sizing modifiers
+   =========================================== */
+.c-form-input--large {
+	height: calc(3.5em - (1px * 2)); /* [2] */
+	line-height: calc(3.5em - (1px * 2)); /* [2] */
+}
+
+.c-form-input--huge {
+	height: calc(4.5em - (1px * 2)); /* [2] */
+	line-height: calc(4.5em - (1px * 2)); /* [2] */
+}
+	
+	.c-form-input--large.c-form-select__dropdown,
+	.c-form-input--huge.c-form-select__dropdown {
+		line-height: inherit;
+	}

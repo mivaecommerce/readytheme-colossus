@@ -1,0 +1,59 @@
+<mvt:if expr="l.settings:page:code CIN 'INVC'">
+	<mvt:item name="customfields" param="Write_Order(l.settings:order:id, 'order_ip', s.remote_addr)" />
+	<mvt:item name="customfields" param="Write_Order(l.settings:order:id, 'order_ua', s.http_user_agent)" />
+</mvt:if>
+
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<div class="u-printable">
+		<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+	
+		<section class="o-layout">
+			<div class="o-layout__item u-width-12">
+				<section class="t-expanded-block t-account-landing-section u-bg-white">
+					<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+						<section class="o-layout">
+							<div class="o-layout__item">
+								<mvt:item name="hdft" param="header" file="INVC-header-item.htm" />
+								<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							</div>
+						</section>
+						
+						<section class="o-layout o-layout--wide">
+							<div class="o-layout__item u-width-12 u-width-8--l">
+								<mvt:item name="order_contents" file="INVC-order_contents-item.htm" />
+							</div>
+							<aside class="o-layout__item u-width-12 u-width-4--l">
+								<mvt:item name="order_customer" file="cssui-invccustfields-item.htm" />
+							</aside>
+						</section>
+		
+						<section class="o-layout">
+							<div class="o-layout__item">
+								<mvt:item name="hdft" param="footer" file="INVC-footer-item.htm" />
+							</div>
+						</section>
+					</div>
+				</section>
+			</div>
+		</section>
+	
+		<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+		<mvt:item name="ga_transaction" />
+	</div>
+	<mvt:item name="printer_friendly_content" file="INVC-printer_friendly_content-item.htm" />
+</body>
+</html>

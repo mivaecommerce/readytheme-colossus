@@ -1,0 +1,120 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<section class="o-layout">
+					<div class="o-layout__item">
+						<mvt:item name="hdft" param="header" file="OUS1-header-item.htm" />
+						<h1 class="c-heading-echo u-text-bold u-text-uppercase u-text-center">Special Offer</h1>
+						<div class="c-heading-charlie u-text-center">
+							Save &mvt:upsale:formatted_upsell_savings;
+							<span class="c-heading--subheading u-block">Offer valid for this order only</span>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<section class="o-layout o-layout--wide o-layout--justify-center">
+						<div class="o-layout__item u-width-12 u-width-6--m">
+							<mvt:do name="l.success" file="g.Module_Library_DB" value="ProductImage_Load_Type(l.settings:upsale:id, 1, l.settings:imagetype)" />
+							<mvt:do name="l.success" file="g.Module_Library_DB" value="Image_Load_ID(l.settings:imagetype:image_id, l.settings:imagedata)" />
+							<mvt:assign name="g.socialImage" value="g.baseurl $ l.settings:imagedata:image" />
+							<mvt:if expr="NOT ISNULL l.settings:imagedata:image">
+								<div class="o-layout o-layout--wide">
+									<picture class="o-layout__item u-width-6--m">
+										<img class="u-block" src="&mvte:imagedata:image;" alt="&mvte:upsale:name;">
+										<br>
+									</picture>
+									<div class="o-layout__item u-width-6--m">
+										<h4 class="c-heading-delta">&mvt:upsale:name;</h4>
+										<div>
+											Code: &mvt:upsale:code;<br>
+											Regular Price: &mvt:upsale:formatted_price;<br>
+											Special Price: &mvt:upsale:formatted_upsell_price;<br>
+											You Save: &mvt:upsale:formatted_upsell_savings;<br>
+											Shipping Weight: &mvt:upsale:weight; &mvt:store:wtunits;
+										</div>
+										<div>&mvt:upsale:desc;</div>
+										<br>
+									</div>
+								</div>
+							<mvt:else>
+								<h4 class="c-heading-delta">&mvt:upsale:name;</h4>
+								<div>
+									Code: &mvt:upsale:code;<br>
+									Regular Price: &mvt:upsale:formatted_price;<br>
+									Special Price: &mvt:upsale:formatted_upsell_price;<br>
+									You Save: &mvt:upsale:formatted_upsell_savings;<br>
+									Shipping Weight: &mvt:upsale:weight; &mvt:store:wtunits;
+								</div>
+								<div>&mvt:upsale:desc;</div>
+								<br>
+							</mvt:if>
+
+							<form method="post" action="&mvte:urls:OSEL:secure;">
+								<fieldset>
+									<legend>&mvt:page:name;</legend>
+									<input type="hidden" name="Action" value="AUPR" />
+									<input type="hidden" name="Product_Code" value="&mvte:upsale:code;" />
+									<mvt:if expr="g.BasketPaymentGateway EQ 1">
+										<input type="hidden" name="BasketPaymentGateway" value="1" />
+									</mvt:if>
+									<mvt:item name="tax" />
+									<ul class="c-form-list">
+										<li class="c-form-list__item x-product-layout-purchase__options">
+											<mvt:item name="product_attributes" param="upsale:id" file="OUS1-product_attributes-item.htm" />
+										</li>
+										<li class="c-form-list__item c-form-list__item--full u-text-center">
+											<mvt:item name="buttons" param="AddToOrder" file="cssui-buttonAddToOrder-item.htm" />
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+
+							<form method="post" action="&mvte:urls:OSEL:secure;">
+								<fieldset>
+									<legend>&mvt:page:name;</legend>
+									<mvt:if expr="g.BasketPaymentGateway EQ 1">
+										<input type="hidden" name="BasketPaymentGateway" value="1" />
+									</mvt:if>
+									<mvt:item name="tax" />
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full u-text-center">
+											<mvt:item name="buttons" param="DoNotAddToOrder" file="cssui-buttonDoNotAddToOrder-item.htm" />
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+						</div>
+					</section>
+					
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="footer" file="OUS1-footer-item.htm" />
+						</div>
+					</section>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

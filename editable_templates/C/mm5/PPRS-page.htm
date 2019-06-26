@@ -1,0 +1,18 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>PayPal Express Checkout</title>
+</head>
+<body>
+<mvt:if expr="g.PaypalPro_Cancel">
+	<a id="pp_returnurl" href="&mvt:global:secure_sessionurl;Store_Code=&mvta:global:Store_Code;&amp;Screen=&mvta:global:CancelScreen;">Click here if you are not automatically redirected</a>
+<mvt:else>
+	<a id="pp_returnurl" href="&mvt:global:secure_sessionurl;Store_Code=&mvta:global:Store_Code;&amp;Screen=&mvta:global:NextScreen;&amp;Action=PAL2&amp;token=&mvta:global:token;&amp;PayerID=&mvta:global:PayerID;&amp;ErrorScreen=&mvta:global:CancelScreen;&amp;PaypalPro_InExpressCheckout=1&amp;SplitPaymentData=&mvta:global:SplitPaymentData;">Click here if you are not automatically redirected</a>
+</mvt:if>
+
+<script>
+	window.parent.location = document.getElementById( 'pp_returnurl' ).href;
+</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<section class="o-layout u-printable__content">
+	<div class="o-layout__item u-width-12">
+		<h4 class="u-text-bold">
+			&mvt:global:store:name;
+			<div class="c-heading--subheading">
+				&mvt:global:store:address;, &mvt:global:store:city;, &mvt:global:store:state; &mvt:global:store:zip;<br>
+				Email: &mvt:global:store:email;<br>
+				Phone: &mvt:global:store:phone;
+				<mvt:if expr="NOT ISNULL g.store:fax">
+					<br>Fax: &mvt:global:store:fax;
+				</mvt:if>
+			</div>
+		</h4>
+		<h3 class="c-heading-delta u-text-bold u-text-uppercase">Order Confirmation</h3>
+		<mvt:item name="messages"/>
+		<hr class="c-keyline">
+	</div>
+	<div class="o-layout__item u-width-12">
+		<div class="o-layout">
+			<div class="o-layout__item u-width-6">
+				<h5 class="c-heading-echo u-text-bold u-text-uppercase">Ship To:</h5>
+				<address class="u-font-small">
+					<mvt:if expr="l.settings:order:ship_fname OR l.settings:order:ship_lname">
+						&mvte:order:ship_fname; &mvte:order:ship_lname;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:ship_comp">
+						&mvte:order:ship_comp;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:ship_addr1 OR l.settings:order:ship_addr2 OR l.settings:order:ship_city OR l.settings:order:ship_state OR l.settings:order:ship_zip OR l.settings:order:ship_cntry">
+						&mvte:order:ship_addr1;<br>
+						<mvt:if expr="l.settings:order:ship_addr2">
+							&mvte:order:ship_addr2;<br>
+						</mvt:if>
+						<mvt:if expr="(NOT ISNULL l.settings:order:ship_city) AND (NOT ISNULL l.settings:order:ship_state)">
+							&mvte:order:ship_city;,
+						<mvt:else>
+							&mvte:order:ship_city;
+						</mvt:if>
+						&mvte:order:ship_state;	&mvte:order:ship_zip; &mvte:order:ship_cntry;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:ship_res">
+						Residential Address<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:ship_email">
+						&mvte:order:ship_email;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:ship_phone">
+						&mvte:order:ship_phone;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:ship_fax">
+						&mvte:order:ship_fax;
+					</mvt:if>
+				</address>
+			</div>
+			<div class="o-layout__item u-width-6">
+				<h5 class="c-heading-echo u-text-bold u-text-uppercase">Bill To:</h5>
+				<address class="u-font-small">
+					<mvt:if expr="l.settings:order:bill_fname OR l.settings:order:bill_lname">
+						&mvte:order:bill_fname; &mvte:order:bill_lname;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:bill_comp">
+						&mvte:order:bill_comp;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:bill_addr1 OR l.settings:order:bill_addr2 OR l.settings:order:bill_city OR l.settings:order:bill_state OR l.settings:order:bill_zip OR l.settings:order:bill_cntry">
+						&mvte:order:bill_addr1;<br>
+						<mvt:if expr="l.settings:order:bill_addr2">
+							&mvte:order:bill_addr2;<br>
+						</mvt:if>
+						<mvt:if expr="(NOT ISNULL l.settings:order:bill_city) AND (NOT ISNULL l.settings:order:bill_state)">
+							&mvte:order:bill_city;,
+						<mvt:else>
+							&mvte:order:bill_city;
+						</mvt:if>
+						&mvte:order:bill_state;	&mvte:order:bill_zip; &mvte:order:bill_cntry;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:bill_email">
+						&mvte:order:bill_email;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:bill_phone">
+						&mvte:order:bill_phone;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:bill_fax">
+						&mvte:order:bill_fax;
+					</mvt:if>
+				</address>
+			</div>
+		</div>
+	</div>
+	<div class="o-layout__item u-width-12">
+		<br>
+		<table class="c-table-simple u-font-small">
+			<caption class="u-text-left">
+				<h1 class="c-heading-echo u-text-bold u-text-uppercase">Order Summary</h1>
+			</caption>
+			<thead class="u-text-left">
+				<tr class="c-table-simple__row">
+					<th class="c-table-simple__cell" scope="col">Product</th>
+					<th class="c-table-simple__cell" scope="col">Quantity</th>
+					<th class="c-table-simple__cell u-text-right" scope="col">Subtotal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<mvt:assign name="g.basket_subtotal" value="0" />
+				<mvt:assign name="g.basket_quantity" value="0" />
+				<mvt:foreach iterator="item" array="order:groups">
+					<tr class="c-table-simple__row">
+						<td class="c-table-simple__cell" scope="row">
+							<div class="o-layout">
+								<span class="o-layout__item u-width-4 u-text-center">
+									<img src="&mvte:item:imagetypes:main;" alt="&mvt:item:name;" title="&mvt:item:name;">
+								</span>
+								<div class="o-layout__item">
+									<p class="c-heading-delta">
+										<span class="u-text-bold">&mvt:item:name;</span>
+										<br><span class="c-heading--subheading">SKU: &mvt:item:code;</span><br>
+										<mvt:if expr="l.settings:item:upsold">
+											<br><span class="c-heading--subheading">(Special Offer)</span>
+										</mvt:if>
+									</p>
+									<p>
+										<mvt:foreach iterator="discount" array="item:discounts">
+											<mvt:if expr="l.settings:discount:display">
+												<mvt:if expr="'sale' CIN l.settings:discount:descrip">
+													<mvt:assign name="l.settings:discount:descrip" value="'Savings'"/>
+												<mvt:else>
+													<mvt:assign name="l.settings:discount:descrip" value="l.settings:discount:descrip"/>
+												</mvt:if>
+												<span class="u-font-small u-flex u-color-red">
+													<span class="o-layout--grow">&mvt:discount:descrip;</span>
+													<span>&mvt:discount:formatted_discount;</span>
+												</span>
+											</mvt:if>
+										</mvt:foreach>
+										<mvt:foreach iterator="option" array="item:options">
+											<mvt:if expr="l.settings:option:attr_code EQ 'giftcert'">
+												<mvt:assign name="l.settings:option:attr_prompt" value="'Certificate Code'" />
+											<mvt:else>
+												<mvt:assign name="l.settings:option:attr_prompt" value="l.settings:option:attr_prompt" />
+											</mvt:if>
+											<span class="u-font-small u-flex">
+												<mvt:if expr="l.settings:option:option_id">
+													<span class="o-layout--grow">&mvt:option:attr_prompt;: &mvt:option:opt_prompt;</span>
+													<span>&mvt:option:formatted_subtotal;</span>
+												<mvt:elseif expr="NOT ISNULL l.settings:option:data">
+													<mvt:if expr="( l.settings:option:attr_code EQ 'digitaldownload' ) AND ( NOT ISNULL l.settings:option:digital_download_url )">
+														<a class="o-layout--grow" href="&mvte:option:digital_download_url;" target="_blank">Digital Download</a><br>
+													<mvt:else>
+														<span class="o-layout--grow">&mvt:option:attr_prompt;: &mvt:option:data;</span>
+														<span>&mvt:option:formatted_subtotal;</span>
+													</mvt:if>
+												<mvt:elseif expr="NOT ISNULL l.settings:option:data_long">
+													<span class="o-layout--grow">&mvt:option:attr_prompt;: &mvt:option:data_long;</span>
+													<span>&mvt:option:formatted_subtotal;</span>
+												<mvt:else>
+													<span class="o-layout--grow">&mvt:option:attr_prompt;</span>
+													<span>&mvt:option:formatted_subtotal;</span>
+												</mvt:if>
+											</span>
+											<mvt:foreach iterator="discount" array="option:discounts">
+												<mvt:if expr="l.settings:discount:display">
+													<span class="u-color-red o-layout--grow">&mvt:discount:descrip;</span>
+													<span class="u-color-red">&mvt:discount:formatted_discount;</span>
+												</mvt:if>
+											</mvt:foreach>
+										</mvt:foreach>
+									</p>
+									<mvt:if expr="l.settings:item:subterm_id">
+										<p>Subscription: &mvte:item:subscription:productsubscriptionterm:descrip;</p>
+									</mvt:if>
+									<p>Status: &mvt:item:order_status;</p>
+								</div>
+							</div>
+						</td>
+						
+						<td class="c-table-simple__cell u-text-center">
+							<mvt:assign name="g.basket_quantity" value="g.basket_quantity + l.settings:item:quantity" />
+							<p>&mvt:item:quantity;</p>
+						</td>
+						
+						<td class="c-table-simple__cell u-text-right">
+							<p class="c-heading-delta">
+								<span class="u-text-bold u-block">&mvt:item:formatted_subtotal_comprehensive;</span>
+								<mvt:assign name="g.basket_subtotal" value="g.basket_subtotal + l.settings:item:subtotal_comprehensive" />
+								<mvt:if expr="l.settings:item:subtotal_base_price NE l.settings:item:subtotal">
+									<s class="c-heading--subheading u-block">&mvt:item:formatted_subtotal_base_price;</s>
+								<mvt:else>
+									<span class="c-heading--subheading u-block">&nbsp;</span>
+								</mvt:if>
+								<mvt:if expr="l.settings:item:upsold">
+									<span class="c-heading--subheading u-block">&nbsp;</span>
+								</mvt:if>
+							</p>
+						</td>
+					</tr>
+				</mvt:foreach>
+			</tbody>
+		</table>
+		
+		<mvt:do file="g.Module_Store_Module_Currency" name="l.settings:basket:formatted_subtotal" value="CurrencyModule_AddFormatting(g.Store:currncy_mod, g.basket_subtotal)" />
+		<table class="c-table-simple u-font-small">
+			<tbody>
+				<tr class="c-table-simple__row">
+					<td class="c-table-simple__cell u-flex o-layout--justify-between">
+						<span>
+							<mvt:if expr="g.basket_quantity GT 1">
+								Subtotal: &mvte:global:basket_quantity; Items
+							<mvt:else>
+								Subtotal: &mvte:global:basket_quantity; Item
+							</mvt:if>
+						</span>
+						<span>&mvt:basket:formatted_subtotal;</span>
+					</td>
+				</tr>
+				
+				<mvt:foreach iterator="charge" array="order:charges">
+					<tr class="c-table-simple__row">
+						<td class="c-table-simple__cell u-flex o-layout--justify-between">
+							<span>&mvt:charge:descrip;</span>
+							<span>&mvt:charge:formatted_disp_amt;</span>
+						</td>
+					</tr>
+				</mvt:foreach>
+		
+				<mvt:foreach iterator="coupon" array="order:coupons">
+					<tr class="c-table-simple__row">
+						<td class="c-table-simple__cell u-flex o-layout--justify-between">
+							<span>&mvt:coupon:code;</span>
+							<mvt:if expr="NOT ISNULL l.settings:coupon:descrip">
+								<span>&mvt:coupon:descrip;</span>
+							</mvt:if>
+						</td>
+					</tr>
+				</mvt:foreach>
+				
+				<mvt:foreach iterator="payment" array="order:payments">
+					<tr class="c-table-simple__row">
+						<td class="c-table-simple__cell u-flex o-layout--justify-between">
+							<mvt:if expr="l.settings:payment:type EQ 6">
+								<span>Refund: &mvt:payment:desc;</span>
+								<span>&mvt:payment:formatted_amount;</span>
+							<mvt:else>
+								<span>Payment: &mvt:payment:desc;</span>
+								<span>&mvt:payment:formatted_amount_negative;</span>
+							</mvt:if>
+						</td>
+					</tr>
+				</mvt:foreach>
+				
+				<tr class="c-table-simple__row">
+					<td class="c-table-simple__cell u-flex o-layout--justify-between c-heading-delta u-text-bold">
+						<span>Total</span>
+						<span>&mvt:order:formatted_total;</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

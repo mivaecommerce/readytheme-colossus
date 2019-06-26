@@ -1,0 +1,69 @@
+/* ==========================================================================
+   EXTENSIONS / SEARCH-PREVIEW / SEARCH-PREVIEW
+   ========================================================================== */
+
+.x-search-preview {
+	display: none;
+	width: 100%;
+	padding: 0.75rem 0.5rem;
+	position: absolute;
+	background-color: #fff;
+	box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.25);
+	opacity: 0;
+	transition: opacity ease-in-out 0.5s;
+	z-index: 500;
+}
+
+	.x-search-preview--open {
+		opacity: 1;
+	}
+	
+	.x-search-preview__entry {
+		display: block;
+	}
+	
+		.x-search-preview__list {
+			padding: 0 0.5rem;
+		}
+	
+			.x-search-preview__line {
+				display: flex;
+				padding: 0.5rem 0;
+				position: relative;
+				align-items: center;
+				font-size: 0.875rem;
+				border-bottom: 1px solid #eaeaea;
+				cursor: pointer;
+			}
+			
+				.x-search-preview__image {
+					width: 4rem;
+					height: 4rem;
+					margin: 0 1em 0 0;
+					overflow: hidden;
+					text-align: center;
+				}
+				
+				.x-search-preview__item {
+					display: flex;
+					flex: 1;
+					justify-content: space-between;
+					text-decoration: none;
+				}
+				
+			.x-search-preview__search-all {
+				padding: 0.5rem;
+				font-style: italic;
+				cursor: pointer;
+			}
+
+			/**
+			 * This section contains the necessary styles when using the built-in search
+			 * preview ability of Miva. Since the functional code is generated at run-time,
+			 * these styles do not conform to the tenants used in the rest of the framework.
+			 */
+
+			.mm_searchfield_menuitem_selected {
+				background-color: #eaeaea;
+			}
+		

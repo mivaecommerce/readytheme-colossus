@@ -1,0 +1,16 @@
+/* ==========================================================================
+   EXTENSIONS / BREADCRUMBS / BREADCRUMBS
+   ========================================================================== */
+
+.x-breadcrumbs {
+	padding-left: 1rem;
+	font-size: 0.875rem;
+	line-height: 3;
+	border-bottom: 1px solid #c0c0c0;
+}
+	.x-breadcrumbs .o-list-inline__item:not(:last-of-type)::after {
+		display: inline-block;
+		position: relative;
+		right: -0.66em;
+		content: '/';
+	}

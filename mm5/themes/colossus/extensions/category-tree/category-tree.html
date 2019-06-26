@@ -1,0 +1,22 @@
+<nav class="x-category-tree">
+	<input id="categoryTree" class="x-category-tree__trigger" type="checkbox">
+	<label class="x-category-tree__label" for="categoryTree">Categories</label>
+	<div class="x-category-tree__title">
+		<h3 class="x-category-tree__heading c-heading-charlie">Categories</h3>
+		<hr class="c-keyline">
+	</div>
+	<ul class="x-category-tree__row">
+		<mvt:foreach array="cattree_categories" iterator="cattree_category">
+			<li class="x-category-tree__list x-category-tree__list--level-&mvte:cattree_category:level;">
+				<mvt:if expr="NOT ISNULL l.settings:category:id AND l.settings:category:id EQ l.settings:cattree_category:id">
+					<a class="x-category-tree__link x-category-tree__link--current" href="&mvte:cattree_category:link;" title="&mvte:cattree_category:name;">&mvte:cattree_category:name;</a>
+				<mvt:elseif expr="NOT ISNULL g.Category_Code AND ISNULL l.settings:category:id AND l.settings:cattree_category:code EQ g.Category_Code">
+					<a class="x-category-tree__link x-category-tree__link--current" href="&mvte:cattree_category:link;" title="&mvte:cattree_category:name;">&mvte:cattree_category:name;</a>
+				<mvt:else>
+					<a class="x-category-tree__link" href="&mvte:cattree_category:link;" title="&mvte:cattree_category:name;">&mvte:cattree_category:name;</a>
+				</mvt:if>
+			</li>
+		</mvt:foreach>
+	</ul>
+</nav>
+<!-- end .x-category-tree -->

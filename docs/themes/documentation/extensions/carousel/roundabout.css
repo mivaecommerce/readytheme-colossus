@@ -1,0 +1,80 @@
+/* ==========================================================================
+   EXTENSIONS / CAROUSEL / ROUNDABOUT
+   ========================================================================== */
+
+/**
+ * The Roundabout extension gives you the ability to create a hero image
+ * carousel or convert a product list into a carousel of products.
+ */
+.x-carousel {
+	display: flex;
+	flex: 1;
+	position: relative;
+	overflow: hidden;
+	transition: visibility ease-in-out 0.1s;
+	visibility: hidden;
+}
+
+	.x-carousel--is-loaded {
+		visibility: visible;
+	}
+
+	.x-carousel__button {
+		display: inline-block;
+		padding: 0;
+		position: absolute;
+		top: 50%;
+		font-size: 3rem;
+		background-color: rgba(255, 255, 255, 0);
+		border: 0 none;
+		opacity: 0.25;
+		-webkit-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+		transition: ease-in-out 0.3s;
+		z-index: 50;
+	}
+
+	.x-carousel__button-right {
+		right: 0;
+	}
+
+	.x-carousel__button:hover {
+		background-color: rgba(255, 255, 255, 0.25);
+		opacity: 1;
+	}
+
+	.x-carousel__container {
+		display: flex;
+		width: 100%;
+		flex: 1 1 auto;
+		position: relative;
+		left: -100%;
+		transform: translate3d(100%, 0, 0);
+	}
+	
+		.x-carousel--reverse {
+			transform: translate3d(-100%, 0, 0);
+		}
+		
+		.x-carousel--animate {
+			transform: none;
+			transition: all 250ms ease-in-out;
+		}
+		
+		.x-carousel__item {
+			display: flex;
+			flex: 1 0 100%;
+			min-width: 100%;
+			margin: 0;
+			align-items: flex-start;
+		}
+		
+			.x-carousel__item img {
+				opacity: 1;
+				transition: opacity 250ms;
+			}
+			
+			.x-carousel__item img[data-src] {
+				opacity: 0;
+			}

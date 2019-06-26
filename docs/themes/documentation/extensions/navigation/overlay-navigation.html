@@ -1,0 +1,32 @@
+<section class="x-overlay-navigation" data-hook="overlay-navigation">
+	<nav class="o-wrapper x-overlay-navigation__wrapper">
+		<p class="u-text-right">
+			<button class="c-button c-button--hollow u-color-white u-icon-cross" data-hook="close-overlay-navigation"></button>
+		</p>
+		<div class="o-layout u-grids-1 u-grids-2--s u-grids-3--m u-grids-4--l u-grids-5--w">
+			<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+				<ul class="o-layout__item x-overlay-navigation__list">
+					<li class="x-overlay-navigation__item c-heading-delta u-text-bold">
+						&mvt:navigationitem:link;
+						<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+							<ul class="x-overlay-navigation__list x-overlay-navigation__list-subset">
+								<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+									<li class="x-overlay-navigation__item">
+										&mvt:navigationitem_level2:link;
+										<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+											<ul class="x-overlay-navigation__list x-overlay-navigation__list-subset">
+												<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+													<li class="x-overlay-navigation__item">&mvt:navigationitem_level3:link;</li>
+												</mvt:foreach>
+											</ul>
+										</mvt:if>
+									</li>
+								</mvt:foreach>
+							</ul>
+						</mvt:if>
+					</li>
+				</ul>
+			</mvt:foreach>
+		</div>
+	</nav>
+</section>

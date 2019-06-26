@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>&mvte:page:name;</title>
+<base href="&mvt:global:basehref;" />
+<style type="text/css"><mvt:item name="inline_css" file="ORDER_INVOICE-inline_css-item.htm" /></style>
+</head>
+<body>
+
+<mvt:foreach iterator="order" array="admin_order:orders">
+	<div class="order">
+		<div class="title-box-left">
+			<!-- Uncomment to add a logo to your invoice <img src="images/logo.jpg" height="34px" width="60px" /> -->
+			<h3>&mvte:store:name;</h3>
+			&mvte:store:address;<br />
+			&mvte:store:city;, &mvte:store:state; &mvte:store:zip;<br />
+			&mvte:store:country;
+		</div>
+
+		<div class="title-box-right">
+			<h1>Order Summary</h1>
+			Date: &mvt:order:date;<br />
+			Order: #&mvt:order:id;<br />
+			Order Status: &mvt:order:formatted_status;<br />
+		</div>
+
+		<div class="clear"></div>
+		<hr />
+
+		<div class="purple-box">
+			<div class="sub-box-left">
+				<h2>Bill To</h2>
+				<hr />
+				<table><tr><th>Name:</th><td>&mvte:order:bill_fname; &mvte:order:bill_lname;</td></tr></table>
+				<table><tr><th>Email:</th><td>&mvte:order:bill_email;</td></tr></table>
+				<table><tr><th>Phone:</th><td>&mvte:order:bill_phone;</td></tr></table>
+				<table><tr><th>Fax:</th><td>&mvte:order:bill_fax;</td></tr></table>
+				<table><tr><th>Company:</th><td>&mvte:order:bill_comp;</td></tr></table>
+				<table><tr><th>Address:</th><td>&mvte:order:bill_addr;<br />&mvte:order:bill_city;, &mvte:order:bill_state; &mvte:order:bill_zip;<br />&mvte:order:bill_cntry;</td></tr></table>
+			</div>
+
+			<div class="sub-box-right">
+				<h2>Send To</h2>
+				<hr />
+				<table><tr><th>Name:</th><td>&mvte:order:ship_fname; &mvte:order:ship_lname;</td></tr></table>
+				<table><tr><th>Email:</th><td>&mvte:order:ship_email;</td></tr></table>
+				<table><tr><th>Phone:</th><td>&mvte:order:ship_phone;</td></tr></table>
+				<table><tr><th>Fax:</th><td>&mvte:order:ship_fax;</td></tr></table>
+				<table><tr><th>Company:</th><td>&mvte:order:ship_comp;</td></tr></table>
+				<table><tr><th>Address:</th><td>&mvte:order:ship_addr;<br />&mvte:order:ship_city;, &mvte:order:ship_state; &mvte:order:ship_zip;<br />&mvte:order:ship_cntry;</td></tr></table>
+			</div>					
+		</div>
+
+		<mvt:item name="tbr_order_contents" file="ORDER_INVOICE-tbr_order_contents-item.htm" />	
+
+		<div class="purple-box">
+			<div class="sub-box-left">
+				<mvt:foreach iterator="payment" array="order:payments">
+					<mvt:if expr="( l.settings:payment:type EQ 2 ) OR
+								  ( l.settings:payment:type EQ 4 ) OR
+								  ( l.settings:payment:type EQ 7 )">
+						<mvt:foreachcontinue />
+					</mvt:if>
+
+					<h2>
+						<mvt:if expr="ISNULL l.settings:payment:descrip">
+							<mvt:if expr="l.settings:payment:type EQ 6">
+								Refund
+							<mvt:else>
+								Payment
+							</mvt:if>
+						<mvt:else>
+							<mvt:if expr="l.settings:payment:type EQ 6">
+								Refund:
+							<mvt:else>
+								Payment:
+							</mvt:if>
+							&mvt:payment:descrip;
+						</mvt:if>
+					</h2>
+					<hr />
+
+					<table><tr><th>Amount:</th><td>&mvt:payment:formatted_amount;</td></tr></table>
+
+					<mvt:foreach iterator="field" array="payment:fields">
+						<table><tr><th>&mvt:field:label;</th><td>&mvt:field:value;</td></tr></table>
+					</mvt:foreach>
+					<br />
+				</mvt:foreach>
+			</div>
+
+			<div class="sub-box-right">
+				<h2>Shipping</h2>
+				<hr />
+
+				<mvt:if expr="( ISNULL l.settings:order:ship_fields ) AND ( NOT ISNULL l.settings:order:ship_method )">
+					<table><tr><th>Shipping Method:</th><td>&mvt:order:ship_method;</td></tr></table>
+				<mvt:else>
+					<mvt:foreach iterator="field" array="order:ship_fields">
+						<table><tr><th>&mvt:field:label;</th><td>&mvt:field:value;</td></tr></table>
+					</mvt:foreach>
+				</mvt:if>
+			</div>
+		</div>
+	</div>
+</mvt:foreach>
+</body>
+</html>

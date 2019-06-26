@@ -1,0 +1,68 @@
+/* ==========================================================================
+   EXTENSIONS / PRODUCT LISTS / PRODUCT LISTS
+   ========================================================================== */
+
+
+/**
+ * Product lists are used in many spots throughout the store. They can be found 
+ * on the storefront as featured product, the related products section of a 
+ * product page, as an auto-suggest feature during checkout, or wherever.
+ */
+
+.x-product-list {
+	margin-bottom: 16px;
+}
+
+
+	.x-product-list__heading {
+		margin-bottom: 2em;
+	}
+	
+	
+	.x-product-list__item {
+		margin-bottom: 16px;
+	}
+	
+		.x-product-list__link {
+			color: #0f0f0f;
+			transition: ease-in-out 0.3s;
+		}
+		
+		.x-product-list__link:hover {
+			color: #9f9f9f;
+			text-decoration: none;
+		}
+
+			.x-product-list__figure {
+				margin: 0;
+			}
+
+				.x-product-list__image,
+				.x-product-list__name,
+				.x-product-list__price {
+					display: block;
+				}
+
+				.x-product-list__image {
+					margin-bottom: 16px;
+				}
+
+				.x-product-list__price {
+					font-size: 0.875rem;
+				}
+
+			
+	.x-product-list__action {
+		padding-top: 16px;
+	}
+
+	/**
+	* If you are creating a product carousel, add this class to the element.
+	*/
+	.x-product-list--carousel {}
+
+		.x-product-list--carousel .x-product-list__item {
+			margin-bottom: 0;
+			padding-right: 0.5rem;
+			padding-left: 0.5rem;
+		}

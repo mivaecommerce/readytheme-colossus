@@ -1,0 +1,73 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="CPCA-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header">
+					<mvt:item name="breadcrumbs" />
+					<span class="c-heading-delta t-account-landing-section__heading">&mvt:page:name;</span>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<form class="o-layout o-layout--justify-center" data-hook="cpca-form" method="post" action="&mvte:urls:CPCD:auto;">
+						<fieldset class="o-layout__item u-width-12 u-width-6--l">
+							<legend>&mvt:page:name;</legend>
+							<input type="hidden" name="Action" value="ICPC" />
+							<input type="hidden" name="CSRF_Token" value="&mvte:global:Basket:csrf_token;">
+							<ul class="c-form-list">
+								<li class="c-form-list__item c-form-list__item--full">
+									<mvt:item name="mivapay" file="CPCA-mivapay-item.htm" />
+								</li>
+								<li class="c-form-list__item c-form-list__item--full u-text-center">
+									<script>
+										var onclick_submit = function (event) {
+											if (MivaPay && (typeof MivaPay.Submit === 'function')) {
+												MivaPay.Submit(function() {
+													var form;
+				
+													form = document.querySelector('[data-hook="cpca-form"]');
+													form.submit();
+												});
+											}
+										}
+									</script>
+									<button class="c-button c-button--huge u-bg-black u-font-tiny u-text-bold u-text-uppercase" title="Add New Payment Method" type="button" onclick="onclick_submit(); return false;">Add New Payment Method</button>
+								</li>
+							</ul>
+						</fieldset>
+					</form>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="CPCA-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

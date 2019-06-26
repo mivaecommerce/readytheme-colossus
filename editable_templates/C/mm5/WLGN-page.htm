@@ -1,0 +1,100 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="WLGN-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout o-layout--justify-around">
+		<div class="o-layout__item u-width-12 u-width-6--m u-width-4--l">
+			<p class="c-heading-delta u-text-uppercase">
+				Welcome Back<br>
+				<span class="c-heading--subheading u-text-revert">Returning guests, sign in to view your wish lists.</span>
+			</p>
+			<form method="post" action="&mvte:urls:WISH:secure;" autocomplete="off">
+				<fieldset>
+					<legend>&mvt:page:name;</legend>
+					<mvt:if expr="ISNULL g.Action">
+						<mvt:assign name="g.Action" value="'LOGN,ATWL'" />
+					<mvt:else>
+						<mvt:assign name = "g.Action" value="'LOGN,' $ g.Action" />
+					</mvt:if>
+					<input type="hidden" name="Action" value="&mvte:global:Action;" />
+					<input type="hidden" name="Quantity" value="&mvte:global:Quantity;" />
+					<input type="hidden" name="Line_ID" value="&mvte:global:Line_ID;" />
+					<input type="hidden" name="Group_ID" value="&mvte:global:Group_ID;" />
+					<input type="hidden" name="Wish_ID" value="&mvte:global:Wish_ID;" />
+					<input type="hidden" name="Product_Code" value="&mvte:global:Product_Code;" />
+					<mvt:assign name="l.settings:attribute_index" value="0" />
+					<mvt:foreach iterator="attribute" array="global:Product_Attributes">
+						<mvt:assign name="l.settings:attribute_index" value="l.settings:attribute_index + 1" />
+						<input type="hidden" name="Product_Attributes[ &mvt:attribute_index; ]:code" value="&mvte:attribute:code;" />
+						<input type="hidden" name="Product_Attributes[ &mvt:attribute_index; ]:value" value="&mvte:attribute:value;" />
+						<mvt:if expr="l.settings:attribute:template_code NE 0">
+							<input type="hidden" name="Product_Attributes[ &mvt:attribute_index; ]:template_code" value="&mvte:attribute:template_code;" />
+						</mvt:if>
+					</mvt:foreach>
+					<ul class="c-form-list">
+						<li class="c-form-list__item">
+							<label class="c-form-label u-font-small u-text-bold u-text-uppercase is-required &mvt:global:invalid_credentials;" for="l-Customer_LoginEmail">Email Address</label>
+							<input id="l-Customer_LoginEmail" class="c-form-input" type="email" name="Customer_LoginEmail" value="&mvte:global:Customer_LoginEmail;" autocomplete="email" required>
+						</li>
+						<li class="c-form-list__item">
+							<label class="c-form-label u-font-small u-text-bold u-text-uppercase is-required &mvt:global:invalid_credentials;" for="l-Customer_Password">Password:</label>
+							<mvt:if expr="g.Customer_Temporary_Password">
+								<input type="hidden" name="Customer_Temporary_Password" value="&mvte:global:Customer_Temporary_Password;">
+								<input id="l-Customer_Password" class="c-form-input" type="password" name="Customer_Password" value="&mvte:global:Customer_Temporary_Password;" required>
+							<mvt:else>
+								<input id="l-Customer_Password" class="c-form-input" type="password" name="Customer_Password" autocomplete="current-password" required>
+							</mvt:if>
+						</li>
+						<li class="c-form-list__item u-text-right">
+							<mvt:item name="buttons" param="Login" file="cssui-buttonLogin-item.htm" />
+						</li>
+					</ul>
+				</fieldset>
+			</form>
+			<p class="u-font-small"><a data-mini-modal data-mini-modal-type="inline" data-mini-modal-content="data-forgot-password" href="&mvte:urls:FPWD:secure;" title="Forgot Password">Forgot your password?</a></p>
+		</div>
+		<div class="o-layout__item u-width-12 u-width-6--m u-width-4--l">
+			<p class="c-heading-delta u-text-uppercase">
+				New Customers<br>
+				<span class="c-heading--subheading u-text-revert">In addition to your wish list, creating an account with &mvt:global:store:name; gives you the following benefits:</span>
+			</p>
+			<ul>
+				<li>Express Checkout</li>
+				<li>Access Your Order History/Order Status</li>
+				<li>Easy One Click Re-Ordering</li>
+				<li>Redeem Gift Certificates</li>
+			</ul>
+			<p class="u-text-right"><a class="c-button c-button--large u-font-small u-text-bold u-text-uppercase" href="&mvte:urls:ACAD:secure_sep;WishList=1" title="Register">Register</a></p>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="WLGN-footer-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'forgot-password' )" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

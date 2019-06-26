@@ -1,0 +1,54 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="OCST-header-item.htm" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<section class="o-layout o-layout--wide o-layout--justify-between">
+						<div class="o-layout__item u-width-12 u-width-7--l">
+							<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							<mvt:comment>
+								<!-- If you are using PayPal Express, this is where the `PaypalErrorMsg` item goes. -->
+								<mvt:item name="PaypalErrorMsg"/>
+							</mvt:comment>
+							<mvt:item name="customer" file="OCST-custflds-item.htm" />
+						</div>
+						<aside class="o-layout__item u-width-12 u-width-5--l u-width-4--w">
+							<mvt:item name="basket" file="OCST-basket-item.htm" />
+						</aside>
+					</section>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="OCST-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

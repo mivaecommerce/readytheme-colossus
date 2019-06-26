@@ -1,0 +1,346 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+	<mvt:if expr="l.settings:payment:capabilities:split">
+		<script>
+			function AmountType_Changed(amounttype) {
+				var balance_amount = document.querySelector('[data-hook="payment-balance-amount"]');
+				var amount = document.querySelector('[data-hook="payment-amount"]');
+				var additional = document.querySelector('[data-hook="payment-additional"]');
+
+				if (amounttype === 'total') {
+					amount.disabled = true;
+					additional.classList.add('u-hidden');
+
+					if (balance_amount) {
+						balance_amount.disabled = true;
+					}
+				}
+				else if (amounttype === 'balance') {
+					amount.disabled = true;
+					additional.classList.remove('u-hidden');
+
+					if (balance_amount) {
+						balance_amount.disabled = false;
+					}
+				}
+				else if (amounttype === 'partial') {
+					amount.disabled = false;
+					additional.classList.remove('u-hidden');
+
+					if (balance_amount) {
+						balance_amount.disabled	= true;
+					}
+				}
+			}
+		</script>
+	</mvt:if>
+	<mvt:if expr="NOT('check' CIN g.PaymentMethod) AND NOT('cod' CIN g.PaymentMethod) AND NOT('pal' CIN g.PaymentMethod)">
+		<script>
+			var supportedPaymentMethods = [
+				<mvt:foreach array="paymentmethods" iterator="method">
+					<mvt:if expr="l.settings:method:module NE 'check' AND l.settings:method:module NE 'cod' AND l.settings:method:module NE 'customercredit' AND NOT('pal' CIN l.settings:method:module)">
+						<mvt:if expr="'am' CIN l.settings:method:code OR 'ax' CIN l.settings:method:code OR '003' CIN l.settings:method:code">
+							{name: 'american-express', value: '&mvte:method:module;:&mvte:method:code;'},
+						<mvt:elseif expr="'di' CIN l.settings:method:code OR '004' CIN l.settings:method:code">
+							{name: 'discover', value: '&mvte:method:module;:&mvte:method:code;'},
+						<mvt:elseif expr="'mc' CIN l.settings:method:code OR 'master' CIN l.settings:method:code OR '002' CIN l.settings:method:code">
+							{name: 'mastercard', value: '&mvte:method:module;:&mvte:method:code;'},
+						<mvt:elseif expr="'vi' CIN l.settings:method:code OR '001' CIN l.settings:method:code">
+							{name: 'visa', value: '&mvte:method:module;:&mvte:method:code;'},
+						</mvt:if>
+						<mvt:assign name="g.cc_payment" value="1" />
+						<mvt:assign name="g.payment_module_class" value="l.settings:method:module $ '-payment-form'" />
+					</mvt:if>
+				</mvt:foreach>
+			]
+		</script>
+	</mvt:if>
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="OPAY-header-item.htm" />
+			<mvt:item name="customfields" param="Write_Basket('order_instructions', g.order_instructions)" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<section class="o-layout o-layout--wide o-layout--justify-between">
+						<div class="o-layout__item u-width-12 u-width-7--l">
+							<mvt:item name="readytheme" param="contentsection( 'checkout_steps' )" />
+							<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							<form data-hook="opay-form" method="post" action="&mvt:payment:url;">
+								<fieldset>
+									<legend>&mvt:page:name;</legend>
+									<input type="hidden" name="Action" value="AUTH" />
+									<input type="hidden" name="Screen" value="INVC" />
+									<input type="hidden" name="Store_Code" value="&mvte:global:Store_Code;" />
+									<mvt:item name="payment" />
+									<input data-hook="payment-method" type="hidden" name="PaymentMethod" value="&mvte:global:PaymentMethod;">
+									<input type="hidden" name="SplitPaymentData" value="&mvte:global:SplitPaymentData;" />
+									<p class="c-heading-echo u-text-bold u-text-uppercase">
+										Payment Information<br>
+										<span class="c-heading--subheading">Payment Method: <span data-hook="payment-method-display">&mvt:payment:desc;</span></span>
+									</p>
+									<mvt:if expr="NOT ISNULL l.settings:payment:message">
+										<p class="x-messages x-messages--info">&mvt:payment:message;</p>
+									</mvt:if>
+									<mvt:if expr="l.settings:paymentsettings:mivapay:enabled AND ( l.settings:mivapay:paymentcardtype:id OR l.settings:mivapay:paymentcard:id )">
+										<ul class="c-form-list">
+											<li class="c-form-list__item c-form-list__item--full">
+												<mvt:item name="mivapay" file="OPAY-mivapay-item.htm" />
+											</li>
+										</ul>
+									<mvt:elseif expr="'brain' CIN g.PaymentMethod">
+										<ul class="c-form-list">
+											<li class="c-form-list__item c-form-list__item--full">
+												<mvt:foreach array="payment:fields" iterator="field">
+													<mvt:item name="payment" param="field:code" />
+												</mvt:foreach>
+											</li>
+										</ul>
+									<mvt:elseif expr="'square' CIN g.PaymentMethod">
+										<ul class="c-form-list o-layout u-grids-1 u-text-bold u-text-uppercase t-payment-form t-&mvt:global:payment_module_class;">
+											<li class="c-form-list__item">
+												<mvt:foreach array="payment:fields" iterator="field">
+													<mvt:item name="payment" param="field:code" />
+												</mvt:foreach>
+											</li>
+										</ul>
+									<mvt:else>
+										<ul class="c-form-list o-layout u-grids-1 u-text-bold u-text-uppercase t-payment-form t-&mvt:global:payment_module_class;">
+											<mvt:foreach array="payment:fields" iterator="field">
+												<mvt:if expr="'exp' CIN l.settings:field:code">
+													<li class="c-form-list__item o-layout__item" data-hook="mvt-select" data-classlist="c-form-select__dropdown c-form-input--huge u-font-small" data-id="&mvt:field:code;">
+														<mvt:if expr="l.settings:field:invalid">
+															<label class="c-form-label u-color-red u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														<mvt:else>
+															<label class="c-form-label u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														</mvt:if>
+														<div class="c-control-group o-layout--align-baseline">
+															<mvt:item name="payment" param="field:code" />
+														</div>
+													</li>
+												<mvt:elseif expr="l.settings:field:code EQ 'cc_number'">
+													<li class="c-form-list__item o-layout__item" data-hook="mvt-input" data-classlist="c-form-input c-form-input--huge u-font-small" data-id="&mvt:field:code;" data-dataHook="detect-card">
+														<mvt:if expr="l.settings:field:invalid">
+															<label class="c-form-label u-color-red u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														<mvt:else>
+															<label class="c-form-label u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														</mvt:if>
+														<mvt:item name="payment" param="field:code" />
+													</li>
+												<mvt:elseif expr="'cvv' CIN l.settings:field:code">
+													<li class="c-form-list__item o-layout__item" data-hook="mvt-input" data-classlist="c-form-input c-form-input--huge u-font-small c-form-input--cvv" data-id="&mvt:field:code;">
+														<mvt:if expr="l.settings:field:invalid">
+															<label class="c-form-label u-color-red u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														<mvt:else>
+															<label class="c-form-label u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														</mvt:if>
+														<mvt:item name="payment" param="field:code" />
+														<button class="c-button c-button--small c-button--clear u-bg-transparent x-messages--info" data-mini-modal data-mini-modal-type="inline" data-mini-modal-content="data-cvv" title="Card Security Code Information">What's This? <span class="u-icon-question"></span></button>
+													</li>
+												<mvt:else>
+													<li class="c-form-list__item o-layout__item" data-hook="mvt-input" data-classlist="c-form-input c-form-input--huge u-font-small" data-id="&mvt:field:code;">
+														<mvt:if expr="l.settings:field:invalid">
+															<label class="c-form-label u-color-red u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														<mvt:else>
+															<label class="c-form-label u-font-tiny" for="&mvt:field:code;" title="&mvt:field:prompt;">&mvt:field:prompt;</label>
+														</mvt:if>
+														<mvt:item name="payment" param="field:code" />
+													</li>
+												</mvt:if>
+											</mvt:foreach>
+										</ul>
+										<hr class="c-keyline">
+									</mvt:if>
+									
+									<mvt:if expr="l.settings:payment:capabilities:split">
+										<ul class="c-form-list u-text-uppercase">
+											<mvt:if expr="g.Amount_Invalid">
+												<p class="c-heading-echo u-text-bold u-color-red">Payment Amount</p>
+											<mvt:else>
+												<p class="c-heading-echo u-text-bold">Payment Amount</p>
+											</mvt:if>
+					
+											<li class="c-form-list__item">
+												<mvt:if expr="( NOT l.settings:payment:capabilities:balance ) OR ( l.settings:payment:balance GE l.settings:splitpayment:remaining )">
+													<mvt:if expr="NOT g.UI_Exception">
+														<mvt:assign name="g.AmountType" value="'total'" />
+														<mvt:assign name="g.Amount" value="l.settings:splitpayment:remaining ROUND 2" />
+													</mvt:if>
+												
+													<label class="c-form-checkbox c-form-checkbox--radio u-font-small">
+														<mvt:if expr="g.AmountType EQ 'total'">
+															<input class="c-form-checkbox__input" type="radio" name="AmountType" value="total" onclick="AmountType_Changed( this.value );" checked>
+														<mvt:else>
+															<input class="c-form-checkbox__input" type="radio" name="AmountType" value="total" onclick="AmountType_Changed( this.value );">
+														</mvt:if>
+													
+														<mvt:if expr="NOT ISNULL l.settings:payment:split_data">
+															<span class="c-form-checkbox__caption">Remaining Order Total (&mvt:payment:formatted_remaining;)</span>
+														<mvt:else>
+															<span class="c-form-checkbox__caption">Entire Order Total (&mvt:basket:formatted_total;)</span>
+														</mvt:if>
+													</label>
+												<mvt:else>
+													<mvt:if expr="NOT g.UI_Exception">
+														<mvt:assign name="g.AmountType" value="'balance'" />
+														<mvt:assign name="g.Amount" value="l.settings:payment:balance ROUND 2" />
+													</mvt:if>
+				
+													<label class="c-form-checkbox c-form-checkbox--radio u-font-small">
+														<mvt:if expr="g.AmountType EQ 'balance'">
+															<input data-hook="payment-balance-amount" type="hidden" name="Amount" value="&mvte:payment:balance;">
+															<input class="c-form-checkbox__input" type="radio" name="AmountType" value="balance" onclick="AmountType_Changed( this.value );" checked>
+														<mvt:else>
+															<input data-hook="payment-balance-amount" type="hidden" name="Amount" value="&mvte:payment:balance;" disabled>
+															<input class="c-form-checkbox__input" type="radio" name="AmountType" value="balance" onclick="AmountType_Changed( this.value );">
+														</mvt:if>
+														<span class="c-form-checkbox__caption">Available Balance (&mvt:payment:formatted_balance;)</span>
+													</label>
+												</mvt:if>
+											</li>
+											<li class="c-form-list__item">
+												<label class="c-form-checkbox c-form-checkbox--radio u-font-small">
+													<mvt:if expr="g.AmountType EQ 'partial'">
+														<input class="c-form-checkbox__input" type="radio" name="AmountType" value="partial" onclick="AmountType_Changed( this.value );" checked>
+														<span class="c-form-checkbox__caption">Partial: <input class="c-form-input" data-hook="payment-amount" type="text" name="Amount" value="&mvte:global:Amount;"></span>
+													<mvt:else>
+														<input class="c-form-checkbox__input" type="radio" name="AmountType" value="partial" onclick="AmountType_Changed( this.value );">
+														<span class="c-form-checkbox__caption">Partial: <input class="c-form-input" data-hook="payment-amount" type="text" name="Amount" value="&mvte:global:Amount;" disabled></span>
+													</mvt:if>
+												</label>
+											</li>
+										</ul>
+					
+										<mvt:if expr="g.AmountType EQ 'total'">
+											<mvt:assign name="l.settings:display" value="'u-hidden'" />
+										<mvt:else>
+											<mvt:assign name="l.settings:display" value="'u-shown'" />
+										</mvt:if>
+										<section class="&mvt:display; u-text-uppercase" data-hook="payment-additional">
+											<p class="c-heading-echo u-text-bold">Pay Additional Balance With</p>
+											<ul class="c-form-list">
+												<mvt:foreach array="paymentmethods" iterator="method">
+													<mvt:if expr="( l.settings:method:module NE 'customercredit' ) OR ( ( g.PaymentMethod NE 'customercredit:credit' ) AND ( NOT miva_array_search( l.settings:splitpayment:splits, 1, l.split, 'l.split:module:code EQ l.settings:method:module' ) ) )">
+														<li class="c-form-list__item c-form-list__item--full u-font-small">
+															<mvt:if expr="pos1 EQ 1">
+																<label class="c-form-checkbox c-form-checkbox--radio u-font-small">
+																	<mvt:if expr="l.settings:method:paymentcard:id">
+																		<input class="c-form-checkbox__input" type="radio" name="AdditionalPaymentMethod" value="paymentcard:&mvte:method:paymentcard:id;" checked>
+																	<mvt:elseif expr="l.settings:method:paymentcardtype:id">
+																		<input class="c-form-checkbox__input" type="radio" name="AdditionalPaymentMethod" value="paymentcardtype:&mvte:method:paymentcardtype:id;" checked>
+																	<mvt:else>
+																		<input class="c-form-checkbox__input" type="radio" name="AdditionalPaymentMethod" value="&mvte:method:module;:&mvte:method:code;" checked>
+																	</mvt:if>
+																	<span class="c-form-checkbox__caption">&mvt:method:name;</span>
+																</label>
+															<mvt:else>
+																<label class="c-form-checkbox c-form-checkbox--radio u-font-small">
+																	<mvt:if expr="l.settings:method:paymentcard:id">
+																		<input class="c-form-checkbox__input" type="radio" name="AdditionalPaymentMethod" value="paymentcard:&mvte:method:paymentcard:id;">
+																	<mvt:elseif expr="l.settings:method:paymentcardtype:id">
+																		<input class="c-form-checkbox__input" type="radio" name="AdditionalPaymentMethod" value="paymentcardtype:&mvte:method:paymentcardtype:id;">
+																	<mvt:else>
+																		<input class="c-form-checkbox__input" type="radio" name="AdditionalPaymentMethod" value="&mvte:method:module;:&mvte:method:code;">
+																	</mvt:if>
+																	<span class="c-form-checkbox__caption">&mvt:method:name;</span>
+																</label>
+															</mvt:if>
+														</li>
+													</mvt:if>
+												</mvt:foreach>
+											</ul>
+										</section>
+									</mvt:if>
+									
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full o-layout o-layout--align-center u-flex">
+											<div class="o-layout__item u-text-right">
+												<span class="c-heading-delta u-text-uppercase u-text-bold">
+													<span class="c-heading--subheading">Current Total</span><br>
+													&mvt:basket:formatted_total;
+												</span>
+											</div>
+											<div class="o-layout__item t-payment-cta">
+												<mvt:if expr="l.settings:paymentsettings:mivapay:enabled AND ( l.settings:mivapay:paymentcardtype:id OR l.settings:mivapay:paymentcard:id )">
+													<script>
+														var onclick_submit = function () {
+															if (MivaPay && ( typeof MivaPay.Submit === 'function' )) {
+																MivaPay.Submit(function () {
+																	var form;
+						
+																	form = document.querySelector('[data-hook="opay-form"]');
+																	form.submit();
+																});
+															}
+														}
+													</script>
+													
+													<span onclick="onclick_submit(); return false;">
+														<input class="c-button c-button--huge c-button--full u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" type="submit" value="Complete Order">
+													</span>
+												<mvt:elseif expr="'brain' CIN g.PaymentMethod OR 'square' CIN g.PaymentMethod">
+													<input class="c-button c-button--huge c-button--full u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" type="submit" value="Complete Order">
+												<mvt:else>
+													<mvt:if expr="g.cc_payment EQ 1">
+														<input class="c-button c-button--huge c-button--full u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" data-hook="submit-form" type="submit" value="Complete Order">
+													<mvt:else>
+														<input class="c-button c-button--huge c-button--full u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" type="submit" value="Complete Order">
+													</mvt:if>
+												</mvt:if>
+											</div>
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+							
+							<hr class="c-keyline">
+							
+							<mvt:item name="customer" file="OPAY-custflds-item.htm" />
+						</div>
+						<aside class="o-layout__item u-width-12 u-width-5--l u-width-4--w">
+							<mvt:item name="basket" file="OPAY-basket-item.htm" />
+						</aside>
+					</section>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="OPAY-footer-item.htm" />
+
+			<div class="u-hidden" data-cvv>
+				<section class="c-mini-modal__element-subject u-width-12 u-width-6--m u-width-4--l u-bg-white">
+					<p class="c-heading-delta u-text-uppercase">Card Security Code</p>
+					<p><strong>What is the CVV2 and what does it look like?</strong><br />For your protection, we ask that you enter an extra 3-4 digit number called the CVV2. The CVV2 is NOT your PIN number and is not the last 3 or 4 digits of your credit card number. It is an extra ID printed on your Visa, MasterCard, Discover or American Express Card.<br />We request this code as a security measure to our customers. Requiring this information helps to ensure that the credit card is present at the time of purchase. If you cannot find this code or it is illegible, please contact your credit card issuer.</p>
+					<p><strong>Visa, MasterCard and Discover:</strong><br />On the back of the card in the top-right corner of the signature box. Enter the three-digit number following the credit card number. (See below.)</p>
+					<p><strong>American Express:</strong><br />On the front of the card. Enter the four-digit number on the right directly above the credit card number. (See below.)</p>
+					<p class="h-align-center"><img src="&mvte:global:theme_path;/core/images/img_cvv.png" alt="CID/CVV/CVV2 Locations" title="CID/CVV/CVV2 Locations"></p>
+				</section>
+			</div>
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

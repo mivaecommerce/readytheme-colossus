@@ -1,0 +1,99 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="WISH-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+					<mvt:item name="breadcrumbs" />
+					<div class="o-layout o-layout--align-center o-layout--justify-between">
+						<span class="o-layout__item c-heading-delta t-account-landing-section__heading">
+							&mvte:wishlist:title;
+							<mvt:if expr="l.settings:wishlist:cust_id EQ g.Basket:cust_id AND g.Customer_Session_Verified">
+								<mvt:if expr="l.settings:wishlist:shared">
+									<span class="c-heading--subheading">[Public]</span>
+								<mvt:else>
+									<span class="c-heading--subheading u-color-red">[Private]</span>
+								</mvt:if>
+							</mvt:if>
+						</span>
+						<span class="o-layout__item">
+							<mvt:if expr="l.settings:wishlist:cust_id EQ g.Basket:cust_id AND g.Customer_Session_Verified">
+								<span class="c-control-group u-font-small u-text-uppercase o-layout--justify-end">
+									<a class="c-button c-control-group__button u-bg-black" href="&mvte:urls:WLED:auto_sep;WishList_ID=&mvta:wishlist:id;">Edit</a>
+									<a class="c-button c-button--hollow c-control-group__button u-bg-white u-color-gray-50" href="&mvte:urls:WLST:secure_sep;Action=DWSH&WishList_ID=&mvta:wishlist:id;" onClick="if ( !confirm( 'Are you sure you want to delete your wish list? This action cannot be undone\x0A\x0AContinue?' ) ) return false;">Delete</a>
+								</span>
+							</mvt:if>
+						</span>
+					</div>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<mvt:if expr="(NOT ISNULL l.settings:wishlist:notes) OR (l.settings:wishlist:cust_id EQ g.Basket:cust_id AND g.Customer_Session_Verified AND l.settings:wishlist:shared)">
+						<div class="o-layout">
+							<mvt:if expr="NOT ISNULL l.settings:wishlist:notes">
+								<div class="o-layout__item u-width-12 u-width-6--m">
+									<p class="u-font-small">Notes: &mvte:wishlist:notes;</p>
+								</div>
+							</mvt:if>
+							<mvt:if expr="l.settings:wishlist:cust_id EQ g.Basket:cust_id AND g.Customer_Session_Verified AND l.settings:wishlist:shared">
+								<div class="o-layout__item u-width-12 u-width-6--m u-text-right--m">
+									<p class="x-messages x-messages--info u-inline-block u-text-left">
+										<span class="u-text-bold">
+											If you would like to share your wish list via email, copy this link:
+											<code class="u-block u-color-black u-font-small">&mvte:urls:_self:auto_sep;WishList_ID=&mvte:global:WishList_ID;</code>
+										</span>
+									</p>
+								</div>
+							</mvt:if>
+						</div>
+					</mvt:if>
+					<mvt:item name="wishlistitems" file="WISH-wishlistitems-item.htm" />
+					<br>
+					<mvt:if expr="l.settings:wishlistitems:item_count">
+						<form method="post" action="&mvte:urls:BASK:secure;">
+							<fieldset>
+								<legend>Add All &mvte:wishlist:title; Items to Cart</legend>
+								<input type="hidden" name="Action" value="AFWA">
+								<input type="hidden" name="WishList_ID" value="&mvte:global:WishList_ID;">
+								<ul class="c-form-list">
+									<li class="c-form-list__item c-form-list__item--full u-text-right">
+										<input class="c-button c-button--huge u-bg-black u-text-bold u-font-small u-text-uppercase" type="submit" value="Add All To Cart">
+									</li>
+							</fieldset>
+						</form>
+					</mvt:if>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="WISH-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

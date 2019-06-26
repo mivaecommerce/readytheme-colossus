@@ -1,0 +1,3101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shadows ReadyTheme: Extensions</title>
+	<link href="themes/documentation/site-styles.css" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#efefef">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+	<header class="x-site-header" data-cms-block data-cms-content="global/global-header.html"></header>
+	<!-- /.x-site-header -->
+	
+	<main>
+		<div class="o-wrapper">
+			<div class="o-layout o-layout--wide">
+				<section class="o-layout__item u-width-9--m  o-layout__last x-site-content">
+					<h1>
+						<span class="c-heading-bravo u-text-bold">Extensions</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/</code>
+					</h1>
+					<hr class="c-keyline">
+
+					<h3 id="accordion-category-tree">
+						<span class="c-heading-charlie">Accordion Category Tree</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/category-tree/accordion/accordion-category-tree.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							.x-accordion-category-tree {
+								padding-top: 2rem;
+								padding-bottom: 2rem;
+							}
+							
+								.x-accordion-category-tree__row {
+									margin-bottom: 0;
+									margin-left: 0;
+									padding-right: 5rem;
+									list-style: none;
+								}
+							
+									.x-accordion-category-tree__list--level-1:not(:last-of-type) {
+										margin-bottom: 1rem;
+										padding-bottom: 1rem;
+										border-bottom: 1px solid;
+									}
+							
+										.x-accordion-category-tree__summary {
+											display: flex;
+											align-items: center;
+											justify-content: space-between;
+										}
+							
+											.x-accordion-category-tree__toggle {
+												color: currentColor;
+											}
+							
+												.x-accordion-category-tree__toggle span {
+													display: inline-block;
+												}
+							
+												.is-active .x-accordion-category-tree__toggle span::before {
+													content: '\3c';
+												}
+							
+										.x-accordion-category-tree__details {
+											max-height: 0;
+											font-size: 0.9375em;
+											opacity: 0;
+											overflow: hidden;
+											-webkit-transform: scaleY(0);
+											-ms-transform: scaleY(0);
+											transform: scaleY(0);
+											transform-origin: top;
+											transition: opacity ease-out 0.1s;
+										}
+							
+										.is-active .x-accordion-category-tree__details {
+											max-height: none;
+											opacity: 1;
+											-webkit-transform: scaleY(1);
+											-ms-transform: scaleY(1);
+											transform: scaleY(1);
+											transition: opacity ease-in 0.1s;
+										}
+							
+											.x-accordion-category-tree__list--level-2 {
+												line-height: 2.2;
+											}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/category-tree/accordion/accordion-category-tree.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<nav class="x-accordion-category-tree t-accordion-category-tree">
+								<mvt:comment>
+									Check if the current, parent category has any children.
+								</mvt:comment>
+								<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:breadcrumbs:links[1]:code, l.settings:current_parent)"/>
+								<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent(l.settings:current_parent:id, l.settings:children)"/>
+								<mvt:if expr="l.settings:children GT 0">
+									<mvt:comment>
+										If the parent category has children, show all child and grandchild categories in an accordion navigation.
+									</mvt:comment>
+									<ul class="x-accordion-category-tree__row">
+										<mvt:foreach iterator="child" array="children">
+											<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+											<mvt:assign name="l.uri:cat_id" value="l.settings:child:id"/>
+											<mvt:assign name="l.settings:grandchildren" value="0"/>
+											<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:child:code, l.settings:current_child)"/>
+											<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent(l.settings:current_child:id, l.settings:grandchildren)"/>
+											<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:child:link)"/>
+											<mvt:foreach iterator="grandchild" array="grandchildren">
+												<mvt:if expr="l.settings:grandchild:code EQ l.settings:breadcrumbs:current_item:code">
+													<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_ID(l.settings:grandchild:parent_id, l.settings:parent_category)" />
+												</mvt:if>
+											</mvt:foreach>
+											<mvt:if expr="(l.settings:child:code EQ l.settings:breadcrumbs:current_item:code) OR (l.settings:child:code EQ l.settings:parent_category:code)">
+												<mvt:assign name="l.settings:current:active" value="'is-active'"/>
+												<mvt:assign name="l.settings:current:child" value="'x-accordion-category-tree__link--current'"/>
+											<mvt:else>
+												<mvt:assign name="l.settings:current:active" value="''"/>
+												<mvt:assign name="l.settings:current:child" value="''"/>
+											</mvt:if>
+											<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-1 &mvte:current:active;">
+												<div class="x-accordion-category-tree__summary">
+													<a class="x-accordion-category-tree__link &mvte:current:child; u-text-medium" href="&mvte:child:link:uri;">&mvte:child:name;</a>
+													<mvt:if expr="l.settings:grandchildren GT 0">
+														<button class="x-accordion-category-tree__toggle c-button u-bg-transparent u-font-tiny" data-hook="accordion-toggle" type="button" aria-label="View More &mvte:child:name;"><span class="u-icon-add"></span></button>
+													</mvt:if>
+												</div>
+												<mvt:if expr="l.settings:grandchildren GT 0">
+													<ul class="x-accordion-category-tree__row x-accordion-category-tree__details">
+														<mvt:foreach iterator="grandchild" array="grandchildren">
+															<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+															<mvt:assign name="l.uri:cat_id" value="l.settings:grandchild:id"/>
+															<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:grandchild:link)"/>
+															<mvt:if expr="l.settings:grandchild:code EQ l.settings:breadcrumbs:current_item:code">
+																<mvt:assign name="l.settings:current:grandchild" value="'x-accordion-category-tree__link--current'"/>
+															<mvt:else>
+																<mvt:assign name="l.settings:current:grandchild" value="''"/>
+															</mvt:if>
+															<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-2">
+																<a class="x-accordion-category-tree__link &mvte:current:grandchild;" href="&mvte:grandchild:link:uri;">&mvte:grandchild:name;</a>
+															</li>
+														</mvt:foreach>
+													</ul>
+												</mvt:if>
+											</li>
+										</mvt:foreach>
+									</ul>
+								<mvt:else>
+									<mvt:comment>
+										If the parent category does not have children, show all parent and, applicable,
+										child categories in an accordion navigation.
+									</mvt:comment>
+									<ul class="x-accordion-category-tree__row">
+										<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent('', l.settings:parent_categories)" />
+										<mvt:foreach iterator="parent" array="parent_categories">
+											<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+											<mvt:assign name="l.uri:cat_id" value="l.settings:parent:id"/>
+											<mvt:assign name="l.settings:children" value="0"/>
+											<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:parent:code, l.settings:current_parent)"/>
+											<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent(l.settings:current_parent:id, l.settings:children)"/>
+											<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:parent:link)"/>
+											<mvt:foreach iterator="child" array="children">
+												<mvt:if expr="l.settings:child:code EQ l.settings:breadcrumbs:current_item:code">
+													<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_ID(l.settings:child:parent_id, l.settings:parent_category)" />
+												</mvt:if>
+											</mvt:foreach>
+											<mvt:if expr="(l.settings:parent:code EQ l.settings:breadcrumbs:current_item:code) OR (l.settings:parent:code EQ l.settings:parent_category:code)">
+												<mvt:assign name="l.settings:current:active" value="'is-active'"/>
+												<mvt:assign name="l.settings:current:parent" value="'x-accordion-category-tree__link--current'"/>
+											<mvt:else>
+												<mvt:assign name="l.settings:current:active" value="''"/>
+												<mvt:assign name="l.settings:current:parent" value="''"/>
+											</mvt:if>
+											<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-1 &mvte:current:active;">
+												<div class="x-accordion-category-tree__summary">
+													<a class="x-accordion-category-tree__link &mvte:current:parent; u-text-medium" href="&mvte:parent:link:uri;">&mvte:parent:name;</a>
+													<mvt:if expr="l.settings:children GT 0">
+														<button class="x-accordion-category-tree__toggle c-button u-bg-transparent u-font-tiny" data-hook="accordion-toggle" type="button" aria-label="View More &mvte:parent:name;"><span class="u-icon-add"></span></button>
+													</mvt:if>
+												</div>
+												<mvt:if expr="l.settings:children GT 0">
+													<ul class="x-accordion-category-tree__row x-accordion-category-tree__details">
+														<mvt:foreach iterator="child" array="children">
+															<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+															<mvt:assign name="l.uri:cat_id" value="l.settings:child:id"/>
+															<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:child:link)"/>
+															<mvt:if expr="l.settings:child:code EQ l.settings:breadcrumbs:current_item:code">
+																<mvt:assign name="l.settings:current:child" value="'x-accordion-category-tree__link--current'"/>
+															<mvt:else>
+																<mvt:assign name="l.settings:current:child" value="''"/>
+															</mvt:if>
+															<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-2">
+																<a class="x-accordion-category-tree__link &mvte:current:child;" href="&mvte:child:link:uri;">&mvte:child:name;</a>
+															</li>
+														</mvt:foreach>
+													</ul>
+												</mvt:if>
+											</li>
+										</mvt:foreach>
+									</ul>
+								</mvt:if>
+							</nav>
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+
+					<h3 id="custom-selects">
+						<span class="c-heading-charlie">Custom Selects</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/custom-elements/selects/custom-select.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							/**
+							 * This extension will create a stylish drop-down list from the `select`
+							 * elements on tbe page. It will pull the currently selected option as well
+							 * as trigger any change event attached to the original `select`. The new
+							 * list created from the select will respect any `disabled` attribute on
+							 * the select or any option.
+							 */
+							
+							.c-form-select:not(.x-stock-select-element) {
+								transition: visibility cubic-bezier(0, 0, 0.4, 1) 0.15s;
+								visibility: hidden;
+							}
+							
+							.x-custom-select {
+								position: relative;
+								white-space: nowrap;
+								background-color: #fff;
+								opacity: 0;
+								-webkit-tap-highlight-color: transparent;
+								transition: opacity cubic-bezier(0, 0, 0.4, 1) 0.15s, visibility cubic-bezier(0, 0, 0.4, 1) 0.15s;
+								-webkit-user-select: none;
+								-moz-user-select: none;
+								-ms-user-select: none;
+								user-select: none;
+								visibility: hidden;
+							}
+							
+								.x-custom-select.is-loaded {
+									opacity: 1;
+									visibility: visible;
+								}
+							
+								.x-custom-select.is-disabled {
+									opacity: 0.5;
+									pointer-events: none;
+								}
+								
+								
+								.x-custom-select__title {
+									display: flex;
+									align-items: center;
+									justify-content: center;
+									width: 100%;
+									padding: 1rem;
+									position: relative;
+									color: #333;
+									font-size: 0.75rem;
+									font-weight: 600;
+									text-align: left;
+									background-color: #fff;
+									border: 1px solid rgba(205, 205, 205, 0.7);
+									cursor: pointer;
+									outline: none;
+								}
+									
+									.is-open .x-custom-select__title {
+										border-bottom-color: #fff;
+									}
+									
+									.x-custom-select__title::after {
+										display: inline-block;
+										width: 6px;
+										height: 6px;
+										margin-left: 1em;
+										position: relative;
+										top: -1px;
+										border-bottom: 2px solid #595452;
+										border-right: 2px solid #595452;
+										content: '';
+										pointer-events: none;
+										transition: all 0.15s ease-in-out;
+										transform: rotate(45deg);
+									}
+									
+									.is-open .x-custom-select__title::after {
+										transform: rotate(-135deg);
+									}
+									
+									.x-custom-select__title > *:not(:empty) {
+										padding-right: 0.25em;
+										padding-left: 0.25em;
+										pointer-events: none;
+									}
+									
+									.x-custom-select__title span {
+										color: #6e6e6e;
+										text-transform: uppercase;
+									}
+								
+									
+									.x-custom-select__list {
+										min-width: 100%;
+										max-width: 20rem;
+										max-height: 15rem;
+										margin: 0;
+										padding: 0;
+										position: absolute;
+										font-size: 0.875rem;
+										font-weight: 600;
+										list-style: none;
+										background-color: #fff;
+										box-shadow: 0 0 1.5rem 0 rgba(51, 51, 51, 0.25);
+										opacity: 0;
+										overflow-x: hidden;
+										overflow-y: auto;
+										pointer-events: none;
+										transform-origin: top center;
+										transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+										transform: scale(0.75) translateY(-1.5em);
+										z-index: 999;
+									}
+									
+										.is-open .x-custom-select__list {
+											opacity: 1;
+											pointer-events: auto;
+											transform: scale(1) translateY(0);
+										}
+										
+										.x-custom-select__list-item {
+											padding: 1em 1rem;
+											text-align: center;
+											cursor: pointer;
+										}
+										
+										.x-custom-select__list-item:hover {
+											background-color: #ededed;
+										}
+											
+											.x-custom-select__list-item.is-selected {
+												background-color: #f7f7f7;
+											}
+											
+											.x-custom-select__list-item.is-disabled {
+												color: #ccc;
+												pointer-events: none;
+											}
+							
+							
+							
+							
+							
+							.c-form-select.x-custom-select-replacement::before,
+							.c-form-select.x-custom-select-replacement::after {
+								display: none;
+							}
+							
+							.x-product-layout-purchase__options-attribute .x-custom-select-replacement {
+								max-width: 20rem;
+							}
+							
+							.x-product-layout-purchase__options-attribute .x-custom-select__title {
+								padding-top: 0.875rem;
+								padding-bottom: 0.875rem;
+							}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/custom-elements/selects/custom-select.js</code></p>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 |c|u|s|t|o|m| |s|e|l|e|c|t|
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 *
+							 * This extension will create a stylish drop-down list from the `select`
+							 * elements on tbe page. It will pull the currently selected option as well
+							 * as trigger any change event attached to the original `select`. The new
+							 * list created from the select will respect any `disabled` attribute on
+							 * the select or any option.
+							 *
+							 * If you do not want a `select` element to be customized, add the attribute
+							 * `data-no-custom` to it and it will remain stock.
+							 */
+							
+							let changes = (function () {
+								'use strict';
+							
+								const publicAPIs = {};
+								const selectElements = document.querySelectorAll('select:not([data-no-custom])');
+								const nonCustomElements = document.querySelectorAll('select[data-no-custom]');
+							
+								/**
+								 * This function allows the filtering of the select list.
+								 */
+								function filterList(input, activeList) {
+									let filter = input.toUpperCase();
+									let listItems = activeList.querySelectorAll('li');
+									let filteredItems = [];
+							
+									for (let i = 0; i < listItems.length; i++) {
+										let itemValue = listItems[i].textContent || listItems[i].innerText;
+							
+										if (itemValue.substring(0,1).toUpperCase().indexOf(filter) > -1) {
+											filteredItems.push(listItems[i]);
+										}
+									}
+									activeList.querySelector('ul').scrollTo(0, filteredItems[0].offsetTop);
+								}
+							
+								publicAPIs.init = function () {
+									if (nonCustomElements.length > 0) {
+										for (let i = 0; i < nonCustomElements.length; i++) {
+											nonCustomElements[i].parentElement.classList.remove('u-invisible');
+											nonCustomElements[i].parentElement.classList.add('x-stock-select-element');
+										}
+									}
+							
+									if (selectElements.length > 0) {
+										const mainClass = 'x-custom-select';
+										const titleClass = 'x-custom-select__title';
+										const listClass = 'x-custom-select__list';
+										const listItemClass = 'x-custom-select__list-item';
+										const selectedClass = 'is-selected';
+										const openClass = 'is-open';
+										const disabledClass = 'is-disabled';
+										const loadedClass = 'is-loaded';
+										let activeContainer;
+										let selectCount = selectElements.length;
+							
+										while (selectCount--) {
+											let selectElement = selectElements[selectCount];
+											let selectElementTitle = selectElement.getAttribute('data-label') ? selectElement.getAttribute('data-label') : '';
+											let selectOptions = selectElement.options;
+											let optionsLength = selectOptions.length;
+											let customSelectContainer = document.createElement('div');
+											let customSelectTrigger = document.createElement('button');
+											let customSelectList = document.createElement('ul');
+							
+											if (selectElement.id) {
+												customSelectContainer.id = 'custom-' + selectElement.id;
+											}
+											customSelectContainer.setAttribute('data-hook', 'custom-select');
+											customSelectContainer.classList.add(mainClass);
+											if (selectElement.hasAttribute('disabled')) {
+												customSelectContainer.classList.add(disabledClass);
+											}
+											customSelectTrigger.setAttribute('type', 'button');
+											customSelectTrigger.classList.add(titleClass);
+											customSelectTrigger.innerHTML = selectElementTitle;
+											customSelectList.classList.add(listClass);
+							
+											if (selectElementTitle !== '') {
+												selectElementTitle = '<span>' + selectElementTitle + '</span>';
+											}
+							
+											while (optionsLength--) {
+												let li = document.createElement('li');
+							
+												li.classList.add(listItemClass);
+												if (selectOptions[optionsLength].hasAttribute('disabled')) {
+													li.classList.add(disabledClass);
+												}
+												li.innerHTML = selectOptions[optionsLength].textContent.replace(/[<>]/gi, '');
+												li.setAttribute('data-value', selectOptions[optionsLength].value);
+												li.setAttribute('data-index', optionsLength);
+							
+												if (selectElement.selectedIndex === optionsLength) {
+													li.classList.add(selectedClass);
+													if (selectElement.hasAttribute('data-append')){
+														customSelectTrigger.innerHTML = '<strong>' + selectOptions[optionsLength].textContent.replace(/[<>]/gi, '') + '</strong> ' + selectElementTitle;
+													}
+													else {
+														customSelectTrigger.innerHTML = selectElementTitle + ' <strong>' + selectOptions[optionsLength].textContent.replace(/[<>]/gi, '') + '</strong>';
+													}
+												}
+							
+												customSelectList.insertBefore(li, customSelectList.childNodes[0]);
+											}
+							
+											customSelectContainer.appendChild(customSelectTrigger);
+											customSelectContainer.appendChild(customSelectList);
+											selectElement.parentElement.append(customSelectContainer);
+											selectElement.parentElement.classList.add('x-custom-select-replacement');
+											selectElement.classList.add('u-hidden');
+											selectElement.parentElement.classList.add('u-visible');
+											customSelectContainer.classList.add(loadedClass);
+							
+											customSelectContainer.addEventListener('click', function (clickEvent) {
+												clickEvent.preventDefault();
+							
+												let target = clickEvent.target;
+							
+												activeContainer = target.parentElement;
+							
+												if (target.className === titleClass) {
+													customSelectList.parentElement.classList.toggle(openClass);
+												}
+							
+												if (target.tagName === 'LI') {
+													if (selectElement.hasAttribute('data-append')){
+														customSelectContainer.querySelector('.' + titleClass).innerHTML = '<strong>' + target.innerText.replace(/[<>]/gi, '') + '</strong> ' + selectElementTitle;
+													}
+													else {
+														customSelectContainer.querySelector('.' + titleClass).innerHTML = selectElementTitle + ' <strong>' + target.innerText.replace(/[<>]/gi, '') + '</strong>';
+													}
+													selectElement.options.selectedIndex = target.getAttribute('data-index');
+							
+													//trigger 'change' event
+													let evt = new CustomEvent('change');
+							
+													selectElement.dispatchEvent(evt);
+							
+													let targetSiblings = [].filter.call(target.parentElement.children, function (sibling) {
+														return sibling !== target && sibling.matches('li');
+													});
+							
+													for (let i = 0; i < targetSiblings.length; i++) {
+														targetSiblings[i].classList.remove(selectedClass);
+													}
+							
+													target.classList.add(selectedClass);
+							
+													customSelectList.parentElement.classList.remove(openClass);
+												}
+							
+											});
+							
+										}
+							
+							
+										document.addEventListener("keypress", function (keyEntry) {
+											if (activeContainer && activeContainer.classList.contains(openClass)) {
+												filterList(keyEntry.key, activeContainer);
+											}
+										}, false);
+							
+										/**
+										 * Closes the current select on any click outside of it.
+										 *
+										 */
+										document.addEventListener('mousedown', function (mouseEvent) {
+											let mouseEventTarget = mouseEvent.target;
+							
+											if (activeContainer && activeContainer.classList.contains(openClass)) {
+												if (!activeContainer.contains(mouseEventTarget) && mouseEventTarget !== activeContainer) {
+													mouseEvent.preventDefault();
+													activeContainer.classList.remove(openClass);
+												}
+											}
+										}, false);
+							
+									}
+							
+								};
+							
+								return publicAPIs.init();
+							}());
+						--></code>
+					</pre>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 * Load and initialize the Custom Select extension
+							 */
+							$.loadScript(theme_path + 'extensions/custom-elements/selects/custom-select.js');
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+					
+					<h3 id="radio-to-button">
+						<span class="c-heading-charlie">Radio to Button</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/custom-elements/radios/radio-to-button.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							/**
+							 * This extension automatically converts the `radio` style product attribute into a more usable button.
+							 */
+							
+							.x-radio-to-button {
+								margin: 0 1em 0.5em 0;
+								font-size: 0.875rem;
+							}
+							
+								.x-radio-to-button .c-form-checkbox__caption {
+									display: block;
+									margin: 2px;
+									padding: 0.5em 1rem;
+									font-weight: 600;
+									outline: 1px solid currentColor;
+									opacity: 0.85;
+									transition: opacity ease-in-out 0.3s;
+								}
+							
+								.x-radio-to-button .c-form-checkbox__caption::before,
+								.x-radio-to-button .c-form-checkbox__caption::after {
+									display: none;
+								}
+							
+								.x-radio-to-button .c-form-checkbox__input:hover + .c-form-checkbox__caption,
+								.x-radio-to-button .c-form-checkbox__input:checked + .c-form-checkbox__caption {
+									outline-width: 2px;
+									opacity: 1;
+								}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/custom-elements/radios/radio-to-button.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<mvt:comment>
+								This is an excerpt from the product attribute template code included in Colossus as an example.
+							</mvt:comment>
+							<mvt:foreach iterator="option" array="attribute:options">
+								<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline x-radio-to-button" title="&mvt:option:prompt;">
+									<mvt:if expr="((g.Product_Attributes[l.settings:attribute:index]:value EQ 0) AND (l.settings:option:id EQ l.settings:attribute:default_id)) OR (g.Product_Attributes[l.settings:attribute:index]:value EQ l.settings:option:code)">
+										<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:option:price;" data-regular-price="" type="radio" name="Product_Attributes[&mvte:attribute:index;]:value" value="&mvte:option:code;" checked &mvt:required_attribute;>
+									<mvt:else>
+										<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:option:price;" data-regular-price="" type="radio" name="Product_Attributes[&mvte:attribute:index;]:value" value="&mvte:option:code;" &mvt:required_attribute;>
+									</mvt:if>
+									<span class="c-form-checkbox__caption">
+										<mvt:if expr="l.settings:option:image">
+											<img src="&mvte:option:image;" alt="&mvte:option:prompt;" title="&mvte:option:prompt;" />
+										<mvt:else>
+											&mvte:option:prompt;
+										</mvt:if>
+									</span>
+								</label>
+							</mvt:foreach>
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+
+					<h3 id="product-imagery">
+						<span class="c-heading-charlie">Product Imagery</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/product-layout/imagery/product-imagery.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							/**
+							 * With this extension you can display the image thumbnails in a vertical carouse next to the main image.
+							 * Then, when you click to zoom, you can view all the product images as a carousel in a light-box.
+							 */
+							
+							.x-product-imagery {
+								display: flex;
+								flex-direction: column-reverse;
+								margin-bottom: 1.5rem;
+							}
+							
+								.x-product-imagery__thumbnail-list:empty {
+									display: none;
+								}
+							
+								.x-product-imagery__thumbnail-list {
+									padding: 0 3rem;
+									opacity: 0;
+									overflow: hidden;
+									transition: opacity ease-in-out 0.3s, visibility ease-in-out 0.3s;
+									visibility: hidden;
+								}
+							
+									.x-product-imagery__thumbnail-list .slick-track {
+										display: flex;
+										flex-flow: row nowrap;
+									}
+							
+										.x-product-imagery__thumbnail-list .slick-slide {
+											display: flex;
+											height: auto;
+											margin: 0 0.25rem;
+										}
+							
+											.x-product-imagery__thumbnail-list .slick-slide > div {
+												display: flex;
+											}
+							
+									.x-product-layout-images__thumbnail-image {
+										display: inline-block;
+										margin-bottom: 0;
+										padding: 0.5rem;
+										border: 1px solid #ededed;
+									}
+							
+										.x-product-layout-images__thumbnail-image img {
+											position: relative;
+											top: 50%;
+											pointer-events: none;
+											-webkit-transform: translateY(-50%);
+											-ms-transform: translateY(-50%);
+											transform: translateY(-50%);
+										}
+							
+								.x-product-imagery__showcase {
+									display: flex;
+									align-items: center;
+									justify-content: center;
+									flex: 1 1 100%;
+									margin: 0 0 0.5rem;
+									padding: 2rem 0;
+									border: 1px solid #ededed;
+									opacity: 0;
+									overflow: hidden;
+									transition: opacity ease-in-out 0.3s, visibility ease-in-out 0.3s;
+									visibility: hidden;
+								}
+							
+								.x-product-imagery__thumbnail-list:empty + .x-product-imagery__showcase,
+								.x-product-imagery__thumbnail-list.slick-initialized + .x-product-imagery__showcase {
+									opacity: 1;
+									overflow: visible;
+									visibility: visible;
+								}
+							
+									.x-product-layout-images__image {
+										margin: 0;
+									}
+							
+							
+								.x-photo-gallery-template {
+									height: 0;
+									opacity: 0;
+									overflow: hidden;
+									transition: opacity ease-in-out 0.3s, visibility ease-in-out 0.3s;
+									visibility: hidden;
+								}
+							
+								.x-photo-gallery-template.is-active {
+									height: auto;
+									opacity: 1;
+									overflow: visible;
+									visibility: visible;
+								}
+							
+									.x-product-photo-gallery .slick-slide div {
+										text-align: center;
+									}
+							
+										.x-product-photo-gallery .slick-slide img {
+											width: auto !important;
+											max-height: 75vh;
+											margin: auto;
+										}
+							
+							@media (min-width: 48em) {
+								.x-product-imagery {
+									flex-direction: row;
+								}
+							
+									.x-product-imagery__thumbnail-list {
+										display: flex;
+										flex-flow: column nowrap;
+										align-self: stretch;
+										justify-content: space-between;
+										margin-right: 1rem;
+										padding: 0;
+									}
+							
+										.x-product-imagery__thumbnail-list .slick-track {
+											flex-direction: column;
+										}
+							
+											.x-product-imagery__thumbnail-list .slick-slide {
+												display: block;
+												height: 100%;
+												margin: 0;
+											}
+							
+												.x-product-imagery__thumbnail-list .slick-slide > div {
+													display: block;
+												}
+							
+												.x-product-imagery__thumbnail-list .slick-next,
+												.x-product-imagery__thumbnail-list .slick-prev {
+													width: 100%;
+													height: 2rem;
+													position: relative;
+													top: auto;
+													right: auto;
+													left: auto;
+													-webkit-transform: none;
+													-ms-transform: none;
+													transform: none;
+												}
+							
+												.x-product-imagery__thumbnail-list .slick-next::before {
+													content: '\31';
+												}
+							
+												.x-product-imagery__thumbnail-list .slick-prev::before {
+													content: '\30';
+												}
+							}
+							
+							@media (min-width: 60em) {
+								.x-product-imagery {
+									margin-bottom: 0;
+								}
+							}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">User Interface -> Product Display -> Product Display Layout</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<mvt:comment>
+								This is an excerpt from the product display layout template code included in Colossus.
+								You can use this to replace similar elements in other themes.
+							</mvt:comment>
+
+							...
+							
+							<div class="x-product-imagery">
+								<div id="thumbnails" class="x-product-imagery__thumbnail-list" data-hook="product-thumbnails"></div>
+								<figure class="x-product-imagery__showcase">
+									<img id="main_image" class="x-product-layout-images__image" data-hook="product-image" data-index="0" data-mini-modal data-mini-modal-content="data-hook=photo-gallery-template" data-mini-modal-type="inline" src="graphics/en-US/cssui/blank.gif" alt="&mvte:product:name;" title="&mvte:product:name;">
+								</figure>
+							</div>
+							<mvt:item name="product_display_imagemachine" param="body_deferred:product:id"/>
+							
+							...
+
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">User Interface -> Product Display -> Product Display Layout Image Machine</code></p>
+					<pre class="language-javascript">
+						<code><!--
+							let generate_thumbnail_event = new CustomEvent('ImageMachine_Generate_Thumbnail');
+							let thumbnailIndex = 0;
+							let thumbnail_width;
+							let thumbnail_height;
+							let gallery = [];
+							let gallery_container;
+							let gallery_Index = 0;
+							let productName = '&mvte:product:name;';
+							let cleanProductName = productName.replace(/'/g, '&#039;');
+							
+							
+							gallery_container = document.createElement('div');
+							gallery_container.classList.add('x-product-photo-gallery');
+							gallery_container.setAttribute('data-hook', 'photo-gallery');
+							
+							
+							/**
+							 * This function allows you to prepend or append code to an existing function.
+							 * https://stackoverflow.com/questions/9134686/adding-code-to-a-javascript-function-programmatically
+							 */
+							function functionExtender(container, funcName, prepend, append) {
+								(function () {
+									'use strict';
+									let cachedFunction = container[funcName];
+							
+									container[funcName] = function () {
+										if (prepend) {
+											prepend.apply(this);
+										}
+							
+										let result = cachedFunction.apply(this, arguments);
+							
+										if (append) {
+											append.apply(this);
+										}
+							
+										return result;
+									};
+								})();
+							}
+							
+							
+							MivaEvents.SubscribeToEvent('variant_changed', function () {
+								//gallery = [];
+								//thumbnailIndex = 0;
+							});
+							
+							
+							ImageMachine.prototype.oninitialize = function (data) {
+								gallery = [];
+								gallery_container.innerHTML = '';
+								gallery_Index = 0;
+								thumbnailIndex = 0;
+								this.Initialize(data);
+								this.main_image.setAttribute('data-index', '0');
+							};
+							
+							
+							ImageMachine.prototype.ImageMachine_Generate_Thumbnail = function (thumbnail_image, main_image, closeup_image, type_code) {
+								let img;
+								let thumbnail;
+								let gallery_element;
+								let gallery_image;
+							
+								if (!thumbnail_width && !thumbnail_height) {
+									thumbnail_width = this.thumb_width + 'px';
+									thumbnail_height = this.thumb_height + 'px';
+								}
+							
+								thumbnail = document.createElement('span');
+								thumbnail.classList.add('x-product-layout-images__thumbnail-image');
+								thumbnail.setAttribute('data-index', thumbnailIndex++);
+								thumbnail.setAttribute('data-main', main_image);
+								thumbnail.setAttribute('data-type', type_code);
+								thumbnail.setAttribute('data-zoom', closeup_image);
+								thumbnail.setAttribute('style', 'width: ' + thumbnail_width + '; display: inline-block; height: ' + thumbnail_height +';');
+							
+								if (typeof( thumbnail_image ) === 'string' && thumbnail_image.length > 0) {
+									img = document.createElement('img');
+									img.src = thumbnail_image;
+									img.setAttribute('alt', cleanProductName);
+									img.setAttribute('itemprop', 'thumbnail');
+							
+									thumbnail.appendChild(img);
+								}
+							
+								/**
+								 * Create a scrollable gallery, append it to the page, and open on main image click.
+								 */
+								gallery_image = (typeof (closeup_image) === 'string' && closeup_image.length > 0) ? closeup_image : main_image;
+							
+								if (typeof( closeup_image ) === 'string' && closeup_image.length > 0) {
+									gallery_element = document.createElement('img');
+									gallery_element.src = gallery_image;
+									gallery_element.setAttribute('data-index', gallery_Index++);
+									gallery_element.setAttribute('alt', cleanProductName);
+							
+									gallery_container.appendChild(gallery_element);
+								}
+							
+								gallery.push({
+									src: gallery_image,
+									title: cleanProductName
+								});
+							
+								document.dispatchEvent(generate_thumbnail_event);
+							
+								return thumbnail;
+							};
+							
+							
+							let gallery_template = document.querySelector('[data-hook="photo-gallery-template"]');
+							
+							if (gallery_template) {
+								gallery_template.appendChild(gallery_container);
+							}
+							
+							
+							/**
+							 * This controls what happens when you click a thumbnail.
+							 */
+							functionExtender(
+								ImageMachine.prototype,
+								'onthumbnailimageclick',
+								function () {},
+								function () {
+									let clickedElement = event.target;
+							
+									//console.log(clickedElement.getAttribute('data-index'));
+									this.main_image.setAttribute('data-index', clickedElement.getAttribute('data-index'));
+								}
+							);
+							
+							
+							/**
+							 * This disables the default Miva image zoom functionality.
+							 */
+							ImageMachine.prototype.Closeup_Open = function () {
+								return false;
+							};
+							
+							ImageMachine.prototype.onmainimageclick = function () {
+								console.log('Main Image Has Been Clicked');
+							};
+						--></code>
+					</pre>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 * Add this within the jsPROD function of your theme.js file.
+							 */
+							
+							
+							/**
+							 * Product Imagery
+							 * This set of functions control the creation and operation of the product image gallery carousels.
+							 */
+							let productThumbnails = document.querySelector('[data-hook="product-thumbnails"]');
+							let debouncedThumbnailSlider = $.debounced(function () {
+								if ($(productThumbnails).hasClass('slick-initialized')) {
+									$(productThumbnails).removeClass('slick-slider slick-vertical slick-initialized');
+									$(productThumbnails).css('opacity', 0);
+								}
+					
+								$(productThumbnails).on('init', function (event, slick) {
+									$(productThumbnails).css('opacity', 1);
+								});
+					
+								$(productThumbnails).not('.slick-initialized').slick({
+									draggable: false,
+									infinite: false,
+									slidesToScroll: 5,
+									slidesToShow: 5,
+									vertical: true,
+									verticalSwiping: true,
+									responsive: [
+										{
+											breakpoint: 768,
+											settings: {
+												slidesToScroll: 4,
+												slidesToShow: 4,
+												vertical: false,
+												verticalSwiping: false
+											}
+										}
+									]
+								});
+							}, 250);
+					
+					
+							/**
+							 * Update Display When Attribute Machine Fires
+							 */
+							MivaEvents.SubscribeToEvent('variant_changed', function () {
+								if ($(productThumbnails).hasClass('slick-initialized')) {
+									$(productThumbnails).css('opacity', 0);
+								}
+							});
+					
+							if (productThumbnails.innerHTML !== '') {
+								$.loadScript(theme_path + 'plugins/slick/slick.min.js', debouncedThumbnailSlider);
+								$(document).on('ImageMachine_Generate_Thumbnail', debouncedThumbnailSlider);
+							}
+					
+							let productImage = $.hook('product-image');
+					
+							if (productImage.length > 0) {
+								$.loadScript(theme_path + 'plugins/slick/slick.min.js', function () {
+									$.hook('product-image').on('click', function (event) {
+										let goTo = this.getAttribute('data-index');
+										let activePhotoGallery = $.hook('active-main_image').find($.hook('photo-gallery'));
+					
+										activePhotoGallery.slick({
+											draggable: false,
+											infinite: false,
+											slidesToScroll: 1,
+											slidesToShow: 1
+										});
+										activePhotoGallery.slick('slickGoTo', goTo, true);
+									});
+								});
+							}
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+
+					<h3 id="refinery">
+						<span class="c-heading-charlie">Refinery</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/facets/refinery/refinery.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							.x-refinery {
+								display: none;
+							}
+							
+							@media (min-width: 60em) {
+								.x-refinery {
+									display: block;
+									padding: 5rem 5vw 0;
+									opacity: 0;
+									overflow: hidden;
+									transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+									visibility: hidden;
+								}
+							
+								.x-refinery.is-loaded {
+									opacity: 1;
+									overflow: visible;
+									visibility: visible;
+								}
+							}
+							
+								.x-refinery .c-form-list {
+									display: flex;
+									position: relative;
+								}
+							
+									.x-refinery__title {
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										height: 2rem;
+										position: relative;
+										font-size: 0.8125rem;
+										text-transform: uppercase;
+									}
+							
+									.x-refinery__title::before {
+										display: inline-block;
+										width: 1rem;
+										height: 1rem;
+										margin-right: 0.5em;
+										background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIyNHB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0cHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjx0aXRsZS8+PGRlc2MvPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgaWQ9Imljb24vZnVubmVsIiBzdHJva2U9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIj48cG9seWdvbiBpZD0ibGluZWFydCIgcG9pbnRzPSIxMy41IDEwLjUgMTMuNSAxNy41IDkuNSAyMS41IDkuNSAxMC41IDEuNSAyLjUgMjEuNSAyLjUiIHN0cm9rZT0iIzAwMDAwMCIvPjwvZz48L3N2Zz4=") no-repeat center center;
+										background-size: contain;
+										content: '';
+									}
+							
+									.x-refinery__title::after {
+										display: inline-block;
+										width: 1px;
+										height: 100%;
+										position: absolute;
+										top: 0;
+										right: 0;
+										background-color: rgba(205, 205, 205, 0.7);
+										content: '';
+									}
+							
+									.x-refinery-set:not(:first-of-type) {
+										min-width: 10em;
+										margin: 0 1rem;
+										position: relative;
+									}
+							
+										.x-refinery-set__trigger {
+											display: none;
+										}
+							
+										.x-refinery-set__label {
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											height: 2rem;
+											position: relative;
+											font-size: 1rem;
+											font-weight: 600;
+											cursor: pointer;
+											-webkit-user-select: none;
+											-moz-user-select: none;
+											-ms-user-select: none;
+											user-select: none;
+											white-space: nowrap;
+										}
+							
+											.x-refinery-set__label::before {
+												display: inline-block;
+												width: 1px;
+												height: 100%;
+												position: absolute;
+												top: 0;
+												right: -1rem;
+												background-color: rgba(205, 205, 205, 0.7);
+												content: '';
+											}
+							
+											.x-refinery-set__label::after {
+												display: inline-block;
+												width: 6px;
+												height: 6px;
+												margin-left: 1em;
+												border-bottom: 2px solid #595452;
+												border-right: 2px solid #595452;
+												content: '';
+												pointer-events: none;
+												transition: all 0.15s ease-in-out;
+												transform: rotate(45deg);
+											}
+							
+											.x-refinery-set__trigger:checked ~ .x-refinery-set__label::after {
+												transform: rotate(-135deg);
+											}
+							
+											.x-refinery-set__label.is-active span {
+												display: inline-block;
+												margin-right: 0.5em;
+											}
+							
+							
+							
+										.x-refinery-set__list {
+											min-width: calc(100% + 2rem);
+											max-width: 20rem;
+											max-height: 15rem;
+											position: absolute;
+											left: 50%;
+											font-weight: 600;
+											background-color: #fff;
+											/*box-shadow: 0 0 1.5rem 0 rgba(51, 51, 51, 0.25);*/
+											box-shadow: 1rem 0 1rem -0.5rem rgba(51, 51, 51, 0.125), -1rem 0 1rem -0.5rem rgba(51, 51, 51, 0.125), 0 1rem 1rem -0.25rem rgba(51, 51, 51, 0.125);
+											opacity: 0;
+											overflow-x: hidden;
+											overflow-y: auto;
+											pointer-events: none;
+											transform-origin: 0 -2rem;
+											transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+											transform: scale(1, 0.5) translate(-50%, -1.5em);
+											z-index: 900;
+										}
+							
+											.x-refinery-set__trigger:checked ~ .x-refinery-set__list {
+												opacity: 1;
+												pointer-events: auto;
+												transform: scale(1, 1) translate(-50%, 0);
+											}
+							
+											.x-refinery-set__list label {
+												margin-bottom: 0;
+												padding: 1em 1rem;
+												cursor: pointer;
+												white-space: nowrap;
+											}
+							
+											.x-refinery-set__list label:hover,
+											.x-refinery-set__nested .x-category-tree__list:hover {
+												background-color: #ededed;
+											}
+							
+												.x-refinery-set__list label.is-selected,
+												.x-refinery-set__nested .x-category-tree__list.is-selected {
+													background-color: #f7f7f7;
+												}
+							
+											.x-refinery-set__list .x-category-tree {
+												margin-bottom: 0;
+											}
+							
+												.x-refinery-set__nested .x-category-tree__list {
+													font-size: 0.875rem;
+													white-space: nowrap;
+												}
+							
+													.x-refinery-set__nested .x-category-tree__link {
+														padding: 1em 1rem;
+														color: currentColor;
+														text-decoration: none;
+													}
+							
+							
+							
+							
+							
+							/**
+							 * The refinery-annex is an off-canvas structure for holding all possible facets.
+							 */
+							.x-refinery-annex {
+								display: flex;
+								justify-content: flex-end;
+								position: fixed;
+								top: 0;
+								right: 0;
+								bottom: 0;
+								left: 0;
+								background-color: rgba(255, 255, 255, 0.375);
+								transform: scaleX(0);
+								transform-origin: right;
+								transition: all ease-in-out 0.2s;
+								z-index: 500;
+								opacity: 0;
+							}
+							
+							.x-refinery-annex--open {
+								opacity: 1;
+								transform: scaleX(1);
+							}
+							
+								.x-refinery-annex__content {
+									display: flex;
+									flex: 1 1 100%;
+									flex-direction: column;
+									width: 100vw;
+									max-width: 30rem;
+									box-shadow: 0 0 10vw 0 rgba(51, 51, 51, 0.1875);
+									overflow-y: auto;
+									overflow-y: overlay;
+								}
+							
+								.x-refinery-annex__header {
+								}
+							
+									.x-refinery-annex__header button {
+										padding: calc(0.75em - 1px) calc(1.5em - 1px);
+									}
+							
+									.x-refinery-annex__header button:hover {
+										color: #fff;
+									}
+							
+									.x-refinery-annex__title {
+										display: flex;
+										align-items: center;
+										max-width: 26rem;
+										margin: 0 auto;
+										padding: 2rem;
+										position: relative;
+										font-size: 0.8125rem;
+										text-transform: uppercase;
+									}
+							
+									.x-refinery-annex__title::before {
+										display: inline-block;
+										width: 1rem;
+										height: 1rem;
+										margin-right: 0.5em;
+										background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIyNHB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0cHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjx0aXRsZS8+PGRlc2MvPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgaWQ9Imljb24vZnVubmVsIiBzdHJva2U9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxIj48cG9seWdvbiBpZD0ibGluZWFydCIgcG9pbnRzPSIxMy41IDEwLjUgMTMuNSAxNy41IDkuNSAyMS41IDkuNSAxMC41IDEuNSAyLjUgMjEuNSAyLjUiIHN0cm9rZT0iIzAwMDAwMCIvPjwvZz48L3N2Zz4=") no-repeat center center;
+										background-size: contain;
+										content: '';
+									}
+							
+								.x-refinery-annex__list {
+									max-width: 26rem;
+									margin: 0 auto;
+									padding: 0 2rem;
+								}
+									.x-refinery-annex__list .x-category-tree__row {
+										display: block;
+									}
+							
+									.x-refinery-annex__set {
+										max-width: none;
+										font-size: 0.875rem;
+									}
+							
+										.x-refinery-annex__set-trigger {
+											display: none;
+										}
+							
+										.x-refinery-annex__label {
+											display: flex;
+											align-items: center;
+											justify-content: space-between;
+											padding-top: 0.5em;
+											padding-bottom: 1em;
+											position: relative;
+											font-weight: 600;
+											cursor: pointer;
+											-webkit-user-select: none;
+											-moz-user-select: none;
+											-ms-user-select: none;
+											user-select: none;
+											white-space: nowrap;
+										}
+							
+										.x-refinery-annex__label::after {
+											display: inline-block;
+											font-size: 1rem;
+											line-height: 1;
+											content: '+';
+										}
+							
+											.x-refinery-annex__set-trigger:checked ~ .x-refinery-annex__label::after {
+												content: '-';
+											}
+							
+											.x-refinery-annex__label.is-active span {
+												display: inline-block;
+												position: absolute;
+												left: -1.5em;
+											}
+							
+										.x-refinery-annex__set-item {
+											display: block;
+											max-height: 0;
+											opacity: 0;
+											visibility: hidden;
+											transition-delay: 0.15s, 0s, 0s;
+										}
+							
+											.x-refinery-annex__set-trigger:checked ~ .x-refinery-annex__set-item {
+												display: block;
+												opacity: 1;
+												transition: visibility 0s ease, max-height 0.3s ease, opacity 0.3s ease;
+												max-height: 100%;
+												visibility: visible;
+												transition-delay: 0s;
+											}
+							
+											.x-refinery-annex__set-item label {
+												margin-top: 0.25em;
+												margin-bottom: 0.25em;
+												padding: 0.5em;
+												cursor: pointer;
+												white-space: nowrap;
+											}
+							
+											.x-refinery-annex__set-item label:hover {
+												background-color: #ededed;
+											}
+							
+												.x-refinery-annex__set-item label.is-selected {
+													background-color: #f7f7f7;
+												}
+							
+							
+								.x-refinery-annex__footer {
+									padding-top: 1rem;
+									padding-bottom: 1rem;
+								}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/facets/refinery/refinery.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<mvt:if expr="l.settings:facets:facet_count GT 1 OR l.settings:category_listing:products_on_page_count GT 1 OR l.settings:all_products:products_on_page_count GT 1 OR l.settings:search_results:products_on_page_count GT 1">
+								<div data-hook="add-refinery"></div>
+								<template data-hook="horizontal-refinery">
+									<nav class="x-refinery t-faceting" data-hook="refinery">
+										<mvt:assign name="g.facet_listings" value="''"/>
+										<mvt:foreach iterator="facet" array="facets:facets">
+											<mvt:foreach iterator="facet_value" array="facet:values">
+												<mvt:if expr="l.settings:facet_value:selected">
+													<input data-hook="refinery-is-active" type="hidden" name="&mvte:facet:code;" value="&mvte:facet_value:value;"/>
+													<mvt:assign name="g.facet_listings" value="'&' $ l.settings::facet:code $ '=' $ l.settings::facet_value:value"/>
+												</mvt:if>
+											</mvt:foreach>
+										</mvt:foreach>
+								
+										<form method="get" action="&mvte:urls:_self:auto_noparams;">
+											<fieldset>
+												<legend>Search Facets</legend>
+												<mvt:if expr="NOT ISNULL g.Category_Code AND toupper( g.Screen ) NE 'CTGY'">
+													<input type="hidden" name="Category_Code" value="&mvte:global:Category_Code;" />
+													<mvt:assign name="l.settings:clear_facets:category" value="'&Category_Code=' $ g.Category_Code"/>
+												<mvt:elseif expr="NOT ISNULL g.Product_Code AND toupper( g.Screen ) NE 'PROD'">
+													<input type="hidden" name="Product_Code" value="&mvte:global:Product_Code;" />
+													<mvt:assign name="l.settings:clear_facets:product" value="'&Product_Code=' $ g.Product_Code"/>
+												</mvt:if>
+												<mvt:item name="urls" param="hidden_params:_self:auto" />
+												<input type="hidden" name="Search" value="&mvte:global:Search;" />
+												<input type="hidden" name="Sort_By" value="&mvte:global:Sort_By;" />
+												<input type="hidden" name="Per_Page" value="&mvte:global:Per_Page;" />
+												<mvt:assign name="l.settings:clear_facets" value="l.settings:urls:_self:auto_sep $ 'Search=' $ g.Search $ l.settings:clear_facets:category $ l.settings:clear_facets:product"/>
+												
+												<ul class="c-form-list x-refinery__list" data-hook="refinery__list">
+													<li class="c-form-list__item x-refinery-set u-hidden u-block--l" data-hook="">
+														<span class="x-refinery__title">Filters</span>
+													</li>
+													
+													<mvt:foreach iterator="facet" array="facets:facets">
+														<li class="c-form-list__item x-refinery-set &mvte:facet_overflow;" data-hook="refinery-set">
+															<input id="facet-set__&mvte:facet:code;" class="x-refinery-set__trigger" data-hook="refinery-set-toggle" type="checkbox">
+															<label class="x-refinery-set__label" for="facet-set__&mvte:facet:code;">
+																<span class="u-color-yellow u-hidden u-icon-check"></span>
+																&mvt:facet:name;
+															</label>
+															<div class="x-refinery-set__list" data-hook="refinery-selections">
+																<mvt:if expr="l.settings:facet:type EQ 'radio'">
+																	<mvt:foreach iterator="facet_value" array="facet:values">
+																		<mvt:if expr="l.settings:facet_value:selected">
+																			<label class="c-form-checkbox c-form-checkbox--radio is-selected">
+																				<input class="c-form-checkbox__input" type="radio" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" checked value="&mvte:facet_value:value;">
+																				<span class="c-form-checkbox__caption">&mvt:facet_value:prompt;&nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																			</label>
+																		<mvt:else>
+																			<label class="c-form-checkbox c-form-checkbox--radio">
+																				<input class="c-form-checkbox__input" type="radio" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" value="&mvte:facet_value:value;">
+																				<span class="c-form-checkbox__caption">&mvt:facet_value:prompt;&nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																			</label>
+																		</mvt:if>
+																	</mvt:foreach>
+																<mvt:elseif expr="l.settings:facet:type EQ 'checkbox'">
+																	<mvt:foreach iterator="facet_value" array="facet:values">
+																		<mvt:if expr="l.settings:facet_value:selected">
+																			<label class="c-form-checkbox is-selected">
+																				<input class="c-form-checkbox__input" type="checkbox" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" checked value="&mvte:facet_value:value;">
+																				<span class="c-form-checkbox__caption">&mvt:facet_value:prompt;&nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																			</label>
+																		<mvt:else>
+																			<label class="c-form-checkbox">
+																				<input class="c-form-checkbox__input" type="checkbox" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" value="&mvte:facet_value:value;">
+																				<span class="c-form-checkbox__caption">&mvt:facet_value:prompt;&nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																			</label>
+																		</mvt:if>
+																	</mvt:foreach>
+																<mvt:elseif expr="l.settings:facet:type EQ 'select'">
+																	<label class="c-form-select">
+																		<select class="c-form-select__dropdown" name="&mvte:facet:code;" onchange="MMProdList_UpdateQuery( this ); return true;">
+																			<option value="">Select One</option>
+																			<mvt:foreach iterator="facet_value" array="facet:values">
+																				<mvt:if expr="l.settings:facet_value:selected">
+																					<option value="&mvte:facet_value:value;" selected>&mvt:facet_value:prompt; (&mvte:facet_value:count;)</option>
+																				<mvt:else>
+																					<option value="&mvte:facet_value:value;">&mvt:facet_value:prompt; (&mvte:facet_value:count;)</option>
+																				</mvt:if>
+																			</mvt:foreach>
+																		</select>
+																	</label>
+																<mvt:elseif expr="l.settings:facet:type EQ 'rangeslider'">
+																	<mvt:assign name="l.settings:mm_facet_rangeslider_present" value="1" />
+																	<mvt:if expr="l.settings:facet:value_low NE l.settings:facet:selected_value_low OR l.settings:facet:value_high NE l.settings:facet:selected_value_high">
+																		<mvt:assign name="l.settings:facet_rangeslider_selected" value="'is-selected'" />
+																	</mvt:if>
+																	<span class="mm_facet_rangeslider mm_facet_rangeslider_mini &mvte:facet_rangeslider_selected;" data-mm-facet-code="&mvte:facet:code;" data-mm-facet-module-code="&mvte:facet:module:code;" data-mm-facet-rangeslider-name="&mvte:facet:code;" data-mm-facet-rangeslider-range-low="&mvte:facet:value_low;" data-mm-facet-rangeslider-range-high="&mvte:facet:value_high;" data-mm-facet-rangeslider-selected-range-low="&mvte:facet:selected_value_low;" data-mm-facet-rangeslider-selected-range-high="&mvte:facet:selected_value_high;"></span>
+																<mvt:elseif expr="l.settings:facet:type EQ 'nested'">
+																	<div class="x-category-tree">
+																		<div class="x-category-tree__row x-refinery-set__nested">
+																			<mvt:assign name="l.settings:nested_facet:level" value="1" />
+																			<mvt:foreach iterator="applied_value" array="facet:applied_values">
+																				<input type="hidden" name="&mvte:facet:code;" value="&mvte:applied_value:value;">
+																				<div class="x-category-tree__list x-category-tree__list--level-&mvte:nested_facet:level; is-selected">
+																					<a class="x-category-tree__link" href="#" onclick="MMProdList_RemoveNestedFacetValue( this, '&mvtj:facet:code;', '&mvtj:applied_value:value;' ); return false;">&mvt:applied_value:prompt</a>
+																				</div>
+																				<mvt:assign name="l.settings:nested_facet:level" value="l.settings:nested_facet:level + 1" />
+																			</mvt:foreach>
+																			<mvt:foreach iterator="facet_value" array="facet:values">
+																				<div class="x-category-tree__list x-category-tree__list--level-&mvte:nested_facet:level;">
+																					<a class="x-category-tree__link" href="#" onclick="MMProdList_AddNestedFacetValue( this, '&mvtj:facet:code;', '&mvtj:facet_value:value;' ); return false;">&mvt:facet_value:prompt; (&mvte:facet_value:count;)</a>
+																				</div>
+																			</mvt:foreach>
+																		</div>
+																	</div>
+																</mvt:if>
+															</div>
+														</li>
+													</mvt:foreach>
+								
+													<li class="c-form-list__item x-refinery-set" data-hook="refinery__view-target">
+														<label class="x-refinery-set__label" data-hook="open-refinery-annex">View All Filters</label>
+													</li>
+												</ul>
+												<ul class="o-list-inline x-refinery__overflow u-hidden" data-hook="refinery__overflow"></ul>
+												<br>
+												
+												<mvt:if expr="l.settings:facets:applied_facet_count GT 0">
+													<ul class="o-list-inline x-refinery__selected-filters" data-hook="selected-filters">
+														<mvt:foreach iterator="facet" array="facets:facets">
+															<mvt:if expr="l.settings:facet:type EQ 'rangeslider'">
+																<mvt:if expr="l.settings:facet:value_low NE l.settings:facet:selected_value_low OR l.settings:facet:value_high NE l.settings:facet:selected_value_high">
+																	<li class="o-list-inline__item">
+																		<button class="c-button c-button--hollow u-color-gray-50 u-font-tiny u-bg-white" data-hook="filter-tag" data-facet-code="&mvt:facet:code;" data-facet-type="&mvt:facet:type;">
+																			<span class="u-icon-cross u-font-tiny t-prevent-events"></span> Price: $&mvte:facet:selected_value_low; - $&mvte:facet:selected_value_high;
+																		</button>
+																	</li>
+																</mvt:if>
+															</mvt:if>
+															
+															<mvt:foreach iterator="facet_value" array="facet:values">
+																<mvt:if expr="l.settings:facet_value:selected AND l.settings:facet:type NE 'rangeslider'">
+																	<li class="o-list-inline__item">
+																		<button class="c-button c-button--hollow u-color-gray-50 u-font-tiny u-bg-white" data-hook="filter-tag" data-facet-code="&mvt:facet:code;" data-facet-type="&mvt:facet:type;" data-facet-value="&mvte:facet_value:value;">
+																			<span class="u-icon-cross u-font-tiny t-prevent-events"></span> &mvt:facet:name;: &mvt:facet_value:prompt;
+																		</button>
+																	</li>
+																</mvt:if>
+															</mvt:foreach>
+														</mvt:foreach>
+														<li class="o-list-inline__item">
+															<a class="c-button c-button--clear u-bg-transparent u-color-gray-50 u-font-tiny" href="&mvt:clear_facets;"><span class="u-icon-cross u-font-tiny"></span> Clear Filters</a>
+														</li>
+													</ul>
+													<br>
+												</mvt:if>
+								
+											</fieldset>
+										</form>
+									</nav>
+								</template>
+							</mvt:if>
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/facets/refinery/refinery-annex.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<section class="x-refinery-annex" data-hook="refinery-annex">
+								<div class="x-refinery-annex__content u-bg-white">
+									<header class="x-refinery-annex__header">
+										<button class="c-button c-button--large u-bg-gray-20 u-color-gray-50" data-hook="close-refinery-annex" type="button" aria-label="Close Facets List">
+											<span class="u-font-small u-icon-cross"></span>
+										</button>
+										<mvt:if expr="l.settings:facets:applied_facet_count GT 0">
+											<span class="x-refinery-annex__title">
+												<strong>Filters:</strong>&nbsp;&mvte:facets:applied_facet_count;&nbsp;Selected
+											</span>
+										<mvt:else>
+											<span class="x-refinery-annex__title">Filters</span>
+										</mvt:if>
+									</header>
+									<div class="x-refinery-annex__list">
+										<nav class="x-category-tree">
+											<div class="x-category-tree__row">
+												<form method="get" action="&mvte:urls:_self:auto_noparams;">
+													<fieldset>
+														<legend>Search Facets</legend>
+														<mvt:if expr="NOT ISNULL g.Category_Code AND toupper( g.Screen ) NE 'CTGY'">
+															<input type="hidden" name="Category_Code" value="&mvte:global:Category_Code;" />
+															<mvt:assign name="l.settings:clear_facets:category" value="'&Category_Code=' $ g.Category_Code"/>
+														<mvt:elseif expr="NOT ISNULL g.Product_Code AND toupper( g.Screen ) NE 'PROD'">
+															<input type="hidden" name="Product_Code" value="&mvte:global:Product_Code;" />
+															<mvt:assign name="l.settings:clear_facets:product" value="'&Product_Code=' $ g.Product_Code"/>
+														</mvt:if>
+														<mvt:item name="urls" param="hidden_params:_self:auto" />
+														<input type="hidden" name="Search" value="&mvte:global:Search;" />
+														<input type="hidden" name="Sort_By" value="&mvte:global:Sort_By;" />
+														<input type="hidden" name="Per_Page" value="&mvte:global:Per_Page;" />
+														<mvt:assign name="l.settings:clear_facets" value="l.settings:urls:_self:auto_sep $ 'Search=' $ g.Search $ l.settings:clear_facets:category $ l.settings:clear_facets:product"/>
+														<ul class="c-form-list">
+															<mvt:foreach iterator="facet" array="facets:facets">
+																<li class="c-form-list__item x-refinery-annex__set">
+																	<input id="facet-set__&mvte:facet:code;--annex" class="x-refinery-annex__set-trigger" type="checkbox">
+																	<label class="x-refinery-annex__label" for="facet-set__&mvte:facet:code;--annex">
+																		<span class="u-color-yellow u-hidden u-icon-check"></span>
+																		&mvt:facet:name;
+																	</label>
+																	<div class="x-refinery-annex__set-item" data-hook="refinery-selections">
+																		<mvt:if expr="l.settings:facet:type EQ 'radio'">
+																			<mvt:foreach iterator="facet_value" array="facet:values">
+																				<mvt:if expr="l.settings:facet_value:selected">
+																					<label class="c-form-checkbox c-form-checkbox--radio is-selected">
+																						<input class="c-form-checkbox__input" type="radio" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" checked value="&mvte:facet_value:value;">
+																						<span class="c-form-checkbox__caption">&mvt:facet_value:prompt; &nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																					</label>
+																				<mvt:else>
+																					<label class="c-form-checkbox c-form-checkbox--radio">
+																						<input class="c-form-checkbox__input" type="radio" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" value="&mvte:facet_value:value;">
+																						<span class="c-form-checkbox__caption">&mvt:facet_value:prompt; &nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																					</label>
+																				</mvt:if>
+																			</mvt:foreach>
+																		<mvt:elseif expr="l.settings:facet:type EQ 'checkbox'">
+																			<mvt:foreach iterator="facet_value" array="facet:values">
+																				<mvt:if expr="l.settings:facet_value:selected">
+																					<label class="c-form-checkbox is-selected">
+																						<input class="c-form-checkbox__input" type="checkbox" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" checked value="&mvte:facet_value:value;">
+																						<span class="c-form-checkbox__caption">&mvt:facet_value:prompt; &nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																					</label>
+																				<mvt:else>
+																					<label class="c-form-checkbox">
+																						<input class="c-form-checkbox__input" type="checkbox" name="&mvte:facet:code;" onclick="MMProdList_UpdateQuery( this ); return true;" value="&mvte:facet_value:value;">
+																						<span class="c-form-checkbox__caption">&mvt:facet_value:prompt; &nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></span>
+																					</label>
+																				</mvt:if>
+																			</mvt:foreach>
+																		<mvt:elseif expr="l.settings:facet:type EQ 'select'">
+																			<label class="c-form-select">
+																				<select class="c-form-select__dropdown" name="&mvte:facet:code;" onchange="MMProdList_UpdateQuery( this ); return true;">
+																					<option value="">Select One</option>
+																					<mvt:foreach iterator="facet_value" array="facet:values">
+																						<mvt:if expr="l.settings:facet_value:selected">
+																							<option value="&mvte:facet_value:value;" selected>&mvt:facet_value:prompt; <span class="u-font-small">(&mvte:facet_value:count;)</span></option>
+																						<mvt:else>
+																							<option value="&mvte:facet_value:value;">&mvt:facet_value:prompt; <span class="u-font-small">(&mvte:facet_value:count;)</span></option>
+																						</mvt:if>
+																					</mvt:foreach>
+																				</select>
+																			</label>
+																		<mvt:elseif expr="l.settings:facet:type EQ 'rangeslider'">
+																			<mvt:assign name="l.settings:mm_facet_rangeslider_present" value="1" />
+																			<mvt:if expr="l.settings:facet:value_low NE l.settings:facet:selected_value_low OR l.settings:facet:value_high NE l.settings:facet:selected_value_high">
+																				<mvt:assign name="l.settings:facet_rangeslider_selected" value="'is-selected'" />
+																			</mvt:if>
+																			<span class="mm_facet_rangeslider mm_facet_rangeslider_mini &mvte:facet_rangeslider_selected;" data-mm-facet-code="&mvte:facet:code;" data-mm-facet-module-code="&mvte:facet:module:code;" data-mm-facet-rangeslider-name="&mvte:facet:code;" data-mm-facet-rangeslider-range-low="&mvte:facet:value_low;" data-mm-facet-rangeslider-range-high="&mvte:facet:value_high;" data-mm-facet-rangeslider-selected-range-low="&mvte:facet:selected_value_low;"	data-mm-facet-rangeslider-selected-range-high="&mvte:facet:selected_value_high;"></span>
+																
+																			<script>
+																				/**
+																				 * This function will reinitialize the Range Sliders when the page resizes.
+																				 */
+																				let refineryAnnexTimeout;
+																				let rangeSlidersAnnex = document.querySelectorAll('[data-mm-facet-rangeslider-name]');
+																				
+																				window.addEventListener('resize', function () {
+																					'use strict';
+																			
+																					if (refineryAnnexTimeout) {
+																						window.cancelAnimationFrame(refineryAnnexTimeout);
+																					}
+																			
+																					refineryAnnexTimeout = window.requestAnimationFrame(function () {
+																						if (rangeSlidersAnnex.length > 0) {
+																							MMFacet_RangeSlider_Initialize();
+																						}
+																					});
+																				}, false);
+																			</script>
+																			
+																		<mvt:elseif expr="l.settings:facet:type EQ 'nested'">
+																			<mvt:assign name="l.settings:nested_facet:level" value="1" />
+																			<mvt:foreach iterator="applied_value" array="facet:applied_values">
+																				<input type="hidden" name="&mvte:facet:code;" value="&mvte:applied_value:value;">
+																				<div class="x-category-tree__list x-category-tree__list--level-&mvte:nested_facet:level; is-selected">
+																					<a class="x-category-tree__link" href="#" onclick="MMProdList_RemoveNestedFacetValue( this, '&mvtj:facet:code;', '&mvtj:applied_value:value;' ); return false;">&mvt:applied_value:prompt</a>
+																				</div>
+																				<mvt:assign name="l.settings:nested_facet:level" value="l.settings:nested_facet:level + 1" />
+																			</mvt:foreach>
+																			<mvt:foreach iterator="facet_value" array="facet:values">
+																				<div class="x-category-tree__list x-category-tree__list--level-&mvte:nested_facet:level;">
+																					<a class="x-category-tree__link" href="#" onclick="MMProdList_AddNestedFacetValue( this, '&mvtj:facet:code;', '&mvtj:facet_value:value;' ); return false;">&mvt:facet_value:prompt; &nbsp;<span class="u-font-small">(&mvte:facet_value:count;)</span></a>
+																				</div>
+																			</mvt:foreach>
+																		</mvt:if>
+																	</div>
+																	<hr class="c-keyline">
+																</li>
+															</mvt:foreach>
+														</ul>
+													</fieldset>
+												</form>
+											</div>
+										</nav>
+									</div>
+									<mvt:if expr="l.settings:facets:applied_facet_count GT 0">
+										<footer class="x-refinery-annex__footer u-text-center">
+											<a class="c-button c-button--hollow u-bg-white u-color-gray-50 u-font-tiny u-text-bold u-text-uppercase" href="&mvt:clear_facets;"><span class="u-icon-cross u-font-tiny t-prevent-events"></span> Clear Filters</a>
+										</footer>
+									</mvt:if>
+								</div>
+							</section>
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/facets/refinery/refinery.js</code></p>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 +-+-+-+-+-+-+-+-+
+							 |r|e|f|i|n|e|r|y|
+							 +-+-+-+-+-+-+-+-+
+							 *
+							 * This extension will display only the facets which will fit on the screen,
+							 * all others are hidden from view but can been seen via an off-canvas element.
+							 * Additionally, it will identify which facet sets have active selections and
+							 * display the active facets in a list below the main facet container. The
+							 * active facets can be clicked on to clear them as well as there being a
+							 * "Clear All" button.
+							 */
+							
+							(function ($, window) {
+								'use strict';
+							
+								let $facets = $.hook('refinery');
+								let $refinerySetToggles = $.hook('refinery-set-toggle');
+								let $triggerArea = $.hook('refinery__view-target');
+								let $displayButton = $.hook('refinery__view-button');
+								let $visibleLinks = $.hook('refinery__list');
+								let $hiddenLinks = $.hook('refinery__overflow');
+								let $annex = $.hook('refinery-annex');
+								let numOfItems = 0;
+								let totalSpace = 176;
+								let breakWidths = [];
+								let availableSpace;
+								let numOfVisibleItems;
+								let requiredSpace;
+								let rangeSliders = document.querySelectorAll('[data-mm-facet-rangeslider-name]');
+								let minDisplayWidth = 1040;
+								let maxDisplay;
+								let numOfVisibleItems2;
+							
+								/**
+								 * Check the total space required for the facet sets and how many there are.
+								 */
+								if ($visibleLinks) {
+									$visibleLinks.children().each(function () {
+										totalSpace += $(this).outerWidth(true) + (parseInt($visibleLinks.css('padding-left')));
+										numOfItems += 1;
+										breakWidths.push(totalSpace);
+									});
+								}
+							
+								/**
+								 * Compare the needed space with the available space and move breadcrumbs accordingly.
+								 * @returns {jQuery}
+								 */
+								$.fn.checkFacetOverflow = function () {
+									if ($facets) {
+										if (window.innerWidth >= minDisplayWidth && window.innerWidth < 1173) {
+											maxDisplay = 3;
+										}
+										else if (window.innerWidth >= 1173) {
+											maxDisplay = 4;
+										}
+										else {
+											maxDisplay = 2;
+										}
+							
+										availableSpace = $visibleLinks.outerWidth(true) - parseInt($visibleLinks.css('padding-right'));
+										numOfVisibleItems = $visibleLinks.children().length;
+										requiredSpace = breakWidths[numOfVisibleItems - 1];
+										numOfVisibleItems2 = $visibleLinks.children('[data-hook="refinery-set"]').length;
+							
+										if ((numOfVisibleItems2 > maxDisplay)) {
+											// There is not enough space
+											$visibleLinks.children('[data-hook="refinery-set"]').last().prependTo($hiddenLinks);
+											numOfVisibleItems -= 1;
+											$facets.addClass('is-loaded');
+											this.checkFacetOverflow();
+										}
+							
+										// Update the button accordingly
+										if ($hiddenLinks.children().length > 0) {
+											$triggerArea.removeClass('u-hidden');
+										}
+										else {
+											$triggerArea.addClass('u-hidden');
+										}
+							
+										if (rangeSliders.length > 0) {
+											MMFacet_RangeSlider_Initialize();
+										}
+							
+										return this;
+									}
+								};
+							
+							
+								/**
+								 * Toggle the visibility of the refinery-annex
+								 * @private
+								 */
+								let toggleAnnex = function (event) {
+									event.preventDefault();
+									// Prevent window scrolling
+									$(document).toggleClass('u-overflow-hidden');
+									// Open the annex element
+									$annex.toggleClass('x-refinery-annex--open');
+								};
+							
+							
+								$.fn.refinery = function () {
+									/**
+									 * This allows for only one refinery set to be open at a time.
+									 */
+									$refinerySetToggles.on('change', function () {
+										$refinerySetToggles.not(this).prop('checked', false);
+									});
+							
+									/**
+									 * This closes all refinery sets if you click outside of the refinery section.
+									 */
+									$(document).on('click', function (documentClick) {
+										if (!$visibleLinks.is(documentClick.target) && $visibleLinks.has(documentClick.target).length === 0) {
+											$refinerySetToggles.prop('checked', false);
+										}
+									});
+							
+									/**
+									 * Check for resize and control button click.
+									 */
+									let initElement = this;
+									let refineryTimeout;
+							
+									window.addEventListener('resize', function () {
+										if (refineryTimeout) {
+											window.cancelAnimationFrame(refineryTimeout);
+										}
+							
+										refineryTimeout = window.requestAnimationFrame(function () {
+											initElement.checkFacetOverflow();
+											$.hook('open-refinery-annex').off('click');
+											$.hook('close-refinery-annex').off('click');
+											$annex.off('click');
+										});
+									}, false);
+							
+									// Element.matches() Polyfill
+									if (!Element.prototype.matches) {
+										Element.prototype.matches = Element.prototype.msMatchesSelector;
+									}
+							
+									// Open the annex when clicking the trigger
+									$.hook('open-refinery-annex').on('click', function (event) {
+										$refinerySetToggles.prop('checked', false);
+										toggleAnnex(event);
+										if (typeof rangeSlidersAnnex !== 'undefined') {
+											setTimeout(function () {
+												MMFacet_RangeSlider_Initialize();
+											}, 200);
+										}
+									});
+							
+									// Close the annex when clicking any 'close' triggers
+									$.hook('close-refinery-annex').on('click', function (event) {
+										toggleAnnex(event);
+									});
+							
+									// Close the annex when clicking on the background.
+									$annex.on('click', function (event) {
+										if (event.target === this) {
+											toggleAnnex(event);
+										}
+									});
+							
+									// Close the annex when the `Esc` key is pressed
+									/*$(document).keydown(function (event) {
+										let key = event.key || event.keyCode;
+							
+										if (key === 'Escape' || key === 27) {
+											toggleAnnex(event);
+										}
+									});*/
+							
+									initElement.checkFacetOverflow();
+							
+								};
+							
+								/**
+								 * Initialize the extension.
+								 */
+								if ($facets.length > 0 || $annex.length > 0) {
+									$facets.refinery();
+							
+							
+									/**
+									 * This function will set the class of any filter set with an active selection to `is-active`.
+									 * @type {NodeListOf<Element>}
+									 */
+									let filterSets = document.querySelectorAll('[data-hook="refinery-selections"]');
+							
+									for (let filterID = 0; filterID < filterSets.length; filterID++) {
+										let filterSetActive = filterSets[filterID].querySelector('.is-selected');
+										let filterSetSelect = filterSets[filterID].querySelector('select');
+										let filterSetSelectActive;
+							
+										if (filterSetSelect) {
+											filterSetSelectActive = filterSetSelect.selectedIndex;
+										}
+							
+										if ((filterSetActive && !filterSetSelect) || (filterSetSelect && filterSetSelectActive >= 1)) {
+											filterSets[filterID].previousElementSibling.classList.add('is-active');
+										}
+									}
+							
+									let selectedFilters = document.querySelector('[data-hook="selected-filters"]');
+							
+									/**
+									 * This function will create trigger the clearing of the separate, selected filters.
+									 * @type {Element}
+									 */
+									if (selectedFilters) {
+										window.scrollTo(0, document.querySelector('[data-hook="refinery"]').getBoundingClientRect().top + window.scrollY);
+							
+										let filterTags = selectedFilters.querySelectorAll('[data-hook="filter-tag"]');
+							
+										for (let id = 0; id < filterTags.length; id++) {
+											let filter = filterTags[id];
+							
+											filter.addEventListener('click', function (event) {
+												event.preventDefault();
+							
+												let cancelledFilter = event.target;
+												let filterCode = cancelledFilter.getAttribute('data-facet-code');
+												let filterType = cancelledFilter.getAttribute('data-facet-type');
+							
+												if (filterType === 'checkbox' || filterType === 'radio') {
+													let filterItem = document.querySelectorAll('input[type=' + filterType + '][name=' + filterCode + ']');
+							
+													for (let radios = 0; radios < filterItem.length; radios++) {
+														if (filterItem[radios].checked === true) {
+															filterItem[radios].checked = false;
+															MMProdList_UpdateQuery(filterItem[radios]);
+														}
+													}
+													return true;
+												}
+												else if (filterType === 'select') {
+													let filterItem = document.querySelector('select[name=' + filterCode + ']');
+							
+													filterItem.value = '';
+													MMProdList_UpdateQuery(filterItem);
+													return true;
+												}
+												else if (filterType === 'rangeslider') {
+													let filterItem = document.querySelector('input[name=' + filterCode + ']');
+							
+													filterItem.value = '';
+													MMProdList_UpdateQuery(filterItem);
+													return true;
+												}
+							
+											});
+										}
+									}
+								}
+							
+							})(jQuery, window);
+						--></code>
+					</pre>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 * Load and initialize the Refinery extension
+							 */
+							var facetsContainer = $.hook('add-refinery');
+							var facetTemplate = document.querySelector('[data-hook="horizontal-refinery"]');
+					
+							if (facetTemplate !== null) {
+								var facetTemplateContent = facetTemplate.getTemplateContent();
+							}
+					
+							var hasRefinery = $.hook('refinery');
+							var hasRefineryAnnex = $.hook('refinery-annex');
+					
+							function loadRefinery() {
+								facetsContainer.css('visibility', 'hidden');
+								if (document.body.clientWidth >= 959 && facetsContainer.html() === '') {
+									facetsContainer.append(document.importNode(facetTemplateContent, true));
+									facetsContainer.css('visibility', 'visible');
+								}
+								else if (document.body.clientWidth < 959) {
+									facetsContainer.empty();
+								}
+								$.loadScript(theme_path + 'extensions/facets/refinery/refinery.js');
+					
+							}
+					
+							var loadSubcategoryTimeout;
+							var loadRefineryTimeout;
+					
+							window.addEventListener('resize', function () {
+								if (!loadSubcategoryTimeout) {
+									loadSubcategoryTimeout = setTimeout(function () {
+										loadSubcategoryTimeout = null;
+					
+										subcategoryNavigationBlock.css('visibility', 'hidden');
+										loadSubcategoryNavigation();
+									}, 100);
+								}
+
+								if (!loadRefineryTimeout) {
+									loadRefineryTimeout = setTimeout(function () {
+										loadRefineryTimeout = null;
+					
+										if (hasRefinery) {
+											facetsContainer.css('visibility', 'hidden');
+											loadRefinery();
+										}
+									}, 100);
+								}
+							}, false);
+							loadSubcategoryNavigation();
+					
+							if (hasRefinery || hasRefineryAnnex) {
+								loadRefinery();
+							}
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+
+					<h3 id="show-related">
+						<span class="c-heading-charlie">Show Related</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/show-related/show-dont-tell.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							**
+							 * This extension allows you to toggle the display of related content placed
+							 * elsewhere in the site.
+							 */
+							.x-show-related__link {}
+							
+							.x-show-related__icon {
+								display: inline-block;
+								transition: all ease-in-out 0.3s;
+							}
+							
+							.x-show-related__link.is-active .x-show-related__icon {
+								-webkit-transform: rotate(-180deg);
+								-ms-transform: rotate(-180deg);
+								transform: rotate(-180deg);
+							}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/show-related/show-dont-tell.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<mvt:comment>
+								This is an example using the customer link to show the log in panel. The data-target is the data-hook to look for.
+							</mvt:comment>
+							<a class="x-show-related__link t-primary-link" data-hook="show-related" data-target="global-account" href="&mvte:urls:LOGN:secure;">
+								Sign In <span class="x-show-related__icon u-font-tiny u-icon-chevron-down t-prevent-events"></span>
+							</a>
+
+							<mvt:comment>
+								This is the log in panel with the data-hook we are looking for.
+							</mvt:comment>
+							<mvt:if expr="g.Basket:cust_id EQ 0">
+								<div class="u-bg-gray-10 u-over-everything t-global-account" data-hook="global-account">
+									<form class="t-global-account__form" method="post" action="&mvte:urls:_self:secure;" autocomplete="off">
+										<fieldset>
+											<legend>Global Account Log In</legend>
+											<input type="hidden" name="Action" value="LOGN" />
+											<input type="hidden" name="Category_Code" value="&mvte:global:Category_Code;" />
+											<input type="hidden" name="Product_Code" value="&mvte:global:Product_Code;" />
+											<input type="hidden" name="Search" value="&mvte:global:Search;" />
+											<input type="hidden" name="Per_Page" value="&mvte:global:Per_Page;" />
+											<input type="hidden" name="Sort_By" value="&mvte:global:Sort_By;" />
+											<ul class="c-form-list">
+												<li class="c-form-list__item c-form-list__item--full">
+													<label id="Login_Email_Label" for="Login_Email" title="Email Adress">
+														<input id="Login_Email" class="c-form-input c-form-input--large u-text-uppercase" type="email" name="Customer_LoginEmail" value="" aria-labelledby="Login_Email_Label" autocomplete="email" placeholder="Email" required>
+													</label>
+												</li>
+												<li class="c-form-list__item c-form-list__item--full">
+													<label id="Login_Password_Label" for="Login_Password" title="Password">
+														<input id="Login_Password" class="c-form-input c-form-input--large u-text-uppercase" type="password" name="Customer_Password" aria-labelledby="Login_Password_Label" autocomplete="current-password" placeholder="Password">
+													</label>
+												</li>
+												<li class="c-form-list__item c-form-list__item--full">
+													<input class="c-button c-button--full c-button--huge u-bg-black u-color-white u-font-small u-text-medium u-text-uppercase" type="submit" value="Sign In">
+												</li>
+												<li class="c-form-list__item c-form-list__item--full">
+													<a class="c-button c-button--full c-button--hollow c-button--huge u-bg-gray-10 u-color-black u-font-small u-text-medium u-text-uppercase" href="&mvte:urls:LOGN:secure;">Register</a>
+												</li>
+												<li class="c-form-list__item c-form-list__item--full u-text-center">
+													<a class="u-font-tiny u-text-medium u-text-uppercase t-secondary-link" href="&mvte:urls:FPWD:secure;">Forgot Password?</a>
+												</li>
+											</ul>
+										</fieldset>
+									</form>
+								</div>
+							</mvt:if>
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/show-related/show-dont-tell.js</code></p>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 |s|h|o|w| |d|o|n|t| |t|e|l|l|
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 *
+							 * This extension will toggle the display state of a targeted element.
+							 */
+							
+							var showDontTell = (function () {
+								'use strict';
+							
+								var triggers = document.querySelectorAll('[data-hook="show-related"]');
+								var publicAPIs = {};
+							
+								publicAPIs.init = function () {
+									if (triggers.length > 0) {
+										triggers.forEach(function (trigger) {
+											var target = '[data-hook="' + trigger.getAttribute('data-target') + '"]';
+											var relatedTarget = document.querySelector(target);
+											var activeClass = trigger.getAttribute('data-active-class') ? trigger.getAttribute('data-active-class') : 'is-open';
+							
+											trigger.addEventListener('click', function (clickEvent) {
+												clickEvent.preventDefault();
+												trigger.classList.toggle('is-active');
+												relatedTarget.classList.toggle(activeClass);
+											}, false);
+							
+											document.addEventListener('mousedown', function (mouseEvent) {
+												var eventTarget = mouseEvent.target;
+							
+												if (relatedTarget.classList.contains(activeClass)) {
+													if (!relatedTarget.contains(eventTarget) && eventTarget !== trigger) {
+														trigger.classList.toggle('is-active');
+														relatedTarget.classList.toggle(activeClass);
+														event.preventDefault();
+													}
+												}
+											}, false);
+										});
+									}
+								};
+							
+								return publicAPIs.init();
+							}());
+						--></code>
+					</pre>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 * Load and initialize the Show Related extension
+							 */
+							$.loadScript(theme_path + 'extensions/show-related/show-dont-tell.js');
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+
+					<h3 id="subscription-combo">
+						<span class="c-heading-charlie">Subscription Combo</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/subscriptions/combo/subscription-combo.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							/**
+							 * This fun extension allows for the "Single Purchase" and "Subscription Terms" options on the product page to
+							 * be contained in a more semantic and design friendly way.
+							 */
+							
+							.x-subscription-combo {}
+							
+								.x-subscription-combo .c-form-checkbox--inline {
+									display: inline-flex;
+									min-height: 2em;
+									margin-bottom: 0.5em;
+								}
+							
+								.x-subscription-combo .c-form-checkbox--inline:last-of-type {
+									margin-right: 0;
+								}
+							
+								@media (min-width: 30em) {
+									.x-subscription-combo .c-form-checkbox--inline:nth-child(2)::after {
+										display: inline-block;
+										height: 2rem;
+										padding-left: 2em;
+										border-right: 1px solid #d8d8d8;
+										content: '';
+									}
+								}
+							
+									.x-subscription-combo .c-form-checkbox__caption span,
+									.x-subscription-combo .c-form-checkbox__caption strong {
+										font-size: 0.75rem;
+										letter-spacing: 0.075em;
+									}
+							
+									.x-subscription-combo .c-form-checkbox__caption span {
+										padding-right: 0.5em;
+									}
+							
+							
+								.x-subscription-combo .x-custom-select-replacement {
+									margin-bottom: 0;
+									padding-right: 0;
+								}
+							
+									.x-subscription-combo .c-form-select__dropdown {
+										border: 0 none;
+									}
+							
+									.x-subscription-combo .x-custom-select__title {
+										padding: 0.5rem 0.5rem 0.5rem 0;
+										border: 0 none;
+									}
+							
+									.x-subscription-combo .x-custom-select__title::before {
+										padding-right: 0.25em;
+										font-weight: 400;
+										font-size: 0.75rem;
+										letter-spacing: 0.075em;
+										text-transform: uppercase;
+										content: 'Subscribe';
+									}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/subscriptions/combo/subscription-combo.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<mvt:comment>
+								This is an excerpt from the product attribute template code included in Colossus as an example.
+							</mvt:comment>
+							<mvt:if expr="l.settings:subscription:enabled AND l.settings:subscription:term_count">
+								<div class="x-product-layout-purchase__options-attribute o-layout__item x-subscription-combo">
+									<mvt:if expr="l.settings:subscription:mandatory">
+										<label class="c-form-label u-block &mvt:required_attribute_classes;" for="l-subscription-mandatory" title="Subscribe">Select Subscription</label>
+										<div class="c-form-select">
+											<select id="l-subscription-mandatory" class="c-form-select__dropdown c-form-input--large" name="Product_Subscription_Term_ID" &mvt:required_attribute;>
+												<mvt:foreach iterator="term" array="subscription:terms">
+													<option value="&mvte:term:id;">&mvte:term:descrip;</option>
+												</mvt:foreach>
+											</select>
+										</div>
+									<mvt:else>
+										<label class="c-form-label u-block &mvt:required_attribute_classes;" for="l-subscription" title="Subscribe">Subscription</label>
+							
+										<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline" title="Order Once">
+											<mvt:if expr="g.Product_Subscription_Term_ID EQ 0">
+												<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="0" checked>
+											<mvt:else>
+												<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="0">
+											</mvt:if>
+											<span class="c-form-checkbox__caption">
+												<span class="u-text-uppercase">Order</span>
+												<strong>Once</strong>
+											</span>
+										</label>
+							
+										<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline" data-hook="select-subscription" title="Select Subscription">
+											<mvt:if expr="g.Product_Subscription_Term_ID NE 0">
+												<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="" aria-label="Select Subscription" checked>
+											<mvt:else>
+												<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="" aria-label="Select Subscription">
+											</mvt:if>
+											<span class="c-form-checkbox__caption">
+												<span class="c-form-select">
+													<select id="l-subscription" class="c-form-select__dropdown c-form-input--large" name="Product_Subscription_Term_ID">
+														<mvt:foreach iterator="term" array="subscription:terms">
+															<option value="&mvte:term:id;">&mvte:term:descrip;</option>
+														</mvt:foreach>
+													</select>
+												</span>
+											</span>
+										</label>
+							
+									</mvt:if>
+								</div>
+							</mvt:if>
+						--></code>
+					</pre>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 * This function toggles the radio when selecting a subscription term.
+							 *
+							 * Add this within the jsPROD function of your theme.js file.
+							 */
+							let canSubscribe = document.querySelector('[data-hook="select-subscription"]');
+					
+							if (canSubscribe) {
+								canSubscribe.addEventListener('click', function (event) {
+									if (event.target !== event.currentTarget) {
+										event.currentTarget.click();
+									}
+								});
+							}
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+
+					<h3 id="omega-navigation">
+						<span class="c-heading-charlie">Omega Navigation</span><br>
+						<code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/omega/omega-navigation.css</code>
+					</h3>
+					<pre class="language-css">
+						<code><!--
+							.has-active-navigation,
+							.has-active-navigation body {
+								overflow: hidden;
+							}
+							
+							.has-active-navigation main {
+								margin-top: 8px;
+								filter: blur(4px);
+								transition: margin-top linear 0.1s;
+							}
+							
+							.x-omega-navigation__trigger-icon {
+								display: inline-block;
+								transition: all ease-in-out 0.3s;
+							}
+							
+							.has-active-navigation .x-omega-navigation__trigger-icon {
+								-webkit-transform: rotate(-180deg);
+								-ms-transform: rotate(-180deg);
+								transform: rotate(-180deg);
+							}
+							
+							
+							.x-omega-navigation {
+								max-width: 100%;
+								min-height: 100%;
+								padding: 0;
+								position: absolute;
+								top: 0;
+								background-color: #f7f7f7;
+								opacity: 0;
+								overflow-x: hidden;
+								transition: all ease-in-out 0.15s;
+								-webkit-transform: scaleY(0);
+								-ms-transform: scaleY(0);
+								transform: scaleY(0);
+								transform-origin: top;
+							}
+							
+							.x-omega-navigation.is-open {
+								opacity: 1;
+								-webkit-transform: scaleY(1);
+								-ms-transform: scaleY(1);
+								transform: scaleY(1);
+							}
+							
+							.x-fasten-header--is-active .x-omega-navigation {
+								position: fixed;
+							}
+							
+							@media (max-width: 61.9em) {
+								.x-omega-navigation__wrap {
+									max-width: 100rem;
+									width: 100%;
+									height: 100%;
+									margin-right: auto;
+									margin-left: auto;
+									padding-top: 1rem;
+									padding-bottom: 1rem;
+									position: relative;
+								}
+								
+									.x-omega-navigation__header {
+										padding-bottom: 1rem;
+										font-size: 18px;
+										font-weight: 300;
+										line-height: 1.444;
+									}
+									
+										.x-omega-navigation__header a:first-of-type {
+											border-right-color: #d3d3d3;
+										}
+							
+									.x-omega-navigation__content {
+										height: 100%;
+										position: relative;
+									}
+							
+										.x-omega-navigation__parents {
+											overflow-y: auto;
+										}
+							
+							
+											.x-omega-navigation__row,
+											.x-omega-navigation__row .x-omega-navigation__row,
+											.x-omega-navigation__row .x-omega-navigation__row:nth-child(2) .x-omega-navigation__row:last-of-type {
+												display: block;
+												margin-left: 0;
+												padding-left: 1rem;
+												position: absolute;
+												top: 0;
+												left: 0;
+												width: 100%;
+												min-height: 100%;
+												list-style: none;
+												-webkit-overflow-scrolling: touch;
+												transform-origin: top;
+												transition: transform ease-in-out 0.2s;
+											}
+							
+												.x-omega-navigation__list {
+												}
+							
+													.x-omega-navigation__link {
+														display: flex;
+														height: 3.75rem;
+														padding: 0 0 0 1rem;
+														align-items: center;
+														justify-content: space-between;
+														font-weight: 600;
+														letter-spacing: 0.075em;
+														text-decoration: none;
+														-webkit-backface-visibility: hidden;
+														backface-visibility: hidden;
+														border: 0 solid #d3d3d3;
+														border-top-width: 1px;
+														color: #6e6e6e;
+														overflow: hidden;
+														text-overflow: ellipsis;
+														-webkit-transform: translateZ(0);
+														-ms-transform: translateZ(0);
+														transform: translateZ(0);
+														transition: all 0.3s;
+														white-space: nowrap;
+													}
+							
+														.x-omega-navigation__link-carat {
+															display: none;
+														}
+							
+															.x-omega-navigation .has-child-menu .x-omega-navigation__link-carat {
+																display: inline-flex;
+																align-self: stretch;
+															}
+							
+																.x-omega-navigation .x-omega-navigation__link-carat > * {
+																	display: flex;
+																	width: 4rem;
+																	align-items: center;
+																	justify-content: center;
+																	font-size: 0.75rem;
+																}
+							
+													.x-omega-navigation__row:nth-child(2) .x-omega-navigation__link,
+													.x-omega-navigation__row:nth-child(2) .x-omega-navigation__row:last-of-type .x-omega-navigation__link {
+														padding-left: 1rem;
+													}
+							
+													.x-omega-navigation__row .x-omega-navigation__list:last-of-type > .x-omega-navigation__link,
+													.x-omega-navigation__row .x-omega-navigation__row .x-omega-navigation__list:last-of-type > .x-omega-navigation__link {
+														border-bottom-width: 1px;
+													}
+							
+												.x-omega-navigation__row.is-hidden,
+												.x-omega-navigation__row .x-omega-navigation__row.is-hidden {
+												-webkit-transform: translateX(100%) scaleY(0);
+												-ms-transform: translateX(100%) scaleY(0);
+												transform: translateX(100%) scaleY(0);
+												}
+							
+												.x-omega-navigation__row.is-hidden > .x-omega-navigation__list > .x-omega-navigation__link,
+												.x-omega-navigation__row.show-next > .x-omega-navigation__list > .x-omega-navigation__link,
+												.x-omega-navigation__row .x-omega-navigation__row.is-hidden > .x-omega-navigation__list > .x-omega-navigation__link,
+												.x-omega-navigation__row .x-omega-navigation__row.show-next > .x-omega-navigation__list > .x-omega-navigation__link {
+												opacity: 0;
+												}
+							
+												.x-omega-navigation__row.show-next > .x-omega-navigation__list > .x-omega-navigation__link,
+												.x-omega-navigation__row .x-omega-navigation__row.show-next > .x-omega-navigation__list > .x-omega-navigation__link {
+												-webkit-transform: translateX(-100%);
+												-ms-transform: translateX(-100%);
+												transform: translateX(-100%);
+												}
+							
+							}
+							
+							@media (min-width: 62em) {
+								.x-omega-navigation {
+									top: auto;
+									background-color: transparent;
+								}
+							
+								.x-omega-navigation::before {
+									position: absolute;
+									top: 0;
+									right: 0;
+									bottom: 0;
+									left: 0;
+									background-color: transparent;
+									content: '';
+									z-index: -1;
+								}
+							
+									.x-omega-navigation__wrap {
+										height: auto;
+										padding-top: 3.5rem;
+										padding-bottom: 3.5rem;
+										border-top: 1px solid rgba(205, 205, 205, 0.7);
+									}
+							
+										.x-omega-navigation__content {
+											height: 28rem;
+										}
+							
+											.x-omega-navigation__parents {
+												height: 100%;
+												padding-right: 4.5rem;
+												text-align: right;
+												border-right: 2px solid #d8d8d8;
+												overflow: auto;
+												overflow-y: overlay; /* Blink and WebKit based browsers only */
+											}
+							
+							
+												.x-omega-navigation__row {
+													display: inline-block;
+													width: auto;
+													min-height: auto;
+													margin: 0;
+													padding: 0;
+													position: relative;
+													top: auto;
+													left: auto;
+													list-style: none;
+													-webkit-overflow-scrolling: auto;
+													transition: none;
+												}
+							
+												.x-omega-navigation__row .x-omega-navigation__row,
+												.x-omega-navigation__row .x-omega-navigation__row:nth-child(2) .x-omega-navigation__row:last-of-type {
+													display: none;
+												}
+							
+													.x-omega-navigation__list {
+														margin-bottom: 0.75em;
+													}
+													
+													.x-omega-navigation__list:last-of-type {
+														margin-bottom: 0;
+													}
+							
+														.x-omega-navigation__link {
+															display: inline-block;
+															font-weight: 600;
+															letter-spacing: 0.075em;
+															text-decoration: none;
+															color: #6e6e6e;
+															white-space: nowrap;
+														}
+							
+														.x-omega-navigation__link:hover,
+														.x-omega-navigation__link.is-active {
+															color: #333;
+														}
+							
+															.x-omega-navigation__link::before {
+																display: inline-block;
+																width: 1.25em;
+																height: 2px;
+																margin-right: 0.375em;
+																background-color: currentColor;
+																content: '';
+																-webkit-transform: scaleX(0) translateY(calc(-1em / 2 + 3px));
+																-ms-transform: scaleX(0) translateY(calc(-1em / 2 + 3px));
+																transform: scaleX(0) translateY(calc(-1em / 2 + 3px));
+																transform-origin: right;
+																transition: all linear 0.1s;
+															}
+							
+															.x-omega-navigation__link:hover::before,
+															.x-omega-navigation__link.is-active::before {
+																-webkit-transform: scaleX(1) translateY(calc(-1em / 2 + 3px));
+																-ms-transform: scaleX(1) translateY(calc(-1em / 2 + 3px));
+																transform: scaleX(1) translateY(calc(-1em / 2 + 3px));
+															}
+							
+											.x-omega-navigation__children {
+												height: 100%;
+												padding-left: 6rem;
+											}
+							
+												.x-omega-navigation__child-wrap {
+													display: none;
+													height: 100%;
+													flex-direction: column;
+													flex-wrap: wrap;
+												}
+							
+												.x-omega-navigation__child-wrap.is-active {
+													display: flex;
+												}
+							
+													.x-omega-navigation__child-block {
+														width: 25%;
+														flex: 0 0 auto;
+														margin-bottom: 1.5rem;
+														margin-left: 0;
+														padding: 0;
+														list-style: none;
+													}
+							
+														.x-omega-navigation__child-list {}
+							
+															.x-omega-navigation__child-link {
+																display: inline-block;
+																font-weight: 600;
+																letter-spacing: 0.075em;
+																text-decoration: none;
+																color: #333;
+															}
+							
+															.x-omega-navigation__child-link:hover {
+																color: #6e6e6e;
+															}
+							
+															.x-omega-navigation__grandchild-link {
+																display: inline-block;
+																padding: 0.125em 0;
+																font-size: 15px;
+																letter-spacing: 0.075em;
+																text-decoration: none;
+																color: #6e6e6e;
+															}
+							
+															.x-omega-navigation__grandchild-link:hover {
+																color: #333;
+															}
+															
+															.x-omega-navigation__link--shop-all,
+															.x-omega-navigation__grandchild-link--view-all {
+																font-size: 0.832em;
+																font-weight: 600;
+																text-decoration: underline;
+																text-transform: uppercase;
+															}
+							}
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/omega/omega-navigation.html</code></p>
+					<pre class="language-markup">
+						<code><!--
+							<section class="o-wrapper u-over-page x-omega-navigation" data-hook="omega-navigation">
+								<div class="o-layout o-layout--flush u-bg-gray-10">
+									<nav class="o-layout__item u-width-12">
+										<div class="x-omega-navigation__wrap">
+											<header class="x-omega-navigation__header u-hidden--l c-control-group">
+												<mvt:if expr="g.Basket:cust_id EQ 0">
+													<a class="c-button c-button--full c-control-group__button u-bg-transparent u-color-gray-40" href="&mvte:urls:LOGN:secure;"><span class="u-icon-user"></span> Sign In or Register</a>
+												<mvt:else>
+													<a class="c-button c-button--full c-control-group__button u-bg-transparent u-color-gray-40" href="&mvte:urls:ACLN:secure;"><span class="u-icon-user"></span> My Account</a>
+												</mvt:if>
+												<button class="c-button c-control-group__button u-bg-transparent u-color-gray-40 u-icon-cross" data-hook="close-main-menu" type="button" aria-label="Close Main Menu"></button>
+											</header>
+							
+											<div class="o-layout x-omega-navigation__content" data-hook="omega-navigation__content">
+												
+												<div class="o-layout__item u-width-12 u-width-3--l x-omega-navigation__parents" data-hook="omega-navigation__parents">
+													<ul class="x-omega-navigation__row">
+														<mvt:assign name="l.settings:parent_count" value="0"/>
+														<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+															<mvt:assign name="l.settings:parent_count" value="l.settings:parent_count + 1"/>
+															<mvt:if expr="l.settings:parent_count LE 10">
+																<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+																	<mvt:assign name="l.settings:has:children" value="'has-child-menu' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'omega-child-menu'"/>
+																	<mvt:assign name="l.settings:child:data" value="asciichar(34) $ ' data-children=' $ asciichar(34) $ l.settings:navigationitem:id"/>
+																<mvt:else>
+																	<mvt:assign name="l.settings:has:children" value="''"/>
+																	<mvt:assign name="l.settings:child:data" value="''"/>
+																</mvt:if>
+																<li class="x-omega-navigation__list &mvt:has:children;">
+																	<a class="x-omega-navigation__link" data-hook="omega-navigation__link &mvt:child:data;" href="&mvt:navigationitem:url;" target="&mvt:navigationitem:link_targ;">
+																		&mvt:navigationitem:name;
+																		<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+																			<span class="x-omega-navigation__link-carat u-hidden--l"><span class="u-icon-chevron-right"></span></span>
+																		</mvt:if>
+																	</a>
+																	<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+																		<ul class="x-omega-navigation__row u-hidden--l is-hidden">
+																			<li class="x-omega-navigation__list" data-hook="show-previous-menu">
+																				<span class="x-omega-navigation__link"><span class="u-icon-chevron-left">&nbsp;</span><span class="o-layout--grow">Main Menu</span></span>
+																			</li>
+																			<mvt:assign name="l.settings:has:children" value="''"/>
+																			<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+																				<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																					<mvt:assign name="l.settings:has:children" value="'has-child-menu' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'omega-child-menu'"/>
+																				<mvt:else>
+																					<mvt:assign name="l.settings:has:children" value="''"/>
+																				</mvt:if>
+																				<li class="x-omega-navigation__list &mvt:has:children;">
+																					<a class="x-omega-navigation__link" href="&mvt:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">
+																						&mvt:navigationitem_level2:name;
+																						<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																							<span class="x-omega-navigation__link-carat u-hidden--l"><span class="u-icon-chevron-right"></span></span>
+																						</mvt:if>
+																					</a>
+																					<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																						<ul class="x-omega-navigation__row is-hidden">
+																							<li class="x-omega-navigation__list" data-hook="show-previous-menu">
+																								<span class="x-omega-navigation__link"><span class="u-icon-chevron-left">&nbsp;</span><span class="o-layout--grow">Main Menu</span></span>
+																							</li>
+																							<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+																								<li><a class="x-omega-navigation__link" href="&mvt:navigationitem_level3:url;" target="&mvt:navigationitem_level3:link_targ;">&mvt:navigationitem_level3:name;</a></li>
+																							</mvt:foreach>
+																							<li class="x-omega-navigation__list">
+																								<a class="x-omega-navigation__link" href="&mvte:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">View All &mvt:navigationitem_level2:name;</a>
+																							</li>
+																						</ul>
+																					</mvt:if>
+																				</li>
+																			</mvt:foreach>
+																			<li class="x-omega-navigation__list">
+																				<a class="x-omega-navigation__link" href="&mvte:navigationitem:url;" target="&mvt:navigationitem:link_targ;">View All &mvt:navigationitem:name;</a>
+																			</li>
+																		</ul>
+																	</mvt:if>
+																</li>
+															</mvt:if>
+														</mvt:foreach>
+														<mvt:if expr="miva_array_elements(l.settings:readytheme:navigationitems) GT 10">
+															<li class="x-omega-navigation__list x-omega-navigation__list--shop-all">
+																<a class="x-omega-navigation__link x-omega-navigation__link--shop-all u-color-black" href="&mvte:urls:CTLG:auto;">Shop All</a>
+															</li>
+														</mvt:if>
+														
+													</ul>
+												</div>
+												
+												<div class="o-layout__item u-block--l u-hidden u-width-9--l x-omega-navigation__children" data-hook="omega-navigation__children">
+													<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+														<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+															<aside class="x-omega-navigation__child-wrap" data-hook="&mvt:navigationitem:id;">
+																<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+																	<ul class="x-omega-navigation__child-block">
+																		<li class="x-omega-navigation__child-list">
+																			<mvt:if expr="l.settings:navigationitem_level2:url">
+																				<a class="x-omega-navigation__child-link" href="&mvt:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">&mvt:navigationitem_level2:name;</a>
+																			<mvt:else>
+																				<span class="x-omega-navigation__child-link">&mvt:navigationitem_level2:name;</span>
+																			</mvt:if>
+																		</li>
+																		<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																			<mvt:assign name="l.settings:tertiary_count" value="0"/>
+																			<mvt:if expr="miva_array_elements(l.settings:navigationitem_level2:items) LE 4">
+																				<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+																					<li class="x-omega-navigation__child-list">
+																						<a class="x-omega-navigation__grandchild-link" href="&mvt:navigationitem_level3:url;" target="&mvt:navigationitem_level3:link_targ;">&mvt:navigationitem_level3:name;</a>
+																					</li>
+																				</mvt:foreach>
+																			<mvt:elseif expr="miva_array_elements(l.settings:navigationitem_level2:items) GT 4">
+																				<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+																					<mvt:assign name="l.settings:tertiary_count" value="l.settings:tertiary_count + 1"/>
+																					<mvt:if expr="l.settings:tertiary_count LE 3">
+																						<li class="x-omega-navigation__child-list">
+																							<a class="x-omega-navigation__grandchild-link" href="&mvt:navigationitem_level3:url;" target="&mvt:navigationitem_level3:link_targ;">&mvt:navigationitem_level3:name;</a>
+																						</li>
+																					</mvt:if>
+																				</mvt:foreach>
+																				<li class="x-omega-navigation__child-list x-omega-navigation__child-list--view-all">
+																					<a class="x-omega-navigation__grandchild-link x-omega-navigation__grandchild-link--view-all u-color-black" href="&mvte:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">View All &mvt:navigationitem_level2:name;</a>
+																				</li>
+																			</mvt:if>
+																		</mvt:if>
+																	</ul>
+																</mvt:foreach>
+															</aside>
+														</mvt:if>
+													</mvt:foreach>
+												</div>
+												
+											</div>
+										</div>
+									</nav>
+								</div>
+							</section>
+						--></code>
+					</pre>
+					<p><code class="x-inline-code u-font-small">THEME_NAME/extensions/navigation/omega/omega-navigation.js</code></p>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 |o|m|e|g|a| |n|a|v|i|g|a|t|i|o|n|
+							 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+							 *
+							 * This is a mega-menu navigation extension.
+							 */
+							
+							const omegaman = (function ($, window, document) {
+								'use strict';
+							
+								let omegaTimeout;
+								let omegaActivator = document.querySelector('[data-hook~="activate-omega"]');
+								let fastenHeader = document.querySelector('[data-hook="fasten-header"]');
+								let fastenHeaderActivator = document.querySelector('[data-hook~="open-omega"]');
+								let omegaNavigation = document.querySelector('[data-hook="omega-navigation"]');
+								let omegaContent = document.querySelector('[data-hook="omega-navigation__content"]');
+								let parentLinks = document.querySelectorAll('[data-hook~="omega-navigation__link"]');
+								let childrenLinks = document.querySelector('[data-hook~="omega-navigation__children"]');
+								let childrenBlocks = childrenLinks.children;
+								let activeParent;
+								let activeTarget;
+								let mobileActivator = document.querySelector('[data-hook~="open-main-menu"]');
+								let mobileCloser = document.querySelector('[data-hook~="close-main-menu"]');
+								let currentItem = false;
+							
+							
+								/**
+								 * This function calculates the width of the scrollbar.
+								 */
+								function getScrollbarWidth() {
+									return window.innerWidth - document.documentElement.clientWidth;
+								}
+							
+								/**
+								 * This function finds the first parent link and triggers a `click` event.
+								 */
+								function setInitial() {
+									parentLinks.forEach(function (parent, index) {
+										let target = '[data-hook~="' + parent.getAttribute('data-children') + '"]';
+										let targetChild = document.querySelector(target);
+							
+										currentItem = false;
+										if (index === 0 && targetChild !== null) {
+											parent.dispatchEvent(new Event('mouseenter'));
+										}
+									});
+								}
+							
+								function smallerScreenFunctionality() {
+									$.hook('omega-child-menu').children('a').on('click', function (event) {
+										let selected = $(this);
+							
+										event.preventDefault();
+										selected.next('ul').removeClass('is-hidden');
+										selected.parent('.has-child-menu').closest('ul').addClass('show-next');
+									});
+							
+									$.hook('show-previous-menu').on('click', function (event) {
+										let selected = $(this);
+							
+										event.preventDefault();
+										selected.parent('ul').addClass('is-hidden').parent('.has-child-menu').closest('ul').removeClass('show-next');
+									});
+								}
+							
+								function largerScreenFunctionality() {
+									/**
+									 * Update the height of the child navigation container to accommodate a scrollbar if needed.
+									 */
+									//omegaContent.style.height = omegaContent.scrollHeight + getScrollbarWidth() + 'px';
+							
+									function displayTargetNavigation(element, event) {
+										let target = '[data-hook~="' + element.getAttribute('data-children') + '"]';
+										let targetChild = document.querySelector(target);
+							
+										if (targetChild === null) {
+											return
+										}
+							
+										event.preventDefault();
+							
+										parentLinks.forEach(function (sibling) {
+											sibling.classList.remove('is-active');
+										});
+							
+										Array.from(childrenBlocks).forEach(function (childBlock) {
+											childBlock.classList.remove('is-active');
+										});
+							
+										activeParent = element;
+										activeTarget = targetChild;
+										element.classList.add('is-active');
+										targetChild.classList.add('is-active');
+									}
+							
+									function closeTargetedNavigation() {
+										activeParent.classList.remove('is-active');
+										activeTarget.classList.remove('is-active');
+									}
+							
+									/**
+									 * When clicking on a parent category, show its children adn grandchildren.
+									 */
+									parentLinks.forEach(function (parentLink) {
+										parentLink.addEventListener('mouseenter', function (event) {
+											displayTargetNavigation(this, event);
+										});
+							
+										parentLink.addEventListener('mouseleave', function (event) {
+											//closeTargetedNavigation();
+										});
+									});
+							
+									/**
+									 * This following section is for use on larger, touch-enabled devices so the first
+									 * 'tap' on a parent category link will act like a 'hover'. If a user taps again on
+									 * the link, before clicking on a different parent category link, they will be
+									 * directed to the content referenced in the links `href`.
+									 */
+							
+									if ('ontouchstart' in window) {
+										for (let i = 0; i < parentLinks.length; i++) {
+											parentLinks[i].setAttribute('data-index', i);
+											parentLinks[i].addEventListener('click', function (event) {
+												let item = this;
+												let index = item.getAttribute('data-index');
+							
+												if (index !== currentItem) {
+													event.preventDefault();
+													currentItem = index;
+													//displayTargetNavigation(item, event);
+												}
+											});
+							
+										}
+									}
+								}
+							
+								/**
+								 * When opening the menu, set the first parent category as active.
+								 */
+								omegaActivator.addEventListener('click', function (event) {
+									event.preventDefault();
+									omegaNavigation.classList.toggle('is-open');
+									document.documentElement.classList.toggle('has-active-navigation');
+									setInitial();
+								});
+							
+								if (typeof fastenHeader !== 'undefined') {
+									let fastenHeaderTimeout;
+							
+									window.addEventListener('scroll', function () {
+										'use strict';
+							
+										if (fastenHeaderTimeout) {
+											window.cancelAnimationFrame(fastenHeaderTimeout);
+										}
+							
+										fastenHeaderTimeout = window.requestAnimationFrame(function () {
+											if (document.body.classList.contains('x-fasten-header--is-active')) {
+												omegaNavigation.style.top = fastenHeader.parentElement.clientHeight + 'px';
+											}
+											else {
+												omegaNavigation.style.top = 'auto';
+											}
+										});
+									}, false);
+							
+							
+									fastenHeaderActivator.addEventListener('click', function (event) {
+										event.preventDefault();
+										omegaActivator.click();
+									});
+								}
+							
+								/**
+								 * Close the menu is the `Esc` key is pressed.
+								 */
+								window.addEventListener('keyup', function (keyEvent) {
+									if (keyEvent.defaultPrevented) {
+										return; // Do nothing if the event was already processed
+									}
+							
+									let key = keyEvent.key || keyEvent.keyCode;
+									switch (key) {
+										case 'Escape':
+										case 27:
+											if (document.documentElement.classList.contains('has-active-navigation')) {
+												omegaNavigation.classList.toggle('is-open');
+												document.documentElement.classList.toggle('has-active-navigation');
+												activeParent.classList.remove('is-active');
+												activeTarget.classList.remove('is-active');
+												setInitial();
+											}
+											break;
+										default:
+											return;
+									}
+							
+									keyEvent.preventDefault();
+								}, true);
+							
+								/**
+								 * Close the menu if there are any clicks outside of the menu content.
+								 */
+								document.addEventListener('click', function (clickEvent) {
+									if (clickEvent.target !== omegaActivator && clickEvent.target !== fastenHeaderActivator && clickEvent.target !== mobileActivator && document.documentElement.classList.contains('has-active-navigation')) {
+										if (clickEvent.target.closest('[data-hook="omega-navigation__content"]')) {
+											return;
+										}
+										omegaActivator.click();
+									}
+								});
+							
+								mobileActivator.addEventListener('click', function (event) {
+									event.preventDefault();
+									omegaNavigation.classList.toggle('is-open');
+									document.documentElement.classList.toggle('has-active-navigation');
+								});
+							
+								mobileCloser.addEventListener('click', function (event) {
+									event.preventDefault();
+									omegaNavigation.classList.toggle('is-open');
+									document.documentElement.classList.toggle('has-active-navigation');
+								});
+							
+								/**
+								 * Check the screen size and run the appropriate functions.
+								 */
+								if (window.innerWidth < 992) {
+									smallerScreenFunctionality();
+								}
+								else {
+									largerScreenFunctionality();
+								}
+							
+								window.addEventListener('resize', function () {
+									if (omegaTimeout) {
+										window.cancelAnimationFrame(omegaTimeout);
+									}
+							
+									omegaTimeout = window.requestAnimationFrame(function () {
+										if (window.innerWidth < 992) {
+											smallerScreenFunctionality();
+										}
+										else {
+											largerScreenFunctionality();
+										}
+									});
+								}, false);
+							
+							})(jQuery, window, document);
+						--></code>
+					</pre>
+					<pre class="language-javascript">
+						<code><!--
+							/**
+							 * Load and initialize the Omega Navigation extension
+							 */
+							$.loadScript(theme_path + 'extensions/navigation/omega/omega-navigation.js');
+						--></code>
+					</pre>
+					<hr class="c-keyline">
+					
+					
+				</section>
+				<!-- /.x-site-content -->
+				<nav class="o-layout__item u-width-3--m o-layout__first x-site-navigation" data-cms-block data-cms-content="global/global-navigation.html"></nav>
+				<!-- /.x-site-navigation -->
+			</div>
+		</div>
+	</main>
+	<!-- /.x-site-content -->
+	
+	<footer class="u-bg-black u-color-white u-font-small x-site-footer" data-cms-block data-cms-content="global/global-footer.html"></footer>
+	<!-- /.x-site-footer -->
+	
+	<script src="themes/documentation/ui/js/scripts.js"></script>
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-20016-16', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<!-- Scripts -->
+</body>
+</html>

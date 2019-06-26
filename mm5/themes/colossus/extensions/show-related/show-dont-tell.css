@@ -1,0 +1,20 @@
+/* ==========================================================================
+   EXTENSIONS / SHOW-RELATED / SHOW-DONT-TELL
+   ========================================================================== */
+
+/**
+ * This extension allows you to toggle the display of related content placed
+ * elsewhere in the site.
+ */
+.x-show-related__link {}
+
+.x-show-related__icon {
+	display: inline-block;
+	transition: all ease-in-out 0.3s;
+}
+
+.x-show-related__link.is-active .x-show-related__icon {
+	-webkit-transform: rotate(-180deg);
+	-ms-transform: rotate(-180deg);
+	transform: rotate(-180deg);
+}

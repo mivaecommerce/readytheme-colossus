@@ -1,0 +1,124 @@
+<Module code="customfields" feature="util">
+	<Group_Add>
+		<Code>order_info</Code>
+		<Name>Additional Order Information</Name>
+	</Group_Add>
+
+	<OrderField_Add>
+		<Code>order_instructions</Code>
+		<Name>Order Instructions</Name>
+		<FieldType>textarea</FieldType>
+		<Group>order_info</Group>
+	</OrderField_Add>
+	<OrderField_Add>
+		<Code>order_ip</Code>
+		<Name>Order: IP Address</Name>
+		<FieldType>textfield</FieldType>
+		<Group>order_info</Group>
+	</OrderField_Add>
+	<OrderField_Add>
+		<Code>order_ua</Code>
+		<Name>Order: User Agent</Name>
+		<FieldType>textfield</FieldType>
+		<Group>order_info</Group>
+	</OrderField_Add>
+</Module>
+
+<Module code="customfields" feature="util">
+	<CategoryField_Add>
+		<Code>secondary_title_image</Code>
+		<Name>Secondary Category Title Image</Name>
+		<FieldType>imageupload</FieldType>
+	</CategoryField_Add>
+	<CategoryField_Add>
+		<Code>top_category_image</Code>
+		<Name>Top Category Image</Name>
+		<FieldType>imageupload</FieldType>
+		<Info>Use this field to upload an image to display within Top Categories on the storefront.</Info>
+	</CategoryField_Add>
+</Module>
+
+<Module code="customfields" feature="fields_cat">
+	<CategoryField_Value category="coffee" field="top_category_image">graphics/00000001/coffee.jpg</CategoryField_Value>
+	<CategoryField_Value category="tea" field="top_category_image">graphics/00000001/tea.jpg</CategoryField_Value>
+	<CategoryField_Value category="equipment" field="top_category_image">graphics/00000001/equipment.jpg</CategoryField_Value>
+	<CategoryField_Value category="drinkware" field="top_category_image">graphics/00000001/drinkware.jpg</CategoryField_Value>
+</Module>
+
+<Module code="customfields" feature="fields_prod">
+	<Group_Add>
+		<Code>coffee</Code>
+		<Name>Coffee Specifications</Name>
+	</Group_Add>
+	<Group_Add>
+		<Code>tea</Code>
+		<Name>Tea Specifications</Name>
+	</Group_Add>
+
+	<ProductField_Add>
+		<Code>coffee_flavor</Code>
+		<Name>Tasting Notes</Name>
+		<FieldType>multitext</FieldType>
+		<Facet>1</Facet>
+		<Group>coffee</Group>
+		<Info> </Info>
+	</ProductField_Add>
+	<ProductField_Add>
+		<Code>coffee_origin</Code>
+		<Name>Origin</Name>
+		<FieldType>textarea</FieldType>
+		<Facet>1</Facet>
+		<Group>coffee</Group>
+	</ProductField_Add>
+	<ProductField_Add>
+		<Code>coffee_roast</Code>
+		<Name>Roast Type</Name>
+		<FieldType>textarea</FieldType>
+		<Facet>1</Facet>
+		<Group>coffee</Group>
+	</ProductField_Add>
+
+	<ProductField_Add>
+		<Code>tea_flavor</Code>
+		<Name>Flavor Notes</Name>
+		<FieldType>multitext</FieldType>
+		<Facet>1</Facet>
+		<Group>tea</Group>
+	</ProductField_Add>
+	<ProductField_Add>
+		<Code>tea_caffeine</Code>
+		<Name>Caffeine Level</Name>
+		<FieldType>textarea</FieldType>
+		<Facet>1</Facet>
+		<Group>tea</Group>
+	</ProductField_Add>
+	<ProductField_Add>
+		<Code>tea_region</Code>
+		<Name>Region</Name>
+		<FieldType>textarea</FieldType>
+		<Facet>1</Facet>
+		<Group>tea</Group>
+	</ProductField_Add>
+
+	<ProductField_Add>
+		<Code>product_label</Code>
+		<Name>Product Label</Name>
+		<FieldType>radio</FieldType>
+	</ProductField_Add>
+	<ProductFieldTypeOption_Add code="product_label" value="discontinued" />
+	<ProductFieldTypeOption_Add code="product_label" value="featured" />
+	<ProductFieldTypeOption_Add code="product_label" value="hot" />
+	<ProductFieldTypeOption_Add code="product_label" value="new" />
+	<ProductFieldTypeOption_Add code="product_label" value="none" />
+	<ProductFieldTypeOption_Add code="product_label" value="sale" />
+	<ProductField_Add>
+		<Code>shipping_returns</Code>
+		<Name>Shipping &amp; Returns</Name>
+		<FieldType>textarea</FieldType>
+	</ProductField_Add>
+	<ProductField_Add>
+		<Code>specifications</Code>
+		<Name>Specifications Notes</Name>
+		<FieldType>textarea</FieldType>
+	</ProductField_Add>
+</Module>

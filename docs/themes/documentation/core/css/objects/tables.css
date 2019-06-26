@@ -1,0 +1,51 @@
+/* ==========================================================================
+   OBJECTS / TABLES
+   ========================================================================== */
+
+/**
+ * A simple object for manipulating the structure of HTML 'table's.
+ */
+.o-table {
+  width: 100%;
+}
+
+
+	/* Equal-width table cells.
+	   ========================================================================== */
+	/**
+	 * 'table-layout: fixed' forces all cells within a table to occupy the same
+	 * width as each other. This also has performance benefits: because the browser
+	 * does not need to (re)calculate cell dimensions based on content it discovers,
+	 * the table can be rendered very quickly. Further reading:
+	 * https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout#Values
+	 */
+	.o-table--fixed {
+	  table-layout: fixed;
+	}
+
+
+
+
+
+	/* Padding variants.
+	   ========================================================================== */
+	.o-table--narrow th,
+	.o-table--narrow td {
+	  padding: calc(16px * 0.5);
+	}
+
+	.o-table--wide th,
+	.o-table--wide td {
+	  padding: calc(16px * 2);
+	}
+
+
+
+
+
+	/* Borderless table
+	 * Removes default border-bottom on TABLE rows.
+	  =========================================== */
+	.o-table-borderless tr {
+		border: none;
+	}

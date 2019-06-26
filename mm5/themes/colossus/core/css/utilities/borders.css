@@ -1,0 +1,23 @@
+/* ==========================================================================
+   UTILITIES / BORDERS
+   ========================================================================== */
+
+/**
+ * Utility classes to adjust element borders.
+ */
+
+.u-border-none {
+	border-width: 0;
+}
+
+.u-border-thick {
+	border-width: calc(1px * 2);
+}
+
+.u-border-rounded {
+	border-radius: 10em;
+}
+
+.u-border-square {
+	border-radius: 0;
+}

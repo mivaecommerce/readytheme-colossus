@@ -1,0 +1,24 @@
+/* ==========================================================================
+   EXTENSIONS / PAGINATION
+   ========================================================================== */
+
+
+/**
+ * Pagination is for use in product list as well as any place a pageable batch
+ * list or data is used.
+ */
+
+.x-pagination {
+	display: flex;
+	max-width: 19rem;
+	margin: 0;
+	align-items: center;
+}
+
+	.x-pagination--centered {
+		margin: auto;
+	}
+
+	.x-pagination--right {
+		margin-left: auto;
+	}

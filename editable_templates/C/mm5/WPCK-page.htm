@@ -1,0 +1,105 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="WPCK-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header">
+					<mvt:item name="breadcrumbs" />
+					<span class="c-heading-delta t-account-landing-section__heading">&mvt:page:name;</span>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<form class="o-layout o-layout--justify-center" method="post" action="&mvte:urls:_self:rr;" autocomplete="off">
+						<fieldset class="o-layout__item u-width-12 u-width-6--m">
+							<legend>&mvt:page:name;</legend>
+							<input type="hidden" name="Quantity" value="&mvte:global:Quantity;" />
+							<input type="hidden" name="Line_ID" value="&mvte:global:Line_ID;" />
+							<input type="hidden" name="Group_ID" value="&mvte:global:Group_ID;" />
+							<input type="hidden" name="Wish_ID" value="&mvte:global:Wish_ID;" />
+							<input type="hidden" name="Product_Code" value="&mvte:global:Product_Code;" />
+							<mvt:assign name="l.settings:parsed_actions" value="''" />
+							<mvt:assign name="l.settings:actions" value="' ' $ glosub( g.Action, ',', ' ' ) $ ' '" />
+							<mvt:if expr="' ATWL ' IN l.settings:actions">
+								<mvt:assign name="l.settings:parsed_action_count" value="miva_array_insert( l.settings:parsed_actions, 'ATWL', -1 )" />
+							</mvt:if>
+							<mvt:if expr="' MPWL ' IN l.settings:actions">
+								<mvt:assign name="l.settings:parsed_action_count" value="miva_array_insert( l.settings:parsed_actions, 'MPWL', -1 )" />
+							</mvt:if>
+							<mvt:if expr="' MAWL ' IN l.settings:actions">
+								<mvt:assign name="l.settings:parsed_action_count" value="miva_array_insert( l.settings:parsed_actions, 'MAWL', -1 )" />
+							</mvt:if>
+							<input type="hidden" name="Action" value="&mvte:parsed_actions;" />
+							<mvt:assign name="l.settings:attribute_index" value="0" />
+							<mvt:foreach iterator="attribute" array="global:Product_Attributes">
+								<mvt:assign name="l.settings:attribute_index" value="l.settings:attribute_index + 1" />
+								<input type="hidden" name="Product_Attributes[ &mvt:attribute_index; ]:code" value="&mvte:attribute:code;" />
+								<input type="hidden" name="Product_Attributes[ &mvt:attribute_index; ]:value" value="&mvte:attribute:value;" />
+								<mvt:if expr="l.settings:attribute:template_code NE 0">
+									<input type="hidden" name="Product_Attributes[ &mvt:attribute_index; ]:template_code" value="&mvte:attribute:template_code;" />
+								</mvt:if>
+							</mvt:foreach>
+							<ul class="c-form-list">
+								<li class="c-form-list__item c-form-list__item--full">
+									<mvt:do name="l.return" file="g.Module_Library_DB" value="Product_Load_Code(g.Product_Code, l.settings:wish:product)" />
+									<mvt:if expr="miva_array_search( l.settings:parsed_actions, 1, l.action, 'l.action EQ \'ATWL\'' )">
+										<label class="c-form-label" for="WishList_ID">Add Product "&mvte:wish:product:name;" to wish list&hellip;</label>
+									<mvt:elseif expr="miva_array_search( l.settings:parsed_actions, 1, l.action, 'l.action EQ \'MAWL\'' )">
+										<label class="c-form-label" for="WishList_ID">Move all items in basket to wish list&hellip;</label>
+									<mvt:elseif expr="miva_array_search( l.settings:parsed_actions, 1, l.action, 'l.action EQ \'MPWL\'' )">
+										<mvt:if expr="g.Group_ID">
+											<label class="c-form-label" for="WishList_ID">Move basket item to wish list&hellip;</label>
+										<mvt:elseif expr="g.Line_ID">
+											<label class="c-form-label" for="WishList_ID">Move basket item to wish list&hellip;</label>
+										<mvt:elseif expr="g.Wish_ID">
+											<label class="c-form-label" for="WishList_ID">Move wish list item to wish list&hellip;</label>
+										</mvt:if>
+									</mvt:if>
+									<div class="c-form-select">
+										<select id="WishList_ID" class="c-form-select__dropdown" name="WishList_ID">
+											<mvt:foreach iterator="wishlist" array="customerwishlists:wishlists">
+												<option value="&mvte:wishlist:id;">&mvte:wishlist:title;</option>
+											</mvt:foreach>
+										</select>
+									</div>
+								</li>
+								<li class="c-form-list__item c-form-list__item--full u-text-center">
+									<input class="c-button c-button--huge u-bg-black u-font-tiny u-text-bold u-text-uppercase" type="submit" value="Continue">
+								</li>
+							</ul>
+						</fieldset>
+					</form>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="WPCK-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

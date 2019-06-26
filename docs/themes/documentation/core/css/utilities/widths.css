@@ -1,0 +1,686 @@
+/* ==========================================================================
+   UTILITIES / WIDTHS
+   ========================================================================== */
+
+/**
+ * A series of utility classes that give a fluid width to whichever element
+ * they are applied to, media breakpoints are included.
+ */
+
+/* Mobile First
+   =========================================== */
+/**
+ * Width size modifiers.
+ */
+.u-width-1 {
+	flex-basis: 8.333%;
+	max-width: 8.333%;
+}
+
+.u-width-2 {
+	flex-basis: 16.666%;
+	max-width: 16.666%;
+}
+
+.u-width-3 {
+	flex-basis: 25%;
+	max-width: 25%;
+}
+
+.u-width-4 {
+	flex-basis: 33.333%;
+	max-width: 33.333%;
+}
+
+.u-width-5 {
+	flex-basis: 41.666%;
+	max-width: 41.666%;
+}
+
+.u-width-6 {
+	flex-basis: 50%;
+	max-width: 50%;
+}
+
+.u-width-7 {
+	flex-basis: 58.333%;
+	max-width: 58.333%;
+}
+
+.u-width-8 {
+	flex-basis: 66.666%;
+	max-width: 66.666%;
+}
+
+.u-width-9 {
+	flex-basis: 75%;
+	max-width: 75%;
+}
+
+.u-width-10 {
+	flex-basis: 83.333%;
+	max-width: 83.333%;
+}
+
+.u-width-11 {
+	flex-basis: 91.666%;
+	max-width: 91.666%;
+}
+
+.u-width-12 {
+	flex-basis: 100%;
+	max-width: 100%;
+}
+
+
+/**
+ * Offset size modifiers.
+ */
+.u-offset-1 {
+	margin-left: 8.333%;
+}
+
+.u-offset-2 {
+	margin-left: 16.666%;
+}
+
+.u-offset-3 {
+	margin-left: 25%;
+}
+
+.u-offset-4 {
+	margin-left: 33.333%;
+}
+
+.u-offset-5 {
+	margin-left: 41.666%;
+}
+
+.u-offset-6 {
+	margin-left: 50%;
+}
+
+.u-offset-7 {
+	margin-left: 58.333%;
+}
+
+.u-offset-8 {
+	margin-left: 66.666%;
+}
+
+.u-offset-9 {
+	margin-left: 75%;
+}
+
+.u-offset-10 {
+	margin-left: 83.333%;
+}
+
+.u-offset-11 {
+	margin-left: 91.666%;
+}
+
+
+/* Small Breakpoint [40em = 640px]
+   =========================================== */
+@media screen and (min-width: 40em) {
+	.u-width-1--s {
+		flex-basis: 8.333%;
+		max-width: 8.333%;
+	}
+	
+	.u-width-2--s {
+		flex-basis: 16.666%;
+		max-width: 16.666%;
+	}
+	
+	.u-width-3--s {
+		flex-basis: 25%;
+		max-width: 25%;
+	}
+	
+	.u-width-4--s {
+		flex-basis: 33.333%;
+		max-width: 33.333%;
+	}
+	
+	.u-width-5--s {
+		flex-basis: 41.666%;
+		max-width: 41.666%;
+	}
+	
+	.u-width-6--s {
+		flex-basis: 50%;
+		max-width: 50%;
+	}
+	
+	.u-width-7--s {
+		flex-basis: 58.333%;
+		max-width: 58.333%;
+	}
+	
+	.u-width-8--s {
+		flex-basis: 66.666%;
+		max-width: 66.666%;
+	}
+	
+	.u-width-9--s {
+		flex-basis: 75%;
+		max-width: 75%;
+	}
+	
+	.u-width-10--s {
+		flex-basis: 83.333%;
+		max-width: 83.333%;
+	}
+	
+	.u-width-11--s {
+		flex-basis: 91.666%;
+		max-width: 91.666%;
+	}
+	
+	.u-width-12--s {
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+	
+	
+	/**
+	 * Offset size modifiers.
+	 */
+	.u-offset-1--s {
+		margin-left: 8.333%;
+	}
+	
+	.u-offset-2--s {
+		margin-left: 16.666%;
+	}
+	
+	.u-offset-3--s {
+		margin-left: 25%;
+	}
+	
+	.u-offset-4--s {
+		margin-left: 33.333%;
+	}
+	
+	.u-offset-5--s {
+		margin-left: 41.666%;
+	}
+	
+	.u-offset-6--s {
+		margin-left: 50%;
+	}
+	
+	.u-offset-7--s {
+		margin-left: 58.333%;
+	}
+	
+	.u-offset-8--s {
+		margin-left: 66.666%;
+	}
+	
+	.u-offset-9--s {
+		margin-left: 75%;
+	}
+	
+	.u-offset-10--s {
+		margin-left: 83.333%;
+	}
+	
+	.u-offset-11--s {
+		margin-left: 91.666%;
+	}
+}
+
+
+/* Medium Breakpoint [48em = 768px]
+   =========================================== */
+@media screen and (min-width: 48em) {
+	.u-width-1--m {
+		flex-basis: 8.333%;
+		max-width: 8.333%;
+	}
+	
+	.u-width-2--m {
+		flex-basis: 16.666%;
+		max-width: 16.666%;
+	}
+	
+	.u-width-3--m {
+		flex-basis: 25%;
+		max-width: 25%;
+	}
+	
+	.u-width-4--m {
+		flex-basis: 33.333%;
+		max-width: 33.333%;
+	}
+	
+	.u-width-5--m {
+		flex-basis: 41.666%;
+		max-width: 41.666%;
+	}
+	
+	.u-width-6--m {
+		flex-basis: 50%;
+		max-width: 50%;
+	}
+	
+	.u-width-7--m {
+		flex-basis: 58.333%;
+		max-width: 58.333%;
+	}
+	
+	.u-width-8--m {
+		flex-basis: 66.666%;
+		max-width: 66.666%;
+	}
+	
+	.u-width-9--m {
+		flex-basis: 75%;
+		max-width: 75%;
+	}
+	
+	.u-width-10--m {
+		flex-basis: 83.333%;
+		max-width: 83.333%;
+	}
+	
+	.u-width-11--m {
+		flex-basis: 91.666%;
+		max-width: 91.666%;
+	}
+	
+	.u-width-12--m {
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+	
+	
+	/**
+	 * Offset size modifiers.
+	 */
+	.u-offset-1--m {
+		margin-left: 8.333%;
+	}
+	
+	.u-offset-2--m {
+		margin-left: 16.666%;
+	}
+	
+	.u-offset-3--m {
+		margin-left: 25%;
+	}
+	
+	.u-offset-4--m {
+		margin-left: 33.333%;
+	}
+	
+	.u-offset-5--m {
+		margin-left: 41.666%;
+	}
+	
+	.u-offset-6--m {
+		margin-left: 50%;
+	}
+	
+	.u-offset-7--m {
+		margin-left: 58.333%;
+	}
+	
+	.u-offset-8--m {
+		margin-left: 66.666%;
+	}
+	
+	.u-offset-9--m {
+		margin-left: 75%;
+	}
+	
+	.u-offset-10--m {
+		margin-left: 83.333%;
+	}
+	
+	.u-offset-11--m {
+		margin-left: 91.666%;
+	}
+}
+
+
+/* Large Breakpoint [60em = 960px]
+   =========================================== */
+@media screen and (min-width: 60em) {
+	.u-width-1--l {
+		flex-basis: 8.333%;
+		max-width: 8.333%;
+	}
+	
+	.u-width-2--l {
+		flex-basis: 16.666%;
+		max-width: 16.666%;
+	}
+	
+	.u-width-3--l {
+		flex-basis: 25%;
+		max-width: 25%;
+	}
+	
+	.u-width-4--l {
+		flex-basis: 33.333%;
+		max-width: 33.333%;
+	}
+	
+	.u-width-5--l {
+		flex-basis: 41.666%;
+		max-width: 41.666%;
+	}
+	
+	.u-width-6--l {
+		flex-basis: 50%;
+		max-width: 50%;
+	}
+	
+	.u-width-7--l {
+		flex-basis: 58.333%;
+		max-width: 58.333%;
+	}
+	
+	.u-width-8--l {
+		flex-basis: 66.666%;
+		max-width: 66.666%;
+	}
+	
+	.u-width-9--l {
+		flex-basis: 75%;
+		max-width: 75%;
+	}
+	
+	.u-width-10--l {
+		flex-basis: 83.333%;
+		max-width: 83.333%;
+	}
+	
+	.u-width-11--l {
+		flex-basis: 91.666%;
+		max-width: 91.666%;
+	}
+	
+	.u-width-12--l {
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+	
+	
+	/**
+	 * Offset size modifiers.
+	 */
+	.u-offset-1--l {
+		margin-left: 8.333%;
+	}
+	
+	.u-offset-2--l {
+		margin-left: 16.666%;
+	}
+	
+	.u-offset-3--l {
+		margin-left: 25%;
+	}
+	
+	.u-offset-4--l {
+		margin-left: 33.333%;
+	}
+	
+	.u-offset-5--l {
+		margin-left: 41.666%;
+	}
+	
+	.u-offset-6--l {
+		margin-left: 50%;
+	}
+	
+	.u-offset-7--l {
+		margin-left: 58.333%;
+	}
+	
+	.u-offset-8--l {
+		margin-left: 66.666%;
+	}
+	
+	.u-offset-9--l {
+		margin-left: 75%;
+	}
+	
+	.u-offset-10--l {
+		margin-left: 83.333%;
+	}
+	
+	.u-offset-11--l {
+		margin-left: 91.666%;
+	}
+}
+
+
+/* Extra-Large Breakpoint [75em = 1200px]
+   =========================================== */
+@media screen and (min-width: 75em) {
+	.u-width-1--xl {
+		flex-basis: 8.333%;
+		max-width: 8.333%;
+	}
+	
+	.u-width-2--xl {
+		flex-basis: 16.666%;
+		max-width: 16.666%;
+	}
+	
+	.u-width-3--xl {
+		flex-basis: 25%;
+		max-width: 25%;
+	}
+	
+	.u-width-4--xl {
+		flex-basis: 33.333%;
+		max-width: 33.333%;
+	}
+	
+	.u-width-5--xl {
+		flex-basis: 41.666%;
+		max-width: 41.666%;
+	}
+	
+	.u-width-6--xl {
+		flex-basis: 50%;
+		max-width: 50%;
+	}
+	
+	.u-width-7--xl {
+		flex-basis: 58.333%;
+		max-width: 58.333%;
+	}
+	
+	.u-width-8--xl {
+		flex-basis: 66.666%;
+		max-width: 66.666%;
+	}
+	
+	.u-width-9--xl {
+		flex-basis: 75%;
+		max-width: 75%;
+	}
+	
+	.u-width-10--xl {
+		flex-basis: 83.333%;
+		max-width: 83.333%;
+	}
+	
+	.u-width-11--xl {
+		flex-basis: 91.666%;
+		max-width: 91.666%;
+	}
+	
+	.u-width-12--xl {
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+	
+	
+	/**
+	 * Offset size modifiers.
+	 */
+	.u-offset-1--xl {
+		margin-left: 8.333%;
+	}
+	
+	.u-offset-2--xl {
+		margin-left: 16.666%;
+	}
+	
+	.u-offset-3--xl {
+		margin-left: 25%;
+	}
+	
+	.u-offset-4--xl {
+		margin-left: 33.333%;
+	}
+	
+	.u-offset-5--xl {
+		margin-left: 41.666%;
+	}
+	
+	.u-offset-6--xl {
+		margin-left: 50%;
+	}
+	
+	.u-offset-7--xl {
+		margin-left: 58.333%;
+	}
+	
+	.u-offset-8--xl {
+		margin-left: 66.666%;
+	}
+	
+	.u-offset-9--xl {
+		margin-left: 75%;
+	}
+	
+	.u-offset-10--xl {
+		margin-left: 83.333%;
+	}
+	
+	.u-offset-11--xl {
+		margin-left: 91.666%;
+	}
+}
+
+
+/* Wide-Screen Breakpoint [90em = 1440px]
+   =========================================== */
+@media screen and (min-width: 90em) {
+	.u-width-1--w {
+		flex-basis: 8.333%;
+		max-width: 8.333%;
+	}
+	
+	.u-width-2--w {
+		flex-basis: 16.666%;
+		max-width: 16.666%;
+	}
+	
+	.u-width-3--w {
+		flex-basis: 25%;
+		max-width: 25%;
+	}
+	
+	.u-width-4--w {
+		flex-basis: 33.333%;
+		max-width: 33.333%;
+	}
+	
+	.u-width-5--w {
+		flex-basis: 41.666%;
+		max-width: 41.666%;
+	}
+	
+	.u-width-6--w {
+		flex-basis: 50%;
+		max-width: 50%;
+	}
+	
+	.u-width-7--w {
+		flex-basis: 58.333%;
+		max-width: 58.333%;
+	}
+	
+	.u-width-8--w {
+		flex-basis: 66.666%;
+		max-width: 66.666%;
+	}
+	
+	.u-width-9--w {
+		flex-basis: 75%;
+		max-width: 75%;
+	}
+	
+	.u-width-10--w {
+		flex-basis: 83.333%;
+		max-width: 83.333%;
+	}
+	
+	.u-width-11--w {
+		flex-basis: 91.666%;
+		max-width: 91.666%;
+	}
+	
+	.u-width-12--w {
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+	
+	
+	/**
+	 * Offset size modifiers.
+	 */
+	.u-offset-1--w {
+		margin-left: 8.333%;
+	}
+	
+	.u-offset-2--w {
+		margin-left: 16.666%;
+	}
+	
+	.u-offset-3--w {
+		margin-left: 25%;
+	}
+	
+	.u-offset-4--w {
+		margin-left: 33.333%;
+	}
+	
+	.u-offset-5--w {
+		margin-left: 41.666%;
+	}
+	
+	.u-offset-6--w {
+		margin-left: 50%;
+	}
+	
+	.u-offset-7--w {
+		margin-left: 58.333%;
+	}
+	
+	.u-offset-8--w {
+		margin-left: 66.666%;
+	}
+	
+	.u-offset-9--w {
+		margin-left: 75%;
+	}
+	
+	.u-offset-10--w {
+		margin-left: 83.333%;
+	}
+	
+	.u-offset-11--w {
+		margin-left: 91.666%;
+	}
+}

@@ -1,0 +1,62 @@
+<section class="o-layout u-grids-2 u-grids-5--l x-product-list">
+	<mvt:foreach iterator="product" array="all_products:products">
+		<div class="o-layout__item u-text-center x-product-list__item t-defer-object" data-defer>
+			<a class="u-block x-product-list__link" href="&mvte:product:link;">
+				<figure class="x-product-list__figure">
+					<picture class="x-product-list__picture">
+						<img class="x-product-list__image" data-src="&mvte:product:imagetypes:main;" src="" alt="&mvte:product:name;">
+					</picture>
+					<figcaption class="x-product-list__figure-caption">
+						<mvt:if expr="l.settings:product:base_price GT l.settings:product:price">
+							<span class="x-product-list__price"><s>&mvt:product:formatted_base_price;</s></span>
+							<span class="x-product-list__price-red">&mvt:product:formatted_price;</span>
+						<mvt:else>
+							<span class="x-product-list__price">&mvt:product:formatted_price;</span>
+						</mvt:if>
+						<span class="x-product-list__name">&mvte:product:name;</span>
+					</figcaption>
+				</figure>
+			</a>
+		</div>
+	</mvt:foreach>
+</section>
+<!-- end .x-product-list -->
+
+<mvt:if expr="l.settings:all_products:page_links:last_page GT 1">
+	<nav class="x-pagination x-pagination--centered t-pagination">
+		<ul class="o-list-inline">
+			<mvt:if expr="l.settings:all_products:page_links:current_page NE 1">
+				<li class="o-list-inline__item">
+					<a class="u-color-gray-40 u-icon-chevron-left t-pagination__button" href="&mvte:urls:_self:auto_sep;&mvte:all_products:page_links:prev_link_params;" title="Go to the previous page."></a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="u-color-gray-40 u-icon-chevron-left t-pagination__button" title="You are on the first page."></span>
+				</li>
+			</mvt:if>
+			<li class="o-list-inline__item o-layout--grow">
+				<div class="c-form-select">
+					<select class="c-form-select__dropdown u-font-small u-text-uppercase u-text-bold u-color-gray-40" name="Sort_By" onchange="window.location.href=this.options[ this.selectedIndex ].value">
+						<mvt:foreach iterator="pages" array="all_products:page_links:pages">
+							<mvt:if expr="l.settings:all_products:page_links:current_page EQ l.settings:pages:page_num">
+								<option value="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;" selected>Page &mvte:pages:page_num; of &mvte:all_products:page_links:last_page;</option>
+							<mvt:else>
+								<option value="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;">Page &mvte:pages:page_num; of &mvte:all_products:page_links:last_page;</option>
+							</mvt:if>
+						</mvt:foreach>
+					</select>
+				</div>
+			</li>
+			<mvt:if expr="l.settings:all_products:page_links:current_page NE l.settings:all_products:page_links:last_page">
+				<li class="o-list-inline__item">
+					<a class="u-color-gray-40 u-icon-chevron-right t-pagination__button" href="&mvte:urls:_self:auto_sep;&mvte:all_products:page_links:next_link_params;" title="Go to the next page."></a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="u-color-gray-40 u-icon-chevron-right t-pagination__button" title="You are on the last page."></span>
+				</li>
+			</mvt:if>
+		</ul>
+	</nav>
+	<!-- end .x-pagination -->
+</mvt:if>

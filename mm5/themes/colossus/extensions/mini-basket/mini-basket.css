@@ -1,0 +1,123 @@
+/* ==========================================================================
+   EXTENSIONS / MINI-BASKET / MINI-BASKET
+   ========================================================================== */
+
+/**
+ * This is an extension to use the mini-basket functionality of Miva in an
+ * off-canvas method.
+ */
+.x-mini-basket {
+	display: flex;
+	justify-content: flex-end;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: all ease-in-out 0.2s;
+	z-index: 500;
+	opacity: 0;
+}
+
+.x-mini-basket--open {
+	opacity: 1;
+	transform: scaleX(1);
+}
+
+	.x-mini-basket__content {
+		display: flex;
+		flex: 1 1 100%;
+		flex-direction: column;
+		width: 100vw;
+		max-width: 30rem;
+		padding: 1rem;
+	}
+
+	.x-mini-basket__header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.x-mini-basket__list {
+		overflow-y: auto;
+	}
+
+		.x-mini-basket__line {
+			display: flex;
+			margin-bottom: 2em;
+			font-size: 0.875rem;
+			flex-wrap: wrap;
+		}
+
+			.x-mini-basket__image {
+				width: 5rem;
+				height: 5rem;
+				margin: 0 1em 0 0;
+				overflow: hidden;
+				text-align: center;
+			}
+
+			.x-mini-basket__item {
+				display: flex;
+				flex: 1 1 auto;
+				flex-direction: column;
+				justify-content: space-between;
+				text-decoration: none;
+			}
+
+			.x-mini-basket__item:hover {
+				text-decoration: none;
+			}
+
+				.x-mini-basket__item-name {
+					display: block;
+					margin-bottom: 1em;
+				}
+
+				.x-mini-basket__subscription {
+					flex-basis: 100%;
+				}
+
+				.x-mini-basket__item-total {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
+
+				.x-mini-basket__item-total hr {
+					margin: 0 0.75em;
+					flex-grow: 1;
+				}
+
+	.x-mini-basket__footer {
+	}
+
+		.x-mini-basket__charges,
+		.x-mini-basket__total,
+		.x-mini-basket__cta {
+			display: flex;
+			flex-grow: 1;
+			justify-content: space-between;
+		}
+
+		.x-mini-basket__charges {
+			flex-direction: column;
+			margin-bottom: 1em;
+			font-size: 0.875rem;
+		}
+
+			.x-mini-basket__charge-item {
+				display: flex;
+				justify-content: space-between;
+			}
+
+		.x-mini-basket__total {
+			margin-bottom: 1em;
+		}
+
+		.x-mini-basket__cta {
+			font-size: 0.875rem;
+		}

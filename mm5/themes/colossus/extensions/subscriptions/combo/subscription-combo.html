@@ -1,0 +1,48 @@
+<!-- This is an excerpt from the product attribute template code included in Colossus. -->
+
+<mvt:if expr="l.settings:subscription:enabled AND l.settings:subscription:term_count">
+	<div class="x-product-layout-purchase__options-attribute o-layout__item x-subscription-combo">
+		<mvt:if expr="l.settings:subscription:mandatory">
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="l-subscription-mandatory" title="Subscribe">Select Subscription</label>
+			<div class="c-form-select">
+				<select id="l-subscription-mandatory" class="c-form-select__dropdown c-form-input--large" name="Product_Subscription_Term_ID" &mvt:required_attribute;>
+					<mvt:foreach iterator="term" array="subscription:terms">
+						<option value="&mvte:term:id;">&mvte:term:descrip;</option>
+					</mvt:foreach>
+				</select>
+			</div>
+		<mvt:else>
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="l-subscription" title="Subscribe">Subscription</label>
+
+			<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline" title="Order Once">
+				<mvt:if expr="g.Product_Subscription_Term_ID EQ 0">
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="0" checked>
+				<mvt:else>
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="0">
+				</mvt:if>
+				<span class="c-form-checkbox__caption">
+					<span class="u-text-uppercase">Order</span>
+					<strong>Once</strong>
+				</span>
+			</label>
+
+			<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline" data-hook="select-subscription" title="Select Subscription">
+				<mvt:if expr="g.Product_Subscription_Term_ID NE 0">
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="" aria-label="Select Subscription" checked>
+				<mvt:else>
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="" aria-label="Select Subscription">
+				</mvt:if>
+				<span class="c-form-checkbox__caption">
+					<span class="c-form-select">
+						<select id="l-subscription" class="c-form-select__dropdown c-form-input--large" name="Product_Subscription_Term_ID">
+							<mvt:foreach iterator="term" array="subscription:terms">
+								<option value="&mvte:term:id;">&mvte:term:descrip;</option>
+							</mvt:foreach>
+						</select>
+					</span>
+				</span>
+			</label>
+
+		</mvt:if>
+	</div>
+</mvt:if>

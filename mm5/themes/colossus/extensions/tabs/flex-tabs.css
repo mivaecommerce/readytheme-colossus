@@ -1,0 +1,68 @@
+/* ==========================================================================
+   EXTENSIONS / TABS / FLEX-TABS
+   ========================================================================== */
+
+/**
+ * This extension allows for creating tabbed content which converts to an 
+ * accordion layout on smaller devices/screens.
+ */
+
+.x-flex-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
+}
+
+	input[data-flex-tab] {
+		display: none;
+		visibility: hidden;
+	}
+
+	.x-flex-tabs__tab {
+		width: 100%;
+		border-bottom: 0.125rem solid transparent;
+		cursor: pointer;
+	}
+
+	@media (min-width: 64em) {
+		.x-flex-tabs:not(.x-flex-tabs--accordion) .x-flex-tabs__tab {
+			/* let tabs scale to fit multiple on each row */
+			width: auto;
+			/* shift all tabs to appear before content */
+			order: -1;
+		}
+		.x-flex-tabs:not(.x-flex-tabs--accordion) .x-flex-tabs__tab:not(:first-of-type) {
+			margin-left: 2em;
+		}
+
+	}
+
+
+	.x-flex-tabs__content {
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+		opacity: 0;
+		-webkit-transform: scaleY(0);
+		-ms-transform: scaleY(0);
+		transform: scaleY(0);
+		transform-origin: top;
+		transition: opacity 0.3s ease-out;
+	}
+
+	input[data-flex-tab]:checked + .x-flex-tabs__tab {
+		font-weight: 700;
+		border-color: currentColor;
+	}
+
+	input[data-flex-tab]:checked + .x-flex-tabs__tab + .x-flex-tabs__content {
+		height: auto;
+		padding-top: 1em;
+		padding-bottom: 1em;
+		overflow-y: auto;
+		opacity: 1;
+		-webkit-transform: scaleY(1);
+		-ms-transform: scaleY(1);
+		transform: scaleY(1);
+		transition: opacity 0.3s ease-in;
+	}

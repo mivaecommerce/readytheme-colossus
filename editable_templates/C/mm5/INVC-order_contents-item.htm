@@ -1,0 +1,107 @@
+<table class="c-table-responsive t-basket__product-summary">
+	<thead class="c-table-responsive_thead u-text-left">
+		<tr class="c-table-responsive__row u-color-black u-font-tiny u-text-bold u-text-uppercase">
+			<th class="c-table-responsive__cell" scope="col">Product</th>
+			<th class="c-table-responsive__cell u-text-center" scope="col">Quantity</th>
+			<th class="c-table-responsive__cell u-text-right" scope="col">Subtotal</th>
+		</tr>
+	</thead>
+	<tbody>
+		<mvt:assign name="g.basket_subtotal" value="0" />
+		<mvt:foreach iterator="item" array="order:groups">
+			<tr class="c-table-responsive__row u-color-gray-50">
+				<td class="c-table-responsive__cell" data-label="">
+					<div class="o-layout">
+						<div class="o-layout__item u-width-12 u-width-4--s u-width-3--l u-text-center">
+							<picture>
+								<img src="&mvte:item:imagetypes:main;" alt="&mvt:item:name;">
+							</picture>
+						</div>
+						<div class="o-layout__item u-width-12 u-width-8--s u-width-9--l t-basket__product-details">
+							<span class="u-text-bold u-color-black">&mvt:item:name;</span>
+							<br>
+							<div>
+								<mvt:if expr="l.settings:item:upsold">
+									<span class="u-font-small">(Special Offer)</span><br>
+								</mvt:if>
+								<span class="u-font-small">SKU: &mvt:item:code;</span><br>
+								<mvt:foreach iterator="discount" array="item:discounts">
+									<mvt:if expr="l.settings:discount:display">
+										<mvt:if expr="'sale' CIN l.settings:discount:descrip">
+											<mvt:assign name="l.settings:discount:descrip" value="'Savings'"/>
+										<mvt:else>
+											<mvt:assign name="l.settings:discount:descrip" value="l.settings:discount:descrip"/>
+										</mvt:if>
+										<span class="u-font-small u-flex u-color-red">
+											<span class="o-layout--grow">&mvt:discount:descrip;</span>
+											<span>&mvt:discount:formatted_discount;</span>
+										</span>
+									</mvt:if>
+								</mvt:foreach>
+								<mvt:assign name="l.settings:attr_ref" value="''" />
+								<mvt:foreach iterator="option" array="item:options">
+									<span class="u-font-small u-flex">
+										<mvt:if expr="l.settings:option:attmpat_id">
+											<mvt:assign name="l.settings:attr_ref" value="l.settings:option:attr_prompt" />
+										<mvt:else>
+											<mvt:assign name="l.settings:attr_ref" value="l.settings:option:attr_code" />
+										</mvt:if>
+										<mvt:if expr="l.settings:option:option_id">
+											<span class="o-layout--grow">&mvt:option:attr_prompt;: &mvt:option:opt_prompt;</span>
+											<mvt:if expr="l.settings:option:subtotal GT 0">
+												<span>&mvt:option:formatted_subtotal;</span>
+											</mvt:if>
+										<mvt:elseif expr="NOT ISNULL l.settings:option:data">
+											<span class="o-layout--grow">&mvt:option:attr_prompt;: &mvt:option:data;</span>
+											<mvt:if expr="l.settings:option:subtotal GT 0">
+												<span>&mvt:option:formatted_subtotal;</span>
+											</mvt:if>
+										<mvt:elseif expr="NOT ISNULL l.settings:option:data_long">
+											<span class="o-layout--grow">&mvt:option:attr_prompt;: &mvt:option:data_long;</span>
+											<mvt:if expr="l.settings:option:subtotal GT 0">
+												<span>&mvt:option:formatted_subtotal;</span>
+											</mvt:if>
+										<mvt:else>
+											<span class="o-layout--grow">&mvt:option:attr_prompt;</span>
+											<mvt:if expr="l.settings:option:subtotal GT 0">
+												<span>&mvt:option:formatted_subtotal;</span>
+											</mvt:if>
+										</mvt:if>
+									</span>
+									<mvt:foreach iterator="discount" array="option:discounts">
+										<mvt:if expr="l.settings:discount:display">
+											<span class="u-font-small u-flex u-color-red">
+												<span class="u-color-red o-layout--grow">&mvt:discount:descrip;</span>
+												<span class="u-color-red">&mvt:discount:formatted_discount;</span>
+											</span>
+										</mvt:if>
+									</mvt:foreach>
+								</mvt:foreach>
+							</div>
+							<mvt:if expr="l.settings:item:subterm_id">
+								<p class="u-font-small">Subscription: &mvte:item:subscription:productsubscriptionterm:descrip;</p>
+							</mvt:if>
+						</div>
+					</div>
+				</td>
+				
+				<td class="c-table-responsive__cell c-table-responsive__cell--flex u-text-center" data-label="Quantity">
+					&mvt:item:quantity;
+				</td>
+				
+				<td class="c-table-responsive__cell c-table-responsive__cell--flex u-text-right" data-label="Subtotal">
+					<span class="u-inline-block">
+						<span class="u-text-bold u-block">&mvt:item:formatted_subtotal_comprehensive;</span>
+						<mvt:assign name="g.basket_subtotal" value="g.basket_subtotal + l.settings:item:subtotal_comprehensive" />
+						<mvt:if expr="l.settings:item:subtotal_base_price NE l.settings:item:subtotal">
+							<s class="c-heading--subheading u-block">&mvt:item:formatted_subtotal_base_price;</s>
+						</mvt:if>
+						<mvt:if expr="l.settings:item:upsold">
+							<span class="c-heading--subheading u-block">&nbsp;</span>
+						</mvt:if>
+					</span>
+				</td>
+			</tr>
+		</mvt:foreach>
+	</tbody>
+</table>

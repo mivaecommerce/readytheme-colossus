@@ -1,0 +1,165 @@
+/* ==========================================================================
+   BASE / RESETS
+   ========================================================================== */
+
+/**
+ * This contains some additional resets and baselines not facilitated by
+ * 'normalize.css'. Editing is not recommended.
+ */
+
+html {
+	box-sizing: border-box;
+}
+
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+
+
+
+
+/* Vertical Rhythm
+   =========================================== */
+
+/**
+ * Apply our base spacing unit as a `margin-bottom` to all block level elements
+ * so that we get nice and consistent vertical rhythm very cheaply.
+ * http://csswizardry.com/2012/06/single-direction-margin-declarations/
+ */
+address,
+blockquote,
+dl,
+fieldset,
+figure,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+menu,
+ol,
+p,
+pre,
+summary,
+table,
+ul {
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+fieldset {
+	margin-right: 0;
+	margin-left: 0;
+	padding: 0;
+}
+
+
+/**
+ * We'll also indent list elements by the same amount of spacing. Also, we will
+ * remove the left padding added by some user-agents.
+ */
+dd,
+ol,
+ul {
+	margin-left: 16px;
+	padding-left: 0;
+}
+
+/**
+ * Remove trailing margins from nested lists.
+ */
+li > ol,
+li > ul {
+	margin-bottom: 0;
+}
+
+
+
+
+
+/**
+ * Pseudo Selection
+ */
+::-moz-selection {
+	background: #eaeaea;
+	text-shadow: none;
+}
+
+::selection {
+	background: #eaeaea;
+	text-shadow: none;
+}
+
+::selection:window-inactive {
+	background: #eaeaea;
+}
+
+img::selection {
+	background: rgba(0, 0, 0, 0);
+}
+
+img::-moz-selection {
+	background: rgba(0, 0, 0, 0);
+}
+
+
+
+
+
+/**
+ * Identify Disabled/Not Allowed Elements
+ */
+*[disabled] {
+	cursor: not-allowed;
+}
+
+
+
+
+
+/**
+ * Breakpoints
+ * These values will not show up in content, but can be queried by JavaScript
+ * to know which breakpoint is active.
+ */
+body::before {
+	display: none;
+	content: "xsmall";
+	visibility: hidden;
+}
+
+@media (min-width: 40em) {
+	body::before {
+		content: "small";
+	}
+}
+
+@media (min-width: 48em) {
+	body::before {
+		content: "medium";
+	}
+}
+
+@media (min-width: 60em) {
+	body::before {
+		content: "large";
+	}
+}
+
+@media (min-width: 75em) {
+	body::before {
+		content: "xlarge";
+	}
+}
+
+@media (min-width: 90em) {
+	body::before {
+		content: "wide";
+	}
+}

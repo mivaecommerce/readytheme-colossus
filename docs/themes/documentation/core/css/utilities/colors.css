@@ -1,0 +1,344 @@
+/* ==========================================================================
+   UTILITIES / COLORS
+   ========================================================================== */
+
+/**
+ * Utility classes to adjust element colors inline.
+ * Both .u-bg-*** and .u-color-*** work for each color class.
+ */
+
+.u-bg-red::before,
+.u-bg-red {
+	background-color: #c8102e;
+}
+
+.u-bg-yellow::before,
+.u-bg-yellow {
+	background-color: #f9ed1f;
+}
+
+.u-bg-blue::before,
+.u-bg-blue {
+	background-color: #003b6f;
+}
+
+.u-bg-green::before,
+.u-bg-green {
+	background-color: #009a44;
+}
+
+.u-bg-black::before,
+.u-bg-black {
+	background-color: #0f0f0f;
+}
+
+.u-bg-gray-50::before,
+.u-bg-gray-50 {
+	background-color: #222;
+}
+
+.u-bg-gray-40::before,
+.u-bg-gray-40 {
+	background-color: #707070;
+}
+
+.u-bg-gray-30::before,
+.u-bg-gray-30 {
+	background-color: #9f9f9f;
+}
+
+.u-bg-gray-20::before,
+.u-bg-gray-20 {
+	background-color: #c0c0c0;
+}
+
+.u-bg-gray-10::before,
+.u-bg-gray-10 {
+	background-color: #eaeaea;
+}
+
+.u-bg-white::before,
+.u-bg-white {
+	background-color: #fff;
+}
+
+.u-bg-transparent {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.u-bg-primary::before,
+.u-bg-primary {
+	background-color: #3d70b2;
+}
+
+.u-bg-secondary::before,
+.u-bg-secondary {
+	background-color: #5aaafa;
+}
+
+.u-bg-tertiary::before,
+.u-bg-tertiary {
+	background-color: #008571;
+}
+
+.u-bg-highlight::before,
+.u-bg-highlight {
+	background-color: #f9ed1f;
+}
+
+.u-bg-accent::before,
+.u-bg-accent {
+	background-color: #3cc;
+}
+
+
+
+
+
+.c-button:hover.u-bg-red {
+	background-color: #a00c24;
+}
+
+.c-button:hover.u-bg-yellow {
+	background-color: #c7bd19;
+}
+
+.c-button:hover.u-bg-blue {
+	background-color: #34638b;
+}
+
+.c-button:hover.u-bg-green {
+	background-color: #007c36;
+}
+
+.c-button:hover.u-bg-black {
+	background-color: #3f3f3f;
+}
+
+.c-button:hover.u-bg-gray-50 {
+	background-color: #4e4e4e;
+}
+
+.c-button:hover.u-bg-gray-40 {
+	background-color: #5a5a5a;
+}
+
+.c-button:hover.u-bg-gray-30 {
+	background-color: #7f7f7f;
+}
+
+.c-button:hover.u-bg-gray-20 {
+	background-color: #9a9a9a;
+}
+
+.c-button:hover.u-bg-gray-10 {
+	background-color: #bcbcbc;
+}
+
+.c-button:hover.u-bg-white {
+	background-color: #cbcbcb;
+}
+
+.c-button:hover.u-bg-primary {
+	background-color: #315a8e;
+}
+
+.c-button:hover.u-bg-secondary {
+	background-color: #4888c8;
+}
+
+.c-button:hover.u-bg-tertiary {
+	background-color: #006b5b;
+}
+
+.c-button:hover.u-bg-highlight {
+	background-color: #c7bd19;
+}
+
+.c-button:hover.u-bg-accent {
+	background-color: #29a4a4;
+}
+
+
+
+
+
+.u-border-red {
+	border-color: #c8102e;
+}
+
+.u-border-yellow {
+	border-color: #f9ed1f;
+}
+
+.u-border-blue {
+	border-color: #003b6f;
+}
+
+.u-border-green {
+	border-color: #009a44;
+}
+
+.u-border-black {
+	border-color: #0f0f0f;
+}
+
+.u-border-gray-50 {
+	border-color: #222;
+}
+
+.u-border-gray-40 {
+	border-color: #707070;
+}
+
+.u-border-gray-30 {
+	border-color: #9f9f9f;
+}
+
+.u-border-gray-20 {
+	border-color: #c0c0c0;
+}
+
+.u-border-gray-10 {
+	border-color: #eaeaea;
+}
+
+.u-border-white {
+	border-color: #fff;
+}
+
+.u-border-transparent {
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.u-border-primary {
+	border-color: #3d70b2;
+}
+
+.u-border-secondary {
+	border-color: #5aaafa;
+}
+
+.u-border-tertiary {
+	border-color: #008571;
+}
+
+.u-border-highlight {
+	border-color: #f9ed1f;
+}
+
+.u-border-accent {
+	border-color: #3cc;
+}
+
+
+
+
+
+.u-color-red {
+	color: #c8102e;
+}
+
+.u-color-yellow {
+	color: #f9ed1f;
+}
+
+.u-color-blue {
+	color: #003b6f;
+}
+
+.u-color-green {
+	color: #009a44;
+}
+
+.u-color-black {
+	color: #0f0f0f;
+}
+
+.u-color-gray-50 {
+	color: #222;
+}
+
+.u-color-gray-40 {
+	color: #707070;
+}
+
+.u-color-gray-30 {
+	color: #9f9f9f;
+}
+
+.u-color-gray-20 {
+	color: #c0c0c0;
+}
+
+.u-color-gray-10 {
+	color: #eaeaea;
+}
+
+.u-color-white {
+	color: #fff;
+}
+
+.u-color-transparent {
+	color: rgba(0, 0, 0, 0);
+}
+
+.u-color-primary {
+	color: #3d70b2;
+}
+
+.u-color-secondary {
+	color: #5aaafa;
+}
+
+.u-color-tertiary {
+	color: #008571;
+}
+
+.u-color-highlight {
+	color: #f9ed1f;
+}
+
+.u-color-accent {
+	color: #3cc;
+}
+
+
+
+
+
+
+/**
+ * This will make sure the full background of a layout object is filled.
+ */
+.o-layout[class*="u-bg-"] {
+	position: relative;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+	.o-layout[class*="u-bg-"]::before {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 16px;
+		content: '';
+	}
+
+		.o-layout--narrow[class*="u-bg-"]::before {
+			left: calc(16px * 0.5);
+		}
+		
+		.o-layout--wide[class*="u-bg-"]::before {
+			left: calc(16px * 2);
+		}
+		
+		.o-layout--flush[class*="u-bg-"]::before {
+			left: 0;
+		}
+	
+	.o-layout[class*="u-bg-"] > * {
+		position: relative;
+		z-index: 1;
+	}

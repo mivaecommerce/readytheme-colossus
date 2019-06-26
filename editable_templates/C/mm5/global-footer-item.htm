@@ -1,0 +1,134 @@
+</main>
+<!-- end t-site-content -->
+
+<mvt:if expr="l.settings:page:code NE 'ORDL' AND l.settings:page:code NE 'OCST' AND l.settings:page:code NE 'OUS1' AND l.settings:page:code NE 'OUSM' AND l.settings:page:code NE 'UATM' AND l.settings:page:code NE 'UATR' AND l.settings:page:code NE 'OSEL' AND l.settings:page:code NE 'OPAY'">
+	<footer class="o-wrapper o-wrapper--flush o-wrapper--full u-bg-white t-site-footer">
+		<div class="o-wrapper">
+			<div class="o-layout u-grids-2 u-grids-3--l u-text-center t-site-footer__headlines">
+				<section class="o-layout__item">
+					<ul class="o-list-inline">
+						<li class="o-list-inline__item u-color-gray-50 u-font-tiny u-text-medium u-text-uppercase t-site-footer__headlines-title">Call Us:</li>
+						<li class="o-list-inline__item u-text-medium t-site-footer__headlines-detail">&mvt:global:store:phone;</li>
+					</ul>
+				</section>
+				<section class="o-layout__item">
+					<ul class="o-list-inline">
+						<li class="o-list-inline__item u-color-gray-50 u-font-tiny u-text-medium u-text-uppercase t-site-footer__headlines-title">Email:</li>
+						<li class="o-list-inline__item u-text-medium t-site-footer__headlines-detail">&mvt:global:store:email;</li>
+					</ul>
+				</section>
+				<section class="o-layout__item u-hidden u-inline-block--l">
+					<ul class="o-list-inline">
+						<li class="o-list-inline__item u-color-gray-50 u-font-tiny u-text-medium u-text-uppercase t-site-footer__headlines-title">Questions:</li>
+						<li class="o-list-inline__item t-site-footer__headlines-detail">
+							<a class="t-primary-link" href="&mvte:urls:FAQS:auto;">FAQs</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+			<hr class="c-keyline">
+			<div class="o-layout t-site-footer__content">
+				<section class="o-layout__item u-width-12 u-width-4--l" itemscope itemtype="http://schema.org/Organization">
+					<mvt:item name="readytheme" param="Load_Image('global_footer_logo', l.settings:global_footer_logo)" />
+					<link itemprop="url" href="//&mvt:global:domain:name;/">
+					<mvt:if expr="l.settings:readytheme:global_footer_logo:active">
+						<link itemprop="logo" href="&mvte:readytheme:global_footer_logo:image;" />
+						<p class="u-hidden u-shown--l">
+							<a class="u-text-no-decoration" href="&mvte:urls:SFNT:auto;">
+								<img class="u-block" src="&mvte:readytheme:global_footer_logo:image;" alt="&mvt:readytheme:global_footer_logo:image_alt;">
+							</a>
+							<br>
+						</p>
+					<mvt:elseif expr="l.settings:readytheme:logo_type EQ 'image'">
+						<link itemprop="logo" href="&mvte:readytheme:logo_image;" />
+						<p class="u-hidden u-shown--l">
+							<a class="u-text-no-decoration" href="&mvte:urls:SFNT:auto;">
+								<img class="t-logo-image" src="&mvte:readytheme:logo_image;" alt="&mvt:readytheme:logo_alt;">
+							</a>
+							<br>
+						</p>
+					</mvt:if>
+					<mvt:item name="readytheme" param="contentsection( 'newsletter_form' )" />
+
+					<nav class="c-menu c-collapsible-menu">
+						<input id="hours" class="c-collapsible-menu__trigger" type="checkbox">
+						<label class="c-collapsible-menu__label u-color-gray-50 u-font-small u-text-regular u-text-uppercase u-hidden--l" for="hours">Hours</label>
+						<div class="c-menu__list">
+							<mvt:item name="readytheme" param="contentsection( 'store_hours' )" />
+							<div class="t-global-footer-social-links">
+								<ul class="o-list-inline">
+									<li class="o-list-block__item c-menu__title u-color-gray-50 u-font-tiny u-text-medium u-text-uppercase">Social</li>
+									<mvt:if expr="l.settings:readytheme:social_facebook">
+										<li class="o-list-inline__item">
+											<a class="u-icon-facebook u-color-gray-40" href="&mvt:readytheme:social_facebook;" title="Facebook" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="Facebook"></a>
+										</li>
+									</mvt:if>
+									<mvt:if expr="l.settings:readytheme:social_twitter">
+										<li class="o-list-inline__item">
+											<a class="u-icon-twitter u-color-gray-40" href="&mvt:readytheme:social_twitter;" title="Twitter" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="Twitter"></a>
+										</li>
+									</mvt:if>
+									<mvt:if expr="l.settings:readytheme:social_instagram">
+										<li class="o-list-inline__item">
+											<a class="u-icon-instagram u-color-gray-40" href="&mvt:readytheme:social_instagram;" title="Instagram" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="Instagram"></a>
+										</li>
+									</mvt:if>
+									<mvt:if expr="l.settings:readytheme:social_googleplus">
+										<li class="o-list-inline__item">
+											<a class="u-icon-google u-color-gray-40" href="&mvt:readytheme:social_googleplus;" title="Google+" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="Google+"></a>
+										</li>
+									</mvt:if>
+									<mvt:if expr="l.settings:readytheme:social_youtube">
+										<li class="o-list-inline__item">
+											<a class="u-icon-youtube u-color-gray-40" href="&mvt:readytheme:social_youtube;" title="YouTube" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="YouTube"></a>
+										</li>
+									</mvt:if>
+									<mvt:if expr="l.settings:readytheme:social_vimeo">
+										<li class="o-list-inline__item">
+											<a class="u-icon-vimeo u-color-gray-40" href="&mvt:readytheme:social_vimeo;" title="Vimeo" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="Vimeo"></a>
+										</li>
+									</mvt:if>
+									<mvt:if expr="l.settings:readytheme:social_pinterest">
+										<li class="o-list-inline__item">
+											<a class="u-icon-pinterest u-color-gray-40" href="&mvt:readytheme:social_pinterest;" title="Pinterest" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="Pinterest"></a>
+										</li>
+									</mvt:if>
+									<mvt:if expr="l.settings:readytheme:social_flickr">
+										<li class="o-list-inline__item">
+											<a class="u-icon-flickr u-color-gray-40" href="&mvt:readytheme:social_flickr;" title="Flickr" target="_blank" rel="noreferrer" itemprop="sameAs" aria-label="Flickr"></a>
+										</li>
+									</mvt:if>
+								</ul>
+							</div>
+							<mvt:if expr="g.session:cache:readytheme:lookandfeel:lookandfeel:trs_active">
+								<h5 class="c-menu__title u-color-gray-50 u-font-tiny u-text-medium u-text-uppercase">Safe &amp; Secure</h5>
+								<p class="u-text-medium u-text-uppercase">
+									<mvt:item name="readytheme" param="trustsymbol" />
+								</p>
+							</mvt:if>
+						</div>
+					</nav>
+				</section>
+				<div class="o-layout o-layout--flush o-layout__item u-width-12 u-width-8--l u-grids-1 u-grids-3--l">
+					<section class="o-layout__item">
+						<mvt:item name="readytheme" param="navigationset( 'links_resources' )" />
+					</section>
+					<section class="o-layout__item">
+						<mvt:item name="readytheme" param="navigationset( 'links_our_company' )" />
+					</section>
+					<section class="o-layout__item">
+						<mvt:item name="readytheme" param="navigationset( 'links_help' )" />
+					</section>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- end t-site-footer -->
+	<mvt:item name="readytheme" param="contentsection( 'site_copyright' )" />
+<mvt:else>
+	<mvt:item name="readytheme" param="contentsection( 'site_copyright' )" />
+</mvt:if>
+
+<mvt:item name="head" param="footer_js" />
+<mvt:item name="readytheme" param="contentsection('elements-core')" />
+<mvt:item name="ga_tracking" />

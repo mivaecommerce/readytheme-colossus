@@ -1,0 +1,118 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:category:page_title">
+		<title>&mvt:category:page_title;</title>
+	<mvt:elseif expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:category:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<mvt:foreach array="cattree_categories" iterator="category_children">
+		<mvt:if expr="l.settings:category_children:parent_id EQ l.settings:category:id">
+			<mvt:assign name="l.null" value="miva_array_insert(l.settings:subcategories, l.settings:category_children, -1)" />
+		</mvt:if>
+	</mvt:foreach>
+	<mvt:assign name="l.settings:subcategory_count" value="miva_array_elements(l.settings:subcategories)" />
+	
+	<mvt:if expr="l.settings:subcategories GT 0">
+		<section class="u-bg-white t-expanded-block t-subcategory-navigation-block" data-hook="subcategory-navigation-block">
+			<nav class="o-wrapper t-wrapper t-subcategory-navigation" data-hook="subcategory-navigation-slider"></nav>
+		</section>
+		<template data-hook="subcategory-navigation">
+			<mvt:foreach iterator="subcategory" array="subcategories">
+				<div class="u-text-center t-subcategory-navigation__item">
+					<a class="u-block u-color-black t-subcategory-navigation__link" href="&mvte:subcategory:link;">
+						<figure class="t-subcategory-navigation__figure">
+							<mvt:if expr="l.settings:subcategory:image">
+								<!-- Image: 240x315 -->
+								<picture class="t-subcategory-navigation__picture">
+									<img class="t-subcategory-navigation__image" data-lazy="&mvte:subcategory:image;" src="" alt="&mvte:subcategory:name;">
+								</picture>
+							</mvt:if>
+							<figcaption class="t-subcategory-navigation__figure-caption">
+								<span class="t-subcategory-navigation__name">&mvte:subcategory:name;</span>
+							</figcaption>
+						</figure>
+					</a>
+				</div>
+			</mvt:foreach>
+		</template>
+	</mvt:if>
+	
+	<mvt:item name="customfields" param="Read_Category_Code(g.Category_Code, 'secondary_title_image', l.settings:secondary_title_image)" />
+	<mvt:if expr="NOT ISNULL l.settings:category_title:image OR NOT ISNULL l.settings:secondary_title_image">
+		<mvt:if expr="NOT ISNULL l.settings:category_title:image AND NOT ISNULL l.settings:secondary_title_image">
+			<mvt:assign name="l.settings:category_title:image_grid" value="'u-grids-1 u-grids-2--l'"/>
+		</mvt:if>
+		<section class="o-layout o-layout--justify-between o-layout--wide &mvte:category_title:image_grid; t-category-title-images t-defer-object" data-defer>
+			<mvt:if expr="NOT ISNULL l.settings:category_title:image">
+				<div class="o-layout__item">
+					<div class="x-hero">
+						<img data-src="&mvte:category_title:image;" src="" alt="&mvte:category:name;">
+					</div>
+				</div>
+			</mvt:if>
+			<mvt:if expr="NOT ISNULL l.settings:secondary_title_image">
+				<div class="o-layout__item">
+					<div class="x-hero">
+						<img data-src="&mvte:secondary_title_image;" src="" alt="&mvte:category:name;">
+					</div>
+				</div>
+			</mvt:if>
+		</section>
+	</mvt:if>
+
+	<section class="u-bg-white t-expanded-block">
+		<div class="o-wrapper t-wrapper">
+			<mvt:item name="facets" file="cssui-prodlist-facets-item.htm" />
+
+			<div class="o-layout o-layout--row-reverse--l o-layout--wide">
+				<div class="o-layout__item u-width-12 u-width-9--l">
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="header" file="CTGY-header-item.htm" />
+						</div>
+					</section>
+					
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="prod_ctgy_hdft" param="ctgy_header" />
+						</div>
+					</section>
+		
+					<mvt:item name="category_listing" file="CTGY-prodlist-item.htm" />
+					
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="prod_ctgy_hdft" param="ctgy_footer" />
+						</div>
+					</section>
+					
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="footer" file="CTGY-footer-item.htm" />
+						</div>
+					</section>
+				</div>
+				<aside class="o-layout__item u-block--l u-hidden u-width-3--l">
+					<mvt:item name="category_tree" file="" />
+				</aside>
+				
+			</div>
+		</div>
+	</section>
+	<br>
+	
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

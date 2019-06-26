@@ -1,0 +1,85 @@
+/* ==========================================================================
+   COMPONENTS / MENU
+   ========================================================================== */
+
+.c-menu {}
+
+	.c-menu__title {
+		font-weight: 700;
+	}
+
+	.c-menu__list {
+		margin-left: 0;
+		line-height: 2;
+		list-style: none;
+	}
+
+		.c-menu__row {}
+
+			.c-menu__link {
+				display: block;
+				color: currentColor;
+			}
+
+			@media (min-width: 48em) {
+				.c-menu__link {
+					display: inline-block;
+				}
+			}
+
+.c-collapsible-menu__trigger {
+	display: none;
+}
+
+@media (max-width: 47.9em) {
+	.c-collapsible-menu {
+	}
+
+	.c-collapsible-menu__label {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-weight: 700;
+	}
+
+	.c-collapsible-menu__label::after {
+		display: inline-block;
+		font-size: 1rem;
+		line-height: 1;
+		content: '+';
+	}
+
+	.c-collapsible-menu .c-menu__title {
+		display: none;
+	}
+
+	.c-collapsible-menu .c-menu__list {
+		display: block;
+		max-height: 0;
+		opacity: 0;
+		overflow: hidden;
+		visibility: hidden;
+		transition-delay: 0.15s, 0s, 0s;
+	}
+
+	.c-collapsible-menu__trigger:checked ~ .c-collapsible-menu__label::after {
+		content: '-';
+	}
+
+	.c-collapsible-menu__trigger:checked ~ .c-menu__list {
+		display: block;
+		max-height: 25em;
+		margin-top: 1em;
+		opacity: 1;
+		overflow: visible;
+		transition: visibility 0s ease, max-height 0.3s ease, opacity 0.3s ease;
+		transition-delay: 0s;
+		visibility: visible;
+	}
+}
+
+@media (min-width: 48em) {
+	.c-collapsible-menu__label {
+		display: none;
+	}
+}

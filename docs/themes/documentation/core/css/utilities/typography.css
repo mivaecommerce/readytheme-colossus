@@ -1,0 +1,219 @@
+/* ==========================================================================
+   UTILITIES / TYPOGRAPHY
+   ========================================================================== */
+
+/* Set font-family options
+   =========================================== */
+.u-font-primary {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.u-font-secondary {
+	font-family: "Apple Garamond", "Baskerville", "Times New Roman", "Droid Serif", "Times", "Source Serif Pro", serif;
+}
+
+
+
+
+
+/* Text alignment utilities
+   =========================================== */
+.u-text-left {
+	text-align: left;
+}
+
+.u-text-center {
+	text-align: center;
+}
+
+.u-text-right {
+	text-align: right;
+}
+
+.u-text-justify {
+	text-align: justify;
+}
+	
+	
+	@media screen and (min-width: 40em) {
+		.u-text-left--s {
+			text-align: left;
+		}
+	
+		.u-text-center--s {
+			text-align: center;
+		}
+	
+		.u-text-right--s {
+			text-align: right;
+		}
+	
+		.u-text-justify--s {
+			text-align: justify;
+		}
+	}
+
+
+	@media screen and (min-width: 48em) {
+		.u-text-left--m {
+			text-align: left;
+		}
+	
+		.u-text-center--m {
+			text-align: center;
+		}
+	
+		.u-text-right--m {
+			text-align: right;
+		}
+	
+		.u-text-justify--m {
+			text-align: justify;
+		}
+	}
+	
+	
+	@media screen and (min-width: 60em) {
+		.u-text-left--l {
+			text-align: left;
+		}
+	
+		.u-text-center--l {
+			text-align: center;
+		}
+	
+		.u-text-right--l {
+			text-align: right;
+		}
+	
+		.u-text-justify--l {
+			text-align: justify;
+		}
+	}
+	
+	
+	@media screen and (min-width: 90em) {
+		.u-text-left--w {
+			text-align: left;
+		}
+	
+		.u-text-center--w {
+			text-align: center;
+		}
+	
+		.u-text-right--w {
+			text-align: right;
+		}
+	
+		.u-text-justify--w {
+			text-align: justify;
+		}
+	}
+
+
+/* Font sizing utilities
+  =========================================== */
+.u-font-tiny {
+	font-size: 0.625em;
+}
+
+.u-font-small {
+	font-size: 0.75em;
+}
+
+	@media screen and (min-width: 40em) {
+		.u-font-tiny {
+			font-size: 0.75em;
+		}
+		
+		.u-font-small {
+			font-size: 0.832em;
+		}
+	}
+
+.u-font-medium {
+	font-size: 1em;
+}
+
+.u-font-large {
+	font-size: 1.25em;
+}
+
+.u-font-huge {
+	font-size: 1.75em;
+}
+
+
+/* Font style utilities
+ * 1. This is a hold-over class for content output by Miva.
+  =========================================== */
+.u-text-light {
+	font-weight: 200;
+}
+
+.u-text-regular {
+	font-weight: 400;
+}
+
+.u-text-medium {
+	font-weight: 600;
+}
+
+.required, /* [1] */
+.u-text-bold {
+	font-weight: 700;
+}
+
+.u-text-boldest {
+	font-weight: 900;
+}
+
+.u-text-caps {
+	font-variant: small-caps;
+}
+
+.u-text-italic {
+	font-style: italic;
+}
+
+.u-text-normal {
+	font-style: normal;
+}
+
+.u-text-lowercase {
+	text-transform: lowercase;
+}
+
+.u-text-revert {
+	text-transform: none;
+}
+
+.u-text-uppercase {
+	text-transform: uppercase;
+}
+
+.u-text-strike {
+	text-decoration: line-through;
+}
+
+.u-text-underline {
+	text-decoration: underline;
+}
+
+.u-text-no-decoration,
+a.u-text-underline:hover {
+	text-decoration: none;
+}
+
+
+/**
+ * Text utility to constrain text to a maximum of 75 characters per line,
+ * regardless of the text's 'font-size'. 30em is roughly equal to 75 characters,
+ * so we hard-code this value. Please don't change it.
+ *
+ * https://jsfiddle.net/5571te7g/
+ *
+ */
+.u-text-constrain {
+	max-width: 30em;
+}

@@ -1,0 +1,21 @@
+<mvt:if expr="l.settings:category_count GT 0">
+	<strong>Categories</strong>
+	<ul class="o-list-inline">
+		<mvt:foreach iterator="category" array="categories">
+			<li class="o-list-inline__item">
+				<a href="&mvt:category:link;" title="&mvt:category:name;">&mvt:category:name;</a>
+			</li>
+		</mvt:foreach>
+	</ul>
+	<hr class="c-divider">
+</mvt:if>
+<mvt:if expr="l.settings:product_count GT 0">
+	<strong>Products</strong>
+	<ul class="o-list-inline">
+		<mvt:foreach iterator="product" array="products">
+			<li class="o-list-inline__item">
+				<a href="&mvt:product:link;" title="&mvt:product:name;">&mvt:product:name;</a>
+			</li>
+		</mvt:foreach>
+	</ul>
+</mvt:if>

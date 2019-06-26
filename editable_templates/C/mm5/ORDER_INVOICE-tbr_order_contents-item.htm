@@ -1,0 +1,77 @@
+
+<table class="product-info">
+	<tr>
+		<th class="code">Code</th>
+		<th class="product">Product</th>
+		<th class="quantity">Quantity</th>
+		<th class="total">Total</th>
+	</tr>
+
+	<mvt:foreach iterator="item" array="order:groups">
+		<tr>
+			<td class="code highlighted">&mvt:item:code;</td>
+
+			<td class="product highlighted">
+				&mvt:item:name;
+			</td>
+
+			<td class="quantity highlighted">&mvt:item:quantity;</td>
+
+			<td class="total highlighted">
+				&mvt:item:formatted_subtotal;
+			</td>
+		</tr>
+
+		<mvt:foreach iterator="option" array="item:options">
+			<tr>
+				<td class="code">&nbsp;</td>
+				<td class="product">
+					<mvt:if expr="l.settings:option:option_id">
+						&mvt:option:attr_code;: &mvt:option:opt_code;
+					<mvt:elseif expr="NOT ISNULL l.settings:option:data">
+						&mvt:option:attr_code;: &mvt:option:data;
+					<mvt:elseif expr="NOT ISNULL l.settings:option:data_long">
+						&mvt:option:attr_code;: &mvt:option:data_long;
+					<mvt:else>
+						&mvt:option:attr_code;
+					</mvt:if>
+				</td>
+				<td class="quantity">&nbsp;</td>
+				<td class="total">
+					<mvt:if expr="l.settings:option:subtotal">
+						&mvt:option:formatted_subtotal;
+					<mvt:else>
+						&nbsp;
+					</mvt:if>
+				</td>
+			</tr>
+		</mvt:foreach>
+	</mvt:foreach>
+
+
+	<tr class="highlighted">
+		<td colspan="3" class="shippingTax">
+			<mvt:foreach iterator="charge" array="order:charges">
+				&mvt:charge:descrip;:<br />
+			</mvt:foreach>
+
+			<h2>Total:</h2>
+		</td>
+		<td class="totalFinal">
+			<mvt:foreach iterator="charge" array="order:charges">
+				&mvt:charge:formatted_disp_amt;<br />
+			</mvt:foreach>
+
+			<h2>&mvt:order:formatted_total;</h2>
+		</td>
+	</tr>
+</table>
+
+<mvt:if expr="l.settings:order:have_custom_order_field_values">
+	<br />
+	<table class="product-info">
+		<tr class="heading">
+			<td colspan="2"><h2>Additional Order Information</h2></td>
+		</tr>
+	</table>
+</mvt:if>

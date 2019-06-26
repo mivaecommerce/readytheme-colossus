@@ -1,0 +1,152 @@
+<input type="hidden" id="mivapay_response_xml" name="ResponseXML" value="" />
+<input type="hidden" id="mivapay_response_signature" name="ResponseSignature" value="" />
+
+<iframe id="mivapay_frame" src="" name="MivaPay_Frame" marginheight="0" frameborder="0" style="width: 100%; height: 0; visibility: hidden;" aria-label="Credit Card Information"></iframe>
+
+<script type="text/javascript">
+function stoi( value )
+{
+	return parseInt( value, 10 );
+}
+
+function stoi_def_nonneg( value, default_value )
+{
+	value = stoi( value );
+
+	return ( ( isNaN( value ) || ( value < 0 ) || value == Number.POSITIVE_INFINITY || value == Number.NEGATIVE_INFINITY ) ? default_value : value );
+}
+
+function AddEvent( obj, eventType, fn  )
+{
+	if ( obj.addEventListener )
+	{
+		obj.addEventListener( eventType, fn, false );
+		return true;
+	}
+	else if ( obj.attachEvent )
+	{
+		var r = obj.attachEvent( 'on' + eventType, fn );
+		return r;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function parentForm( element )
+{
+	while ( element.nodeName.toLowerCase() != 'form' && element.parentNode )
+	{
+		element = element.parentNode;
+	}
+
+	if ( element.nodeName.toLowerCase() != 'form' )
+	{
+		return;
+	}
+
+	return element;
+}
+
+function MivaPay()
+{
+	var self = this;
+
+	this.submitting									= false;
+	this.request_xml								= '&mvtj:mivapay:paymentcardfields:request_xml;';
+	this.request_signature							= '&mvtj:mivapay:paymentcardfields:request_signature;';
+	this.event_receivemessage 						= function( event ) { self.Receive_Message( event ); };
+
+	AddEvent( window, 'message', this.event_receivemessage );
+
+	this.element_frame								= document.getElementById( 'mivapay_frame' );
+	this.element_response_xml						= document.getElementById( 'mivapay_response_xml' );
+	this.element_response_signature					= document.getElementById( 'mivapay_response_signature' );
+
+	if ( this.element_form = document.getElementById( 'mivapay_form' ) )
+	{
+		this.element_form_request_xml				= document.getElementById( 'mivapay_form_request_xml' );
+		this.element_form_request_signature			= document.getElementById( 'mivapay_form_request_signature' );
+	}
+	else
+	{
+		this.element_form							= document.createElement( 'form' );
+		this.element_form.id						= 'mivapay_form';
+		this.element_form.target					= 'MivaPay_Frame';
+		this.element_form.method					= 'POST';
+		this.element_form.action					= '&mvtj:paymentsettings:mivapay:payment_url_sep;';
+
+		this.element_form_request_xml 				= document.createElement( 'input' );
+		this.element_form_request_xml.id			= 'mivapay_form_request_xml';
+		this.element_form_request_xml.type			= 'hidden';
+		this.element_form_request_xml.name			= 'RequestXML';
+
+		this.element_form_request_signature			= document.createElement( 'input' );
+		this.element_form_request_signature.id		= 'mivapay_form_request_signature';
+		this.element_form_request_signature.type	= 'hidden';
+		this.element_form_request_signature.name	= 'RequestSignature';
+
+		this.element_form.appendChild( this.element_form_request_xml );
+		this.element_form.appendChild( this.element_form_request_signature );
+		document.body.appendChild( this.element_form );
+	}
+
+	this.element_form_request_xml.value				= this.request_xml;
+	this.element_form_request_signature.value		= this.request_signature;
+
+	this.element_form.submit();
+}
+
+MivaPay.prototype.Submit = function( callback )
+{
+	this.submit_callback = callback;
+
+	if ( this.element_frame && !this.submitting )
+	{
+		this.submitting = true;
+		this.element_frame.contentWindow.postMessage( 'submit', '&mvtj:paymentsettings:mivapay:base_url;' );
+	}
+}
+
+MivaPay.prototype.Receive_Message = function( event )
+{
+	var origin, response, signature;
+
+	origin 				= event.origin || event.originalEvent.origin;
+	this.submitting 	= false;
+
+	if ( '&mvtj:paymentsettings:mivapay:base_url;/'.indexOf( origin + '/' ) != 0 )
+	{
+		return;
+	}
+
+	if ( event && ( typeof event.data === 'string' ) )
+	{
+		if ( event.data.indexOf( 'dimensions:' ) == 0 )
+		{
+			if ( this.element_frame )
+			{
+				this.element_frame.style.width 			= '100%';
+				this.element_frame.style.height 		= stoi_def_nonneg( event.data.split( ':' )[ 2 ], 0 ) + 'px';
+				this.element_frame.style.visibility		= 'visible';
+			}
+		}
+		else if ( event.data.indexOf( 'response:' ) == 0 )
+		{
+			response									= event.data.split( ':' )[ 1 ];
+			signature									= event.data.split( ':' )[ 2 ];
+
+			this.element_response_xml.value				= response;
+			this.element_response_signature.value		= signature;
+
+			if ( typeof this.submit_callback === 'function' )
+			{
+				this.submit_callback();
+			}
+		}
+	}
+}
+
+var MivaPay = new MivaPay();
+</script>

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>&mvte:page:name;</title>
+<style type="text/css"><mvt:item name="inline_css" file="SHIPMENT_PICKLIST-inline_css-item.htm" /></style>
+</head>
+<body>
+
+<mvt:foreach iterator="ordershipment" array="shipment:shipments">
+	<div class="shipment">
+		<div class="title-box-right">
+			Order: #&mvt:ordershipment:order_id;<br />
+			Order Date: &mvt:ordershipment:order:date;<br />
+			Shipment: &mvt:ordershipment:code;<br />
+		</div>
+
+		<div class="clear"></div>
+		<hr />
+
+		<div class="purple-box">
+			<div class="sub-box-left">
+				<h2>Send To</h2>
+				<hr />
+				<table><tr><th>Name:</th><td>&mvte:ordershipment:order:ship_fname; &mvte:ordershipment:order:ship_lname;</td></tr></table>
+				<table><tr><th>Email:</th><td>&mvte:ordershipment:order:ship_email;</td></tr></table>
+				<table><tr><th>Phone:</th><td>&mvte:ordershipment:order:ship_phone;</td></tr></table>
+				<table><tr><th>Fax:</th><td>&mvte:ordershipment:order:ship_fax;</td></tr></table>
+				<table><tr><th>Company:</th><td>&mvte:ordershipment:order:ship_comp;</td></tr></table>
+				<table><tr><th>Address:</th><td>&mvte:ordershipment:order:ship_addr;<br />&mvte:ordershipment:order:ship_city;, &mvte:ordershipment:order:ship_state; &mvte:ordershipment:order:ship_zip;<br />&mvte:ordershipment:order:ship_cntry;</td></tr></table>
+			</div>					
+
+			<div class="sub-box-right">
+				<h2>Shipping</h2>
+				<hr />
+
+				<mvt:if expr="( ISNULL l.settings:ordershipment:fields ) AND ( NOT ISNULL l.settings:ordershipment:method )">
+					<table><tr><th>Shipping Method:</th><td>&mvt:ordershipment:method;</td></tr></table>
+				<mvt:else>
+					<mvt:foreach iterator="field" array="ordershipment:fields">
+						<table><tr><th>&mvt:field:label;</th><td>&mvt:field:value;</td></tr></table>
+					</mvt:foreach>
+				</mvt:if>
+			</div>
+		</div>
+
+		<table class="product-info">
+			<tr>
+				<th class="code">Code</th>
+				<th class="product">Product</th>
+				<th class="each">Each</th>
+				<th class="total">Total</th>
+			</tr>
+
+			<mvt:foreach iterator="group" array="ordershipment:groups">
+				<tr class="highlighted">
+					<td class="code">&mvt:group:code;</td>
+					<td class="product">&mvt:group:name;</td>
+					<td class="each"></td>
+					<td class="total">&mvt:group:quantity;</td>
+				</tr>
+
+				<mvt:foreach iterator="option" array="group:options">
+					<tr>
+						<td class="code"></td>
+						<td class="product">
+							<mvt:if expr="l.settings:option:option_id">
+								&mvt:option:attr_code;: &mvt:option:opt_code;
+							<mvt:elseif expr="NOT ISNULL l.settings:option:data">
+								&mvt:option:attr_code;: &mvt:option:data;
+							<mvt:elseif expr="NOT ISNULL l.settings:option:data_long">
+								&mvt:option:attr_code;: &mvt:option:data_long;
+							<mvt:else>
+								&mvt:option:attr_code;
+							</mvt:if>
+						</td>
+						<td class="each"></td>
+						<td class="total"></td>
+					</tr>
+				</mvt:foreach>
+
+				<mvt:foreach iterator="part" array="group:parts">
+					<tr>
+						<td class="code">Part: &mvt:part:code;</td>
+						<td class="product">&mvt:part:name;</td>
+						<td class="each">&mvt:part:quantity;</td>
+						<td class="total">&mvt:part:total_quantity;</td>
+					</tr>
+				</mvt:foreach>
+			</mvt:foreach>
+		</table>
+	</div>
+</mvt:foreach>
+</body>
+</html>

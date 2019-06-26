@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:fb="http://ogp.me/ns/fb#">
+
+<mvt:comment>Release: v1.0.0</mvt:comment>
+
+<mvt:comment>Set your theme file path here.</mvt:comment>
+<mvt:assign name="g.theme_path" value="'themes/colossus'" />
+
+<mvt:comment>This sets the page class to the page code in lowercase.</mvt:comment>
+<mvt:assign name="g.pageClass" value="tolower(l.settings:page:code)" />
+<mvt:comment>This will set the URL for the continue shopping link on the basket page.</mvt:comment>
+<mvt:if expr="l.settings:page:code EQ 'CLST' OR 'CTGY' CIN l.settings:page:code OR l.settings:page:code EQ 'PLST' OR l.settings:page:code EQ 'PROD' OR l.settings:page:code EQ 'SRCH'">
+	<script>
+		window.addEventListener('DOMContentLoaded', function () {
+			sessionStorage.setItem('continue_url', '&mvt:breadcrumbs:current_item:link;');
+		});
+	</script>
+</mvt:if>
+<mvt:comment>This will set classes for use on checkout pages to clean up the header.</mvt:comment>
+<mvt:if expr="l.settings:page:code CIN 'ORDL,OCST,OUS1,OUSM,UATM,UATR,OSEL,OPAY,INVC' OR (g.Customer_Temporary_Password) OR ('AMAZONPAY' CIN l.settings:page:code)">
+	<mvt:assign name="g.checkout_hidden" value="'u-hidden u-hide-visually'"/>
+	<mvt:assign name="g.checkout_shown" value="'u-shown'"/>
+	<mvt:assign name="g.checkout_full" value="'u-width-12'"/>
+</mvt:if>

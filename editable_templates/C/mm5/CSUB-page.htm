@@ -1,0 +1,85 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="CSUB-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+					<mvt:item name="breadcrumbs" />
+					<div class="o-layout o-layout--align-center o-layout--justify-between">
+						<span class="o-layout__item c-heading-delta t-account-landing-section__heading">&mvt:page:name;</span>
+						<span class="o-layout__item u-text-right--m">
+							<mvt:if expr="l.settings:subscriptions:total_count GT l.settings:subscriptions:per_page">
+								<section class="u-flex o-layout--align-center o-layout--justify-end o-layout--wrap">
+									<div class="x-display-list-filtering t-display-list-filtering">
+										<nav class="x-display-list-filtering__per-page">
+											<label class="c-form-label u-font-tiny u-text-uppercase u-text-normal u-hide-visually" for="l-per_page">View</label>
+											<div class="c-form-select">
+												<select id="l-per_page" class="c-form-select__dropdown u-font-small u-text-uppercase u-text-bold" name="Per_Page" onchange="window.location.href='&mvtj:urls:_self:auto_sep;Per_Page=' + encodeURIComponent( this.options[ this.selectedIndex ].value ) + '&amp;Sort_By=' + encodeURIComponent( '&mvtj:global:Sort_By;' );">
+													<mvt:if expr="g.Per_Page EQ 12">
+														<option value="12" selected="selected">12 Subscriptions/Page</option>
+													<mvt:else>
+														<option value="12">12 Subscriptions/Page</option>
+													</mvt:if>
+													<mvt:if expr="g.Per_Page EQ 24">
+														<option value="24" selected="selected">24 Subscriptions/Page</option>
+													<mvt:else>
+														<option value="24">24 Subscriptions/Page</option>
+													</mvt:if>
+													<mvt:if expr="g.Per_Page EQ 48">
+														<option value="48" selected="selected">48 Subscriptions/Page</option>
+													<mvt:else>
+														<option value="48">48 Subscriptions/Page</option>
+													</mvt:if>
+													<mvt:if expr="g.Per_Page EQ -1">
+														<option value="-1" selected="selected">All Subscriptions</option>
+													<mvt:else>
+														<option value="-1">All Subscriptions</option>
+													</mvt:if>
+												</select>
+											</div>
+										</nav>
+									</div>
+									<!-- end .x-display-list-filtering -->
+								</section>
+							</mvt:if>
+						</span>
+					</div>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<mvt:item name="subscriptions" file="CSUB-subscriptions-item.htm" />
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="CSUB-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

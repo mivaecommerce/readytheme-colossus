@@ -1,0 +1,126 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="LOGN-header-item.htm" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+					<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+					<div class="o-layout o-layout--wide o-layout--justify-between u-text-center">
+						<div class="o-layout__item u-width-12 u-width-6--l u-width-5--w t-customer-profile">
+							<div class="t-account-landing-section__header">
+								<span class="c-heading-delta t-account-landing-section__heading">Welcome Back</span>
+							</div>
+							<mvt:if expr="g.Customer_Temporary_Password">
+								<mvt:assign name="l.settings:url" value="l.settings:urls:CPWD:secure" />
+							<mvt:elseif expr="g.Order">
+								<mvt:assign name="l.settings:url" value="l.settings:urls:OINF:secure" />
+							<mvt:else>
+								<mvt:assign name="l.settings:url" value="l.settings:urls:ACLN:secure" />
+							</mvt:if>
+							<form class="u-inline-block u-text-left" method="post" action="&mvte:url;">
+								<fieldset>
+									<legend>&mvt:page:name;</legend>
+									<input type="hidden" name="Action" value="LOGN" />
+									<ul class="c-form-list">
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required &mvt:global:invalid_credentials;" for="l-Customer_LoginEmail">Email Address</label>
+											<input id="l-Customer_LoginEmail" class="c-form-input c-form-input--large" type="email" name="Customer_LoginEmail" value="&mvte:global:Customer_LoginEmail;" autocomplete="email" required>
+										</li>
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required &mvt:global:invalid_credentials;" for="l-Customer_Password">Password:</label>
+											<mvt:if expr="g.Customer_Temporary_Password">
+												<input type="hidden" name="Customer_Temporary_Password" value="&mvte:global:Customer_Temporary_Password;" autocomplete="off">
+												<input type="hidden" name="Customer_Password" value="&mvte:global:Customer_Temporary_Password;" autocomplete="off">
+												<input id="l-Customer_Password" class="c-form-input c-form-input--large" type="text" value="&mvte:global:Customer_Temporary_Password;" autocomplete="off" disabled readonly>
+											<mvt:else>
+												<input id="l-Customer_Password" class="c-form-input c-form-input--large" type="password" name="Customer_Password" autocomplete="current-password" required>
+											</mvt:if>
+										</li>
+										<li class="c-form-list__item u-text-right">
+											<mvt:item name="buttons" param="Login" file="cssui-buttonLogin-item.htm" />
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+							<p class="u-font-small"><a data-mini-modal data-mini-modal-type="inline" data-mini-modal-content="data-forgot-password" href="&mvte:urls:FPWD:secure;" title="Forgot Password">Forgot your password?</a></p>
+						</div>
+						<div class="o-layout__item u-width-12 u-width-6--l u-width-5--w">
+							<div class="t-account-landing-section__header">
+								<span class="c-heading-delta t-account-landing-section__heading">New Customer</span>
+							</div>
+							<form class="u-inline-block u-text-left" method="post" action="&mvte:urls:CACT:secure;">
+								<fieldset>
+									<legend>Customer Log In</legend>
+									<mvt:if expr="g.Order">
+										<input type="hidden" name="current_location" value="&mvte:urls:OINF:secure_sep;">
+										<input type="hidden" name="Order" value="&mvte:global:Order;">
+									<mvt:elseif expr="g.Redeem">
+										<input type="hidden" name="current_location" value="&mvte:urls:RGFT:secure_sep;">
+										<input type="hidden" name="Redeem" value="&mvte:global:Redeem;">
+									<mvt:elseif expr="g.WishList">
+										<input type="hidden" name="current_location" value="&mvte:urls:WISH:secure_sep;">
+										<input type="hidden" name="WishList" value="&mvte:global:WishList;">
+									<mvt:else>
+										<input type="hidden" name="current_location" value="&mvte:urls:ACLN:secure_sep;">
+									</mvt:if>
+									<ul class="c-form-list">
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_fname">First Name</label>
+											<input id="l-register_fname" class="c-form-input c-form-input--large" type="text" name="register_fname" value="" autocomplete="name given-name" required>
+										</li>
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_lname">Last Name</label>
+											<input id="l-register_lname" class="c-form-input c-form-input--large" type="text" name="register_lname" autocomplete="name family-name" required>
+										</li>
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_email">Email Address</label>
+											<input id="l-register_email" class="c-form-input c-form-input--large" type="email" name="register_email" value="&mvte:global:register_email;" autocomplete="email" required>
+										</li>
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_password">Password</label>
+											<input id="l-register_password" class="c-form-input c-form-input--large" type="password" name="register_password" autocomplete="new-password" required>
+										</li>
+										<li class="c-form-list__item u-text-right">
+											<input class="c-button c-button--full c-button--hollow c-button--huge u-bg-white u-color-gray-50 u-font-small u-text-bold u-text-uppercase" type="submit" value="Create My Account">
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+							<br>
+						</div>
+					</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="LOGN-footer-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'forgot-password' )" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

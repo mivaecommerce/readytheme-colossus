@@ -1,0 +1,144 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<div class="u-printable">
+		<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+	
+		<section class="o-layout">
+			<div class="o-layout__item">
+				<mvt:item name="hdft" param="header" file="CPRO-header-item.htm" />
+				<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+			</div>
+		</section>
+
+		<section class="o-layout">
+			<div class="o-layout__item u-width-12">
+				<section class="t-expanded-block t-account-landing-section u-bg-white">
+					<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+						<mvt:item name="breadcrumbs" />
+						<div class="o-layout o-layout--wide o-layout--justify-between">
+							<div class="o-layout__item u-width-12 u-width-6--l u-width-5--w t-customer-profile">
+								<div class="t-account-landing-section__header">
+									<span class="c-heading-delta t-account-landing-section__heading">Email</span>
+								</div>
+								<form class="t-customer-profile__email" method="post" action="&mvte:urls:_self:secure;" autocomplete="off">
+									<fieldset>
+										<legend>Update Customer Profile Email</legend>
+										<input type="hidden" name="Action" value="CEML" />
+										<input type="hidden" name="CSRF_Token" value="&mvte:global:Basket:csrf_token;">
+										<ul class="o-layout c-form-list">
+											<li class="o-layout__item c-form-list__item u-width-12">
+												<div class="x-messages x-messages--borderless u-text-center">
+													<span class="c-heading-echo u-block u-text-bold u-text-uppercase">Current Email Address</span>
+													&mvte:global:Customer:pw_email;
+												</div>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12">
+												<mvt:if expr="g.Customer_CurrentPassword_Invalid">
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required u-color-red" for="l-Customer_CurrentPassword">For security, please enter your password.</label>
+												<mvt:else>
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-Customer_CurrentPassword">For security, please enter your password.</label>
+												</mvt:if>
+												<input id="l-Customer_CurrentPassword" class="c-form-input c-form-input--large" type="password" name="Customer_CurrentPassword" required>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12 u-width-6--m">
+												<mvt:if expr="g.Customer_LoginEmail_Invalid">
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required u-color-red" for="l-Customer_LoginEmail">New Email Address</label>
+												<mvt:else>
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-Customer_LoginEmail">New Email Address</label>
+												</mvt:if>
+												<input id="l-Customer_LoginEmail" class="c-form-input c-form-input--large" type="email" name="Customer_LoginEmail" required>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12 u-width-6--m">
+												<mvt:if expr="g.Customer_VerifyLoginEmail_Invalid">
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required u-color-red" for="l-Customer_VerifyLoginEmail">Confirm Email Address</label>
+												<mvt:else>
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-Customer_VerifyLoginEmail">Confirm Email Address</label>
+												</mvt:if>
+												<input id="l-Customer_VerifyLoginEmail" class="c-form-input c-form-input--large" type="email" name="Customer_VerifyLoginEmail" required>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12">
+												<input class="c-button c-button--large u-bg-black u-font-small u-text-bold u-text-uppercase" type="submit" value="Update Email Address">
+											</li>
+										</ul>
+									</fieldset>
+								</form>
+							</div>
+							<div class="o-layout__item u-width-12 u-width-6--l u-width-5--w">
+								<span class="c-heading-delta t-account-landing-section__heading">Password</span>
+								<form class="t-customer-profile__password" method="post" action="&mvte:urls:_self:secure;" autocomplete="off">
+									<fieldset>
+										<legend>Update Customer Profile Password</legend>
+										<input type="hidden" name="Action" value="CPWD" />
+										<input type="hidden" name="CSRF_Token" value="&mvte:global:Basket:csrf_token;">
+										<ul class="o-layout c-form-list">
+											<li class="o-layout__item c-form-list__item u-width-12">
+												<mvt:do file="g.Module_Feature_CUS_DB" name="l.success" value="CustomerSettings_Load(l.settings:customersettings)" />
+												<div class="x-messages x-messages--borderless">
+													<span class="c-heading-echo u-block u-text-bold u-text-center u-text-uppercase">Requirements</span>
+													<span class="u-font-small">&bull; Minimum Password Length: &mvt:customersettings:pw_min_len;</span><br>
+													<mvt:if expr="l.settings:customersettings:pw_complex EQ 1">
+														<span class="u-font-small">&bull; At Least one Letter and one Number or Punctuation Character</span>
+													<mvt:elseif expr="l.settings:customersettings:pw_complex EQ 2">
+														<span class="u-font-small">&bull; Mixed Case Letters and at Least one Number or Punctuation Character</span>
+													</mvt:if>
+												</div>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12">
+												<mvt:if expr="g.Customer_CurrentPassword_Invalid">
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required u-color-red" for="Customer_CurrentPassword">Current Password</label>
+												<mvt:else>
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="Customer_CurrentPassword">Current Password</label>
+												</mvt:if>
+												<input id="Customer_CurrentPassword" class="c-form-input c-form-input--large" type="password" name="Customer_CurrentPassword" required>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12 u-width-6--m">
+												<mvt:if expr="g.Customer_Password_Invalid">
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required u-color-red" for="l-Customer_Password">New Password</label>
+												<mvt:else>
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-Customer_Password">New Password</label>
+												</mvt:if>
+												<input id="l-Customer_Password" class="c-form-input c-form-input--large" type="password" name="Customer_Password" required>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12 u-width-6--m">
+												<mvt:if expr="g.Customer_VerifyPassword_Invalid">
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required u-color-red" for="l-Customer_VerifyPassword">Confirm Password</label>
+												<mvt:else>
+													<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-Customer_VerifyPassword">Confirm Password</label>
+												</mvt:if>
+												<input id="l-Customer_VerifyPassword" class="c-form-input c-form-input--large" type="password" name="Customer_VerifyPassword" required>
+											</li>
+											<li class="o-layout__item c-form-list__item u-width-12">
+												<input class="c-button c-button--large u-bg-black u-font-small u-text-bold u-text-uppercase" type="submit" value="Update Password">
+											</li>
+										</ul>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+				</section>
+			</div>
+		</section>
+		
+		<section class="o-layout">
+			<div class="o-layout__item">
+				<mvt:item name="hdft" param="footer" file="CPRO-footer-item.htm" />
+			</div>
+		</section>
+	
+		<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+	</div>
+</body>
+</html>

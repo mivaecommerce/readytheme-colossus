@@ -1,0 +1,57 @@
+/* ==========================================================================
+   EXTENSIONS / NAVIGATION / DROP DOWN NAVIGATION
+   ========================================================================== */
+
+.x-drop-down-navigation .c-navigation__list.has-drop-down > .c-navigation__link::after {
+	display: inline-block;
+	margin-left: 0.25em;
+	font-family: "ReadyTheme Icons", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1;
+	speak: none;
+	text-transform: none;
+	content: "\3d";
+}
+
+
+.x-drop-down-navigation__row .c-navigation__row {
+	display: none;
+	width: auto;
+	position: absolute;
+	white-space: nowrap;
+	z-index: 100;
+}
+
+	.c-navigation__trigger:checked ~ .x-drop-down-navigation__row .c-navigation__row {
+		display: block;
+		position: relative;
+	}
+
+	.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__list {
+		text-align: left;
+	}
+
+	.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row:last-of-type {
+		top: 0;
+		left: 100%;
+		z-index: 200;
+	}
+
+.x-drop-down-navigation .c-navigation__list:hover > .c-navigation__row {
+	display: table;
+	box-shadow: 1px 1px 0.25em 0 rgba(15, 15, 15, 0.5);
+}
+
+	.x-drop-down-navigation__row .is-off-screen .c-navigation__row:nth-child(2) .c-navigation__row {
+		left: auto;
+		right: 100%;
+		box-shadow: -1px 1px 0.25em 0 rgba(15, 15, 15, 0.5);
+	}
+
+	.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row .c-navigation__link,
+	.x-drop-down-navigation__row .c-navigation__row:nth-child(2) .c-navigation__row:last-of-type .c-navigation__link {
+		padding-left: 1em;
+	}

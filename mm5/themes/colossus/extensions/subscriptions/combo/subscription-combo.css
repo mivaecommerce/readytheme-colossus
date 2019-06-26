@@ -1,0 +1,64 @@
+/* ==========================================================================
+   EXTENSIONS / SUBSCRIPTIONS / COMBO / SUBSCRIPTION COMBO
+   ========================================================================== */
+
+/**
+ * This fun extension allows for the "Single Purchase" and "Subscription Terms" options on the product page to
+ * be contained in a more semantic and design friendly way.
+ */
+
+.x-subscription-combo {}
+
+	.x-subscription-combo .c-form-checkbox--inline {
+		display: inline-flex;
+		min-height: 2em;
+		margin-bottom: 0.5em;
+	}
+
+	.x-subscription-combo .c-form-checkbox--inline:last-of-type {
+		margin-right: 0;
+	}
+
+	@media (min-width: 30em) {
+		.x-subscription-combo .c-form-checkbox--inline:nth-child(2)::after {
+			display: inline-block;
+			height: 2rem;
+			padding-left: 2em;
+			border-right: 1px solid #d8d8d8;
+			content: '';
+		}
+	}
+
+		.x-subscription-combo .c-form-checkbox__caption span,
+		.x-subscription-combo .c-form-checkbox__caption strong {
+			font-size: 0.75rem;
+			letter-spacing: 0.075em;
+		}
+
+		.x-subscription-combo .c-form-checkbox__caption span {
+			padding-right: 0.5em;
+		}
+
+
+	.x-subscription-combo .x-custom-select-replacement {
+		margin-bottom: 0;
+		padding-right: 0;
+	}
+
+		.x-subscription-combo .c-form-select__dropdown {
+			border: 0 none;
+		}
+
+		.x-subscription-combo .x-custom-select__title {
+			padding: 0.5rem 0.5rem 0.5rem 0;
+			border: 0 none;
+		}
+
+		.x-subscription-combo .x-custom-select__title::before {
+			padding-right: 0.25em;
+			font-weight: 400;
+			font-size: 0.75rem;
+			letter-spacing: 0.075em;
+			text-transform: uppercase;
+			content: 'Subscribe';
+		}

@@ -1,0 +1,120 @@
+<form method="post" action="&mvte:urls:CABK:secure;">
+	<input type="hidden" name="Action" value="UCSA" />
+	<input type="hidden" name="Address_ID" value="&mvte:global:Address_ID;" />
+	<input type="hidden" name="CSRF_Token" value="&mvte:global:Basket:csrf_token;">
+	
+	<p class="c-heading-echo u-text-bold u-text-uppercase">Recipient</p>
+	<ul class="c-form-list o-layout">
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Description_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_Description">Nickname</label>
+			<input id="l-Address_Description" class="c-form-input c-form-input--large" type="text" name="Address_Description" value="&mvte:global:Address_Description;" required>
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_FirstName_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_FirstName">First Name</label>
+			<input id="l-Address_FirstName" class="c-form-input c-form-input--large" type="text" name="Address_FirstName" value="&mvte:global:Address_FirstName;" required>
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_LastName_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_LastName">Last Name</label>
+			<input id="l-Address_LastName" class="c-form-input c-form-input--large" type="text" name="Address_LastName" value="&mvte:global:Address_LastName;" required>
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Company_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-italic" for="l-Address_Company">Company (Optional)</label>
+			<input id="l-Address_Company" class="c-form-input c-form-input--large" type="text" name="Address_Company" value="&mvte:global:Address_Company;">
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Email_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_Email">Email Address</label>
+			<input id="l-Address_Email" class="c-form-input c-form-input--large" type="email" name="Address_Email" value="&mvte:global:Address_Email;" required>
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Phone_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_Phone">Phone Number</label>
+			<input id="l-Address_Phone" class="c-form-input c-form-input--large" type="tel" name="Address_Phone" value="&mvte:global:Address_Phone;" required>
+		</li>
+		<!--li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Fax_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-italic" for="l-Address_Fax">Fax Number</label>
+			<input id="l-Address_Fax" class="c-form-input c-form-input--large" type="tel" name="Address_Fax" value="&mvte:global:Address_Fax;">
+		</li-->
+	</ul>
+	<hr class="c-keyline">
+	
+	<p class="c-heading-echo u-text-bold u-text-uppercase">Address</p>
+	<ul class="c-form-list o-layout">
+		<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:Address_Address1_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_Address1">Address</label>
+			<input id="l-Address_Address1" class="c-form-input c-form-input--large" type="text" name="Address_Address1" value="&mvte:global:Address_Address1;" &mvt:shipping_required;>
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Address2_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-italic" for="l-Address_Address2">Address 2</label>
+			<input id="l-Address_Address2" class="c-form-input c-form-input--large" type="text" name="Address_Address2" value="&mvte:global:Address_Address2;">
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:Address_City_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_City">City</label>
+			<input  id="l-Address_City"class="c-form-input c-form-input--large" type="text" name="Address_City" value="&mvte:global:Address_City;" &mvt:shipping_required;>
+		</li>
+		<mvt:if expr="g.States_Empty">
+			<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_State_Row;">
+				<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_State">State/Province</label>
+				<input id="l-Address_State" class="c-form-input c-form-input--large" type="text" name="Address_State" value="&mvte:global:Address_State;" &mvt:shipping_required;>
+			</li>
+		<mvt:else>
+			<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_State_Row;" data-classlist="c-form-select__dropdown c-form-input--large" data-id="Address_StateSelect" data-hook="mvt-select ShipState">
+				<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="Address_StateSelect">State/Province</label>
+				<div class="c-form-select">
+					<mvt:item name="states" param="Address_StateSelect" />
+				</div>
+			</li>
+			<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_State_Row;">
+				<label class="c-form-label u-font-tiny u-text-uppercase u-text-italic" for="l-Address_State">Other State/Province</label>
+				<input id="l-Address_State" class="c-form-input c-form-input--large" type="text" name="Address_State" value="&mvte:global:Address_State;">
+			</li>
+		</mvt:if>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Country_Row;" data-classlist="c-form-select__dropdown c-form-input--large" data-id="Address_Country" data-hook="mvt-select ShipCountry">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="Address_Country">Country</label>
+			<div class="c-form-select">
+				<mvt:item name="countries" param="Address_Country" />
+			</div>
+		</li>
+		<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Address_Zip_Row;">
+			<label class="c-form-label u-font-tiny u-text-uppercase u-text-bold is-required" for="l-Address_Zip">Zip/Postal Code</label>
+			<input id="l-Address_Zip" class="c-form-input c-form-input--large" type="text" name="Address_Zip" value="&mvte:global:Address_Zip;">
+		</li>
+	</ul>
+	<hr class="c-keyline">
+	
+	<ul class="c-form-list">
+		<li class="c-form-list__item &mvte:global:Address_Default_Shipping_Row;">
+			<mvt:if expr="g.Address_Default_Shipping OR (g.Address_ID EQ g.Customer:ship_id)">
+				<label class="c-form-checkbox">
+					<input class="c-form-checkbox__input" type="checkbox" name="Address_Default_Shipping" value="1" checked>
+					<span class="c-form-checkbox__caption u-font-tiny u-text-italic">Set as Default Shipping Address</span>
+				</label>
+			<mvt:else>
+				<label class="c-form-checkbox">
+					<input class="c-form-checkbox__input" type="checkbox" name="Address_Default_Shipping" value="1">
+					<span class="c-form-checkbox__caption u-font-tiny u-text-italic">Set as Default Shipping Address</span>
+				</label>
+			</mvt:if>
+		</li>
+		<li class="c-form-list__item &mvte:global:Address_Default_Billing_Row;">
+			<mvt:if expr="g.Address_Default_Billing OR (g.Address_ID EQ g.Customer:bill_id)">
+				<label class="c-form-checkbox">
+					<input class="c-form-checkbox__input" type="checkbox" name="Address_Default_Billing" value="1" checked>
+					<span class="c-form-checkbox__caption u-font-tiny u-text-italic">Set as Default Billing Address</span>
+				</label>
+			<mvt:else>
+				<label class="c-form-checkbox">
+					<input class="c-form-checkbox__input" type="checkbox" name="Address_Default_Billing" value="1">
+					<span class="c-form-checkbox__caption u-font-tiny u-text-italic">Set as Default Billing Address</span>
+				</label>
+			</mvt:if>
+		</li>
+	</ul>
+	
+	<ul class="o-list-inline">
+		<li class="o-list-inline__item">
+			<a class="c-button c-button--hollow c-button--large u-color-gray-50 u-font-small u-text-bold u-text-uppercase" href="&mvte:urls:CABK:secure;">Cancel</a>
+		</li>
+		<li class="o-list-inline__item">
+			<input class="c-button c-button--large u-bg-black u-font-small u-text-bold u-text-uppercase" type="submit" value="Save">
+		</li>
+	</ul>
+</form>

@@ -1,0 +1,223 @@
+/* ==========================================================================
+   COMPONENTS / BUTTONS
+   ========================================================================== */
+
+/**
+ * 1.  Allows styling of box model properties.
+ * 2.  Reset browser styles.
+ * 3.  Subtract border-width from the padding so buttons don't grow if the
+ *     border-width is modified.
+ * 4.  Tidy alignment for when the button size needs to be modified.
+ * 5.  Make buttons inherit font styles (necessary when styling `input`s as
+ *     buttons).
+ * 6.  Set default button font-size.
+ * 7.  Set default button font-weight.
+ * 8.  Set default button text-alignment.
+ * 9.  Remove anchor text-decoration (necessary when styling `a`s as buttons).
+ * 10. Base transparent border for modifiers to alter.
+ * 11. Set default button border-radius.
+ * 12. Set default button transition (color, background-color, border-color and box-shadow)
+ * 13. Force all button-styled elements to appear click-able.
+ * 14. Remove browser outline styles.
+ */
+.c-button {
+	display: inline-block; /* [1] */
+	margin: 0; /* [2] */
+	padding: calc(0.5em - 1px) calc(1em - 1px); /* [3] */
+	position: relative;
+	vertical-align: middle; /* [4] */
+	font-family: inherit; /* [5] */
+	font-size: 1em; /* [6] */
+	font-weight: 400; /* [7] */
+	line-height: normal;
+	text-align: center; /* [8] */
+	text-decoration: none; /* [9] */
+	background-color: #c0c0c0;
+	border: 1px solid rgba(0, 0, 0, 0); /* [10] */
+	border-radius: 0.125em; /* [11] */
+	color: #fff;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer; /* [13] */
+	transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* [12] */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+	.c-button:hover,
+	.c-button:active,
+	.c-button:focus {
+		text-decoration: none; /* [9] */
+		outline: none; /* [1] */
+	}
+
+	.c-button:not([class*="u-bg-"]):not([class*="c-button--primary"]):hover{
+		background-color: #9a9a9a;
+	}
+
+	
+/**
+ * Fix a Firefox bug whereby `input type="submit"` gains 2px extra padding.
+ */
+.c-button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+
+/* Button aesthetic modifiers
+   =========================================== */
+/**
+* For buttons that identify as the primary action.
+*/
+.c-button--primary {
+	background-color: #3d70b2;
+	border-color: #3d70b2;
+	color: #fff;
+	
+}
+
+	.c-button--primary:hover,
+	.c-button--primary:active {
+		background-color: #4888c8;
+		border-color: #4888c8;
+	}
+
+
+/**
+* For outlined or hollow buttons.
+*/
+.c-button--hollow {
+	background-color: rgba(0, 0, 0, 0);
+	border-color: currentColor;
+	color: #3d70b2;
+	
+}
+.c-button--hollow:not([class*="u-bg-"]):hover{
+	background-color: #eaeaea;
+}
+
+
+/**
+* For buttons you want to look like normal links.
+*/
+.c-button--clear {
+	background-color: rgba(0, 0, 0, 0);
+	
+}
+
+	.c-button--clear:hover,
+	.c-button--clear:active {
+		border-bottom: 1px solid currentColor;
+	}
+	
+	.c-button--clear:not([class*="u-bg-"]):hover{
+		background-color: rgba(0, 0, 0, 0);
+	}
+
+
+/* Button state modifiers
+   =========================================== */
+
+/**
+ * For buttons whose state is toggled.
+ */
+.c-button:disabled,
+.c-button.is-disabled,
+.c-button.is-disabled:hover,
+.c-button.is-disabled:active,
+.c-button.is-disabled:focus {
+	color: #fff;
+	background-color: #c0c0c0;
+	border-color: #c0c0c0;
+	cursor: not-allowed;
+}
+
+  
+/**
+* For buttons whose state is toggled when a related form or field contains
+* an error or multiple errors.
+*/
+.c-button.is-error,
+.c-button.is-error:hover,
+.c-button.is-error:active,
+.c-button.is-error:focus,
+.is-error .c-button,
+.is-error .c-button:hover,
+.is-error .c-button:active,
+.is-error .c-button:focus {
+	background-color: #c8102e;
+	border-color: #c8102e;
+	color: #fff;
+	cursor: not-allowed;
+}
+
+
+
+
+
+/* Button sizing modifiers
+   =========================================== */
+.c-button--tiny {
+	padding: calc(0.5em / 2 - 1px) calc(1em / 2 - 1px); /* [3] */
+	font-size: 0.625em;
+}
+
+.c-button--small {
+	padding: calc(0.5em / 1.5 - 1px) calc(1em / 1.5 - 1px); /* [3] */
+	font-size: 0.75em;
+}
+
+.c-button--large {
+	padding: calc(0.5em * 2 - 1px) calc(1em * 2 - 1px); /* [3] */
+}
+
+.c-button--huge {
+	padding: calc(0.5em * 3 - 1px) calc(1em * 3 - 1px); /* [3] */
+}
+
+.c-button--flush {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+
+/**
+* For buttons that need to display full-width on small devices only.
+*/
+.c-button--full-small {
+	display: block;
+	width: 100%;
+}
+
+/**
+* For buttons that need to display full-width.
+*/
+.c-button--full {
+	display: block;
+	width: 100%;
+}
+
+
+
+
+
+/* Button glossy modifiers
+   =========================================== */
+.c-button--glossy {
+	box-shadow: 0 1px 4px -2px #707070;
+	text-shadow: 0 -1px #707070;
+}
+
+	.c-button--glossy::after {
+		width: 100%;
+		height: 50%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+		border-radius: inherit;
+		content: '';
+	}

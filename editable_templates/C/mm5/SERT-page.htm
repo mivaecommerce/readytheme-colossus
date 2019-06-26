@@ -1,0 +1,31 @@
+<mvt:if expr="NOT l.settings:shipestimate_rates:shippingmethod_count">
+	<div class="x-messages x-messages--warning">Unable to estimate shipping rates, please check your address and try again.</div>
+<mvt:else>
+	<br>
+	<table class="c-table-stripped u-color-black">
+		<thead>
+			<tr>
+				<th class="c-table-simple__cell">Shipping Method</th>
+				<th class="c-table-simple__cell u-text-right">Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<mvt:foreach iterator="method" array="shipestimate_rates:shippingmethods">
+				<mvt:if expr="NOT ISNULL l.settings:method:formatted_price">
+					<tr class="c-table-stripped__row">
+						<td class="c-table-simple__cell">&mvt:method:name;</td>
+						<td class="c-table-simple__cell u-text-right" nowrap>&mvt:method:formatted_price;</td>
+					</tr>
+				<mvt:else>
+					<tr class="c-table-stripped__row">
+						<td class="c-table-simple__cell">&mvt:method:name;</td>
+						<td class="c-table-simple__cell u-text-right" nowrap>N/A</td>
+					</tr>
+				</mvt:if>
+			</mvt:foreach>
+		</tbody>
+	</table>
+</mvt:if>
+<div class="u-text-center">
+	<button class="c-button c-button--large u-bg-black u-font-small u-text-uppercase" data-hook="shipping-estimate-recalculate" title="Recalculate Shipping">Recalculate</button>
+</div>

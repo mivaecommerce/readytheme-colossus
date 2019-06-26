@@ -1,0 +1,53 @@
+/* ==========================================================================
+   ELEMENTS / MEDIA
+   ========================================================================== */
+
+/**
+* 1. Fluid media for responsive purposes.
+* 2. Offset 'alt' text from surrounding copy.
+* 3. Setting 'vertical-align' removes the whitespace that appears under 'img'
+*    elements when they are dropped into a page as-is. Safer alternative to
+*    using 'display: block;'.
+*/
+
+audio,
+video {
+	width: 100%;
+}
+
+	audio:focus,
+	video:focus {
+		outline: 1px dotted currentColor;
+	}
+
+embed,
+img,
+object,
+video {
+	max-width: 100%; /* [1] */
+	height: auto; /* [1] */
+}
+
+iframe {
+	max-width: 100%; /* [1] */
+}
+
+embed,
+object {
+	height: 100%;
+}
+
+img {
+	font-style: italic; /* [2] */
+	vertical-align: middle; /* [3] */
+}
+
+
+/**
+* 1. If a 'width' and/or 'height' attribute have been explicitly defined, let's
+*    not make the image fluid.
+*/
+img[width], /* [1] */
+img[height] { /* [1] */
+	max-width: none;
+}

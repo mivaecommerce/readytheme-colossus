@@ -1,0 +1,100 @@
+/* ==========================================================================
+   UTILITIES / PRINT
+   ========================================================================== */
+
+/**
+ * Print styles taken from the HTML5 Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+ * Inlined to avoid the additional HTTP request:
+ * http://www.phpied.com/delay-loading-your-print-css/
+ */
+@media print {
+
+	@page {
+		size: letter;
+		margin: 10%;
+		orphans: 2;
+		widows: 2;
+	}
+	/**
+	* 1. Black prints faster: http://www.sanbeiji.com/archives/953
+	*/
+	*,
+	*:before,
+	*:after {
+		background: transparent !important;
+		color: #000 !important; /* [1] */
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+	
+	body > *:not(main) {
+		display: none;
+	}
+
+	a,
+	a:visited {
+		text-decoration: underline !important;
+	}
+	
+	pre {
+		white-space: pre-wrap !important;
+	}
+	
+	pre,
+	blockquote {
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+	
+	
+	/*
+	 * Printing Tables:
+	 * http://css-discuss.incutio.com/wiki/Printing_Tables
+	 */
+	thead {
+		display: table-header-group;
+	}
+	
+	tr,
+	img {
+		page-break-inside: avoid;
+	}
+	
+	p,
+	h2,
+	h3 {
+		orphans: 3;
+		widows: 3;
+	}
+	
+	h2,
+	h3 {
+		page-break-after: avoid;
+	}
+}
+
+
+.u-printable__content {
+	display: none;
+	visibility: hidden;
+}
+	@media print {
+		.u-printable:not(.u-printable__content) {
+			display: none;
+			visibility: hidden;
+		}
+
+			.u-printable__content {
+				display: block;
+				width: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				visibility: visible;
+			}
+
+				.u-printable__content * {
+					visibility: visible;
+				}
+	}

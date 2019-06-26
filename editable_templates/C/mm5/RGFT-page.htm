@@ -1,0 +1,62 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="RGFT-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header">
+					<mvt:item name="breadcrumbs" />
+					<span class="c-heading-delta t-account-landing-section__heading">&mvt:page:name;</span>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<form class="o-layout o-layout--justify-center" data-hook="cpca-form" method="post" action="&mvte:urls:_self:secure;">
+						<fieldset class="o-layout__item u-width-12 u-width-5--l">
+							<legend>&mvt:page:name;</legend>
+							<input type="hidden" name="Action" value="RDGC" />
+							<p class="c-heading-echo">Current Balance: <span class="u-color-green">&mvt:customer:formatted_credit;</span></p>
+							<ul class="c-form-list">
+								<li class="c-form-list__item c-form-list__item--full">
+									<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-GiftCertificate_Code">Enter Gift Certificate Code</label>
+									<div class="c-control-group">
+										<input id="l-GiftCertificate_Code" class="c-form-input c-form-input--large c-control-group__field" type="text" name="GiftCertificate_Code" value="&mvte:global:GiftCertificate_Code;" required>
+										<input class="c-button c-button--huge u-bg-black u-font-tiny u-text-bold u-text-uppercase" type="submit" value="Redeem" title="Click here to redeem your certificate code">
+									</div>
+								</li>
+							</ul>
+						</fieldset>
+					</form>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="RGFT-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

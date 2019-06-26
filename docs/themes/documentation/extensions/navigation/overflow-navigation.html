@@ -1,0 +1,38 @@
+<nav class="c-navigation u-text-uppercase x-overflow-navigation" data-hook="overflow-navigation">
+	<ul class="c-navigation__row x-overflow-navigation__row" data-hook="overflow-navigation__row">
+		<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+			<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+				<mvt:assign name="l.settings:has:children" value="'has-child' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'has-child'"/>
+			<mvt:else>
+				<mvt:assign name="l.settings:has:children" value="''"/>
+			</mvt:if>
+			<li class="c-navigation__list &mvt:has:children;">
+				<a class="c-navigation__link" href="&mvt:navigationitem:url;">&mvt:navigationitem:name;</a>
+				<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+					<ul class="c-navigation__row">
+						<mvt:assign name="l.settings:has:children" value="''"/>
+						<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+							<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+								<mvt:assign name="l.settings:has:children" value="'has-child'"/>
+							<mvt:else>
+								<mvt:assign name="l.settings:has:children" value="''"/>
+							</mvt:if>
+							<li class="c-navigation__list &mvt:has:children;">
+								<a class="c-navigation__link" href="&mvt:navigationitem_level2:url;">&mvt:navigationitem_level2:name;</a>
+								<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+									<ul class="c-navigation__row">
+										<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+											<li><a class="c-navigation__link" href="&mvt:navigationitem_level3:url;">&mvt:navigationitem_level3:name;</a></li>
+										</mvt:foreach>
+									</ul>
+								</mvt:if>
+							</li>
+						</mvt:foreach>
+					</ul>
+				</mvt:if>
+			</li>
+		</mvt:foreach>
+	</ul>
+	<button class="x-overflow-navigation__trigger is-hidden" data-hook="overflow-navigation__trigger">More</button>
+	<ul class="x-overflow-navigation__group is-hidden" data-hook="overflow-navigation__group"></ul>
+</nav>

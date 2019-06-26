@@ -1,0 +1,281 @@
+/* ==========================================================================
+   UTILITIES / ICONS
+   ========================================================================== */
+
+/**
+ * This contains the "@font-face" call needed to add the ReadyTheme Icons Font 
+ * package to your site. These icons are available for use in addition to any 
+ * theme-based icons which may be referenced in the "theme-fonts.css" file.
+ */
+
+@font-face {
+	font-family: 'ReadyTheme Icons';
+	font-style: normal;
+	font-weight: normal;
+	font-display: fallback;
+	src: url('themes/colossus/ui/css/ReadyThemeIcons.woff') format('woff');
+}
+
+[class^="u-icon-"],
+[class*=" u-icon-"],
+[data-icon]::before {
+	font-family: "ReadyTheme Icons", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1;
+	speak: none;
+	text-transform: none;
+}
+
+[data-icon]::before {
+	content: attr(data-icon);
+}
+
+[class^="u-icon-"]::before,
+[class*=" u-icon-"]::before,
+[data-icon]::before {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+
+.u-icon-error::before {
+	content: "\21";
+}
+
+.u-icon-warning::before {
+	content: "\22";
+}
+
+.u-icon-question::before {
+	content: "\23";
+}
+
+.u-icon-info::before {
+	content: "\24";
+}
+
+.u-icon-gift::before {
+	content: "\25";
+}
+
+.u-icon-settings::before {
+	content: "\26";
+}
+
+.u-icon-protected::before {
+	content: "\27";
+}
+
+.u-icon-secure::before {
+	content: "\28";
+}
+
+.u-icon-envelope::before {
+	content: "\29";
+}
+
+.u-icon-truck::before {
+	content: "\2a";
+}
+
+.u-icon-globe::before {
+	content: "\2b";
+}
+
+.u-icon-history::before {
+	content: "\2c";
+}
+
+.u-icon-balance::before {
+	content: "\2d";
+}
+
+.u-icon-remove::before {
+	content: "\2e";
+}
+
+.u-icon-cart-add::before {
+	content: "\2f";
+}
+
+.u-icon-chevron-up::before {
+	content: "\30";
+}
+
+.u-icon-chevron-down::before {
+	content: "\31";
+}
+
+.u-icon-chevron-left::before {
+	content: "\32";
+}
+
+.u-icon-chevron-right::before {
+	content: "\33";
+}
+
+.u-icon-triangle-up::before {
+	content: "\34";
+}
+
+.u-icon-triangle-down::before {
+	content: "\35";
+}
+
+.u-icon-triangle-left::before {
+	content: "\36";
+}
+
+.u-icon-triangle-right::before {
+	content: "\37";
+}
+
+.u-icon-arrow-up::before {
+	content: "\38";
+}
+
+.u-icon-arrow-down::before {
+	content: "\39";
+}
+
+.u-icon-arrow-left::before {
+	content: "\3a";
+}
+
+.u-icon-arrow-right::before {
+	content: "\3b";
+}
+
+.u-icon-subtract::before {
+	content: "\3c";
+}
+
+.u-icon-add::before {
+	content: "\3d";
+}
+
+.u-icon-cross::before {
+	content: "\3e";
+}
+
+.u-icon-check::before {
+	content: "\3f";
+}
+
+.u-icon-zoom-out::before {
+	content: "\40";
+}
+
+.u-icon-zoom-in::before {
+	content: "\41";
+}
+
+.u-icon-search::before {
+	content: "\42";
+}
+
+.u-icon-credit-card::before {
+	content: "\43";
+}
+
+.u-icon-heart-empty::before {
+	content: "\44";
+}
+
+.u-icon-heart-full::before {
+	content: "\45";
+}
+
+.u-icon-star-empty::before {
+	content: "\46";
+}
+
+.u-icon-star-full::before {
+	content: "\47";
+}
+
+.u-icon-home::before {
+	content: "\48";
+}
+
+.u-icon-user::before {
+	content: "\49";
+}
+
+.u-icon-phone::before {
+	content: "\4a";
+}
+
+.u-icon-facebook::before {
+	content: "\4b";
+}
+
+.u-icon-twitter::before {
+	content: "\4c";
+}
+
+.u-icon-pinterest::before {
+	content: "\4d";
+}
+
+.u-icon-google::before {
+	content: "\4e";
+}
+
+.u-icon-instagram::before {
+	content: "\4f";
+}
+
+.u-icon-vimeo::before {
+	content: "\50";
+}
+
+.u-icon-youtube::before {
+	content: "\51";
+}
+
+.u-icon-flickr::before {
+	content: "\52";
+}
+
+.u-icon-print::before {
+	content: "\53";
+}
+
+.u-icon-wallet::before {
+	content: "\54";
+}
+
+.u-icon-document::before {
+	content: "\55";
+}
+
+.u-icon-menu::before {
+	content: "\56";
+}
+
+.u-icon-calendar::before {
+	content: "\57";
+}
+
+.u-icon-bag-empty::before {
+	content: "\58";
+}
+
+.u-icon-bag-full::before {
+	content: "\59";
+}
+
+.u-icon-cart-empty::before {
+	content: "\5a";
+}
+
+.u-icon-cart-full::before {
+	content: "\5b";
+}
+
+.u-icon-location::before {
+	content: "\5c";
+}

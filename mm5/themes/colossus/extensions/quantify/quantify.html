@@ -1,0 +1,24 @@
+<!--
+/**
+ * This extension allows for the use of buttons to increase/decrease item
+ * quantities on the product and basket pages. When used on the basket page,
+ * the decrease button becomes a remove button if the quantity is 1.
+ */
+-->
+
+<!-- Product Page -->
+<div class="x-quantify c-control-group" data-hook="quantify">
+	<button class="c-button c-control-group__button u-icon-subtract" data-action="decrement"></button>
+	<input class="c-form-input c-control-group__field u-text-center" type="tel" name="Quantity" value="1">
+	<button class="c-button c-control-group__button u-icon-add" data-action="increment"></button>
+</div>
+
+
+<!-- Basket Page -->
+<div class="x-quantify c-control-group" data-hook="quantify">
+	<button class="c-button c-control-group__button u-icon-subtract" data-action="decrement" data-hook="remove-item" data-remove="&mvte:urls:BASK:auto_sep;Action=RGRP&Basket_Group=&mvta:group:group_id;&Restore_Name=&mvta:group:name;&Restore_Link=&mvta:group:restore:link;"></button>
+	<input class="c-form-input c-control-group__field u-text-center" data-group="group-&mvte:group:group_id;" data-hook="group-quantity" type="tel" name="Quantity" value="&mvt:group:quantity;">
+	<button class="c-button c-control-group__button u-icon-add" data-action="increment"></button>
+</div>
+
+

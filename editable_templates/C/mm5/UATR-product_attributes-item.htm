@@ -1,0 +1,153 @@
+<mvt:foreach iterator="attribute" array="attributes">
+	<mvt:assign name="l.settings:attribute_ID" value="'l-' $ tolower(l.settings:attribute:code)" />
+	<mvt:if expr="l.settings:attribute:required">
+		<mvt:assign name="l.settings:required_attribute" value="'required'" />
+		<mvt:assign name="l.settings:required_attribute_classes" value="'u-text-bold is-required'" />
+	<mvt:else>
+		<mvt:assign name="l.settings:required_attribute" value="''" />
+		<mvt:assign name="l.settings:required_attribute_classes" value="''" />
+	</mvt:if>
+	<input data-attribute-type="&mvte:attribute:type;" type="hidden" name="Product_Attributes[&mvte:attribute:index;]:code" value="&mvte:attribute:code;">
+	<mvt:if expr="l.settings:attribute:template_code NE 0">
+		<input type="hidden" name="Product_Attributes[&mvte:attribute:index;]:template_code" value="&mvte:attribute:template_code;">
+	</mvt:if>
+	<mvt:if expr="l.settings:attribute:type EQ 'text'">
+		<div class="x-product-layout-purchase__options-attribute o-layout__item">
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="&mvt:attribute_ID;" title="&mvte:attribute:prompt;">&mvte:attribute:prompt;</label>
+			<input id="&mvt:attribute_ID;" class="c-form-input c-form-input--large" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:attribute:price;" data-regular-price="" type="text" name="Product_Attributes[&mvte:attribute:index;]:value" value="&mvte:attribute:value;" placeholder="" &mvt:required_attribute;>
+		</div>
+	<mvt:elseif expr="l.settings:attribute:type EQ 'memo'">
+		<div class="x-product-layout-purchase__options-attribute o-layout__item">
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="&mvt:attribute_ID;" title="&mvte:attribute:prompt;">&mvte:attribute:prompt;</label>
+			<textarea id="&mvt:attribute_ID;" class="c-form-input c-form-input--large c-form-input--long" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:attribute:price;" data-regular-price="" name="Product_Attributes[&mvt:attribute:index;]:value" placeholder="" &mvt:required_attribute;>&mvte:attribute:value;</textarea>
+		</div>
+	<mvt:elseif expr="l.settings:attribute:type EQ 'radio'">
+		<div class="x-product-layout-purchase__options-attribute o-layout__item" data-hook="update-selection">
+			<span class="c-form-label u-block &mvt:required_attribute_classes;" title="&mvte:attribute:prompt;">
+				&mvte:attribute:prompt; <span data-hook="update-selection-label">&nbsp;</span>
+			</span>
+			<mvt:foreach iterator="option" array="attribute:options">
+				<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline x-radio-to-button" title="&mvt:option:prompt;">
+					<mvt:if expr="((g.Product_Attributes[l.settings:attribute:index]:value EQ 0) AND (l.settings:option:id EQ l.settings:attribute:default_id)) OR (g.Product_Attributes[l.settings:attribute:index]:value EQ l.settings:option:code)">
+						<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:option:price;" data-regular-price="" type="radio" name="Product_Attributes[&mvte:attribute:index;]:value" value="&mvte:option:code;" checked &mvt:required_attribute;>
+					<mvt:else>
+						<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:option:price;" data-regular-price="" type="radio" name="Product_Attributes[&mvte:attribute:index;]:value" value="&mvte:option:code;" &mvt:required_attribute;>
+					</mvt:if>
+					<span class="c-form-checkbox__caption">
+						<mvt:if expr="l.settings:option:image">
+							<img src="&mvte:option:image;" alt="&mvte:option:prompt;" title="&mvte:option:prompt;" />
+						<mvt:else>
+							&mvte:option:prompt;
+						</mvt:if>
+					</span>
+				</label>
+			</mvt:foreach>
+		</div>
+	<mvt:elseif expr="l.settings:attribute:type EQ 'select'">
+		<div class="x-product-layout-purchase__options-attribute o-layout__item" data-hook="update-selection">
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="&mvt:attribute_ID;" title="&mvt:attribute:prompt;">
+				&mvt:attribute:prompt; <span data-hook="update-selection-label">&nbsp;</span>
+			</label>
+			<div class="c-form-select u-invisible">
+				<select id="&mvt:attribute_ID;" class="c-form-select__dropdown c-form-input--large" data-attribute="&mvte:attribute:code;" name="Product_Attributes[&mvt:attribute:index;]:value" &mvt:required_attribute;>
+					<mvt:foreach iterator="option" array="attribute:options">
+						<mvt:if expr="((g.Product_Attributes[l.settings:attribute:index]:value EQ 0) AND (l.settings:option:id EQ l.settings:attribute:default_id)) OR (g.Product_Attributes[l.settings:attribute:index]:value EQ l.settings:option:code)">
+							<option value="&mvte:option:code;" data-option-price="&mvt:option:price;" data-regular-price="" selected>
+								&mvte:option:prompt;
+							</option>
+						<mvt:else>
+							<option value="&mvte:option:code;" data-option-price="&mvt:option:price;" data-regular-price="">
+								&mvte:option:prompt;
+							</option>
+						</mvt:if>
+					</mvt:foreach>
+				</select>
+			</div>
+		</div>
+	<mvt:elseif expr="l.settings:attribute:type EQ 'swatch-select'">
+		<div class="x-product-layout-purchase__options-attribute o-layout__item">
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="&mvt:attribute_ID;" title="&mvt:attribute:prompt;">&mvt:attribute:prompt; <span data-hook="attribute-swatch-name">&nbsp;</span></label>
+			<div class="c-form-select u-hidden">
+				<select id="&mvt:attribute_ID;" class="c-form-select__dropdown c-form-input--large" data-attribute="&mvte:attribute:code;" data-hook="attribute-swatch-select" name="Product_Attributes[&mvt:attribute:index;]:value" &mvt:required_attribute;>
+					<mvt:foreach iterator="option" array="attribute:options">
+						<mvt:if expr="((g.Product_Attributes[l.settings:attribute:index]:value EQ 0) AND (l.settings:option:id EQ l.settings:attribute:default_id)) OR (g.Product_Attributes[l.settings:attribute:index]:value EQ l.settings:option:code)">
+							<option value="&mvte:option:code;" data-option-price="&mvt:option:price;" data-regular-price="" selected>
+								&mvte:option:prompt;
+							</option>
+						<mvt:else>
+							<option value="&mvte:option:code;" data-option-price="&mvt:option:price;" data-regular-price="">
+								&mvte:option:prompt;
+							</option>
+						</mvt:if>
+					</mvt:foreach>
+				</select>
+			</div>
+			<div id="swatches" class="x-product-layout-purchase__swatches"></div>
+		</div>
+	<mvt:elseif expr="l.settings:attribute:type EQ 'checkbox'">
+		<div class="x-product-layout-purchase__options-attribute o-layout__item">
+			<span class="c-form-label u-block">&nbsp;</span>
+			<label class="c-form-checkbox &mvt:required_attribute_classes;" title="&mvte:attribute:prompt;">
+				<mvt:if expr="g.Product_Attributes[l.settings:attribute:index]:value">
+					<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:attribute:price;" data-regular-price="" type="checkbox" name="Product_Attributes[&mvte:attribute:index;]:value" value="Yes" checked &mvt:required_attribute;>
+				<mvt:else>
+					<input class="c-form-checkbox__input" data-attribute="&mvte:attribute:code;" data-option-price="&mvt:attribute:price;" data-regular-price="" type="checkbox" name="Product_Attributes[&mvte:attribute:index;]:value" &mvt:required_attribute;>
+				</mvt:if>
+				<span class="c-form-checkbox__caption">
+					<mvt:if expr="l.settings:attribute:image">
+						<img src="&mvte:attribute:image;" alt="&mvte:attribute:prompt;" title="&mvte:attribute:prompt;">
+					<mvt:else>
+						&mvte:attribute:prompt;
+					</mvt:if>
+				</span>
+			</label>
+		</div>
+	</mvt:if>
+</mvt:foreach>
+<mvt:if expr="l.settings:subscription:enabled AND l.settings:subscription:term_count">
+	<div class="x-product-layout-purchase__options-attribute o-layout__item x-subscription-combo">
+		<mvt:if expr="l.settings:subscription:mandatory">
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="l-subscription-mandatory" title="Subscribe">Select Subscription</label>
+			<div class="c-form-select">
+				<select id="l-subscription-mandatory" class="c-form-select__dropdown c-form-input--large" name="Product_Subscription_Term_ID" &mvt:required_attribute;>
+					<mvt:foreach iterator="term" array="subscription:terms">
+						<option value="&mvte:term:id;">&mvte:term:descrip;</option>
+					</mvt:foreach>
+				</select>
+			</div>
+		<mvt:else>
+			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="l-subscription" title="Subscribe">Subscription</label>
+
+			<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline" title="Order Once">
+				<mvt:if expr="g.Product_Subscription_Term_ID EQ 0">
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="0" checked>
+				<mvt:else>
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="0">
+				</mvt:if>
+				<span class="c-form-checkbox__caption">
+					<span class="u-text-uppercase">Order</span>
+					<strong>Once</strong>
+				</span>
+			</label>
+
+			<label class="c-form-checkbox c-form-checkbox--radio c-form-checkbox--inline" data-hook="select-subscription" title="Select Subscription">
+				<mvt:if expr="g.Product_Subscription_Term_ID NE 0">
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="" checked>
+				<mvt:else>
+					<input class="c-form-checkbox__input" type="radio" name="Product_Subscription_Term_ID" value="">
+				</mvt:if>
+				<span class="c-form-checkbox__caption">
+					<span class="c-form-select">
+						<select id="l-subscription" class="c-form-select__dropdown c-form-input--large" name="Product_Subscription_Term_ID">
+							<mvt:foreach iterator="term" array="subscription:terms">
+								<option value="&mvte:term:id;">&mvte:term:descrip;</option>
+							</mvt:foreach>
+						</select>
+					</span>
+				</span>
+			</label>
+
+		</mvt:if>
+	</div>
+</mvt:if>
+<input data-hook="product-attribute__count" type="hidden" name="Product_Attribute_Count" value="<mvt:eval expr="miva_array_elements(l.settings:attributes)" />">

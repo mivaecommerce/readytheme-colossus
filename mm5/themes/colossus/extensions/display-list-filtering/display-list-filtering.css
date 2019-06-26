@@ -1,0 +1,18 @@
+/* ==========================================================================
+   EXTENSIONS / DISPLAY LIST FILTERING / DISPLAY LIST FILTERING
+   ========================================================================== */
+
+
+/**
+ * Display list filtering is for use in product list filtering as well as any
+ * place a batch list or sortable data is used.
+ */
+
+.x-display-list-filtering {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+	.x-display-list-filtering__per-page {
+		margin-right: calc(16px * 2);
+	}

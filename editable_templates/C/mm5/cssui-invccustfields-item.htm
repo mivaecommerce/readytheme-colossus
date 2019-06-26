@@ -1,0 +1,115 @@
+<div class="t-checkout-customer-summary">
+	<br>
+	<ul class="o-list-block">
+		<li class="o-list-block__item">
+			<p class="u-font-tiny u-text-bold u-text-uppercase">Shipped To</p>
+			<div class="u-color-gray-50">
+				<mvt:if expr="l.settings:order:ship_fname OR l.settings:order:ship_lname">
+					&mvte:order:ship_fname; &mvte:order:ship_lname;<br>
+				</mvt:if>
+				<span>
+					<mvt:if expr="l.settings:order:ship_comp">
+						&mvte:order:ship_comp;<br>
+					</mvt:if>
+					<mvt:if expr="l.settings:order:ship_addr1 OR l.settings:order:ship_addr2 OR l.settings:order:ship_city OR l.settings:order:ship_state OR l.settings:order:ship_zip OR l.settings:order:ship_cntry OR l.settings:order:ship_res">
+						&mvte:order:ship_addr1;<br>
+						<mvt:if expr="l.settings:order:ship_addr2">
+							&mvte:order:ship_addr2;<br>
+						</mvt:if>
+						<mvt:if expr="(NOT ISNULL l.settings:order:ship_city) AND (NOT ISNULL l.settings:order:ship_state)">
+							&mvte:order:ship_city;, &mvte:order:ship_state;	&mvte:order:ship_zip; &mvte:order:ship_cntry;
+						<mvt:else>
+							&mvte:order:ship_city; &mvte:order:ship_state;	&mvte:order:ship_zip; &mvte:order:ship_cntry;
+						</mvt:if>
+						<mvt:if expr="l.settings:order:ship_phone">
+							<br>&mvte:order:ship_phone;
+						</mvt:if>
+						<mvt:if expr="l.settings:order:ship_res">
+							<br>Residential Address
+						</mvt:if>
+					</mvt:if>
+				</span>
+			</div>
+			<br>
+		</li>
+		<mvt:item name="customfields" param="Read_Order(l.settings:order:id, 'order_instructions')" />
+		<mvt:if expr="NOT ISNULL l.settings:customfields:order_instructions">
+			<li class="o-list-block__item">
+				<p class="u-font-tiny u-text-bold u-text-uppercasee">Delivery Notes</p>
+				<div class="u-color-gray-50">
+					&mvt:order_instructions;<br>
+				</div>
+				<br>
+			</li>
+		</mvt:if>
+		<li class="o-list-block__item">
+			<p class="u-font-tiny u-text-bold u-text-uppercase">Paid With</p>
+			<div class="u-color-gray-50">
+				<mvt:if expr="l.settings:order:bill_fname OR l.settings:order:bill_lname">
+					&mvte:order:bill_fname; &mvte:order:bill_lname;<br>
+				</mvt:if>
+				<mvt:foreach iterator="payment" array="order:payments">
+					<mvt:if expr="l.settings:payment:type EQ 6">
+						Refund: &mvt:payment:desc;<br>
+						&mvt:payment:formatted_amount;
+					<mvt:else>
+						&mvt:payment:desc; &mvt:payment:formatted_amount_negative;
+					</mvt:if>
+				</mvt:foreach>
+			</div>
+			<br>
+		</li>
+		<li class="o-list-block__item">
+			<div class="u-font-tiny u-text-bold u-text-uppercase">Summary</div>
+			<mvt:do file="g.Module_Store_Module_Currency" name="l.settings:basket:formatted_subtotal" value="CurrencyModule_AddFormatting(g.Store:currncy_mod, g.basket_subtotal)" />
+			<table class="c-table-simple o-table-borderless">
+				<tbody>
+					<tr class="c-table-simple__row u-color-gray-50">
+						<td class="c-table-simple__cell u-flex o-layout--justify-between">
+							<span>Subtotal</span>
+							<span>&mvt:basket:formatted_subtotal;</span>
+						</td>
+					</tr>
+					
+					<mvt:foreach iterator="charge" array="order:charges">
+						<tr class="c-table-simple__row u-color-gray-50">
+							<td class="c-table-simple__cell u-flex o-layout--justify-between">
+								<span>&mvt:charge:descrip;</span>
+								<span>&mvt:charge:formatted_disp_amt;</span>
+							</td>
+						</tr>
+					</mvt:foreach>
+			
+					<mvt:foreach iterator="coupon" array="order:coupons">
+						<tr class="c-table-simple__row u-color-gray-50">
+							<td class="c-table-simple__cell u-flex o-layout--justify-between">
+								<span>&mvt:coupon:code;</span>
+								<mvt:if expr="NOT ISNULL l.settings:coupon:descrip">
+									<span>&mvt:coupon:descrip;</span>
+								</mvt:if>
+							</td>
+						</tr>
+					</mvt:foreach>
+					
+					<tr class="c-table-simple__row">
+						<td class="c-table-simple__cell u-flex o-layout--justify-between u-text-bold u-color-black">
+							<span>Order Total</span>
+							<span>&mvt:order:formatted_total;</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<mvt:if expr="l.settings:order:have_custom_order_field_values">
+				<table class="c-table-simple">
+					<tbody>
+						<tr class="c-table-simple__row">
+							<td class="c-table-simple__cell">Additional Order Information</td>
+						</tr>
+					</tbody>
+				</table>
+			</mvt:if>
+		</li>
+	</ul>
+	<br>
+</div>

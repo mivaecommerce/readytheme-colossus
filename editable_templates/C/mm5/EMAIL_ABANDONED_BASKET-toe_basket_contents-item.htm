@@ -1,0 +1,168 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;" width="200">
+						<div class="text-1" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:left"><strong>Item</strong></div>
+					</td>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;" width="100">
+						<div class="text-1-center" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:center"><strong>Qty</strong></div>
+					</td>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;" width="100">
+						<div class="text-1" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right"><strong>Price</strong></div>
+					</td>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+					<td valign="top" style="border-bottom: 1px solid #e3e3e3; border-top: 1px solid #e3e3e3; padding-top: 10px; padding-bottom: 10px;">
+						<div class="text-1-right" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right"><strong>Total</strong></div>
+					</td>
+				</tr>
+
+				<mvt:foreach iterator="item" array="basket:groups">
+					<mvt:if expr="l.settings:item:option_count">
+						<mvt:assign name="l.settings:item_padding" value="'padding-top: 15px; padding-bottom: 5px;'" />
+					<mvt:else>
+						<mvt:assign name="l.settings:item_padding" value="'padding-top: 15px; padding-bottom: 15px;'" />
+					</mvt:if>
+
+					<tr>
+						<td valign="top" style="&mvte:item_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+						<td valign="top" style="&mvte:item_padding;">
+							<div class="text-1" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:left">&mvt:item:name;</div>
+							<div class="text-3" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:14px; line-height:22px; text-align:left">&mvt:item:code;</div>
+							
+						</td>
+						<td valign="top" style="&mvte:item_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+						<td valign="top" style="&mvte:item_padding;">
+							<div class="text-1-center" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:center">&mvte:item:quantity;</div>
+						</td>
+						<td valign="top" style="&mvte:item_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+						<td valign="top" style="&mvte:item_padding;">
+							<div class="text-1" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right">
+								&mvt:item:formatted_price;
+							</div>
+						</td>
+						<td valign="top" style="&mvte:item_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+						<td valign="top" style="&mvte:item_padding;">
+							<div class="text-1-right" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right">
+								&mvt:item:formatted_subtotal;
+							</div>
+						</td>
+					</tr>
+
+					<mvt:foreach iterator="option" array="item:options">
+						<mvt:if expr="l.pos2 LT l.settings:item:option_count">
+							<mvt:assign name="l.settings:option_padding" value="'padding-bottom: 5px;'" />
+						<mvt:else>
+							<mvt:assign name="l.settings:option_padding" value="'padding-bottom: 15px;'" />
+						</mvt:if>
+
+						<tr>
+							<td valign="top" style="&mvte:option_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+							<td valign="top" style="&mvte:option_padding;">
+								<div class="text-3" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:14px; line-height:22px; text-align:left">
+									<mvt:if expr="l.settings:option:option_id">
+										&mvt:option:attr_code;: &mvt:option:opt_code;
+									<mvt:elseif expr="NOT ISNULL l.settings:option:data">
+										<mvt:if expr="( l.settings:option:attr_code EQ 'digitaldownload' ) AND ( NOT ISNULL l.settings:option:digital_download_url )">
+											<a href="&mvte:option:digital_download_url;" target="_blank">Digital Download</a>
+										<mvt:else>
+											&mvt:option:attr_code;: &mvt:option:data;
+										</mvt:if>
+									<mvt:elseif expr="NOT ISNULL l.settings:option:data_long">
+										&mvt:option:attr_code;: &mvt:option:data_long;
+									<mvt:else>
+										&mvt:option:attr_code;
+									</mvt:if>
+								</div>
+							</td>
+							<td valign="top" style="&mvte:option_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+							<td valign="top" style="&mvte:option_padding;">
+								&nbsp;
+							</td>
+							<td valign="top" style="&mvte:option_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+							<td valign="top" style="&mvte:option_padding;">
+								<div class="text-1" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right">
+									<mvt:if expr="l.settings:option:price">
+										&mvt:option:formatted_price;
+									<mvt:else>
+										&nbsp;
+									</mvt:if>
+								</div>
+							</td>
+							<td valign="top" style="&mvte:option_padding;" class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+							<td valign="top" style="&mvte:option_padding;">
+								<div class="text-1-right" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right">
+									<mvt:if expr="l.settings:option:subtotal">
+										&mvt:option:formatted_subtotal;
+									<mvt:else>
+										&nbsp;
+									</mvt:if>
+								</div>
+							</td>
+						</tr>
+					</mvt:foreach>
+				</mvt:foreach>
+			</table>
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="5" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="img" style="font-size:0pt; line-height:0pt; text-align:left" height="1" bgcolor="#e3e3e3">&nbsp;</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="20" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="right">
+			<table border="0" cellspacing="0" cellpadding="0">
+
+				<mvt:foreach iterator="charge" array="basket:charges">
+					<tr>
+						<td>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+							<div class="text-1-right" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right">&mvt:charge:descrip;:</div>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+						</td>
+						<td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+						<td width="135">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+							<div class="text-1-right" style="color:#7a838d; font-family:Arial, sans-serif; min-width:auto !important; font-size:16px; line-height:24px; text-align:right">&mvt:charge:formatted_disp_amt;</div>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+						</td>
+					</tr>
+				</mvt:foreach>
+
+				<tr>
+					<td>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+						<div class="h3-right" style="color:#303748; font-family:Arial, sans-serif; min-width:auto !important; font-size:18px; line-height:22px; text-align:right"><strong>Total:</strong></div>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+					</td>
+					<td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="10"></td>
+					<td width="135">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+						<div class="h3-right" style="color:#303748; font-family:Arial, sans-serif; min-width:auto !important; font-size:18px; line-height:22px; text-align:right"><strong>&mvt:basket:formatted_total;</strong></div>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="3" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>
+
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%"><tr><td height="30" class="spacer" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%">&nbsp;</td></tr></table>

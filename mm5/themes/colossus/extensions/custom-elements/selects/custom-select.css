@@ -1,0 +1,158 @@
+/* ==========================================================================
+   EXTENSIONS / CUSTOM-ELEMENTS / SELECTS / CUSTOM-SELECT
+   ========================================================================== */
+
+/**
+ * This extension will create a stylish drop-down list from the `select`
+ * elements on tbe page. It will pull the currently selected option as well
+ * as trigger any change event attached to the original `select`. The new
+ * list created from the select will respect any `disabled` attribute on
+ * the select or any option.
+ */
+
+.c-form-select:not(.x-stock-select-element) {
+	transition: visibility cubic-bezier(0, 0, 0.4, 1) 0.15s;
+	visibility: hidden;
+}
+
+.x-custom-select {
+	position: relative;
+	white-space: nowrap;
+	background-color: #fff;
+	opacity: 0;
+	-webkit-tap-highlight-color: transparent;
+	transition: opacity cubic-bezier(0, 0, 0.4, 1) 0.15s, visibility cubic-bezier(0, 0, 0.4, 1) 0.15s;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	visibility: hidden;
+}
+
+	.x-custom-select.is-loaded {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.x-custom-select.is-disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+	
+	
+	.x-custom-select__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding: 1rem;
+		position: relative;
+		color: #333;
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-align: left;
+		background-color: #fff;
+		border: 1px solid rgba(205, 205, 205, 0.7);
+		cursor: pointer;
+		outline: none;
+	}
+		
+		.is-open .x-custom-select__title {
+			border-bottom-color: #fff;
+		}
+		
+		.x-custom-select__title::after {
+			display: inline-block;
+			width: 6px;
+			height: 6px;
+			margin-left: 1em;
+			position: relative;
+			top: -1px;
+			border-bottom: 2px solid #595452;
+			border-right: 2px solid #595452;
+			content: '';
+			pointer-events: none;
+			transition: all 0.15s ease-in-out;
+			transform: rotate(45deg);
+		}
+		
+		.is-open .x-custom-select__title::after {
+			transform: rotate(-135deg);
+		}
+		
+		.x-custom-select__title > *:not(:empty) {
+			padding-right: 0.25em;
+			padding-left: 0.25em;
+			pointer-events: none;
+		}
+		
+		.x-custom-select__title span {
+			color: #6e6e6e;
+			text-transform: uppercase;
+		}
+	
+		
+		.x-custom-select__list {
+			min-width: 100%;
+			max-width: 20rem;
+			max-height: 15rem;
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			font-size: 0.875rem;
+			font-weight: 600;
+			list-style: none;
+			background-color: #fff;
+			box-shadow: 0 0 1.5rem 0 rgba(51, 51, 51, 0.25);
+			opacity: 0;
+			overflow-x: hidden;
+			overflow-y: auto;
+			pointer-events: none;
+			transform-origin: top center;
+			transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+			transform: scale(0.75) translateY(-1.5em);
+			z-index: 999;
+		}
+		
+			.is-open .x-custom-select__list {
+				opacity: 1;
+				pointer-events: auto;
+				transform: scale(1) translateY(0);
+			}
+			
+			.x-custom-select__list-item {
+				padding: 1em 1rem;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			.x-custom-select__list-item:hover {
+				background-color: #ededed;
+			}
+				
+				.x-custom-select__list-item.is-selected {
+					background-color: #f7f7f7;
+				}
+				
+				.x-custom-select__list-item.is-disabled {
+					color: #ccc;
+					pointer-events: none;
+				}
+
+
+
+
+
+.c-form-select.x-custom-select-replacement::before,
+.c-form-select.x-custom-select-replacement::after {
+	display: none;
+}
+
+.x-product-layout-purchase__options-attribute .x-custom-select-replacement {
+	max-width: 20rem;
+}
+
+.x-product-layout-purchase__options-attribute .x-custom-select__title {
+	padding-top: 0.875rem;
+	padding-bottom: 0.875rem;
+}

@@ -1,0 +1,187 @@
+<section class="o-layout o-layout--justify-center">
+	<div class="o-layout__item u-width-12 u-width-9--m">
+		<p class="h-align-right"><a class="button button--hollow button--mini button--square border--red color--red" href="&mvte:urls:SFNT:secure_sep;Action=ALOG" title="Log Out">Log Out</a></p>
+		<form method="post" action="&mvte:urls:AFAE:secure;">
+			<fieldset>
+				<legend>&mvt:page:name;</legend>
+				<input type="hidden" name="Action" value="UAFL" />
+				
+				<p class="c-heading-delta">Log In Info</p>
+				<ul class="c-form-list o-layout">
+					<li class="c-form-list__item o-layout__item u-width-6--m &mvte:global:Affiliate_Code_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_Code">Affiliate Code</label>
+						<input id="l-Affiliate_Code" class="c-form-input" type="text" value="&mvte:global:Affiliate_Code;" readonly>
+						<input type="hidden" name="Affiliate_Code" value="&mvte:global:Affiliate_Code;">
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-6--m &mvte:global:Affiliate_LostPass_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_LostPass_Email">Email Lost Passwords To</label>
+						<input id="l-Affiliate_LostPass_Email" class="c-form-input" type="email" name="Affiliate_LostPass_Email" value="&mvte:global:Affiliate_LostPass_Email;" required autocomplete="email">
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-6--m &mvte:global:Affiliate_Password_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_Password">Password</label>
+						<input id="l-Affiliate_Password" class="c-form-input" type="password" name="Affiliate_Password" value="&mvte:global:Affiliate_Password;" autocomplete="new-password">
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-6--m &mvte:global:Affiliate_VerfiyPassword_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_VerifyPassword">Confirm Password</label>
+						<input id="l-Affiliate_VerifyPassword" class="c-form-input" type="password" name="Affiliate_VerifyPassword" value="&mvte:global:Affiliate_VerifyPassword;" autocomplete="new-password">
+					</li>
+				</ul>
+				<hr class="c-keyline">
+				
+				<p class="c-heading-delta">Affiliate Info</p>
+				<ul class="c-form-list o-layout">
+					<li class="c-form-list__item o-layout__item u-width-6--m &mvte:global:Affiliate_SiteName_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_SiteName">Site Name</label>
+						<input id="l-Affiliate_SiteName" class="c-form-input" type="text" name="Affiliate_SiteName" value="&mvte:global:Affiliate_SiteName;" required>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-6--m &mvte:global:Affiliate_SiteURL_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_SiteURL">Site URL</label>
+						<input id="l-Affiliate_SiteURL" class="c-form-input" type="url" name="Affiliate_SiteURL" value="&mvte:global:Affiliate_SiteURL;" required>
+					</li>
+				</ul>
+				<hr class="c-keyline">
+				
+				<p class="c-heading-delta">Contact Info</p>
+				<ul class="c-form-list o-layout">
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_ContactName_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_ContactName">Name</label>
+						<input id="l-Affiliate_ContactName" class="c-form-input" type="text" name="Affiliate_ContactName" value="&mvte:global:Affiliate_ContactName;" required>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_Company_Row;">
+						<label class="c-form-label u-text-italic" for="l-Affiliate_Company">Company (Optional)</label>
+						<input id="l-Affiliate_Company" class="c-form-input" type="text" name="Affiliate_Company" value="&mvte:global:Affiliate_Company;">
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_Phone_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_Phone">Phone</label>
+						<input id="l-Affiliate_Phone" class="c-form-input" type="text" name="Affiliate_Phone" value="&mvte:global:Affiliate_Phone;" required>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:Affiliate_Email_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_Email">Email</label>
+						<input id="l-Affiliate_Email" class="c-form-input" type="email" name="Affiliate_Email" value="&mvte:global:Affiliate_Email;" required>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_Fax_Row;">
+						<label class="c-form-label u-text-italic" for="l-Affiliate_Fax">Fax (Optional)</label>
+						<input id="l-Affiliate_Fax" class="c-form-input" type="text" name="Affiliate_Fax" value="&mvte:global:Affiliate_Fax;">
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-8--m &mvte:global:Affiliate_Address_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_Address">Address</label>
+						<input id="l-Affiliate_Address" class="c-form-input" type="text" name="Affiliate_Address" value="&mvte:global:Affiliate_Address;" required>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_City_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_City">City</label>
+						<input id="l-Affiliate_City" class="c-form-input" type="text" name="Affiliate_City" value="&mvte:global:Affiliate_City;" required>
+					</li>
+					<mvt:if expr="g.States_Empty">
+						<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_State_Row;">
+							<label class="c-form-label u-text-bold is-required" for="l-Affiliate_State">State/Province</label>
+							<input id="l-Affiliate_State" class="c-form-input" type="text" name="Affiliate_State" value="&mvte:global:Affiliate_State;" required>
+						</li>
+					<mvt:else>
+						<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_StateSelect_Row;" data-classlist="c-form-select__dropdown" data-id="Affiliate_StateSelect" data-hook="mvt-select AffiliateState">
+							<label class="c-form-label u-text-bold is-required" for="Affiliate_StateSelect">State/Province</label>
+							<div class="c-form-select">
+								<mvt:item name="states" param="Affiliate_StateSelect" />
+							</div>
+						</li>
+						<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_State_Row;">
+							<label class="c-form-label u-text-italic" for="l-Affiliate_State">Other State/Province</label>
+							<input id="l-Affiliate_State" class="c-form-input" type="text" name="Affiliate_State" value="&mvte:global:Affiliate_State;">
+						</li>
+					</mvt:if>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_Country_Row;" data-classlist="c-form-input" data-hook="mvt-select AffiliateCountry">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_Country">Country</label>
+						<mvt:item name="countries" param="Affiliate_Country" />
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m &mvte:global:Affiliate_Zip_Row;">
+						<label class="c-form-label u-text-bold is-required" for="l-Affiliate_Zip">Zip/Postal Code</label>
+						<input class="c-form-input" id="l-Affiliate_Zip" type="text" name="Affiliate_Zip" value="&mvte:global:Affiliate_Zip;" required>
+					</li>
+				</ul>
+				
+				<mvt:if expr="NOT ISNULL g.AffiliateOptions:terms">
+					<hr class="c-keyline">
+					<p class="c-heading-delta">Terms &amp; Conditions</p>
+					<ul class="c-form-list">
+						<li class="c-form-list__item c-form-list__item--full &mvte:global:AffiliateOptions_Row;">
+							<div>&mvt:global:AffiliateOptions:terms;</div>
+						</li>
+					</ul>
+				</mvt:if>
+	
+				<hr class="c-keyline">
+				<p class="c-heading-delta">Commissions</p>
+				<ul class="c-form-list o-layout">
+					<li class="c-form-list__item o-layout__item u-width-4--m">
+						<strong>Application Status:</strong><br>
+						&mvte:global:Affiliate:Status;
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-8--m">
+						<strong>Commission:</strong><br>
+						<mvt:if expr="g.Affiliate:hits NE 0">
+							&mvte:global:affiliate:hits; per referral
+						</mvt:if>
+						<mvt:if expr="g.Affiliate:order_flat NE 0">
+							<mvt:if expr="g.Affiliate:hits NE 0">
+								<br>
+							</mvt:if>
+							&mvte:global:Affiliate:order_flat; per sale
+						</mvt:if>
+						<mvt:if expr="g.Affiliate:order_pct NE 0">
+							<mvt:if expr="g.Affiliate:hits NE 0 OR g.Affiliate:order_flat NE 0 ">
+								<br>
+							</mvt:if>
+							&mvte:global:Affiliate:order_pct;% per sale
+						</mvt:if>
+						<mvt:if expr="g.Affiliate:hits EQ 0 AND g.Affiliate:orderflat EQ 0 AND g.Affiliate:order_pct EQ 0">
+							No Commission specified, please contact the store administrator
+						</mvt:if>
+						<mvt:if expr="g.AffiliateOptions:terms">
+							<br>
+							See Terms Below
+						</mvt:if>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m">
+						<strong>Current Earnings:</strong><br>
+						&mvte:global:Affiliate:Balance;
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m">
+						<strong>Last Payment:</strong><br>
+						<mvt:if expr="g.Affiliate:lstpay_amt NE 0">
+							&mvte:global:Affiliate:lstpay_amt;
+						<mvt:else>
+							None
+						</mvt:if>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-4--m">
+						<strong>Payment Date:</strong><br>
+						<mvt:if expr="g.Affiliate:lstpay_dt NE 0">
+							&mvte:global:Affiliate:lstpay_dt;
+						<mvt:else>
+							None
+						</mvt:if>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-12">
+						<strong>Link URL:</strong><br>
+						<div>&mvte:urls:SFNT:auto;Affiliate=&mvte:global:Affiliate:code;</div>
+					</li>
+					<li class="c-form-list__item o-layout__item u-width-12">
+						<mvt:if expr="g.AffiliateOptions:link_image">
+							<strong>Image Link HTML:</strong><br>
+							<pre class="bg--silver white-space--pre-wrap">&lt;a href=&quot;&mvte:urls:SFNT:auto;Affiliate=&mvte:global:Affiliate:code;&quot;&gt;&lt;img src=&quot;&mvt:global:Affiliate_Full_Image_Path;&quot; alt=&quot;&mvt:global:AffiliateOptions:link_text;&quot; title=&quot;&mvt:global:AffiliateOptions:link_text;&quot;&gt;&lt;/a&gt;</pre>
+							<img src="&mvt:global:AffiliateOptions:link_image;" alt="&mvt:global:AffiliateOptions:link_text;" title="&mvt:global:AffiliateOptions:link_text;">
+						<mvt:elseif expr="g.AffiliateOptions:link_text">
+							<strong>Link Text:</strong><br>
+							<pre class="bg--silver white-space--pre-wrap">&lt;a href=&quot;&mvte:urls:SFNT:auto;Affiliate=&mvte:global:Affiliate:code;&quot;&gt;&mvt:global:AffiliateOptions:link_text;&lt;/a&gt;</pre>
+						</mvt:if>
+					</li>
+				</ul>
+				
+				<ul class="c-form-list">
+					<li class="c-form-list__item c-form-list__item--full u-text-right">
+						<mvt:item name="buttons" param="Save" file="cssui-buttonSave-item.htm" />
+					</li>
+				</ul>
+			</fieldset>
+		</form>
+	</div>
+</section>

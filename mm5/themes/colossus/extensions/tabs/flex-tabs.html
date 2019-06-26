@@ -1,0 +1,21 @@
+<section class="o-layout x-product-description">
+	<div class="o-layout__item">
+		<div class="x-flex-tabs o-layout--justify-center">
+			<input id="tab-description" data-flex-tab type="radio" name="flex-tab" checked>
+			<label class="x-flex-tabs__tab u-text-uppercase" for="tab-description">Description</label>
+			<div class="x-flex-tabs__content" itemprop="description">
+				&mvt:product:descrip;
+			</div>
+			<mvt:item name="customfields" param="Read_Product_ID(l.settings:product:id, '', l.settings:product:tabs)" />
+			<mvt:foreach iterator="tab" array="product:tabs">
+				<mvt:if expr="'tabs_' CIN l.settings:tab:code">
+					<input id="tab-&mvte:tab:code;" data-flex-tab type="radio" name="flex-tab">
+					<label class="x-flex-tabs__tab u-text-uppercase" for="tab-&mvte:tab:code;">&mvte:tab:name;</label>
+					<div class="x-flex-tabs__content">
+						&mvt:tab:value;
+					</div>
+				</mvt:if>
+			</mvt:foreach>
+		</div>
+	</div>
+</section>

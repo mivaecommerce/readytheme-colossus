@@ -1,0 +1,62 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="ACRT-header-item.htm" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<form class="o-layout o-layout--justify-center" data-hook="cpca-form" method="post" action="&mvte:urls:CPWD:secure;">
+						<fieldset class="o-layout__item u-width-12 u-width-5--l">
+							<legend>&mvt:page:name;</legend>
+							<input type="hidden" name="Action" value="LOGN" />
+							<input type="hidden" name="Customer_Temporary_Password" value="&mvte:global:Customer_Temporary_Password;" autocomplete="off">
+							<input type="hidden" name="Customer_Password" value="&mvte:global:Customer_Temporary_Password;" autocomplete="off">
+							<div class="x-messages x-messages--borderless x-messages--info x-messages--with-icon">
+								<span class="x-messages__icon u-icon-info u-color-gray-30">&nbsp;</span>
+								<span>Your password has been reset.<br><br>To verify your account, please enter your email address to log in. You will be directed to update your password.</span>
+							</div>
+							<ul class="c-form-list">
+								<li class="c-form-list__item c-form-list__item--full">
+									<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required &mvt:global:invalid_credentials;" for="l-Customer_LoginEmail">Email Address</label>
+									<div class="c-control-group">
+										<input id="l-Customer_LoginEmail" class="c-form-input c-form-input--large c-control-group__field" type="email" name="Customer_LoginEmail" value="&mvte:global:Customer_LoginEmail;" autocomplete="email" required>
+										<input class="c-button c-button--large c-control-group__button u-bg-gray-40 u-color-white u-font-small u-text-uppercase" type="submit" value="Continue" title="Click Here to Log In and Change Your Password">
+									</div>
+								</li>
+							</ul>
+						</fieldset>
+					</form>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="ACRT-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

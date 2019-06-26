@@ -1,0 +1,30 @@
+<section class="t-expanded-block t-related-products u-bg-white">
+	<div class="t-related-product-list t-defer-object" data-defer>
+		<h3 class="c-heading-delta u-text-bold t-related-product-list__heading" data-hook="related-product-list__heading">
+			Related Products
+		</h3>
+		<nav class="x-product-list x-product-list--slicked slick-slider--left" data-hook="related-products">
+			<mvt:foreach iterator="product" array="related_products:products">
+				<div class="u-text-center x-product-list__item">
+					<a class="u-block u-color-black x-product-list__link" href="&mvte:product:link;">
+						<figure class="x-product-list__figure">
+							<picture class="x-product-list__picture">
+								<img class="x-product-list__image" data-lazy="&mvte:product:imagetypes:main;" src="" alt="&mvte:product:name;">
+							</picture>
+							<figcaption class="x-product-list__figure-caption">
+								<mvt:if expr="l.settings:product:base_price GT l.settings:product:price">
+									<span class="x-product-list__price"><s>&mvt:product:formatted_base_price;</s></span>
+									<span class="x-product-list__price-red">&mvt:product:formatted_price;</span>
+								<mvt:else>
+									<span class="x-product-list__price">&mvt:product:formatted_price;</span>
+								</mvt:if>
+								<span class="x-product-list__name">&mvte:product:name;</span>
+							</figcaption>
+						</figure>
+					</a>
+				</div>
+			</mvt:foreach>
+		</nav>
+	</div>
+</section>
+<!-- end t-related-products -->

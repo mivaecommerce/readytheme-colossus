@@ -1,0 +1,205 @@
+<div class="t-expanded-block u-bg-white" data-hook="product-content">
+	<div class="o-wrapper t-wrapper">
+		<section class="o-layout o-layout--wide x-product-layout">
+			<div class="o-layout__item u-width-12 u-hidden--l">
+				<br>
+				<p class="x-product-layout-purchase__name">
+					<span class="x-product-layout-purchase__sku">
+						<mvt:if expr="NOT ISNULL l.settings:product:sku">
+							SKU: &mvt:product:sku;
+						<mvt:else>
+							SKU: &mvt:product:code;
+						</mvt:if>
+					</span>
+					<span>&mvt:product:name;</span>
+				</p>
+				<br>
+			</div>
+			<div class="o-layout__item u-text-center x-product-layout-images u-width-12 u-width-6--l u-width-7--w">
+				<mvt:if expr="NOT ISNULL l.settings:product:customfield_values:customfields:product_label AND l.settings:product:customfield_values:customfields:product_label NE 'none'">
+					<span class="x-product-label u-bg-black u-color-white u-font-tiny u-text-uppercase">&mvt:product:customfield_values:customfields:product_label;</span>
+				</mvt:if>
+				<div class="x-product-imagery">
+					<div id="thumbnails" class="x-product-imagery__thumbnail-list" data-hook="product-thumbnails"></div>
+					<figure class="x-product-imagery__showcase">
+						<img id="main_image" class="x-product-layout-images__image" data-hook="product-image" data-index="0" data-mini-modal data-mini-modal-content="data-hook=photo-gallery-template" data-mini-modal-type="inline" src="graphics/en-US/cssui/blank.gif" alt="&mvte:product:name;" title="&mvte:product:name;">
+					</figure>
+				</div>
+				<mvt:item name="product_display_imagemachine" param="body_deferred:product:id"/>
+				<mvt:item name="readytheme" param="thirdpartysharing" />
+			</div>
+			<!-- end .x-product-layout-images -->
+			
+			<form class="o-layout__item x-product-layout-purchase u-width-12 u-width-6--l u-width-5--w" data-hook="purchase" action="&mvte:urls:BASK:auto;" method="post" name="add">
+				<input type="hidden" name="Old_Screen" value="&mvte:global:Screen;" />
+				<input type="hidden" name="Old_Search" value="&mvte:global:Search;" />
+				<input type="hidden" name="Action" value="ADPR" />
+				<input type="hidden" name="Product_Code" value="&mvte:product:code;" />
+				<input type="hidden" name="Category_Code" value="&mvte:global:category_code;" />
+				<input type="hidden" name="Offset" value="&mvte:global:Offset;" />
+				<input type="hidden" name="AllOffset" value="&mvte:global:AllOffset;" />
+				<input type="hidden" name="CatListingOffset" value="&mvte:global:CatListingOffset;" />
+				<input type="hidden" name="RelatedOffset" value="&mvte:global:RelatedOffset;" />
+				<input type="hidden" name="SearchOffset" value="&mvte:global:SearchOffset;" />
+				<mvt:comment>
+					<!--
+						This `fieldset` element has been commented out due to a potential bug in the attribute machine
+						JavaScript which can cause the form functions to not load properly in Internet Explorer and Edge.
+					-->
+				<fieldset>
+				</mvt:comment>
+					<legend>Purchase &mvt:product:name;</legend>
+					<ul class="c-form-list">
+						<li class="c-form-list__item c-form-list__item--full u-hidden u-block--l">
+							<h1 class="x-product-layout-purchase__name">
+								<span class="x-product-layout-purchase__sku">
+									<mvt:if expr="NOT ISNULL l.settings:product:sku">
+										SKU: &mvt:product:sku;
+									<mvt:else>
+										SKU: &mvt:product:code;
+									</mvt:if>
+								</span>
+								<span itemprop="name">&mvt:product:name;</span>
+							</h1>
+						</li>
+						<li class="c-form-list__item c-form-list__item--full">
+							<p class="x-product-layout-purchase__pricing">
+								<mvt:if expr="l.settings:product:base_price GT l.settings:product:price">
+								</mvt:if>
+								<span class="x-product-layout-purchase__pricing-current">
+									<span id="price-value" itemprop="price" content="&mvt:product:price;">&mvt:product:formatted_price;</span>
+								</span>
+								<span class="x-product-layout-purchase__pricing-original">
+									<span id="price-value-additional" data-prompt="regular:"></span>
+								</span>
+							</p>
+							<div id="product-discounts" class="x-product-layout-purchase__product-discounts u-font-small">
+								<mvt:foreach iterator="discount" array="product:discounts">
+									<p class="x-product-layout-purchase__product-discounts">
+										&mvt:discount:descrip;: <strong>&mvt:discount:formatted_discount;</strong>
+									</p>
+								</mvt:foreach>
+							</div>
+							
+							<mvt:comment>
+								<!-- If you would like to display the product weight, uncomment this section. -->
+								<mvt:if expr="l.settings:product:weight NE 0">
+									<p class="x-product-layout-purchase__product-weight u-font-small">
+										Shipping Weight: <strong>&mvt:product:weight;</strong> &mvt:store:wtunits;
+									</p>
+								</mvt:if>
+							</mvt:comment>
+							
+							<mvt:if expr="l.settings:product:inv_active OR l.settings:attributemachine:product:inv_active">
+								<link itemprop="availability" href="http://schema.org/&mvt:product:inv_short;">
+							</mvt:if>
+							<div id="inventory-message" class="x-product-layout-purchase__inventory-message"><mvt:if expr="l.settings:product:inv_active OR l.settings:attributemachine:product:inv_active">&mvt:product:inv_long;</mvt:if></div>
+							
+							<mvt:comment>
+								<!-- If you would like to display the product quantity in basket, uncomment this section. -->
+								<p class="x-product-layout-purchase__product-quantity u-font-tiny">
+									Quantity in Basket:&nbsp;
+									<mvt:if expr="l.settings:product:quantity EQ 0">
+										<em>None</em>
+									<mvt:else>
+										<strong>&mvt:product:quantity;</strong>
+									</mvt:if>
+								</p>
+							</mvt:comment>
+							
+						</li>
+						<mvt:item name="discount_volume" param="product:id" />
+						<li class="o-layout c-form-list__item x-product-layout-purchase__options">
+							<mvt:item name="product_attributes" param="product:id" file="PROD-product_attributes-item.htm" />
+						</li>
+						<li class="c-form-list__item c-form-list__item--full x-product-layout-purchase__cta">
+							<div class="x-product-layout-purchase__message" data-hook="purchase-message"></div>
+							<div class="o-layout">
+								<mvt:if expr="l.settings:subscription:enabled AND l.settings:subscription:mandatory">
+									<mvt:if expr="l.settings:product:inv_level NE 'out'">
+										<div class="o-layout__item c-control-group x-product-layout-purchase__options-quantity">
+											<div class="c-control-group__field t-product-layout-purchase__quantity">
+												<label class="c-form-label u-text-bold u-font-small u-color-gray-40 is-required" for="l-quantity">qty</label>
+												<input id="l-quantity" class="c-form-input u-text-center u-color-gray-40" type="tel" name="Quantity" value="1">
+											</div>
+											<span class="t-product-layout-purchase__add-to-cart" onclick="document.forms.add.action = '&mvtj:urls:BASK:auto;'; document.forms.add.elements.Action.value = 'ADPR';">
+												<mvt:item name="buttons" param="AddToBasket" file="cssui-buttonAddToBasket-item.htm" />
+											</span>
+										</div>
+									</mvt:if>
+								<mvt:else>
+									<div class="o-layout__item c-control-group x-product-layout-purchase__options-quantity">
+										<div class="c-control-group__field t-product-layout-purchase__quantity">
+											<label class="c-form-label u-text-bold u-font-small u-color-gray-50 is-required" for="l-quantity">qty</label>
+											<input id="l-quantity" class="c-form-input u-text-center u-color-gray-50" type="tel" name="Quantity" value="1">
+										</div>
+										<mvt:if expr="l.settings:product:inv_level NE 'out'">
+											<span class="t-product-layout-purchase__add-to-cart" onclick="document.forms.add.action = '&mvtj:urls:BASK:auto;'; document.forms.add.elements.Action.value = 'ADPR';">
+												<mvt:item name="buttons" param="AddToBasket" file="cssui-buttonAddToBasket-item.htm" />
+											</span>
+										</mvt:if>
+										<span class="t-product-layout-purchase__add-to-wish" data-mmnodisable="true">
+											<span onclick="document.forms.add.action = '&mvtj:urls:WISH:secure;'; document.forms.add.elements.Action.value = 'ATWL';">
+												<mvt:item name="buttons" param="AddToWishList" file="cssui-buttonAddToWishList-item.htm" />
+											</span>
+										</span>
+									</div>
+								</mvt:if>
+							</div>
+						</li>
+					</ul>
+				<mvt:comment>
+				</fieldset>
+				</mvt:comment>
+			</form>
+		</section>
+	</div>
+	<div class="x-photo-gallery-template" data-hook="photo-gallery-template"></div>
+</div>
+
+<section class="o-layout x-product-description">
+	<div class="o-layout__item">
+		<article class="t-product-description__article" data-hook="show-more">
+			<header>
+				<p class="c-heading-delta">Description</p>
+			</header>
+			&mvt:product:descrip;
+		</article>
+
+		<mvt:if expr="NOT ISNULL l.settings:product:customfield_values:customfields:shipping_returns">
+			<article class="t-product-description__article" data-hook="show-more">
+				<header>
+					<p class="c-heading-delta">&mvte:customfield_names:customfields:shipping_returns;</p>
+				</header>
+				&mvt:product:customfield_values:customfields:shipping_returns;
+			</article>
+		</mvt:if>
+
+		<mvt:item name="customfields" param="Read_Product_ID(l.settings:product:id, '', l.settings:product:specs)" />
+		<mvt:assign name="l.settings:has_specs" value="0"/>
+		<mvt:foreach iterator="spec" array="product:specs">
+			<mvt:if expr="('coffee_' CIN l.settings:spec:code AND l.settings:spec:value NE '') OR ('tea_' CIN l.settings:spec:code AND l.settings:spec:value NE '')">
+				<mvt:assign name="l.settings:has_specs" value="1"/>
+			</mvt:if>
+		</mvt:foreach>
+		<mvt:if expr="NOT ISNULL l.settings:product:customfield_values:customfields:specifications OR l.settings:has_specs NE 0">
+			<article class="t-product-description__article" data-hook="show-more">
+				<header>
+					<p class="c-heading-delta">Specifications</p>
+				</header>
+				&mvt:product:customfield_values:customfields:specifications;
+				<table class="c-table-responsive">
+					<mvt:foreach iterator="spec" array="product:specs">
+						<mvt:if expr="('coffee_' CIN l.settings:spec:code AND l.settings:spec:value NE '') OR ('tea_' CIN l.settings:spec:code AND l.settings:spec:value NE '')">
+							<tr class="c-table-simple__row">
+								<td class="c-table-responsive__cell c-table-responsive__cell--wide u-color-gray-50 u-font-tiny u-text-medium u-text-uppercase">&mvte:spec:name;</td>
+								<td class="c-table-responsive__cell c-table-responsive__cell--wide u-font-large u-text-bold">&mvte:spec:value;</td>
+							</tr>
+						</mvt:if>
+					</mvt:foreach>
+				</table>
+			</article>
+		</mvt:if>
+
+	</div>
+</section>

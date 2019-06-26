@@ -1,0 +1,130 @@
+/* ==========================================================================
+   COMPONENTS / CONTROL GROUPS
+   ========================================================================== */
+
+/**
+ * To group related buttons and/or inputs together, you can use the
+ * `.c-control-group` wrapping element. This will bunch the related elements
+ * together and remove the spacing between them.
+ */
+
+.c-control-group {
+	display: flex;
+}
+
+	.c-control-group .c-control-group__label {
+		height: calc(2.5em - (1px * 2));
+		margin-bottom: 0;
+		padding-right: calc(16px / 2);
+		line-height: calc(2.5em - (1px * 2));
+	}
+
+	.c-control-group .c-control-group__button,
+	.c-control-group .c-control-group__field {
+		border-radius: 0;
+	}
+
+	.c-control-group .c-control-group__field {
+		min-width: 0;
+		height: auto;
+		margin-bottom: 0;
+	}
+	
+	.c-control-group .c-control-group__button:not(:first-child):not(:first-of-type),
+	.c-control-group .c-control-group__field:not(:first-child):not(:first-of-type) {
+		border-left-width: 0;
+	}
+	
+	.c-control-group .c-control-group__button:first-child,
+	.c-control-group .c-control-group__field:first-child {
+		border-top-left-radius: 0.125em;
+		border-bottom-left-radius: 0.125em;
+	}
+	
+	.c-control-group .c-control-group__button:last-child,
+	.c-control-group .c-control-group__field:last-child {
+		border-top-right-radius: 0.125em;
+		border-bottom-right-radius: 0.125em;
+	}
+
+
+	/**
+	 * Adding the `.c-control-group--rounded` modifier will make the first and
+	 * last related elements rounded.
+	 */
+	.c-control-group--rounded .c-control-group__button:first-child,
+	.c-control-group--rounded .c-control-group__field:first-child {
+		border-top-left-radius: 10em;
+		border-bottom-left-radius: 10em;
+	}
+
+	.c-control-group--rounded .c-control-group__field:first-child {
+		padding-left: 16px;
+	}
+
+	.c-control-group--rounded .c-control-group__button:last-child,
+	.c-control-group--rounded .c-control-group__field:last-child {
+		border-top-right-radius: 10em;
+		border-bottom-right-radius: 10em;
+	}
+	
+	/**
+	 * Adding the `.c-control-group--rounded-right` modifier will make the last
+	 * related element rounded.
+	 */
+	.c-control-group--rounded-right .c-control-group__button:last-child,
+	.c-control-group--rounded-right .c-control-group__field:last-child {
+		border-top-right-radius: 10em;
+		border-bottom-right-radius: 10em;
+	}
+	
+	/**
+	 * Adding the `.c-control-group--rounded-left` modifier will make the first
+	 * related element rounded.
+	 */
+	.c-control-group--rounded-left .c-control-group__button:first-child,
+	.c-control-group--rounded-left .c-control-group__field:first-child {
+		border-top-left-radius: 10em;
+		border-bottom-left-radius: 10em;
+	}
+
+	
+	/**
+	 * Adding the `.c-control-group--stacked` modifier will turn the related
+	 * elements into a vertical element.
+	 */
+	.c-control-group--stacked {
+		flex-wrap: wrap;
+	}
+	
+	.c-control-group--stacked .c-control-group__button:not(:first-child):not(:first-of-type),
+	.c-control-group--stacked .c-control-group__field:not(:first-child):not(:first-of-type) {
+		border-left-width: 1px;
+	}
+	
+	.c-control-group--stacked .c-control-group__button,
+	.c-control-group--stacked .c-control-group__field {
+		flex: 0 0 100%;
+		max-width: 100%;
+		margin-left: 0;
+	}
+	
+	.c-control-group--stacked .c-control-group__button:not(:first-child):not(:first-of-type),
+	.c-control-group--stacked .c-control-group__field:not(:first-child):not(:first-of-type) {
+		border-top: 0;
+	}
+	
+	.c-control-group--stacked .c-control-group__button:not(:first-child):not(:last-child):not(:first-of-type):not(:last-of-type),
+	.c-control-group--stacked .c-control-group__field:not(:first-child):not(:last-child):not(:first-of-type):not(:last-of-type) {
+		border-radius: 0;
+	}
+	
+	.c-control-group--stacked .c-control-group__button:first-child,
+	.c-control-group--stacked .c-control-group__field:first-child {
+		border-radius: 0.125em 0.125em 0 0;
+	}
+	
+	.c-control-group--stacked .c-control-group__button:last-child,
+	.c-control-group--stacked .c-control-group__field:last-child {
+		border-radius: 0 0 0.125em 0.125em;
+	}

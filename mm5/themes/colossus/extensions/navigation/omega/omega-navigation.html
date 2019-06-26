@@ -1,0 +1,133 @@
+<section class="o-wrapper u-over-page x-omega-navigation" data-hook="omega-navigation">
+	<div class="o-layout o-layout--flush u-bg-gray-10">
+		<nav class="o-layout__item u-width-12">
+			<div class="x-omega-navigation__wrap">
+				<header class="x-omega-navigation__header u-hidden--l c-control-group">
+					<mvt:if expr="g.Basket:cust_id EQ 0">
+						<a class="c-button c-button--full c-control-group__button u-bg-transparent u-color-gray-40" href="&mvte:urls:LOGN:secure;"><span class="u-icon-user"></span> Sign In or Register</a>
+					<mvt:else>
+						<a class="c-button c-button--full c-control-group__button u-bg-transparent u-color-gray-40" href="&mvte:urls:ACLN:secure;"><span class="u-icon-user"></span> My Account</a>
+					</mvt:if>
+					<button class="c-button c-control-group__button u-bg-transparent u-color-gray-40 u-icon-cross" data-hook="close-main-menu" type="button" aria-label="Close Main Menu"></button>
+				</header>
+
+				<div class="o-layout x-omega-navigation__content" data-hook="omega-navigation__content">
+					
+					<div class="o-layout__item u-width-12 u-width-3--l x-omega-navigation__parents" data-hook="omega-navigation__parents">
+						<ul class="x-omega-navigation__row">
+							<mvt:assign name="l.settings:parent_count" value="0"/>
+							<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+								<mvt:assign name="l.settings:parent_count" value="l.settings:parent_count + 1"/>
+								<mvt:if expr="l.settings:parent_count LE 10">
+									<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+										<mvt:assign name="l.settings:has:children" value="'has-child-menu' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'omega-child-menu'"/>
+										<mvt:assign name="l.settings:child:data" value="asciichar(34) $ ' data-children=' $ asciichar(34) $ l.settings:navigationitem:id"/>
+									<mvt:else>
+										<mvt:assign name="l.settings:has:children" value="''"/>
+										<mvt:assign name="l.settings:child:data" value="''"/>
+									</mvt:if>
+									<li class="x-omega-navigation__list &mvt:has:children;">
+										<a class="x-omega-navigation__link" data-hook="omega-navigation__link &mvt:child:data;" href="&mvt:navigationitem:url;" target="&mvt:navigationitem:link_targ;">
+											&mvt:navigationitem:name;
+											<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+												<span class="x-omega-navigation__link-carat u-hidden--l"><span class="u-icon-chevron-right"></span></span>
+											</mvt:if>
+										</a>
+										<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+											<ul class="x-omega-navigation__row u-hidden--l is-hidden">
+												<li class="x-omega-navigation__list" data-hook="show-previous-menu">
+													<span class="x-omega-navigation__link"><span class="u-icon-chevron-left">&nbsp;</span><span class="o-layout--grow">Main Menu</span></span>
+												</li>
+												<mvt:assign name="l.settings:has:children" value="''"/>
+												<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+													<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+														<mvt:assign name="l.settings:has:children" value="'has-child-menu' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'omega-child-menu'"/>
+													<mvt:else>
+														<mvt:assign name="l.settings:has:children" value="''"/>
+													</mvt:if>
+													<li class="x-omega-navigation__list &mvt:has:children;">
+														<a class="x-omega-navigation__link" href="&mvt:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">
+															&mvt:navigationitem_level2:name;
+															<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+																<span class="x-omega-navigation__link-carat u-hidden--l"><span class="u-icon-chevron-right"></span></span>
+															</mvt:if>
+														</a>
+														<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+															<ul class="x-omega-navigation__row is-hidden">
+																<li class="x-omega-navigation__list" data-hook="show-previous-menu">
+																	<span class="x-omega-navigation__link"><span class="u-icon-chevron-left">&nbsp;</span><span class="o-layout--grow">Main Menu</span></span>
+																</li>
+																<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+																	<li><a class="x-omega-navigation__link" href="&mvt:navigationitem_level3:url;" target="&mvt:navigationitem_level3:link_targ;">&mvt:navigationitem_level3:name;</a></li>
+																</mvt:foreach>
+																<li class="x-omega-navigation__list">
+																	<a class="x-omega-navigation__link" href="&mvte:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">View All &mvt:navigationitem_level2:name;</a>
+																</li>
+															</ul>
+														</mvt:if>
+													</li>
+												</mvt:foreach>
+												<li class="x-omega-navigation__list">
+													<a class="x-omega-navigation__link" href="&mvte:navigationitem:url;" target="&mvt:navigationitem:link_targ;">View All &mvt:navigationitem:name;</a>
+												</li>
+											</ul>
+										</mvt:if>
+									</li>
+								</mvt:if>
+							</mvt:foreach>
+							<mvt:if expr="miva_array_elements(l.settings:readytheme:navigationitems) GT 10">
+								<li class="x-omega-navigation__list x-omega-navigation__list--shop-all">
+									<a class="x-omega-navigation__link x-omega-navigation__link--shop-all u-color-black" href="&mvte:urls:CTLG:auto;">Shop All</a>
+								</li>
+							</mvt:if>
+							
+						</ul>
+					</div>
+					
+					<div class="o-layout__item u-block--l u-hidden u-width-9--l x-omega-navigation__children" data-hook="omega-navigation__children">
+						<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+							<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+								<aside class="x-omega-navigation__child-wrap" data-hook="&mvt:navigationitem:id;">
+									<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+										<ul class="x-omega-navigation__child-block">
+											<li class="x-omega-navigation__child-list">
+												<mvt:if expr="l.settings:navigationitem_level2:url">
+													<a class="x-omega-navigation__child-link" href="&mvt:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">&mvt:navigationitem_level2:name;</a>
+												<mvt:else>
+													<span class="x-omega-navigation__child-link">&mvt:navigationitem_level2:name;</span>
+												</mvt:if>
+											</li>
+											<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+												<mvt:assign name="l.settings:tertiary_count" value="0"/>
+												<mvt:if expr="miva_array_elements(l.settings:navigationitem_level2:items) LE 4">
+													<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+														<li class="x-omega-navigation__child-list">
+															<a class="x-omega-navigation__grandchild-link" href="&mvt:navigationitem_level3:url;" target="&mvt:navigationitem_level3:link_targ;">&mvt:navigationitem_level3:name;</a>
+														</li>
+													</mvt:foreach>
+												<mvt:elseif expr="miva_array_elements(l.settings:navigationitem_level2:items) GT 4">
+													<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+														<mvt:assign name="l.settings:tertiary_count" value="l.settings:tertiary_count + 1"/>
+														<mvt:if expr="l.settings:tertiary_count LE 3">
+															<li class="x-omega-navigation__child-list">
+																<a class="x-omega-navigation__grandchild-link" href="&mvt:navigationitem_level3:url;" target="&mvt:navigationitem_level3:link_targ;">&mvt:navigationitem_level3:name;</a>
+															</li>
+														</mvt:if>
+													</mvt:foreach>
+													<li class="x-omega-navigation__child-list x-omega-navigation__child-list--view-all">
+														<a class="x-omega-navigation__grandchild-link x-omega-navigation__grandchild-link--view-all u-color-black" href="&mvte:navigationitem_level2:url;" target="&mvt:navigationitem_level2:link_targ;">View All &mvt:navigationitem_level2:name;</a>
+													</li>
+												</mvt:if>
+											</mvt:if>
+										</ul>
+									</mvt:foreach>
+								</aside>
+							</mvt:if>
+						</mvt:foreach>
+					</div>
+					
+				</div>
+			</div>
+		</nav>
+	</div>
+</section>

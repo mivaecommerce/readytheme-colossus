@@ -1,0 +1,65 @@
+/* ==========================================================================
+   EXTENSIONS / CATEGORY TREE / ACCORDION / ACCORDION CATEGORY TREE
+   ========================================================================== */
+
+.x-accordion-category-tree {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+	.x-accordion-category-tree__row {
+		margin-bottom: 0;
+		margin-left: 0;
+		padding-right: 5rem;
+		list-style: none;
+	}
+
+		.x-accordion-category-tree__list--level-1:not(:last-of-type) {
+			margin-bottom: 1rem;
+			padding-bottom: 1rem;
+			border-bottom: 1px solid;
+		}
+
+			.x-accordion-category-tree__summary {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+
+				.x-accordion-category-tree__toggle {
+					color: currentColor;
+				}
+
+					.x-accordion-category-tree__toggle span {
+						display: inline-block;
+					}
+
+					.is-active .x-accordion-category-tree__toggle span::before {
+						content: '\3c';
+					}
+
+			.x-accordion-category-tree__details {
+				max-height: 0;
+				font-size: 0.9375em;
+				opacity: 0;
+				overflow: hidden;
+				-webkit-transform: scaleY(0);
+				-ms-transform: scaleY(0);
+				transform: scaleY(0);
+				transform-origin: top;
+				transition: opacity ease-out 0.1s;
+			}
+
+			.is-active .x-accordion-category-tree__details {
+				max-height: none;
+				opacity: 1;
+				-webkit-transform: scaleY(1);
+				-ms-transform: scaleY(1);
+				transform: scaleY(1);
+				transition: opacity ease-in 0.1s;
+			}
+
+				.x-accordion-category-tree__list--level-2 {
+					line-height: 2.2;
+				}
+				

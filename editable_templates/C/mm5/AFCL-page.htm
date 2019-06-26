@@ -1,0 +1,71 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="AFCL-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout o-layout--justify-around">
+		<div class="o-layout__item u-width-12 u-width-6--m u-width-4--l">
+			<p class="c-heading-delta u-text-uppercase">Welcome Back</p>
+			<form data-hook="afcl-form" method="post" action="&mvte:urls:AFED:secure;">
+				<fieldset>
+					<legend>&mvt:page:name;</legend>
+					<input type="hidden" name="Action" value="ALGI" />
+					<ul class="c-form-list">
+						<li class="c-form-list__item">
+							<label class="c-form-label u-text-bold is-required &mvt:global:invalid_credentials;" for="l-Affiliate_Code">Affiliate Code</label>
+							<input id="l-Affiliate_Code" class="c-form-input" type="text" name="Affiliate_Code" value="&mvte:global:Affiliate_Code;" required>
+						</li>
+						<li class="c-form-list__item">
+							<label class="c-form-label u-text-bold is-required &mvt:global:invalid_credentials;" for="l-Affiliate_Password">Password</label>
+							<input id="l-Affiliate_Password" class="c-form-input" type="password" name="Affiliate_Password" required>
+						</li>
+						<li class="c-form-list__item u-text-right">
+							<mvt:item name="buttons" param="Login" file="cssui-buttonLogin-item.htm" />
+						</li>
+					</ul>
+				</fieldset>
+			</form>
+			<script>
+				var forgot_password = function (event) {
+					var form = document.querySelector('[data-hook="afcl-form"]');
+					
+					form.elements['Action'].value = 'AFPW';
+					form.submit();
+				}
+			</script>
+			<p class="u-font-small"><a href="#" onclick="forgot_password(); return false;" title="Forgot Password">Forgot your password?</a></p>
+		</div>
+		<div class="o-layout__item u-width-12 u-width-6--m u-width-4--l">
+			<p class="c-heading-delta u-text-uppercase">New Affiliate</p>
+			<p class="u-text-right"><a class="c-button" href="&mvte:urls:AFAD:secure;" title="Register">Register</a></p>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="AFCL-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

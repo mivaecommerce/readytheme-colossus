@@ -1,0 +1,97 @@
+/* ==========================================================================
+   EXTENSIONS / MESSAGES
+   ========================================================================== */
+
+
+/**
+ * Messages are block elements used to display information to the visitor about
+ * their current session. Typically these are informational or error messages
+ * such as you would see on a checkout page if there was an error with the
+ * credit card used.
+ */
+
+.x-messages {
+	margin-bottom: 1em;
+	padding: 0.5em 1em;
+	background-color: #eaeaea;
+	border: 1px solid currentColor;
+}
+
+
+/**
+ * This is a hold-over for some Miva message elements and modules which place a
+ * `br` tag as the first element of the messaging block.
+ */
+.x-messages br:first-child {
+	display: none;
+}
+
+
+.x-messages *:last-child {
+	margin-bottom: 0;
+}
+
+
+.x-messages--borderless {
+	border: 0 none;
+}
+
+
+.x-messages--error {
+	background-color: #fee8eb;
+	color: #c8102e;
+}
+
+.x-messages--info {
+	background-color: #eaefed;
+	color: #003b6f;
+}
+
+.x-messages--success {
+	background-color: #eaf4ef;
+	color: #009a44;
+}
+
+.x-messages--warning {
+	background-color: #ffffe5;
+	border-color: #f9ed1f;
+}
+
+
+/**
+ * These classes will help format the message if you are adding an icon.
+ */
+.x-messages--with-icon {
+	display: flex;
+	align-items: center;
+}
+
+.x-messages__icon {
+	font-size: 3rem;
+}
+
+
+.x-messages__close {
+	position: absolute;
+	top: 50%;
+	right: 0.25rem;
+	margin-top: -1rem;
+	color: #333;
+	font-size: 2rem;
+	line-height: 1;
+	text-decoration: none;
+	opacity: 0.3;
+}
+
+
+
+
+/*
+	what??? they have an old browser?
+	This can be removed if you do not need to alert for IE < 9.
+*/
+.x-messages--update-browser {
+	width: 100%;
+	position: relative;
+	text-align: center;
+}

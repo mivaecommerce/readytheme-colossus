@@ -1,0 +1,17 @@
+<div class="x-search-preview__list">
+	<div class="x-search-preview__line">
+		<figure class="x-search-preview__image">
+			<mvt:if expr="NOT ISNULL l.settings:product:imagetypes:main">
+				<img src="&mvte:product:imagetypes:main;" alt="&mvte:product:name;" title="&mvte:product:name;">
+			</mvt:if>
+		</figure>
+		<div class="x-search-preview__item">
+			<span class="x-search-preview__item-name">&mvte:product:name;</span>
+			<mvt:if expr="l.settings:product:base_price GT l.settings:product:price">
+				<span class="u-font-small">Was: <s>&mvt:product:formatted_base_price;</s></span>
+			</mvt:if>
+			<hr class="c-keyline">
+			<span class="u-text-bold x-search-preview__item-price">&mvt:product:formatted_price;</span>
+		</div>
+	</div>
+</div>

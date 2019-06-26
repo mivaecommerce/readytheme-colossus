@@ -1,0 +1,81 @@
+/* ==========================================================================
+   EXTENSIONS / HERO
+   ========================================================================== */
+
+/**
+ * The Hero component provides a dominant piece of media to a page
+ *
+ * 1. Allows for absolute positioning of borders and content.
+ * 2. Hero images set via background-image should cover and center.
+ */
+.x-hero {
+	display: block;
+	position: relative; /* [1] */
+	background-position: center; /* [2] */
+	background-size: cover; /* [2] */
+}
+
+
+	/**
+	 * The caption overlays at the bottom of a Hero, providing space for additional
+	 * content such as titles or logos.
+	 */
+	.x-hero__caption {
+		position: absolute;
+		bottom: 0;
+		padding: 16px 0;
+		width: 100%;
+		text-shadow: 0 0 25px rgba(15, 15, 15, 0.25), 1px 1px 1px rgba(15, 15, 15, 0.5);
+		
+	}
+	
+	
+	/**
+	 * Hero video needs to be set to `display: block` to avoid spacing issues.
+	 */
+	.x-hero__video {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: fill;
+	}
+	
+	
+	/**
+	 * Hero link inherits the Hero `color` to override anchor element styles.
+	 */
+	.x-hero__link {
+		color: inherit;
+	}
+
+
+	/**
+	 * As we cannot set a border property over video, borders are implemented
+	 * using pseudo-elements.
+	 */
+	.x-hero--borders::before {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border: calc(16px / 4) solid rgba(255, 255, 255, 0.3);
+		content: "";
+	}
+	
+	
+	/**
+	 * Make any other content below the Hero overlap upwards.
+	 */
+	.x-hero--overlap {
+		margin-bottom: calc(0px - 10vh);
+	}
+	
+	
+	/**
+	* If hero has overlap modifier, shift caption upwards to compensate.
+	*/
+	.x-hero--overlap .x-hero__caption {
+		bottom: 10vh;
+	}

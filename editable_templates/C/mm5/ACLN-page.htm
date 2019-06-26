@@ -1,0 +1,191 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="ACLN-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+					<div class="o-layout o-layout--align-center o-layout--justify-between">
+						<span class="o-layout__item c-heading-delta t-account-landing-section__heading">Recent Orders</span>
+						<span class="o-layout__item u-text-right">
+							<a class="c-button c-button--clear u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:ORDH:auto;" title="View All Orders">View All <span class="u-font-small u-icon-chevron-right"></span></a>
+						</span>
+					</div>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<mvt:item name="orderhistory_list" />
+				</div>
+			</section>
+			
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item u-width-12">
+					<div class="o-layout o-layout--wide">
+						<div class="o-layout__item u-width-12 u-width-6--m u-width-3--w t-account-landing__customer-credit">
+							<div class="t-account-landing-section__header">
+								<span class="c-heading-delta t-account-landing-section__heading">Customer Credit</span>
+							</div>
+							<div class="t-account-landing-section__content">
+								<form method="post" action="&mvte:urls:_self:secure;" autocomplete="off">
+									<fieldset>
+										<legend>&mvt:page:name;</legend>
+										<input type="hidden" name="Action" value="RDGC" />
+										<ul class="c-form-list">
+											<li class="c-form-list__item">
+												<label for="l-GiftCertificate_Code">Current Credit: <strong class="u-color-black">&mvt:customer:formatted_credit;</strong></label>
+											</li>
+											<li class="c-form-list__item c-form-list__item--full c-control-group u-flex">
+												<input id="l-GiftCertificate_Code" class="c-form-input c-form-input--large c-control-group__field u-color-black u-font-small u-text-uppercase" type="text" name="GiftCertificate_Code" aria-label="Enter Gift Certificate Code" placeholder="Enter Code Here" value="&mvte:global:GiftCertificate_Code;" required>
+												<input class="c-button c-button--large c-control-group__button u-bg-black u-font-small u-text-bold u-text-uppercase" type="submit" value="Apply">
+											</li>
+										</ul>
+									</fieldset>
+								</form>
+								<p>
+									<a class="c-button c-button--clear c-button--flush u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:ABAL:auto;" title="Manage Account Balance">Add &amp; Edit <span class="u-font-small u-icon-chevron-right"></span></a>
+								</p>
+							</div>
+						</div>
+				
+						<mvt:if expr="l.settings:paymentsettings:mivapay:enabled">
+							<div class="o-layout__item u-width-12 u-width-6--m u-width-3--w t-account-landing__saved-cards">
+								<div class="t-account-landing-section__header">
+									<span class="c-heading-delta t-account-landing-section__heading">Primary Payment</span>
+								</div>
+								<div class="t-account-landing-section__content">
+									<mvt:item name="paymentcards" file="ACLN-paymentcards-item.htm" />
+									<p>
+										<a class="c-button c-button--clear c-button--flush u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:CPCD:auto;" title="Manage Saved Cards">Add &amp; Edit <span class="u-font-small u-icon-chevron-right"></span></a>
+									</p>
+								</div>
+							</div>
+						</mvt:if>
+					
+						<div class="o-layout__item u-width-12 u-width-6--w t-account-landing__address-book">
+							<div class="t-account-landing-section__header">
+								<span class="c-heading-delta t-account-landing-section__heading">Address Book</span>
+							</div>
+							<div class="t-account-landing-section__content">
+								<mvt:item name="addressbook" file="ACLN-addressbook-item.htm" />
+								<p>
+									<a class="c-button c-button--clear c-button--flush u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:CABK:auto;" title="Manage Your Addresses">Add &amp; Edit <span class="u-font-small u-icon-chevron-right"></span></a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
+					<div class="o-layout o-layout--align-center o-layout--justify-between">
+						<span class="o-layout__item c-heading-delta t-account-landing-section__heading">Subscriptions</span>
+						<span class="o-layout__item u-text-right">
+							<a class="c-button c-button--clear u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:CSUB:auto;" title="View All Subscriptions">View All <span class="u-font-small u-icon-chevron-right"></span></a>
+						</span>
+					</div>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<mvt:item name="subscriptions" file="ACLN-subscriptions-item.htm" />
+				</div>
+			</section>
+
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item u-width-12">
+					<div class="o-layout o-layout--wide">
+						<div class="o-layout__item u-width-12 u-width-6--m t-account-landing__wish-lists">
+							<div class="t-account-landing-section__header">
+								<div class="o-layout o-layout--align-center o-layout--justify-between">
+									<span class="o-layout__item c-heading-delta t-account-landing-section__heading">Wish Lists</span>
+									<span class="o-layout__item u-text-right">
+										<a class="c-button c-button--clear u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" href="&mvte:urls:WLST:auto;" title="View All Wish Lists">View All <span class="u-font-small u-icon-chevron-right"></span></a>
+									</span>
+								</div>
+							</div>
+							<div class="t-account-landing-section__content">
+								<mvt:if expr="NOT l.settings:customerwishlists:wishlist_count GT 0">
+									<p class="x-messages x-messages--info">No wish lists found.</p>
+								<mvt:else>
+									<div class="t-account-landing__order-list t-account-landing__order-list--subscriptions">
+										<table class="c-table-responsive">
+											<tbody>
+												<mvt:foreach iterator="wishlist" array="customerwishlists:wishlists">
+													<tr class="c-table-responsive__row u-border-none u-color-gray-50 u-flex o-layout--justify-between">
+														<td class="c-table-responsive__cell--flush" data-label="">
+															<a class="t-primary-link" href="&mvte:urls:WISH:rr_sep;WishList_ID=&mvta:wishlist:id;">
+																&mvte:wishlist:title;
+																<span class="c-button c-button--clear u-bg-transparent u-color-black u-text-medium u-font-tiny u-text-uppercase"><span class="u-font-small u-icon-chevron-right"></span></span>
+															</a>
+														</td>
+													</tr>
+												</mvt:foreach>
+											</tbody>
+										</table>
+									</div>
+								</mvt:if>
+							</div>
+						</div>
+				
+						<div class="o-layout__item u-width-12 u-width-6--m t-account-landing__customer-service">
+							<div class="t-account-landing-section__header">
+								<span class="c-heading-delta t-account-landing-section__heading">Customer Service</span>
+							</div>
+							<div class="t-account-landing-section__content">
+								<table class="c-table-simple">
+									<tr class="c-table-simple__row">
+										<td class="c-table-simple__cell c-table-responsive__cell--standard u-align-middle u-font-small u-text-uppercase">Call Us:</td>
+										<td class="c-table-simple__cell c-table-responsive__cell--standard u-text-bold">
+											&mvt:global:store:phone;
+										</td>
+									</tr>
+									<tr class="c-table-simple__row">
+										<td class="c-table-simple__cell c-table-responsive__cell--standard u-align-middle u-font-small u-text-uppercase">Email:</td>
+										<td class="c-table-simple__cell c-table-responsive__cell--standard u-text-bold">
+											&mvt:global:store:email;
+										</td>
+									</tr>
+									<tr class="c-table-simple__row">
+										<td class="c-table-simple__cell c-table-responsive__cell--standard u-align-middle u-font-small u-text-uppercase">Questions?</td>
+										<td class="c-table-simple__cell c-table-responsive__cell--standard u-text-bold">
+											<a class="t-primary-link" href="&mvte:urls:FAQS:auto;">FAQs</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="ACLN-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

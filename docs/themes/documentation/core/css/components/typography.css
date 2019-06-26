@@ -1,0 +1,153 @@
+/* ==========================================================================
+   COMPONENTS / TYPOGRAPHY
+   ========================================================================== */
+
+/**
+ * In order to divorce our semantic decisions from our stylistic ones, we only
+ * define opinionated typographical styles against classes, NOT against
+ * typographic HTML elements.
+ *
+ * Further reading:
+ * http://csswizardry.com/2016/02/managing-typography-on-large-apps/
+ */
+
+/* Heading-level typography
+  =========================================== */
+.c-heading-alpha {
+	font-size: calc((((16px * 1.2) * 1.2) * 1.2) * 1.2);
+	line-height: 1.25;
+}
+
+.c-heading-bravo {
+	font-size: calc(((16px * 1.2) * 1.2) * 1.2);
+	line-height: 1.154;
+}
+
+.c-heading-charlie {
+	font-size: calc((16px * 1.2) * 1.2);
+	line-height: 1.136;
+}
+
+.c-heading-delta {
+	font-size: calc(16px * 1.2);
+	line-height: 1.125;
+}
+
+.c-heading-echo {
+	font-size: 16px;
+	line-height: 1.125;
+}
+
+.c-heading-foxtrot {
+	font-size: calc(16px / 1.2);
+	line-height: 1.125;
+}
+
+
+	@media (min-width: 40em) {
+		/**
+		 * Small Breakpoint [40em = 640px]
+		 * When in the small breakpoint, 'font-size' and 'line-height' are
+		 * dynamically adjusted.
+		 */
+		.c-heading-alpha {
+			font-size: calc(((((16px * 1.2) * 1.2) * 1.2) * 1.2) + (((((16 * 1.333) * 1.333) * 1.333) * 1.333) - ((((16 * 1.2) * 1.2) * 1.2) * 1.2)) * ((100vw - (640 * 1px) ) / (960 - 640)));
+			line-height: calc(1.25em + 0.2 * ((100% - (640 * 1px)) / 640));
+		}
+
+		.c-heading-bravo {
+			font-size: calc((((16px * 1.2) * 1.2) * 1.2) + ((((16 * 1.333) * 1.333) * 1.333) - (((16 * 1.2) * 1.2) * 1.2)) * ((100vw - (640 * 1px) ) / (960 - 640)));
+			line-height: calc(1.154em + 0.096 * ((100% - (640 * 1px)) / 640));
+		}
+
+		.c-heading-charlie {
+			font-size: calc(((16px * 1.2) * 1.2) + (((16 * 1.333) * 1.333) - ((16 * 1.2) * 1.2)) * ((100vw - (640 * 1px) ) / (960 - 640)));
+			line-height: calc(1.136em + 0.114 * ((100% - (640 * 1px)) / 640));
+		}
+
+		.c-heading-delta {
+			font-size: calc((16px * 1.2) + ((16 * 1.333) - (16 * 1.2)) * ((100vw - (640 * 1px) ) / (960 - 640)));
+			line-height: calc(1.125em + 0.95 * ((100% - (640 * 1px)) / 640));
+		}
+
+		.c-heading-echo {
+			font-size: calc(16px * ((100vw - (640 * 1px) ) / (960 - 640)));
+			line-height: calc(1.125em + 0.25 * ((100% - (640 * 1px)) / 640));
+		}
+
+		.c-heading-foxtrot {
+			font-size: calc((16px / 1.2) + ((16 / 1.333) - (16 / 1.2)) * ((100vw - (640 * 1px) ) / (960 - 640)));
+			line-height: calc(1.125em + 0.25 * ((100% - (640 * 1px)) / 640));
+		}
+	}
+	
+	@media (min-width: 60em) {
+		/**
+		 * Large Breakpoint [60em = 960px] and Greater
+		 */
+		.c-heading-alpha {
+			font-size: calc((((16px * 1.333) * 1.333) * 1.333) * 1.333);
+			line-height: 1.05;
+		}
+		
+		.c-heading-bravo {
+			font-size: calc(((16px * 1.333) * 1.333) * 1.333);
+			line-height: 1.25;
+		}
+		
+		.c-heading-charlie {
+			font-size: calc((16px * 1.333) * 1.333);
+			line-height: 1.25;
+		}
+		
+		.c-heading-delta {
+			font-size: calc(16px * 1.333);
+			line-height: 1.22;
+		}
+		
+		.c-heading-echo {
+			font-size: 16px;
+			line-height: 1.5;
+		}
+		
+		.c-heading-foxtrot {
+			font-size: calc(16px / 1.333);
+			line-height: 1.5;
+		}
+	}
+
+
+.c-heading--subheading {
+	font-size: 0.6em;
+	font-weight: 400;
+}
+
+
+.c-heading--keyline {
+	display: inline-block;
+	margin-bottom: 1em;
+	position: relative;
+}
+
+	.c-heading--keyline::after {
+		display: block;
+		width: 25%;
+		height: calc(16px / 8);
+		position: absolute;
+		left: 50%;
+		-webkit-transform: translate(-50%, 0.5em);
+		-ms-transform: translate(-50%, 0.5em);
+		transform: translate(-50%, 0.5em);
+		background-color: #c0c0c0;
+		content: "";
+	}
+
+
+
+
+
+/* Text-level typography
+  =========================================== */
+.c-text-body {
+	font-size: 16px;
+}

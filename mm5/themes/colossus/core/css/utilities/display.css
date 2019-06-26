@@ -1,0 +1,246 @@
+/* ==========================================================================
+   UTILITIES / DISPLAY
+   ========================================================================== */
+
+.u-overflow-hidden {
+	overflow: hidden;
+}
+
+/**
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+.u-hide-visually {
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	position: absolute;
+	overflow: hidden;
+	border: 0;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+	.u-hide-visually.focusable:active,
+	.u-hide-visually.focusable:focus {
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		clip: auto;
+		white-space: inherit;
+	}
+
+
+/**
+ * Hide visually and from screen readers.
+ */
+[aria-hidden='true'],
+.u-hidden {
+	display: none;
+}
+
+
+/**
+ * Hidden visually but maintains the layout.
+ */
+.u-invisible {
+	visibility: hidden;
+}
+
+
+/**
+ * Various utility classes to show the content.
+ */
+.u-flex {
+	display: flex;
+}
+
+.u-block,
+.u-shown {
+	display: block;
+}
+
+.u-inline {
+	display: inline;
+}
+
+.u-inline-block {
+	display: inline-block;
+}
+
+.u-visible {
+	visibility: visible;
+}
+
+
+/* Small Breakpoint [40em = 640px]
+   =========================================== */
+@media screen and (min-width: 40em) {
+	.u-hidden--s {
+		display: none;
+	}
+	
+	.u-invisible--s {
+		visibility: hidden;
+	}
+	
+	.u-flex--s {
+		display: flex;
+	}
+	
+	.u-block--s,
+	.u-shown--s {
+		display: block;
+	}
+	
+	.u-inline--s {
+		display: inline;
+	}
+	
+	.u-inline-block--s {
+		display: inline-block;
+	}
+	
+	.u-visible--s {
+		visibility: visible;
+	}
+}
+
+
+/* Medium Breakpoint [48em = 768px]
+   =========================================== */
+@media screen and (min-width: 48em) {
+	.u-hidden--m {
+		display: none;
+	}
+	
+	.u-invisible--m {
+		visibility: hidden;
+	}
+	
+	.u-flex--m {
+		display: flex;
+	}
+	
+	.u-block--m,
+	.u-shown--m {
+		display: block;
+	}
+	
+	.u-inline--m {
+		display: inline;
+	}
+	
+	.u-inline-block--m {
+		display: inline-block;
+	}
+	
+	.u-visible--m {
+		visibility: visible;
+	}
+}
+
+
+/* Large Breakpoint [60em = 960px]
+   =========================================== */
+@media screen and (min-width: 60em) {
+	.u-hidden--l {
+		display: none;
+	}
+	
+	.u-invisible--l {
+		visibility: hidden;
+	}
+	
+	.u-flex--l {
+		display: flex;
+	}
+	
+	.u-block--l,
+	.u-shown--l {
+		display: block;
+	}
+	
+	.u-inline--l {
+		display: inline;
+	}
+	
+	.u-inline-block--l {
+		display: inline-block;
+	}
+	
+	.u-visible--l {
+		visibility: visible;
+	}
+}
+
+
+/* Extra-Large Breakpoint [75em = 1200px]
+   =========================================== */
+@media screen and (min-width: 75em) {
+	.u-hidden--xl {
+		display: none;
+	}
+	
+	.u-invisible--xl {
+		visibility: hidden;
+	}
+	
+	.u-flex--xl {
+		display: flex;
+	}
+	
+	.u-block--xl,
+	.u-shown--xl {
+		display: block;
+	}
+	
+	.u-inline--xl {
+		display: inline;
+	}
+	
+	.u-inline-block--xl {
+		display: inline-block;
+	}
+	
+	.u-visible--xl {
+		visibility: visible;
+	}
+}
+
+
+/* Wide-Screen Breakpoint [90em = 1440px]
+   =========================================== */
+@media screen and (min-width: 90em) {
+	.u-hidden--w {
+		display: none;
+	}
+	
+	.u-invisible--w {
+		visibility: hidden;
+	}
+	
+	.u-flex--w {
+		display: flex;
+	}
+	
+	.u-block--w,
+	.u-shown--w {
+		display: block;
+	}
+	
+	.u-inline--w {
+		display: inline;
+	}
+	
+	.u-inline-block--w {
+		display: inline-block;
+	}
+	
+	.u-visible--w {
+		visibility: visible;
+	}
+}

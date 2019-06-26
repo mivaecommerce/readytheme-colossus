@@ -1,0 +1,118 @@
+/* ==========================================================================
+   COMPONENTS / TABLES
+   ========================================================================== */
+
+/**
+ * The simple table offers easy to read data with a horizontal divider between
+ * rows at the expense of occupying more space.
+ */
+.c-table-simple {
+	border-collapse: collapse;
+}
+
+	.c-table-simple__row {
+		border-bottom: 1px solid #c0c0c0;
+	}
+	
+		.c-table-simple__cell {
+			padding: calc(1em / 2);
+			text-align: left;
+			vertical-align: top;
+		}
+		
+			.c-table-simple__cell--standard {
+			  padding: 1em;
+			}
+			
+			.c-table-simple__cell--wide {
+			  padding: calc(1em * 2);
+			}
+		
+		
+/**
+ * The stripped table offers easy to read data with alternating background rows.
+ */
+.c-table-stripped {
+	border-collapse: collapse;
+}
+
+	.c-table-stripped__row:not(:nth-child(even)) {
+		background-color: #eaeaea;
+	}
+
+
+/**
+ * This is a basic, responsive table set-up. It does require using a `data-label`
+ * attribute if you would like to show the row titles.
+ */
+.c-table-responsive {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+	.c-table-responsive_thead {
+		display: none;
+	}
+
+	.c-table-responsive__row {
+		display: block;
+		margin-bottom: calc(1em / 2);
+		border-bottom: 1px solid #c0c0c0;
+	}
+	
+		.c-table-responsive__cell {
+			display: block;
+			padding-bottom: calc(1em / 2);
+		}
+		
+		.c-table-responsive__cell::before {
+			display: block;
+			font-weight: 700;
+			text-align: left;
+			content: attr(data-label);
+		}
+
+			.c-table-responsive__cell--flex {
+				display: flex;
+				justify-content: space-between;
+			}
+
+
+@media screen and (min-width: 48em) {
+	.c-table-responsive_thead {
+		display: table-header-group;
+	}
+	
+	.c-table-responsive__row {
+		display: table-row;
+		margin-bottom: 0;
+	}
+	
+		.c-table-responsive__cell {
+			display: table-cell;
+			padding: calc(1em / 2);
+			text-align: left;
+			vertical-align: top;
+		}
+			
+			.c-table-responsive__cell--flush {
+			  padding: 0;
+			}
+			
+			.c-table-responsive__cell--narrow {
+				padding: calc(1em / 4);
+			}
+		
+			.c-table-responsive__cell--standard {
+			  padding: 1em;
+			}
+			
+			.c-table-responsive__cell--wide {
+			  padding: calc(1em * 2);
+			}
+		
+		.c-table-responsive__cell::before {
+			display: none;
+		}
+}
+

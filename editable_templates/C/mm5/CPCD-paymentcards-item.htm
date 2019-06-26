@@ -1,0 +1,39 @@
+<mvt:if expr="l.settings:paymentcards:paymentcard_count EQ 0">
+	<div class="x-messages x-messages--info">No payment cards found.</div>
+	<mvt:exit />
+</mvt:if>
+
+<div class="o-layout o-layout--wide u-grids-1 u-grids-2--m">
+	<mvt:foreach iterator="paymentcard" array="paymentcards:paymentcards">
+		<mvt:if expr="'AMERICAN EXPRESS' EQ toupper(l.settings:paymentcard:type)">
+			<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_amex.png'" />
+		<mvt:elseif expr="'VISA' EQ toupper(l.settings:paymentcard:type)">
+			<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_visa.png'" />
+		<mvt:elseif expr="'MASTERCARD' EQ toupper(l.settings:paymentcard:type)">
+			<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_mastercard.png'" />
+		<mvt:elseif expr="'DISCOVER' EQ toupper(l.settings:paymentcard:type)">
+			<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_discover.png'" />
+		<mvt:else>
+			<mvt:assign name="l.settings:paymentcard:image" value="''" />
+		</mvt:if>
+	
+		<div class="o-layout__item t-customer-payment-card">
+			<a class="t-customer-payment-card__link" href="&mvte:urls:CPCE:auto_sep;PaymentMethod=paymentcard:&mvta:paymentcard:id;&amp;pcid=&mvta:paymentcard:id;&amp;CSRF_Token=&mvta:global:Basket:csrf_token;">
+				<span>
+					<mvt:if expr="l.settings:paymentcard:image">
+						<img src="&mvt:paymentcard:image;" alt="&mvte:paymentcard:type;"> &mvte:paymentcard:lastfour;<br>
+					<mvt:else>
+						&mvte:paymentcard:type; &mvte:paymentcard:lastfour;<br>
+					</mvt:if>
+					&mvte:paymentcard:fname; &mvte:paymentcard:lname;<br>
+					<mvt:if expr="mktime_t( l.settings:paymentcard:exp_year, l.settings:paymentcard:exp_month, s.tm_mday, s.tm_hour, s.tm_min, s.tm_sec, 'local') LT s.time_t">
+						<span class="u-color-red u-text-uppercase">(expired)</span> &mvte:paymentcard:exp_month;/&mvte:paymentcard:exp_year;
+					<mvt:else>
+						<span class="u-text-regular">Expires:</span> &mvte:paymentcard:exp_month;/&mvte:paymentcard:exp_year;
+					</mvt:if>
+				</span>
+				<span class="u-icon-chevron-right"></span>
+			</a>
+		</div>
+	</mvt:foreach>
+</div>

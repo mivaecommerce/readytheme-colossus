@@ -1,0 +1,79 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="CPCE-header-item.htm" />
+			<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header">
+					<mvt:item name="breadcrumbs" />
+					<span class="c-heading-delta t-account-landing-section__heading">&mvt:page:name;</span>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<form class="o-layout o-layout--justify-center" data-hook="cpca-form" method="post" action="&mvte:urls:CPCD:auto;">
+						<fieldset class="o-layout__item u-width-12 u-width-6--l">
+							<legend>&mvt:page:name;</legend>
+							<input type="hidden" name="Action" value="UCPC" />
+							<input type="hidden" name="PaymentMethod" value="&mvte:global:PaymentMethod;" />
+							<input type="hidden" name="CSRF_Token" value="&mvte:global:Basket:csrf_token;">
+							<ul class="c-form-list">
+								<li class="c-form-list__item c-form-list__item--full">
+									<mvt:item name="mivapay" file="CPCE-mivapay-item.htm" />
+								</li>
+								<li class="o-layout o-layout--wide u-grids-1 u-grids-2--m">
+									<script>
+										var onclick_submit = function (event) {
+											if (MivaPay && (typeof MivaPay.Submit === 'function')) {
+												MivaPay.Submit(function() {
+													var form;
+				
+													form = document.querySelector('[data-hook="cpca-form"]');
+													form.submit();
+												});
+											}
+										}
+									</script>
+									<p class="o-layout__item u-font-medium u-text-center">
+										<button class="c-button c-button--huge u-bg-black u-font-tiny u-text-bold u-text-uppercase" title="Update Payment Method" type="button" onclick="onclick_submit(); return false;">Update Payment Method</button>
+									</p>
+									<p class="o-layout__item u-font-medium u-text-center">
+										<button class="c-button c-button--clear c-button--huge u-bg-transparent u-color-gray-50 u-font-tiny u-text-uppercase" title="Delete Payment Method" type="button" onclick="if ( confirm( 'Deleting this payment card cannot be undone.' + '\r\n\r\n' + 'Continue?' ) ) { MMDynamic_Form_Submit( '&mvtj:urls:CPCD:secure;', { 'Action': 'DCPC', 'PaymentCard_ID': '&mvtj:global:pcid;', 'CSRF_Token': '&mvtj:global:Basket:csrf_token;' } ); } return false;"><span class="u-bg-gray-50 u-color-white u-font-tiny u-icon-cross t-circled-icon"></span> Delete Payment Method</button>
+									</p>
+								</li>
+							</ul>
+						</fieldset>
+					</form>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="CPCE-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

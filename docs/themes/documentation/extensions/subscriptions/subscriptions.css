@@ -1,0 +1,169 @@
+/* ==========================================================================
+   EXTENSIONS / SUBSCRIPTIONS / SUBSCRIPTIONS
+   ========================================================================== */
+
+/**
+ * When using the subscription function of Miva, this is the default styling
+ * used for the date picker. You can update the styles in your theme file if
+ * you are looking to make changes.
+ */
+
+.miva_datepicker {
+	display: none;
+	position: absolute;
+	padding: 16px;
+	background: #fff;
+	border: 1px solid #9f9f9f;
+	z-index: 1000;
+}
+
+.miva_datepicker_calendar_container {
+	display: inline-block;
+	width: 214px;
+	position: relative;
+	vertical-align: top;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.miva_datepicker_calendar_month_selector {
+	display: flex;
+	align-items: center;
+	position: relative;
+	background: #707070;
+}
+
+.miva_datepicker_calendar_month_selector_next,
+.miva_datepicker_calendar_month_selector_prev {
+	width: 35px;
+	height: 35px;
+	background: 0 -35px no-repeat;
+	cursor: pointer;
+}
+
+.miva_datepicker_calendar_month_selector_next:hover,
+.miva_datepicker_calendar_month_selector_prev:hover {
+	background-color: #222;
+}
+
+.miva_datepicker_calendar_month_selector_title {
+	flex-grow: 1;
+	color: #fff;
+	text-align: center;
+}
+
+.miva_datepicker_calendar_month_selector_title_month {
+	display: inline-block;
+}
+
+.miva_datepicker_calendar_month_selector_title_year {
+	display: inline-block;
+	margin-left: 0.25em;
+}
+
+
+.miva_datepicker_cancel {
+	display: inline-block;
+	margin-top: 0.75em;
+}
+
+.miva_datepicker_calendar_weekday_container {
+	height: 34px;
+	margin: 2px;
+	position: relative;
+}
+
+.miva_datepicker_calendar_weekday_title {
+	display: inline-block;
+	width: 28px;
+	padding: 3px 0;
+	position: absolute;
+	font-weight: 700;
+	text-align: center;
+}
+
+#miva_datepicker_calendar_week_container {
+	margin: 2px;
+	position: relative;
+}
+
+.miva_datepicker_calendar_week {
+	display: block;
+	height: 30px;
+	position: relative;
+}
+
+.miva_datepicker_calendar_day {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	position: absolute;
+	top: 1px;
+	bottom: 1px;
+	font-size: 0.75em;
+	border: 1px solid #9f9f9f;
+	cursor: pointer;
+}
+
+.miva_datepicker_calendar_day:hover {
+	background: #707070;
+	border-color: #222;
+	color: #fff;
+}
+
+.miva_datepicker_calendar_day_noselect,
+.miva_datepicker_calendar_day_noselect:hover {
+	background: #c0c0c0;
+	border-color: #222;
+	color: #222;
+}
+
+.miva_datepicker_calendar_day_current {
+	border-color: #222;
+	color: #222;
+	font-weight: 700;
+}
+
+.miva_datepicker_calendar_day_current:hover {
+	background: #222;
+	color: #fff;
+}
+
+.miva_datepicker_calendar_day_active {
+	background: #222;
+	border-color: #707070;
+	color: #fff;
+	font-weight: 700;
+}
+
+.miva_datepicker_calendar_day_0 {
+	left: 1px;
+}
+
+.miva_datepicker_calendar_day_1 {
+	left: 31px;
+}
+
+.miva_datepicker_calendar_day_2 {
+	left: 61px;
+}
+
+.miva_datepicker_calendar_day_3 {
+	left: 91px;
+}
+
+.miva_datepicker_calendar_day_4 {
+	left: 121px;
+}
+
+.miva_datepicker_calendar_day_5 {
+	left: 151px;
+}
+
+.miva_datepicker_calendar_day_6 {
+	left: 181px;
+}

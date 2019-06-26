@@ -1,0 +1,13 @@
+/* ==========================================================================
+   UTILITIES / CLEAR FIX
+   ========================================================================== */
+
+/**
+ * Class-based implementation of the 'clearfix hack'.
+ * http://cssmojo.com/the-very-latest-clearfix-reloaded/
+ */
+.u-clear-fix::after {
+	display: table;
+	clear: both;
+	content: "";
+}

@@ -1,0 +1,52 @@
+/* ==========================================================================
+   OBJECTS / LISTS
+   ========================================================================== */
+/**
+ * The o-list-bare object strips list-like appearance from lists by removing
+ * their bullets, and any indentation.
+ */
+.o-list-bare {
+	margin-left: 0;
+	list-style: none;
+}
+
+
+/**
+ * The o-list-block object displays any list of items into stacked blocks.
+ */
+.o-list-block {
+	margin-left: 0;
+	list-style: none;
+}
+
+	.o-list-block__item {
+		display: block;
+	}
+
+
+/**
+ * The o-list-inline object simply displays a list of items in one line.
+ */
+.o-list-inline {
+	margin-left: 0;
+	list-style: none;
+}
+
+	.o-list-inline__item {
+		display: inline-block;
+	}
+	
+	.o-list-inline__item:not(:last-child) {
+		margin-right: 16px;
+	}
+
+	
+	/* Spacing modifiers
+	   =========================================== */
+	.o-list-inline--narrow > .o-list-inline__item {
+		margin-right: calc(16px * 0.5);
+	}
+	
+	.o-list-inline--wide > .o-list-inline__item {
+		margin-right: calc(16px * 2);
+	}

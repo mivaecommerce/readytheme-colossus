@@ -1,0 +1,74 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+	<mvt:item name="attributemachine" param="head_deferred" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block u-bg-white">
+				<div class="o-layout__item t-expanded-block__item">
+					<br>
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							<mvt:item name="hdft" param="header" file="PATR-header-item.htm" />
+						</div>
+					</section>
+		
+					<section class="o-layout o-layout--justify-center">
+						<p class="o-layout__item u-width-12 c-heading-echo u-text-center">There are some required attributes you need to select to continue adding &mvt:product:name; to your cart.</p>
+						<div class="o-layout__item u-width-12 u-width-6--m u-width-4--l">
+							<form method="post" action="&mvte:urls:_self:rr;">
+								<fieldset>
+									<legend>Missing Required Attributes for &mvt:product:name;</legend>
+									<input type="hidden" name="Action" value="&mvte:global:Action;" />
+									<input type="hidden" name="Category_Code" value="&mvte:global:Category_Code;" />
+									<input type="hidden" name="Product_Code" value="&mvte:global:Product_Code;" />
+									<input type="hidden" name="Current_Product_Code" value="&mvte:global:Current_Product_Code;" />
+									<input type="hidden" name="WishList_ID" value="&mvte:global:WishList_ID;" />
+									<input type="hidden" name="Wish_ID" value="&mvte:global:Wish_ID;" />
+									<input type="hidden" name="Quantity" value="&mvte:global:Quantity;" />
+									<input type="hidden" name="Offset" value="&mvte:global:Offset;" />
+									<input type="hidden" name="Search" value="&mvte:global:Search;" />
+									<ul class="c-form-list">
+										<li class="c-form-list__item o-layout--column x-product-layout-purchase__options">
+											<mvt:item name="product_attributes" param="product:id" file="PATR-product_attributes-item.htm" />
+										</li>
+										<li class="c-form-list__item c-form-list__item--full u-text-center">
+											<input class="c-button c-button--huge u-bg-primary u-color-black u-font-small u-text-bold u-text-uppercase" type="submit" value="Continue">
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+							<mvt:item name="attributemachine" param="body_deferred" />
+						</div>
+					</section>
+					
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="footer" file="PATR-footer-item.htm" />
+						</div>
+					</section>
+					<br>
+				</div>
+			</section>
+		</div>
+	</section>
+	<br>
+	
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

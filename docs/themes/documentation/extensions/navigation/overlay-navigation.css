@@ -1,0 +1,55 @@
+/* ==========================================================================
+   EXTENSIONS / NAVIGATION / OVERLAY NAVIGATION
+   ========================================================================== */
+
+.x-overlay-navigation {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow-y: auto;
+	background-color: rgba(0, 0, 0, 0.95);
+	opacity: 0;
+	transform: scale(0);
+	transform-origin: top;
+	transition: all ease-in-out 0.2s;
+	z-index: 500;
+}
+
+.x-overlay-navigation--open {
+	opacity: 1;
+	transform: scale(1);
+}
+
+	.x-overlay-navigation__wrapper {
+		padding-top: 2.5vmax;
+		padding-bottom: 2.5vmax;
+	}
+
+		.x-overlay-navigation__list {
+			margin-bottom: 2em;
+			margin-left: 0;
+			line-height: 2;
+			list-style: none;
+		}
+
+			.x-overlay-navigation__list-subset {
+				margin-bottom: 1em;
+				margin-left: 1em;
+				padding-top: 0.5em;
+				font-size: 1rem;
+				font-weight: 400;
+			}
+
+			.x-overlay-navigation__list-subset + .x-overlay-navigation__list-subset {
+				margin-left: 2em;
+			}
+
+			.x-overlay-navigation__list a {
+				color: #fff;
+			}
+
+				.x-overlay-navigation__item {
+					display: block;
+				}

@@ -1,0 +1,87 @@
+<nav class="c-navigation u-text-uppercase x-drop-down-navigation" data-hook="drop-down-navigation">
+	<ul class="c-navigation__row x-drop-down-navigation__row">
+		<mvt:foreach iterator="navigationitem" array="readytheme:navigationitems">
+			<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+				<mvt:assign name="l.settings:has:children" value="'has-drop-down' $ asciichar(34) $ ' data-hook=' $ asciichar(34) $ 'has-drop-down'"/>
+			<mvt:else>
+				<mvt:assign name="l.settings:has:children" value="''"/>
+			</mvt:if>
+			<li class="c-navigation__list &mvt:has:children;">
+				<a class="c-navigation__link" href="&mvt:navigationitem:url;">&mvt:navigationitem:name;</a>
+				<mvt:if expr="NOT ISNULL l.settings:navigationitem:items">
+					<ul class="c-navigation__row">
+						<mvt:assign name="l.settings:has:children" value="''"/>
+						<mvt:foreach iterator="navigationitem_level2" array="navigationitem:items">
+							<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+								<mvt:assign name="l.settings:has:children" value="'has-drop-down'"/>
+							<mvt:else>
+								<mvt:assign name="l.settings:has:children" value="''"/>
+							</mvt:if>
+							<li class="c-navigation__list &mvt:has:children;">
+								<a class="c-navigation__link" href="&mvt:navigationitem_level2:url;">&mvt:navigationitem_level2:name;</a>
+								<mvt:if expr="NOT ISNULL l.settings:navigationitem_level2:items">
+									<ul class="c-navigation__row">
+										<mvt:foreach iterator="navigationitem_level3" array="navigationitem_level2:items">
+											<li><a class="c-navigation__link" href="&mvt:navigationitem_level3:url;">&mvt:navigationitem_level3:name;</a></li>
+										</mvt:foreach>
+									</ul>
+								</mvt:if>
+							</li>
+						</mvt:foreach>
+					</ul>
+				</mvt:if>
+			</li>
+		</mvt:foreach>
+	</ul>
+</nav>
+
+
+<nav class="o-layout__item c-navigation x-transfigure-navigation" data-hook="transfigure-navigation">
+	<div class="x-transfigure-navigation__wrap">
+		<header class="x-transfigure-navigation__header u-hidden--l u-text-right">
+			<button class="c-button u-bg-gray-10 u-border-rounded u-color-gray-40 u-icon-cross" data-hook="close-main-menu"></button>
+		</header>
+		<a class="c-button c-button--full c-button--large u-bg-gray-10 u-color-gray-50 u-hidden--m u-text-bold u-text-uppercase" href=""><span class="u-icon-user"></span> Sign In or Register</a>
+		<div class="x-transfigure-navigation__content">
+			<ul class="c-navigation__row x-transfigure-navigation__row">
+				<li class="c-navigation__list"><a class="c-navigation__link" href="#">All Products</a></li>
+				<li class="c-navigation__list has-child-menu" data-hook="has-drop-down has-child-menu">
+					<a class="c-navigation__link" href="#">Category 1<span class="c-navigation__link-carat"><span class="u-icon-chevron-right" data-hook="show-child"></span></span></a>
+					<ul class="c-navigation__row is-hidden">
+						<li class="c-navigation__list u-hidden--l" data-hook="show-previous-menu">
+							<span class="c-navigation__link"><span class="u-icon-chevron-left">&nbsp;</span><span class="o-layout--grow">Main Menu</span></span>
+						</li>
+						<li class="c-navigation__list"><a class="c-navigation__link" href="#">Subcategory 1-1</a></li>
+						<li class="c-navigation__list"><a class="c-navigation__link" href="#">Subcategory 1-2</a></li>
+						<li class="c-navigation__list"><a class="c-navigation__link" href="#">Subcategory 1-3</a></li>
+						<li class="c-navigation__list"><a class="c-navigation__link" href="#">Subcategory 1-4</a></li>
+					</ul>
+				</li>
+				<li class="c-navigation__list"><a class="c-navigation__link" href="#">Category 2</a></li>
+				<li class="c-navigation__list has-child-menu" data-hook="has-drop-down has-child-menu">
+					<a class="c-navigation__link" href="#">Category 3<span class="c-navigation__link-carat"><span class="u-icon-chevron-right" data-hook="show-child"></span></span></a>
+					<ul class="c-navigation__row is-hidden">
+						<li class="c-navigation__list u-hidden--l" data-hook="show-previous-menu">
+							<span class="c-navigation__link"><span class="u-icon-chevron-left">&nbsp;</span><span class="o-layout--grow">Main Menu</span></span>
+						</li>
+						<li class="c-navigation__list"><a class="c-navigation__link" href="#">Subcategory 3-1</a></li>
+						<li class="c-navigation__list"><a class="c-navigation__link" href="#">Subcategory 3-2</a></li>
+						<li class="c-navigation__list has-child-menu" data-hook="has-child-menu">
+							<a class="c-navigation__link" href="#">Subcategory 3-3<span class="c-navigation__link-carat"><span class="u-icon-chevron-right" data-hook="show-child"></span></span></a>
+							<ul class="c-navigation__row is-hidden">
+								<li class="c-navigation__list u-hidden--l" data-hook="show-previous-menu">
+									<span class="c-navigation__link"><span class="u-icon-chevron-left">&nbsp;</span><span class="o-layout--grow">Main Menu</span></span>
+								</li>
+								<li class="c-navigation__list"><a class="c-navigation__link" href="#">Sub-Subcategory 3-3-1</a></li>
+								<li class="c-navigation__list"><a class="c-navigation__link" href="#">Sub-Subcategory 3-3-2</a></li>
+								<li class="c-navigation__list"><a class="c-navigation__link" href="#">Sub-Subcategory 3-3-3</a></li>
+							</ul>
+						</li>
+						<li class="c-navigation__list"><a class="c-navigation__link" href="#">Subcategory 3-4</a></li>
+					</ul>
+				</li>
+				<li class="c-navigation__list"><a class="c-navigation__link" href="#">More</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>

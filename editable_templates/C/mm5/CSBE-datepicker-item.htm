@@ -1,0 +1,238 @@
+<div id="miva_datepicker_&mvte:datepicker:id_suffix;" class="miva_datepicker">
+	<div class="miva_datepicker_calendar_container">
+		<div class="miva_datepicker_calendar_month_selector u-bg-black">
+			<div id="miva_datepicker_calendar_month_selector_prev_&mvte:datepicker:id_suffix;" class="miva_datepicker_calendar_month_selector_prev"></div>
+			<div id="miva_datepicker_calendar_month_selector_title_&mvte:datepicker:id_suffix;" class="miva_datepicker_calendar_month_selector_title">
+				<span id="miva_datepicker_calendar_month_selector_title_month_&mvte:datepicker:id_suffix;" class="miva_datepicker_calendar_month_selector_title_month"></span>
+				<span id="miva_datepicker_calendar_month_selector_title_year_&mvte:datepicker:id_suffix;" class="miva_datepicker_calendar_month_selector_title_year"></span>
+			</div>
+			<div id="miva_datepicker_calendar_month_selector_next_&mvte:datepicker:id_suffix;" class="miva_datepicker_calendar_month_selector_next"></div>
+		</div>
+
+		<div class="miva_datepicker_calendar_weekday_container">
+			<span class="miva_datepicker_calendar_weekday_title miva_datepicker_calendar_day_0">Su</span>
+			<span class="miva_datepicker_calendar_weekday_title miva_datepicker_calendar_day_1">Mo</span>
+			<span class="miva_datepicker_calendar_weekday_title miva_datepicker_calendar_day_2">Tu</span>
+			<span class="miva_datepicker_calendar_weekday_title miva_datepicker_calendar_day_3">We</span>
+			<span class="miva_datepicker_calendar_weekday_title miva_datepicker_calendar_day_4">Th</span>
+			<span class="miva_datepicker_calendar_weekday_title miva_datepicker_calendar_day_5">Fr</span>
+			<span class="miva_datepicker_calendar_weekday_title miva_datepicker_calendar_day_6">Sa</span>
+		</div>
+
+		<div id="miva_datepicker_calendar_week_container_&mvte:datepicker:id_suffix;" class="miva_datepicker_calendar_week_container"></div>
+		
+		<div class="u-text-center">
+			<button id="miva_datepicker_cancel_&mvte:datepicker:id_suffix;" class="c-button c-button--clear c-button--flush c-button--large u-bg-transparent u-color-gray-50 u-font-tiny miva_datepicker_cancel" type="button">Close</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	function MivaDatePicker(initial_unixtimestamp) {
+		var self = this;
+
+		this.element_parent = document.getElementById('miva_datepicker_&mvtj:datepicker:id_suffix;');
+		this.element_week_container = document.getElementById('miva_datepicker_calendar_week_container_&mvtj:datepicker:id_suffix;');
+		this.element_month_selector_prev = document.getElementById('miva_datepicker_calendar_month_selector_prev_&mvtj:datepicker:id_suffix;');
+		this.element_month_selector_title_month = document.getElementById('miva_datepicker_calendar_month_selector_title_month_&mvtj:datepicker:id_suffix;');
+		this.element_month_selector_title_year = document.getElementById('miva_datepicker_calendar_month_selector_title_year_&mvtj:datepicker:id_suffix;');
+		this.element_month_selector_next = document.getElementById('miva_datepicker_calendar_month_selector_next_&mvtj:datepicker:id_suffix;');
+		this.element_time_period_am = document.getElementById('miva_datepicker_time_am_&mvtj:datepicker:id_suffix;');
+		this.element_time_period_pm = document.getElementById('miva_datepicker_time_pm_&mvtj:datepicker:id_suffix;');
+		this.element_time_container = document.getElementById('miva_datepicker_time_container_&mvtj:datepicker:id_suffix;');
+		this.element_cancel = document.getElementById('miva_datepicker_cancel_&mvtj:datepicker:id_suffix;');
+
+		this.element_month_selector_prev.style.backgroundImage = 'url(\'&mvtj:datepicker:image_base;mm9_calendar_prev.png\')';
+		this.element_month_selector_next.style.backgroundImage = 'url(\'&mvtj:datepicker:image_base;mm9_calendar_next.png\')';
+		this.element_month_selector_prev.onclick = function (event) {
+			self.Month_Prev();
+		};
+		this.element_month_selector_next.onclick = function (event) {
+			self.Month_Next();
+		};
+
+		this.element_cancel.onclick = function (event) {
+			self.Hide();
+			return false;
+		};
+
+		this.current_date = initial_unixtimestamp ? new Date(initial_unixtimestamp * 1000) : new Date();
+		this.current_date.setMilliseconds(0);
+
+		this.visible_month = this.current_date.getMonth();
+		this.visible_year = this.current_date.getFullYear();
+		this.picked_day = this.current_date.getDate();
+		this.picked_month = this.current_date.getMonth();
+		this.picked_year = this.current_date.getFullYear();
+		this.datelimit_past = null;
+		this.datelimit_future = null;
+		this.monthlist = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	}
+
+	MivaDatePicker.prototype.Calendar_Refresh = function () {
+		var self = this;
+		var i, i_len, element_week, element_day, loaded_date, picked_date, current_date, visible_date_last;
+
+		this.element_week_container.innerHTML = '';
+		this.element_month_selector_title_month.innerHTML = '';
+		this.element_month_selector_title_year.innerHTML = '';
+
+		visible_date_last = new Date(this.visible_year, this.visible_month + 1, 0);
+		current_date = new Date();
+		picked_date = this.GetPickedDate();
+
+		element_week = document.createElement('div');
+		element_week.className = 'miva_datepicker_calendar_week';
+
+		this.element_week_container.appendChild(element_week);
+
+		for (i = 0, i_len = visible_date_last.getDate(); i < i_len; i++) {
+			loaded_date = new Date(visible_date_last.getFullYear(), visible_date_last.getMonth(), i + 1, picked_date.getHours(), picked_date.getMinutes(), picked_date.getSeconds());
+
+			if (loaded_date.getDay() === 0 && i !== 0) {
+				element_week = document.createElement('div');
+				element_week.className = 'miva_datepicker_calendar_week';
+
+				this.element_week_container.appendChild(element_week);
+			}
+
+			element_day = document.createElement('span');
+			element_day.className = 'miva_datepicker_calendar_day miva_datepicker_calendar_day_' + loaded_date.getDay();
+			element_day.innerHTML = loaded_date.getDate();
+			element_day.date_year = loaded_date.getFullYear();
+			element_day.date_month = loaded_date.getMonth();
+			element_day.date_day = loaded_date.getDate();
+
+			element_week.appendChild(element_day);
+
+			if (this.datelimit_past && (this.datelimit_past instanceof Date) && this.DateLimit_Past_DateDisabled(loaded_date, this.datelimit_past)) {
+				element_day.className += ' miva_datepicker_calendar_day_noselect';
+			}
+			else if (this.datelimit_future && (this.datelimit_future instanceof Date) && this.DateLimit_Future_DateDisabled(loaded_date, this.datelimit_future)) {
+				element_day.className += ' miva_datepicker_calendar_day_noselect';
+			}
+			else {
+				if (this.getDayStart(picked_date).getTime() === this.getDayStart(loaded_date).getTime()) {
+					element_day.className += ' miva_datepicker_calendar_day_active';
+				}
+
+				element_day.onclick = function (event) {
+					self.picked_year = this.date_year;
+					self.picked_month = this.date_month;
+					self.picked_day = this.date_day;
+
+					self.Calendar_Refresh();
+					self.Complete();
+
+					if (event.stopPropagation) {
+						return event.stopPropagation();
+					}
+
+					event.cancelBubble = true;
+
+					if (event.preventDefault) {
+						return event.preventDefault();
+					}
+
+					event.returnValue = false;
+
+					return false;
+				}
+			}
+
+			if (this.getDayStart(loaded_date).getTime() === this.getDayStart(current_date).getTime()) {
+				element_day.className += ' miva_datepicker_calendar_day_current';
+			}
+		}
+
+		this.element_month_selector_title_month.appendChild(document.createTextNode(this.monthlist[this.visible_month]));
+		this.element_month_selector_title_year.appendChild(document.createTextNode(visible_date_last.getFullYear()));
+	};
+
+	MivaDatePicker.prototype.getDayStart = function (date) {
+		var day_start;
+
+		day_start = new Date(date.getTime());
+		day_start.setMilliseconds(0);
+		day_start.setSeconds(0);
+		day_start.setMinutes(0);
+		day_start.setHours(0);
+
+		return day_start;
+	};
+
+	MivaDatePicker.prototype.Show = function () {
+		this.Calendar_Refresh();
+		this.element_parent.style.display = 'block';
+	};
+
+	MivaDatePicker.prototype.Hide = function () {
+		this.element_parent.style.display = 'none';
+	};
+	
+	MivaDatePicker.prototype.SetDateLimit_Past = function (dateObject) {
+		this.datelimit_past = dateObject;
+		this.datelimit_past.setMilliseconds(0);
+	};
+
+	MivaDatePicker.prototype.DateLimit_Past_DateDisabled = function (date, datelimit) {
+		return this.getDayStart(date).getTime() <= this.getDayStart(datelimit).getTime();
+	};
+
+	MivaDatePicker.prototype.SetDateLimit_Future = function (dateObject) {
+		this.datelimit_future = dateObject;
+		this.datelimit_future.setMilliseconds(0);
+	};
+
+	MivaDatePicker.prototype.DateLimit_Future_DateDisabled = function (date, datelimit) {
+		return this.getDayStart(date).getTime() >= this.getDayStart(datelimit).getTime();
+	};
+
+	MivaDatePicker.prototype.Month_Prev = function () {
+		var date = new Date(this.visible_year, this.visible_month, 0);
+
+		if ((this.datelimit_past && (date < this.datelimit_past)) ||
+			(this.datelimit_future && (date > this.datelimit_future))) {
+			return;
+		}
+
+		this.visible_month--;
+
+		if (this.visible_month === -1) {
+			this.visible_month = 11;
+			this.visible_year = this.visible_year - 1;
+		}
+
+		this.Calendar_Refresh();
+	};
+
+	MivaDatePicker.prototype.Month_Next = function () {
+		var date = new Date(this.visible_year, this.visible_month + 1, 1);
+
+		if ((this.datelimit_past && (date < this.datelimit_past)) ||
+			(this.datelimit_future && (date > this.datelimit_future))) {
+			return;
+		}
+
+		this.visible_month++;
+
+		if (this.visible_month === 12) {
+			this.visible_month = 0;
+			this.visible_year = this.visible_year + 1;
+		}
+
+		this.Calendar_Refresh();
+	};
+
+	MivaDatePicker.prototype.GetPickedDate = function () {
+		return new Date(this.picked_year, this.picked_month, this.picked_day, 0, 0, 0);
+	};
+
+	MivaDatePicker.prototype.Complete = function () {
+		this.oncomplete(this.GetPickedDate());
+		this.Hide();
+	};
+
+	MivaDatePicker.prototype.oncomplete = function (date) {
+	};
+</script>

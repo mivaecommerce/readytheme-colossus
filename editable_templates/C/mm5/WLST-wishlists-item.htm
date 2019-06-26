@@ -1,0 +1,74 @@
+<mvt:if expr="l.settings:wishlists:total_count EQ 0">
+	<p class="x-messages x-messages--info">We were unable to find any wish lists to match your search.</p>
+	<mvt:exit />
+</mvt:if>
+
+<div class="t-account-landing__order-list t-account-landing__order-list--subscriptions">
+	<table class="c-table-responsive">
+		<thead class="c-table-responsive_thead">
+			<tr class="c-table-responsive__row u-border-none u-color-black u-font-tiny u-text-bold u-text-uppercase">
+				<th class="c-table-responsive__cell c-table-responsive__cell--flush" scope="col">Title</th>
+				<mvt:if expr="NOT ISNULL g.WishListSearch">
+					<th class="c-table-responsive__cell c-table-responsive__cell--flush" scope="col">Name</th>
+				</mvt:if>
+				<th class="c-table-responsive__cell c-table-responsive__cell--flush" scope="col">Notes</th>
+				<td class="c-table-responsive__cell c-table-responsive__cell--flush" scope="col">&nbsp;</td>
+			</tr>
+		</thead>
+		<tbody>
+			<mvt:foreach iterator="wishlist" array="wishlists:items">
+				<tr class="c-table-responsive__row u-border-none u-color-gray-50">
+					<td class="c-table-responsive__cell c-table-responsive__cell--flush c-table-responsive__cell--flex" data-label="Title">
+						<a class="u-text-bold u-color-black" href="&mvte:urls:WISH:rr_sep;WishList_ID=&mvta:wishlist:id;">&mvte:wishlist:title;</a>
+					</td>
+					<mvt:if expr="NOT ISNULL g.WishListSearch">
+						<td class="c-table-responsive__cell c-table-responsive__cell--flush c-table-responsive__cell--flex" data-label="Name">&mvte:wishlist:bill_fname; &mvte:wishlist:bill_lname;</td>
+					</mvt:if>
+					<td class="c-table-responsive__cell c-table-responsive__cell--flush c-table-responsive__cell--flex" data-label="Notes">&mvte:wishlist:notes;</td>
+					<td class="c-table-responsive__cell c-table-responsive__cell--flush c-table-responsive__cell--flex" data-label="">
+						<a class="c-button c-button--clear u-bg-transparent u-color-black u-text-medium u-font-tiny u-text-uppercase" href="&mvte:urls:WISH:rr_sep;WishList_ID=&mvta:wishlist:id;" aria-label="View &mvte:wishlist:title;"><span class="u-font-small u-icon-chevron-right"></span></a>
+					</td>
+				</tr>
+			</mvt:foreach>
+		</tbody>
+	</table>
+</div>
+
+<mvt:if expr="l.settings:wishlists:page_links:last_page GT 1">
+	<nav class="x-pagination x-pagination--centered t-pagination">
+		<ul class="o-list-inline">
+			<mvt:if expr="l.settings:wishlists:page_links:current_page NE 1">
+				<li class="o-list-inline__item">
+					<a class="u-color-gray-50 u-icon-chevron-left t-pagination__button" href="&mvte:urls:_self:auto_sep;&mvte:wishlists:page_links:prev_link_params;" title="Go to the previous page."></a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="u-color-gray-50 u-icon-chevron-left t-pagination__button" title="You are on the first page."></span>
+				</li>
+			</mvt:if>
+			<li class="o-list-inline__item o-layout--grow">
+				<div class="c-form-select">
+					<select class="c-form-select__dropdown u-font-small u-text-uppercase u-text-bold u-color-gray-50" name="Sort_By" onchange="window.location.href=this.options[ this.selectedIndex ].value">
+						<mvt:foreach iterator="pages" array="wishlists:page_links:pages">
+							<mvt:if expr="l.settings:wishlists:page_links:current_page EQ l.settings:pages:page_num">
+								<option value="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;" selected>Page &mvte:pages:page_num; of &mvte:wishlists:page_links:last_page;</option>
+							<mvt:else>
+								<option value="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;">Page &mvte:pages:page_num; of &mvte:wishlists:page_links:last_page;</option>
+							</mvt:if>
+						</mvt:foreach>
+					</select>
+				</div>
+			</li>
+			<mvt:if expr="l.settings:wishlists:page_links:current_page NE l.settings:wishlists:page_links:last_page">
+				<li class="o-list-inline__item">
+					<a class="u-color-gray-50 u-icon-chevron-right t-pagination__button" href="&mvte:urls:_self:auto_sep;&mvte:wishlists:page_links:next_link_params;" title="Go to the next page."></a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="u-color-gray-50 u-icon-chevron-right t-pagination__button" title="You are on the last page."></span>
+				</li>
+			</mvt:if>
+		</ul>
+	</nav>
+	<!-- end .x-pagination -->
+</mvt:if>

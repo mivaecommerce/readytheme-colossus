@@ -1,0 +1,192 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="OSEL-header-item.htm" />
+			<mvt:item name="customfields" param="Write_Basket('basket', g.basket)" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<section class="o-layout o-layout--wide o-layout--justify-between">
+						<div class="o-layout__item u-width-12 u-width-7--l">
+							<mvt:item name="readytheme" param="contentsection( 'checkout_steps' )" />
+							<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							<form method="post" action="&mvte:urls:OPAY:secure;">
+								<fieldset>
+									<legend>&mvt:page:name;</legend>
+									<mvt:item name="tax" />
+									<input type="hidden" name="Action" value="SHIP,PSHP,CTAX" />
+									<p class="c-heading-echo u-text-bold u-text-uppercase">Choose A Shipping Method</p>
+									<ul class="c-form-list u-text-constrain">
+										<mvt:if expr="ISNULL l.settings:shippingmethods">
+											<li class="c-form-list__item c-form-list__item--full">
+												<p class="x-messages x-messages--info">No valid shipping methods are available for your order. You will be contacted regarding shipping when your order is processed.</p>
+											</li>
+										</mvt:if>
+										<mvt:if expr="ISNULL l.settings:shippingmethods">
+											<li class="c-form-list__item c-form-list__item--full u-font-small">
+												<mvt:if expr="ISNULL l.settings:fallbackshippingmethod">
+													<label class="c-form-checkbox c-form-checkbox--radio">
+														<input class="c-form-checkbox__input" type="radio" name="ShippingMethod" value="" checked>
+														<span class="c-form-checkbox__caption">Unable to Calculate Shipping Costs</span>
+													</label>
+												<mvt:else>
+													<label class="c-form-checkbox c-form-checkbox--radio">
+														<input class="c-form-checkbox__input" type="radio" name="ShippingMethod" value="" checked>
+														<span class="c-form-checkbox__caption o-layout o-list-inline o-layout--align-baseline u-flex">
+															<span class="o-list-inline__item">&mvt:fallbackshippingmethod:name;</span>
+															<span class="o-list-inline__item o-layout--grow">
+																<span class="c-keyline c-keyline--small u-block"></span>
+															</span>
+															<span class="o-list-inline__item">&mvt:fallbackshippingmethod:formatted_price;</span>
+														</span>
+													</label>
+												</mvt:if>
+											</li>
+										<mvt:else>
+											<mvt:foreach array="shippingmethods" iterator="method">
+												<li class="c-form-list__item c-form-list__item--full u-font-small">
+													<mvt:if expr="pos1 EQ 1">
+														<label class="c-form-checkbox c-form-checkbox--radio">
+															<input class="c-form-checkbox__input" type="radio" name="ShippingMethod" value="&mvte:method:module;:&mvte:method:code" checked>
+															<span class="c-form-checkbox__caption o-layout o-list-inline o-layout--align-baseline u-flex">
+																<span class="o-list-inline__item">&mvt:method:name;</span>
+																<mvt:if expr="NOT ISNULL l.settings:method:price">
+																	<span class="o-list-inline__item o-layout--grow">
+																		<span class="c-keyline c-keyline--small u-block"></span>
+																	</span>
+																	<span class="o-list-inline__item">&mvt:method:formatted_price;</span>
+																</mvt:if>
+															</span>
+														</label>
+													<mvt:else>
+														<label class="c-form-checkbox c-form-checkbox--radio">
+															<input class="c-form-checkbox__input" type="radio" name="ShippingMethod" value="&mvte:method:module;:&mvte:method:code">
+															<span class="c-form-checkbox__caption o-layout o-list-inline o-layout--align-baseline u-flex">
+																<span class="o-list-inline__item">&mvt:method:name;</span>
+																<mvt:if expr="NOT ISNULL l.settings:method:price">
+																	<span class="o-list-inline__item o-layout--grow">
+																		<span class="c-keyline c-keyline--small u-block"></span>
+																	</span>
+																	<span class="o-list-inline__item">&mvt:method:formatted_price;</span>
+																</mvt:if>
+															</span>
+														</label>
+													</mvt:if>
+												</li>
+											</mvt:foreach>
+										</mvt:if>
+									</ul>
+									<br>
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full">
+											<mvt:item name="customfields" param="Read_Basket('order_instructions', g.order_instructions)" />
+											<label class="c-form-label u-text-bold u-text-uppercase" for="order_instructions" title="Delivery Notes">Delivery Notes <span class="c-heading--subheading">(Optional)</span></label>
+											<textarea id="order_instructions" class="c-form-input c-form-input--long" name="order_instructions">&mvte:global:order_instructions;</textarea>
+										</li>
+									</ul>
+									<hr class="c-keyline">
+									<p class="c-heading-echo u-text-bold u-text-uppercase">Select Your Payment Method</p>
+									<ul class="c-form-list">
+										<mvt:foreach array="paymentmethods" iterator="method">
+											<mvt:if expr="l.settings:method:module NE 'customercredit'">
+												<li class="c-form-list__item c-form-list__item--full u-font-small">
+													<mvt:if expr="pos1 EQ 1">
+														<label class="c-form-checkbox c-form-checkbox--radio">
+															<mvt:if expr="l.settings:method:paymentcard:id">
+																<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="paymentcard:&mvte:method:paymentcard:id;" checked>
+															<mvt:elseif expr="l.settings:method:paymentcardtype:id">
+																<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="paymentcardtype:&mvte:method:paymentcardtype:id;" checked>
+															<mvt:else>
+																<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="&mvte:method:module;:&mvte:method:code;" checked>
+															</mvt:if>
+															<span class="c-form-checkbox__caption">&mvt:method:name;</span>
+														</label>
+													<mvt:else>
+														<label class="c-form-checkbox c-form-checkbox--radio">
+															<mvt:if expr="l.settings:method:paymentcard:id">
+																<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="paymentcard:&mvte:method:paymentcard:id;">
+															<mvt:elseif expr="l.settings:method:paymentcardtype:id">
+																<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="paymentcardtype:&mvte:method:paymentcardtype:id;">
+															<mvt:else>
+																<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="&mvte:method:module;:&mvte:method:code;">
+															</mvt:if>
+															<span class="c-form-checkbox__caption">&mvt:method:name;</span>
+														</label>
+													</mvt:if>
+												</li>
+											</mvt:if>
+										</mvt:foreach>
+										<mvt:foreach array="paymentmethods" iterator="method">
+											<mvt:if expr="l.settings:method:module EQ 'customercredit'">
+												<mvt:if expr="g.Basket:cust_id NE 0">
+													<li class="c-form-list__item c-form-list__item--full u-font-small">
+														<span class="o-layout o-layout--align-baseline">
+															<strong class="o-layout__item o-layout--no-grow">Or</strong>
+															<span class="o-layout__item">
+																<span class="c-keyline c-keyline--small u-block"></span>
+															</span>
+														</span>
+													</li>
+												</mvt:if>
+												<li class="c-form-list__item c-form-list__item--full u-font-small">
+													<label class="c-form-checkbox c-form-checkbox--radio">
+														<mvt:if expr="l.settings:method:paymentcard:id">
+															<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="paymentcard:&mvte:method:paymentcard:id;">
+														<mvt:elseif expr="l.settings:method:paymentcardtype:id">
+															<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="paymentcardtype:&mvte:method:paymentcardtype:id;">
+														<mvt:else>
+															<input class="c-form-checkbox__input" type="radio" name="PaymentMethod" value="&mvte:method:module;:&mvte:method:code;">
+														</mvt:if>
+														<span class="c-form-checkbox__caption">&mvt:method:name;</span>
+													</label>
+												</li>
+												<mvt:foreachstop />
+											</mvt:if>
+										</mvt:foreach>
+									</ul>
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full u-text-right">
+											<input class="c-button c-button--huge u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" type="submit" value="Continue to Payment">
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+						</div>
+						<aside class="o-layout__item u-width-12 u-width-5--l u-width-4--w">
+							<mvt:item name="basket" file="OSEL-basket-item.htm" />
+						</aside>
+					</section>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="OSEL-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

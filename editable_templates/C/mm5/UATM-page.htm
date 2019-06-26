@@ -1,0 +1,62 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<div class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							<mvt:item name="hdft" param="header" file="UATM-header-item.htm" />
+						</div>
+					</section>
+				
+					<section class="o-layout o-layout--justify-center">
+						<div class="o-layout__item u-width-12 u-width-6--m u-width-4--l">
+							<form method="post" action="&mvte:urls:_self:rr;">
+								<fieldset>
+									<legend>Missing Required Attributes</legend>
+									<input type="hidden" name="Action" value="&mvte:global:Action;">
+									<input type="hidden" name="Upsell_Product_Count" value="&mvte:global:Upsell_Product_Count;">
+									<mvt:item name="tax" />
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full t-multiple-product-upsell-purchase__options">
+											<mvt:item name="upsell_attr_mult" />
+										</li>
+										<li class="c-form-list__item u-text-right">
+											<input class="c-button c-button--large u-bg-primary u-font-small u-text-bold u-text-uppercase" type="submit" value="Continue">
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+						</div>
+					</section>
+		
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="footer" file="UATM-footer-item.htm" />
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

@@ -1,0 +1,47 @@
+<mvt:assign name="l.settings:new_customer:login" value="''" />
+<mvt:assign name="l.settings:new_customer:pw_email" value="g.register_email" />
+<mvt:assign name="l.settings:new_customer:password" value="g.register_password" />
+<mvt:assign name="l.settings:new_customer:pgrpcount" value="0" />
+<mvt:assign name="l.settings:new_customer:ship_fname" value="g.register_fname" />
+<mvt:assign name="l.settings:new_customer:ship_lname" value="g.register_lname" />
+<mvt:assign name="l.settings:new_customer:saved_password" value="l.settings:new_customer:password" />
+<mvt:do file="g.Module_Feature_CUS_DB" name="l.settings:test" value="Customer_Load_Email(l.settings:new_customer:pw_email, l.settings:existing_customer)" />
+
+<mvt:if expr="g.current_location">
+	<mvt:assign name="g.return_link" value="g.current_location" />
+<mvt:else>
+	<mvt:assign name="g.return_link" value="l.settings:urls:SFNT:rr_sep" />
+</mvt:if>
+
+<mvt:if expr="l.settings:existing_customer:id GT 0">
+	<mvt:comment>USER EXISTS</mvt:comment>
+	<mvt:assign name="g.Customer_Password" value="g.register_password" />
+	<mvt:assign name="g.Customer_LoginEmail" value="g.register_email" />
+	<mvt:do file="g.Module_Feature_CUS_RT" name="l.settings:login_success" value="Action_Customer_Login()" />
+	&mvt:global:MvDO_Error;
+	<mvt:if expr="g.Customer_Login_Invalid EQ 1 OR g.Customer_Password_Invalid EQ 1">
+	<mvt:else>
+		<meta http-equiv="refresh" content="0;url=&mvt:global:return_link;logon=1" />
+	</mvt:if>
+<mvt:else>
+	<mvt:do file="g.module_library_utilities" name="g.is_valid_email" value="Email_Validate(l.settings:new_customer:pw_email)" />
+	<mvt:do file="g.Module_Feature_CUS_DB" name="l.settings:testPW" value="CustomerSettings_Load(l.customersettings)" />
+	<mvt:do file="g.Module_Admin" name="g.is_valid_pw" value="Validate_Password(l.customersettings, l.settings:new_customer:password)" />
+	<mvt:assign name="g.invalidEmailMessage" value="crypto_base64_encode('You have entered an invalid email address.')" />
+	<mvt:assign name="g.invalidPasswordMessage" value="crypto_base64_encode(g.Validation_Message)" />
+	<mvt:if expr="g.is_valid_email EQ 1 AND g.is_valid_pw EQ 1">
+		<mvt:do file="g.Module_Feature_CUS_UT" name="l.settings:test" value="CustomerLogin_Generate_Email(l.settings:new_customer:pw_email, l.settings:new_customer:login)" />
+		<mvt:do file="g.Module_Feature_CUS_DB" name="l.settings:test" value="Customer_Insert(l.settings:new_customer)" />
+		<mvt:assign name="g.Customer_Password" value="l.settings:new_customer:saved_password" />
+		<mvt:assign name="g.Customer_LoginEmail" value="l.settings:new_customer:pw_email" />
+		<mvt:do file="g.Module_Feature_CUS_RT" name="l.settings:login_success" value="Action_Customer_Login()" />
+		&mvt:global:MvDO_Error;
+		<meta http-equiv="refresh" content="0;url=&mvte:global:return_link;registration=1&NewAccount=1&Customer_ShipFirstName=&mvte:global:register_fname;" />
+	<mvt:elseif expr="g.is_valid_email EQ 0 AND g.is_valid_pw EQ 1">
+		<meta http-equiv="refresh" content="0;url=&mvte:global:return_link;registration=0&iem=&mvte:global:invalidEmailMessage;" />
+	<mvt:elseif expr="g.is_valid_email EQ 1 AND g.is_valid_pw EQ 0">
+		<meta http-equiv="refresh" content="0;url=&mvte:global:return_link;registration=0&ipm=&mvte:global:invalidPasswordMessage;" />
+	<mvt:else>
+		<meta http-equiv="refresh" content="0;url=&mvte:global:return_link;registration=0&iem=&mvte:global:invalidEmailMessage;&ipm=&mvte:global:invalidPasswordMessage;" />
+	</mvt:if>
+</mvt:if>

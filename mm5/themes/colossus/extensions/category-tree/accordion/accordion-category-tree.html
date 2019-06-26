@@ -1,0 +1,117 @@
+<nav class="x-accordion-category-tree t-accordion-category-tree">
+	<mvt:comment>
+		<!-- Check if the current, parent category has any children. -->
+	</mvt:comment>
+	<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:breadcrumbs:links[1]:code, l.settings:current_parent)"/>
+	<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent(l.settings:current_parent:id, l.settings:children)"/>
+	<mvt:if expr="l.settings:children GT 0">
+		<mvt:comment>
+			<!--
+			If the parent category has children, show all child and grandchild categories in an accordion navigation.
+			-->
+		</mvt:comment>
+		<ul class="x-accordion-category-tree__row">
+			<mvt:foreach iterator="child" array="children">
+				<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+				<mvt:assign name="l.uri:cat_id" value="l.settings:child:id"/>
+				<mvt:assign name="l.settings:grandchildren" value="0"/>
+				<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:child:code, l.settings:current_child)"/>
+				<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent(l.settings:current_child:id, l.settings:grandchildren)"/>
+				<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:child:link)"/>
+				<mvt:foreach iterator="grandchild" array="grandchildren">
+					<mvt:if expr="l.settings:grandchild:code EQ l.settings:breadcrumbs:current_item:code">
+						<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_ID(l.settings:grandchild:parent_id, l.settings:parent_category)" />
+					</mvt:if>
+				</mvt:foreach>
+				<mvt:if expr="(l.settings:child:code EQ l.settings:breadcrumbs:current_item:code) OR (l.settings:child:code EQ l.settings:parent_category:code)">
+					<mvt:assign name="l.settings:current:active" value="'is-active'"/>
+					<mvt:assign name="l.settings:current:child" value="'x-accordion-category-tree__link--current'"/>
+				<mvt:else>
+					<mvt:assign name="l.settings:current:active" value="''"/>
+					<mvt:assign name="l.settings:current:child" value="''"/>
+				</mvt:if>
+				<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-1 &mvte:current:active;">
+					<div class="x-accordion-category-tree__summary">
+						<a class="x-accordion-category-tree__link &mvte:current:child; u-text-medium" href="&mvte:child:link:uri;">&mvte:child:name;</a>
+						<mvt:if expr="l.settings:grandchildren GT 0">
+							<button class="x-accordion-category-tree__toggle c-button u-bg-transparent u-font-tiny" data-hook="accordion-toggle" type="button" aria-label="View More &mvte:child:name;"><span class="u-icon-add"></span></button>
+						</mvt:if>
+					</div>
+					<mvt:if expr="l.settings:grandchildren GT 0">
+						<ul class="x-accordion-category-tree__row x-accordion-category-tree__details">
+							<mvt:foreach iterator="grandchild" array="grandchildren">
+								<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+								<mvt:assign name="l.uri:cat_id" value="l.settings:grandchild:id"/>
+								<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:grandchild:link)"/>
+								<mvt:if expr="l.settings:grandchild:code EQ l.settings:breadcrumbs:current_item:code">
+									<mvt:assign name="l.settings:current:grandchild" value="'x-accordion-category-tree__link--current'"/>
+								<mvt:else>
+									<mvt:assign name="l.settings:current:grandchild" value="''"/>
+								</mvt:if>
+								<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-2">
+									<a class="x-accordion-category-tree__link &mvte:current:grandchild;" href="&mvte:grandchild:link:uri;">&mvte:grandchild:name;</a>
+								</li>
+							</mvt:foreach>
+						</ul>
+					</mvt:if>
+				</li>
+			</mvt:foreach>
+		</ul>
+	<mvt:else>
+		<mvt:comment>
+			<!--
+			If the parent category does not have children, show all parent and, applicable,
+			child categories in an accordion navigation.
+			-->
+		</mvt:comment>
+		<ul class="x-accordion-category-tree__row">
+			<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent('', l.settings:parent_categories)" />
+			<mvt:foreach iterator="parent" array="parent_categories">
+				<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+				<mvt:assign name="l.uri:cat_id" value="l.settings:parent:id"/>
+				<mvt:assign name="l.settings:children" value="0"/>
+				<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:parent:code, l.settings:current_parent)"/>
+				<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent(l.settings:current_parent:id, l.settings:children)"/>
+				<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:parent:link)"/>
+				<mvt:foreach iterator="child" array="children">
+					<mvt:if expr="l.settings:child:code EQ l.settings:breadcrumbs:current_item:code">
+						<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_ID(l.settings:child:parent_id, l.settings:parent_category)" />
+					</mvt:if>
+				</mvt:foreach>
+				<mvt:if expr="(l.settings:parent:code EQ l.settings:breadcrumbs:current_item:code) OR (l.settings:parent:code EQ l.settings:parent_category:code)">
+					<mvt:assign name="l.settings:current:active" value="'is-active'"/>
+					<mvt:assign name="l.settings:current:parent" value="'x-accordion-category-tree__link--current'"/>
+				<mvt:else>
+					<mvt:assign name="l.settings:current:active" value="''"/>
+					<mvt:assign name="l.settings:current:parent" value="''"/>
+				</mvt:if>
+				<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-1 &mvte:current:active;">
+					<div class="x-accordion-category-tree__summary">
+						<a class="x-accordion-category-tree__link &mvte:current:parent; u-text-medium" href="&mvte:parent:link:uri;">&mvte:parent:name;</a>
+						<mvt:if expr="l.settings:children GT 0">
+							<button class="x-accordion-category-tree__toggle c-button u-bg-transparent u-font-tiny" data-hook="accordion-toggle" type="button" aria-label="View More &mvte:parent:name;"><span class="u-icon-add"></span></button>
+						</mvt:if>
+					</div>
+					<mvt:if expr="l.settings:children GT 0">
+						<ul class="x-accordion-category-tree__row x-accordion-category-tree__details">
+							<mvt:foreach iterator="child" array="children">
+								<mvt:assign name="l.uri:store_id" value="g.Store:id"/>
+								<mvt:assign name="l.uri:cat_id" value="l.settings:child:id"/>
+								<mvt:do file="g.Module_Feature_URI_DB" name="l.have_uri" value="URI_Load_Item_Canonical(l.uri, l.settings:child:link)"/>
+								<mvt:if expr="l.settings:child:code EQ l.settings:breadcrumbs:current_item:code">
+									<mvt:assign name="l.settings:current:child" value="'x-accordion-category-tree__link--current'"/>
+								<mvt:else>
+									<mvt:assign name="l.settings:current:child" value="''"/>
+								</mvt:if>
+								<li class="x-accordion-category-tree__list x-accordion-category-tree__list--level-2">
+									<a class="x-accordion-category-tree__link &mvte:current:child;" href="&mvte:child:link:uri;">&mvte:child:name;</a>
+								</li>
+							</mvt:foreach>
+						</ul>
+					</mvt:if>
+				</li>
+			</mvt:foreach>
+		</ul>
+	</mvt:if>
+</nav>
+<!-- end .x-accordion-category-tree -->

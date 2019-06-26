@@ -1,0 +1,53 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+	
+	<section class="u-bg-white t-expanded-block">
+		<div class="o-wrapper t-wrapper">
+			<mvt:item name="facets" file="cssui-prodlist-facets-item.htm" />
+
+			<div class="o-layout o-layout--wide">
+				<div class="o-layout__item">
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="header" file="SRCH-header-item.htm" />
+							<mvt:if expr="l.settings:search_product_count EQ 0">
+								<p class="x-messages x-messages--info">No products matched your search criteria.</p>
+							</mvt:if>
+						</div>
+					</section>
+					
+					<mvt:if expr="NOT ISNULL g.Search">
+						<mvt:if expr="l.settings:search_product_count GT 0">
+							<mvt:item name="search_results" file="SRCH-prodlist-item.htm" />
+						</mvt:if>
+					</mvt:if>
+					
+					<section class="o-layout">
+						<div class="o-layout__item">
+							<mvt:item name="hdft" param="footer" file="SRCH-footer-item.htm" />
+						</div>
+					</section>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	<br>
+	
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

@@ -1,0 +1,292 @@
+/* ==========================================================================
+   UI / PLUGINS / SLICK
+   ========================================================================== */
+
+/**
+ * This is the standard CSS to use the Slick Slider. The code has been cleaned
+ * to remove obsolete code for unsupported browsers.
+ *
+ * Following the default code is the basic Slick theme styles. The code has
+ * been cleaned to remove obsolete code for unsupported browsers. Additionally,
+ * the code has been updated to use the ReadyTheme Font for icons.
+ *
+ * NOTE: If you wish to update this code, you must compare the new code
+ * carefully. All layout updates should be performed through your
+ * `theme-styles.css` file.
+ */
+
+/*
+ * Default Slider Styles
+ */
+.slick-slider {
+	box-sizing: border-box;
+	display: block;
+	position: relative;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.slick-list {
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.slick-list:focus {
+	outline: none;
+}
+
+.slick-list.dragging {
+	cursor: grab;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+	-webkit-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.slick-track::before,
+.slick-track::after {
+	display: table;
+	content: '';
+}
+
+.slick-track::after {
+	clear: both;
+}
+
+.slick-loading .slick-track {
+	visibility: hidden;
+}
+
+.slick-slide {
+	display: none;
+	height: 100%;
+	min-height: 1px;
+	float: left;
+}
+
+[dir='rtl'] .slick-slide {
+	float: right;
+}
+
+.slick-slide img {
+	display: block;
+}
+
+.slick-slide.slick-loading img {
+	display: none;
+}
+
+.slick-slide.dragging img {
+	pointer-events: none;
+}
+
+.slick-initialized .slick-slide {
+	display: block;
+}
+
+.slick-loading .slick-slide {
+	visibility: hidden;
+}
+
+.slick-vertical .slick-slide {
+	display: block;
+	height: auto;
+	border: 1px solid transparent;
+}
+
+.slick-arrow.slick-hidden {
+	display: none;
+}
+
+
+
+
+
+/*
+ * Default Slider Theme
+ */
+.slick-loading .slick-list {
+	background: #fff url('data:image/svg+xml,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="32px" height="32px" viewBox="0 0 128 128" xml:space="preserve"><g><path d="M78.75 16.18V1.56a64.1 64.1 0 0 1 47.7 47.7H111.8a49.98 49.98 0 0 0-33.07-33.08zM16.43 49.25H1.8a64.1 64.1 0 0 1 47.7-47.7V16.2a49.98 49.98 0 0 0-33.07 33.07zm33.07 62.32v14.62A64.1 64.1 0 0 1 1.8 78.5h14.63a49.98 49.98 0 0 0 33.07 33.07zm62.32-33.07h14.62a64.1 64.1 0 0 1-47.7 47.7v-14.63a49.98 49.98 0 0 0 33.08-33.07z" fill="#000000" fill-opacity="1"/><animateTransform attributeName="transform" type="rotate" from="-90 64 64" to="0 64 64" dur="400ms" repeatCount="indefinite"></animateTransform></g></svg>') center center no-repeat;
+}
+
+
+/* Arrows */
+.slick-prev,
+.slick-next {
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	position: absolute;
+	top: 50%;
+	font-size: 0;
+	line-height: 0;
+	background: transparent;
+	border: none;
+	color: transparent;
+	cursor: pointer;
+	outline: none;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+
+	.slick-prev:hover,
+	.slick-prev:focus,
+	.slick-next:hover,
+	.slick-next:focus {
+		color: transparent;
+		background: transparent;
+		outline: none;
+	}
+
+	.slick-prev:hover::before,
+	.slick-prev:focus::before,
+	.slick-next:hover::before,
+	.slick-next:focus::before {
+		opacity: 1;
+	}
+
+		.slick-prev.slick-disabled::before,
+		.slick-next.slick-disabled::before {
+			opacity: .25;
+		}
+
+	.slick-prev::before,
+	.slick-next::before {
+		font-family: 'ReadyTheme Icons', sans-serif;
+		font-size: 20px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		line-height: 1;
+		color: white;
+		opacity: .75;
+	}
+
+.slick-prev {
+	left: -25px;
+}
+
+	[dir='rtl'] .slick-prev {
+		right: -25px;
+		left: auto;
+	}
+
+	.slick-prev::before {
+		content: "\36";
+	}
+
+		[dir='rtl'] .slick-prev::before {
+			content: "\37";
+		}
+
+.slick-next {
+	right: -25px;
+}
+
+	[dir='rtl'] .slick-next {
+		right: auto;
+		left: -25px;
+	}
+
+	.slick-next::before {
+		content: "\37";
+	}
+
+		[dir='rtl'] .slick-next::before {
+			content: "\36";
+		}
+
+
+/* Dots */
+.slick-dotted.slick-slider {
+	margin-bottom: 30px;
+}
+
+.slick-dots {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	bottom: -25px;
+	list-style: none;
+	text-align: center;
+}
+
+	.slick-dots li {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		margin: 0 5px;
+		padding: 0;
+		position: relative;
+		cursor: pointer;
+	}
+
+		.slick-dots li button {
+			display: block;
+			width: 20px;
+			height: 20px;
+			padding: 5px;
+			font-size: 0;
+			line-height: 0;
+			background: transparent;
+			border: 0;
+			color: transparent;
+			cursor: pointer;
+			outline: none;
+		}
+
+			.slick-dots li button:hover,
+			.slick-dots li button:focus {
+				outline: none;
+			}
+
+				.slick-dots li button:hover::before,
+				.slick-dots li button:focus::before {
+					opacity: 1;
+				}
+
+			.slick-dots li button::before {
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				font-size: 6px;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				line-height: 20px;
+				text-align: center;
+				color: black;
+				content: "\2022";
+				opacity: .25;
+			}
+
+			.slick-dots li.slick-active button::before {
+				opacity: .75;
+				color: black;
+			}
+

@@ -1,0 +1,45 @@
+/* ==========================================================================
+   EXTENSIONS / PRODUCT LAYOUT / PRODUCT LAYOUT
+   ========================================================================== */
+
+
+/**
+ * This is the default product layout for the product page.
+ */
+
+.x-product-layout {}
+
+	.x-product-layout-images {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+		.x-product-layout-images__image {
+			display: inline-block;
+			margin-bottom: calc(16px * 1.5);
+		}
+
+		.x-product-layout-images__thumbnail-list {}
+
+		.x-product-layout-images__thumbnail-image {
+			margin-bottom: 16px;
+		}
+
+
+	.x-product-layout-purchase {}
+
+		.x-product-layout-purchase__pricing-original {
+			padding-right: calc(16px * 1.5);
+		}
+
+			.x-product-layout-purchase__options-attribute {
+				margin-bottom: calc(16px / 2);
+			}
+
+				.x-product-layout-purchase__options-attribute .c-form-label {
+					font-size: 0.875rem;
+				}
+
+				.x-product-layout-purchase__swatches--active {
+					box-shadow: 0 0 0 2px #eaeaea, 0 0 3px 3px #707070;
+				}

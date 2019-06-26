@@ -1,0 +1,1584 @@
+<form class="t-basket__shipping-form" data-hook="shipping-estimate-form" method="post" name="shipestimate_form" action="&mvte:urls:SERT:auto;" target="calculate-shipping">
+	<fieldset>
+		<legend>Estimate Shipping</legend>
+		<ul class="c-form-list" data-hook="shipping-estimate-fields">
+			<li class="c-form-list__item">
+				<label class="c-form-label u-text-bold u-font-tiny" for="shipestimate_state_select" title="State">State</label>
+				<div class="c-form-select">
+					<select id="shipestimate_state_select" class="c-form-select__dropdown" name="ShipEstimate:ship_state_select">
+						<option value="">Outside US</option>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'AK'">
+							<option value="AK" selected>Alaska</option>
+						<mvt:else>
+							<option value="AK">Alaska</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'AL'">
+							<option value="AL" selected>Alabama</option>
+						<mvt:else>
+							<option value="AL">Alabama</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'AR'">
+							<option value="AR" selected>Arkansas</option>
+						<mvt:else>
+							<option value="AR">Arkansas</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'AZ'">
+							<option value="AZ" selected>Arizona</option>
+						<mvt:else>
+							<option value="AZ">Arizona</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'CA'">
+							<option value="CA" selected>California</option>
+						<mvt:else>
+							<option value="CA">California</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'CO'">
+							<option value="CO" selected>Colorado</option>
+						<mvt:else>
+							<option value="CO">Colorado</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'CT'">
+							<option value="CT" selected>Connecticut</option>
+						<mvt:else>
+							<option value="CT">Connecticut</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'DC'">
+							<option value="DC" selected>District of Columbia</option>
+						<mvt:else>
+							<option value="DC">District of Columbia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'DE'">
+							<option value="DE" selected>Delaware</option>
+						<mvt:else>
+							<option value="DE">Delaware</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'FL'">
+							<option value="FL" selected>Florida</option>
+						<mvt:else>
+							<option value="FL">Florida</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'GA'">
+							<option value="GA" selected>Georgia</option>
+						<mvt:else>
+							<option value="GA">Georgia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'HI'">
+							<option value="HI" selected>Hawaii</option>
+						<mvt:else>
+							<option value="HI">Hawaii</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'IA'">
+							<option value="IA" selected>Iowa</option>
+						<mvt:else>
+							<option value="IA">Iowa</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'ID'">
+							<option value="ID" selected>Idaho</option>
+						<mvt:else>
+							<option value="ID">Idaho</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'IL'">
+							<option value="IL" selected>Illinois</option>
+						<mvt:else>
+							<option value="IL">Illinois</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'IN'">
+							<option value="IN" selected>Indiana</option>
+						<mvt:else>
+							<option value="IN">Indiana</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'KS'">
+							<option value="KS" selected>Kansas</option>
+						<mvt:else>
+							<option value="KS">Kansas</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'KY'">
+							<option value="KY" selected>Kentucky</option>
+						<mvt:else>
+							<option value="KY">Kentucky</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'LA'">
+							<option value="LA" selected>Louisiana</option>
+						<mvt:else>
+							<option value="LA">Louisiana</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'MA'">
+							<option value="MA" selected>Massachusetts</option>
+						<mvt:else>
+							<option value="MA">Massachusetts</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'MD'">
+							<option value="MD" selected>Maryland</option>
+						<mvt:else>
+							<option value="MD">Maryland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'ME'">
+							<option value="ME" selected>Maine</option>
+						<mvt:else>
+							<option value="ME">Maine</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'MI'">
+							<option value="MI" selected>Michigan</option>
+						<mvt:else>
+							<option value="MI">Michigan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'MN'">
+							<option value="MN" selected>Minnesota</option>
+						<mvt:else>
+							<option value="MN">Minnesota</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'MO'">
+							<option value="MO" selected>Missouri</option>
+						<mvt:else>
+							<option value="MO">Missouri</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'MS'">
+							<option value="MS" selected>Mississippi</option>
+						<mvt:else>
+							<option value="MS">Mississippi</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'MT'">
+							<option value="MT" selected>Montana</option>
+						<mvt:else>
+							<option value="MT">Montana</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'NC'">
+							<option value="NC" selected>North Carolina</option>
+						<mvt:else>
+							<option value="NC">North Carolina</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'ND'">
+							<option value="ND" selected>North Dakota</option>
+						<mvt:else>
+							<option value="ND">North Dakota</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'NE'">
+							<option value="NE" selected>Nebraska</option>
+						<mvt:else>
+							<option value="NE">Nebraska</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'NH'">
+							<option value="NH" selected>New Hampshire</option>
+						<mvt:else>
+							<option value="NH">New Hampshire</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'NJ'">
+							<option value="NJ" selected>New Jersey</option>
+						<mvt:else>
+							<option value="NJ">New Jersey</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'NM'">
+							<option value="NM" selected>New Mexico</option>
+						<mvt:else>
+							<option value="NM">New Mexico</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'NV'">
+							<option value="NV" selected>Nevada</option>
+						<mvt:else>
+							<option value="NV">Nevada</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'NY'">
+							<option value="NY" selected>New York</option>
+						<mvt:else>
+							<option value="NY">New York</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'OH'">
+							<option value="OH" selected>Ohio</option>
+						<mvt:else>
+							<option value="OH">Ohio</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'OK'">
+							<option value="OK" selected>Oklahoma</option>
+						<mvt:else>
+							<option value="OK">Oklahoma</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'OR'">
+							<option value="OR" selected>Oregon</option>
+						<mvt:else>
+							<option value="OR">Oregon</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'PA'">
+							<option value="PA" selected>Pennsylvania</option>
+						<mvt:else>
+							<option value="PA">Pennsylvania</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'RI'">
+							<option value="RI" selected>Rhode Island</option>
+						<mvt:else>
+							<option value="RI">Rhode Island</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'SC'">
+							<option value="SC" selected>South Carolina</option>
+						<mvt:else>
+							<option value="SC">South Carolina</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'SD'">
+							<option value="SD" selected>South Dakota</option>
+						<mvt:else>
+							<option value="SD">South Dakota</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'TN'">
+							<option value="TN" selected>Tennessee</option>
+						<mvt:else>
+							<option value="TN">Tennessee</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'TX'">
+							<option value="TX" selected>Texas</option>
+						<mvt:else>
+							<option value="TX">Texas</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'UT'">
+							<option value="UT" selected>Utah</option>
+						<mvt:else>
+							<option value="UT">Utah</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'VA'">
+							<option value="VA" selected>Virginia</option>
+						<mvt:else>
+							<option value="VA">Virginia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'VT'">
+							<option value="VT" selected>Vermont</option>
+						<mvt:else>
+							<option value="VT">Vermont</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'WA'">
+							<option value="WA" selected>Washington</option>
+						<mvt:else>
+							<option value="WA">Washington</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'WI'">
+							<option value="WI" selected>Wisconsin</option>
+						<mvt:else>
+							<option value="WI">Wisconsin</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'WV'">
+							<option value="WV" selected>West Virginia</option>
+						<mvt:else>
+							<option value="WV">West Virginia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_state_select EQ 'WY'">
+							<option value="WY" selected>Wyoming</option>
+						<mvt:else>
+							<option value="WY">Wyoming</option>
+						</mvt:if>
+					</select>
+				</div>
+			</li>
+			<li class="c-form-list__item">
+				<label class="c-form-label u-text-bold u-font-tiny" for="shipestimate_state">Other State/Province</label>
+				<input id="shipestimate_state" class="c-form-input c-form-input--large" type="text" name="ShipEstimate:ship_state" value="&mvte:global:ShipEstimate:ship_state;">
+			</li>
+			<li class="c-form-list__item">
+				<label class="c-form-label u-text-bold u-font-tiny" for="shipestimate_zip">Zip/Postal Code</label>
+				<input id="shipestimate_zip" class="c-form-input c-form-input--large" type="text" name="ShipEstimate:ship_zip" value="&mvte:global:ShipEstimate:ship_zip;">
+			</li>
+			<li class="c-form-list__item">
+				<label class="c-form-label u-text-bold u-font-tiny" for="shipestimate_cntry" title="Country">Country</label>
+				<div class="c-form-select">
+					<select id="shipestimate_cntry" class="c-form-select__dropdown" name="ShipEstimate:ship_cntry">
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AF'">
+							<option value="AF" selected>Afghanistan</option>
+						<mvt:else>
+							<option value="AF">Afghanistan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AX'">
+							<option value="AX" selected>Aland Islands</option>
+						<mvt:else>
+							<option value="AX">Aland Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AL'">
+							<option value="AL" selected>Albania</option>
+						<mvt:else>
+							<option value="AL">Albania</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'DZ'">
+							<option value="DZ" selected>Algeria</option>
+						<mvt:else>
+							<option value="DZ">Algeria</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AS'">
+							<option value="AS" selected>American Samoa</option>
+						<mvt:else>
+							<option value="AS">American Samoa</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AD'">
+							<option value="AD" selected>Andorra</option>
+						<mvt:else>
+							<option value="AD">Andorra</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AO'">
+							<option value="AO" selected>Angola</option>
+						<mvt:else>
+							<option value="AO">Angola</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AI'">
+							<option value="AI" selected>Anguilla</option>
+						<mvt:else>
+							<option value="AI">Anguilla</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AQ'">
+							<option value="AQ" selected>Antarctica</option>
+						<mvt:else>
+							<option value="AQ">Antarctica</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AG'">
+							<option value="AG" selected>Antigua</option>
+						<mvt:else>
+							<option value="AG">Antigua</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AR'">
+							<option value="AR" selected>Argentina</option>
+						<mvt:else>
+							<option value="AR">Argentina</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AM'">
+							<option value="AM" selected>Armenia</option>
+						<mvt:else>
+							<option value="AM">Armenia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AW'">
+							<option value="AW" selected>Aruba</option>
+						<mvt:else>
+							<option value="AW">Aruba</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AU'">
+							<option value="AU" selected>Australia</option>
+						<mvt:else>
+							<option value="AU">Australia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AT'">
+							<option value="AT" selected>Austria</option>
+						<mvt:else>
+							<option value="AT">Austria</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AZ'">
+							<option value="AZ" selected>Azerbaijan</option>
+						<mvt:else>
+							<option value="AZ">Azerbaijan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BS'">
+							<option value="BS" selected>Bahamas</option>
+						<mvt:else>
+							<option value="BS">Bahamas</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BH'">
+							<option value="BH" selected>Bahrain</option>
+						<mvt:else>
+							<option value="BH">Bahrain</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BD'">
+							<option value="BD" selected>Bangladesh</option>
+						<mvt:else>
+							<option value="BD">Bangladesh</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BB'">
+							<option value="BB" selected>Barbados</option>
+						<mvt:else>
+							<option value="BB">Barbados</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AG'">
+							<option value="AG" selected>Barbuda</option>
+						<mvt:else>
+							<option value="AG">Barbuda</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BY'">
+							<option value="BY" selected>Belarus</option>
+						<mvt:else>
+							<option value="BY">Belarus</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BE'">
+							<option value="BE" selected>Belgium</option>
+						<mvt:else>
+							<option value="BE">Belgium</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BZ'">
+							<option value="BZ" selected>Belize</option>
+						<mvt:else>
+							<option value="BZ">Belize</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BJ'">
+							<option value="BJ" selected>Benin</option>
+						<mvt:else>
+							<option value="BJ">Benin</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BM'">
+							<option value="BM" selected>Bermuda</option>
+						<mvt:else>
+							<option value="BM">Bermuda</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BT'">
+							<option value="BT" selected>Bhutan</option>
+						<mvt:else>
+							<option value="BT">Bhutan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BO'">
+							<option value="BO" selected>Bolivia</option>
+						<mvt:else>
+							<option value="BO">Bolivia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BA'">
+							<option value="BA" selected>Bosnia</option>
+						<mvt:else>
+							<option value="BA">Bosnia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BW'">
+							<option value="BW" selected>Botswana</option>
+						<mvt:else>
+							<option value="BW">Botswana</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BV'">
+							<option value="BV" selected>Bouvet Island</option>
+						<mvt:else>
+							<option value="BV">Bouvet Island</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BR'">
+							<option value="BR" selected>Brazil</option>
+						<mvt:else>
+							<option value="BR">Brazil</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IO'">
+							<option value="IO" selected>British Indian Ocean Trty.</option>
+						<mvt:else>
+							<option value="IO">British Indian Ocean Trty.</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BN'">
+							<option value="BN" selected>Brunei Darussalam</option>
+						<mvt:else>
+							<option value="BN">Brunei Darussalam</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BG'">
+							<option value="BG" selected>Bulgaria</option>
+						<mvt:else>
+							<option value="BG">Bulgaria</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BF'">
+							<option value="BF" selected>Burkina Faso</option>
+						<mvt:else>
+							<option value="BF">Burkina Faso</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BI'">
+							<option value="BI" selected>Burundi</option>
+						<mvt:else>
+							<option value="BI">Burundi</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TC'">
+							<option value="TC" selected>Caicos Islands</option>
+						<mvt:else>
+							<option value="TC">Caicos Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KH'">
+							<option value="KH" selected>Cambodia</option>
+						<mvt:else>
+							<option value="KH">Cambodia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CM'">
+							<option value="CM" selected>Cameroon</option>
+						<mvt:else>
+							<option value="CM">Cameroon</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CA'">
+							<option value="CA" selected>Canada</option>
+						<mvt:else>
+							<option value="CA">Canada</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CV'">
+							<option value="CV" selected>Cape Verde</option>
+						<mvt:else>
+							<option value="CV">Cape Verde</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KY'">
+							<option value="KY" selected>Cayman Islands</option>
+						<mvt:else>
+							<option value="KY">Cayman Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CF'">
+							<option value="CF" selected>Central African Republic</option>
+						<mvt:else>
+							<option value="CF">Central African Republic</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TD'">
+							<option value="TD" selected>Chad</option>
+						<mvt:else>
+							<option value="TD">Chad</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CL'">
+							<option value="CL" selected>Chile</option>
+						<mvt:else>
+							<option value="CL">Chile</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CN'">
+							<option value="CN" selected>China</option>
+						<mvt:else>
+							<option value="CN">China</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CX'">
+							<option value="CX" selected>Christmas Island</option>
+						<mvt:else>
+							<option value="CX">Christmas Island</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CC'">
+							<option value="CC" selected>Cocos &#40;Keeling&#41; Islands</option>
+						<mvt:else>
+							<option value="CC">Cocos &#40;Keeling&#41; Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CO'">
+							<option value="CO" selected>Colombia</option>
+						<mvt:else>
+							<option value="CO">Colombia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KM'">
+							<option value="KM" selected>Comoros</option>
+						<mvt:else>
+							<option value="KM">Comoros</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CG'">
+							<option value="CG" selected>Congo</option>
+						<mvt:else>
+							<option value="CG">Congo</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CD'">
+							<option value="CD" selected>Congo, Democratic Republic of the</option>
+						<mvt:else>
+							<option value="CD">Congo, Democratic Republic of the</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CK'">
+							<option value="CK" selected>Cook Islands</option>
+						<mvt:else>
+							<option value="CK">Cook Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CR'">
+							<option value="CR" selected>Costa Rica</option>
+						<mvt:else>
+							<option value="CR">Costa Rica</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CI'">
+							<option value="CI" selected>Cote d'Ivoire</option>
+						<mvt:else>
+							<option value="CI">Cote d'Ivoire</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'HR'">
+							<option value="HR" selected>Croatia</option>
+						<mvt:else>
+							<option value="HR">Croatia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CU'">
+							<option value="CU" selected>Cuba</option>
+						<mvt:else>
+							<option value="CU">Cuba</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CY'">
+							<option value="CY" selected>Cyprus</option>
+						<mvt:else>
+							<option value="CY">Cyprus</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CZ'">
+							<option value="CZ" selected>Czech Republic</option>
+						<mvt:else>
+							<option value="CZ">Czech Republic</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'DK'">
+							<option value="DK" selected>Denmark</option>
+						<mvt:else>
+							<option value="DK">Denmark</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'DJ'">
+							<option value="DJ" selected>Djibouti</option>
+						<mvt:else>
+							<option value="DJ">Djibouti</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'DM'">
+							<option value="DM" selected>Dominica</option>
+						<mvt:else>
+							<option value="DM">Dominica</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'DO'">
+							<option value="DO" selected>Dominican Republic</option>
+						<mvt:else>
+							<option value="DO">Dominican Republic</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'EC'">
+							<option value="EC" selected>Ecuador</option>
+						<mvt:else>
+							<option value="EC">Ecuador</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'EG'">
+							<option value="EG" selected>Egypt</option>
+						<mvt:else>
+							<option value="EG">Egypt</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SV'">
+							<option value="SV" selected>El Salvador</option>
+						<mvt:else>
+							<option value="SV">El Salvador</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GQ'">
+							<option value="GQ" selected>Equatorial Guinea</option>
+						<mvt:else>
+							<option value="GQ">Equatorial Guinea</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ER'">
+							<option value="ER" selected>Eritrea</option>
+						<mvt:else>
+							<option value="ER">Eritrea</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'EE'">
+							<option value="EE" selected>Estonia</option>
+						<mvt:else>
+							<option value="EE">Estonia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ET'">
+							<option value="ET" selected>Ethiopia</option>
+						<mvt:else>
+							<option value="ET">Ethiopia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'FK'">
+							<option value="FK" selected>Falkland Islands &#40;Malvinas&#41;</option>
+						<mvt:else>
+							<option value="FK">Falkland Islands &#40;Malvinas&#41;</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'FO'">
+							<option value="FO" selected>Faroe Islands</option>
+						<mvt:else>
+							<option value="FO">Faroe Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'FJ'">
+							<option value="FJ" selected>Fiji</option>
+						<mvt:else>
+							<option value="FJ">Fiji</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'FI'">
+							<option value="FI" selected>Finland</option>
+						<mvt:else>
+							<option value="FI">Finland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'FR'">
+							<option value="FR" selected>France</option>
+						<mvt:else>
+							<option value="FR">France</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GF'">
+							<option value="GF" selected>French Guiana</option>
+						<mvt:else>
+							<option value="GF">French Guiana</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PF'">
+							<option value="PF" selected>French Polynesia</option>
+						<mvt:else>
+							<option value="PF">French Polynesia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TF'">
+							<option value="TF" selected>French Southern Territories</option>
+						<mvt:else>
+							<option value="TF">French Southern Territories</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'WF'">
+							<option value="WF" selected>Futuna Islands</option>
+						<mvt:else>
+							<option value="WF">Futuna Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GA'">
+							<option value="GA" selected>Gabon</option>
+						<mvt:else>
+							<option value="GA">Gabon</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GM'">
+							<option value="GM" selected>Gambia</option>
+						<mvt:else>
+							<option value="GM">Gambia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GE'">
+							<option value="GE" selected>Georgia</option>
+						<mvt:else>
+							<option value="GE">Georgia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'DE'">
+							<option value="DE" selected>Germany</option>
+						<mvt:else>
+							<option value="DE">Germany</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GH'">
+							<option value="GH" selected>Ghana</option>
+						<mvt:else>
+							<option value="GH">Ghana</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GI'">
+							<option value="GI" selected>Gibraltar</option>
+						<mvt:else>
+							<option value="GI">Gibraltar</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GR'">
+							<option value="GR" selected>Greece</option>
+						<mvt:else>
+							<option value="GR">Greece</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GL'">
+							<option value="GL" selected>Greenland</option>
+						<mvt:else>
+							<option value="GL">Greenland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GD'">
+							<option value="GD" selected>Grenada</option>
+						<mvt:else>
+							<option value="GD">Grenada</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GP'">
+							<option value="GP" selected>Guadeloupe</option>
+						<mvt:else>
+							<option value="GP">Guadeloupe</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GU'">
+							<option value="GU" selected>Guam</option>
+						<mvt:else>
+							<option value="GU">Guam</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GT'">
+							<option value="GT" selected>Guatemala</option>
+						<mvt:else>
+							<option value="GT">Guatemala</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GG'">
+							<option value="GG" selected>Guernsey</option>
+						<mvt:else>
+							<option value="GG">Guernsey</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GN'">
+							<option value="GN" selected>Guinea</option>
+						<mvt:else>
+							<option value="GN">Guinea</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GW'">
+							<option value="GW" selected>Guinea-Bissau</option>
+						<mvt:else>
+							<option value="GW">Guinea-Bissau</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GY'">
+							<option value="GY" selected>Guyana</option>
+						<mvt:else>
+							<option value="GY">Guyana</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'HT'">
+							<option value="HT" selected>Haiti</option>
+						<mvt:else>
+							<option value="HT">Haiti</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'HM'">
+							<option value="HM" selected>Heard</option>
+						<mvt:else>
+							<option value="HM">Heard</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BA'">
+							<option value="BA" selected>Herzegovina</option>
+						<mvt:else>
+							<option value="BA">Herzegovina</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VA'">
+							<option value="VA" selected>Holy See</option>
+						<mvt:else>
+							<option value="VA">Holy See</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'HN'">
+							<option value="HN" selected>Honduras</option>
+						<mvt:else>
+							<option value="HN">Honduras</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'HK'">
+							<option value="HK" selected>Hong Kong</option>
+						<mvt:else>
+							<option value="HK">Hong Kong</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'HU'">
+							<option value="HU" selected>Hungary</option>
+						<mvt:else>
+							<option value="HU">Hungary</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IS'">
+							<option value="IS" selected>Iceland</option>
+						<mvt:else>
+							<option value="IS">Iceland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IN'">
+							<option value="IN" selected>India</option>
+						<mvt:else>
+							<option value="IN">India</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ID'">
+							<option value="ID" selected>Indonesia</option>
+						<mvt:else>
+							<option value="ID">Indonesia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IR'">
+							<option value="IR" selected>Iran &#40;Islamic Republic of&#41;</option>
+						<mvt:else>
+							<option value="IR">Iran &#40;Islamic Republic of&#41;</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IQ'">
+							<option value="IQ" selected>Iraq</option>
+						<mvt:else>
+							<option value="IQ">Iraq</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IE'">
+							<option value="IE" selected>Ireland</option>
+						<mvt:else>
+							<option value="IE">Ireland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IM'">
+							<option value="IM" selected>Isle of Man</option>
+						<mvt:else>
+							<option value="IM">Isle of Man</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IL'">
+							<option value="IL" selected>Israel</option>
+						<mvt:else>
+							<option value="IL">Israel</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'IT'">
+							<option value="IT" selected>Italy</option>
+						<mvt:else>
+							<option value="IT">Italy</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'JM'">
+							<option value="JM" selected>Jamaica</option>
+						<mvt:else>
+							<option value="JM">Jamaica</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SJ'">
+							<option value="SJ" selected>Jan Mayen Islands</option>
+						<mvt:else>
+							<option value="SJ">Jan Mayen Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'JP'">
+							<option value="JP" selected>Japan</option>
+						<mvt:else>
+							<option value="JP">Japan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'JE'">
+							<option value="JE" selected>Jersey</option>
+						<mvt:else>
+							<option value="JE">Jersey</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'JO'">
+							<option value="JO" selected>Jordan</option>
+						<mvt:else>
+							<option value="JO">Jordan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KZ'">
+							<option value="KZ" selected>Kazakhstan</option>
+						<mvt:else>
+							<option value="KZ">Kazakhstan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KE'">
+							<option value="KE" selected>Kenya</option>
+						<mvt:else>
+							<option value="KE">Kenya</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KI'">
+							<option value="KI" selected>Kiribati</option>
+						<mvt:else>
+							<option value="KI">Kiribati</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KR'">
+							<option value="KR" selected>Korea</option>
+						<mvt:else>
+							<option value="KR">Korea</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KP'">
+							<option value="KP" selected>Korea &#40;Democratic&#41;</option>
+						<mvt:else>
+							<option value="KP">Korea &#40;Democratic&#41;</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KW'">
+							<option value="KW" selected>Kuwait</option>
+						<mvt:else>
+							<option value="KW">Kuwait</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KG'">
+							<option value="KG" selected>Kyrgyzstan</option>
+						<mvt:else>
+							<option value="KG">Kyrgyzstan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LA'">
+							<option value="LA" selected>Lao</option>
+						<mvt:else>
+							<option value="LA">Lao</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LV'">
+							<option value="LV" selected>Latvia</option>
+						<mvt:else>
+							<option value="LV">Latvia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LB'">
+							<option value="LB" selected>Lebanon</option>
+						<mvt:else>
+							<option value="LB">Lebanon</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LS'">
+							<option value="LS" selected>Lesotho</option>
+						<mvt:else>
+							<option value="LS">Lesotho</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LR'">
+							<option value="LR" selected>Liberia</option>
+						<mvt:else>
+							<option value="LR">Liberia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LY'">
+							<option value="LY" selected>Libyan Arab Jamahiriya</option>
+						<mvt:else>
+							<option value="LY">Libyan Arab Jamahiriya</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LI'">
+							<option value="LI" selected>Liechtenstein</option>
+						<mvt:else>
+							<option value="LI">Liechtenstein</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LT'">
+							<option value="LT" selected>Lithuania</option>
+						<mvt:else>
+							<option value="LT">Lithuania</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LU'">
+							<option value="LU" selected>Luxembourg</option>
+						<mvt:else>
+							<option value="LU">Luxembourg</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MO'">
+							<option value="MO" selected>Macao</option>
+						<mvt:else>
+							<option value="MO">Macao</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MK'">
+							<option value="MK" selected>Macedonia</option>
+						<mvt:else>
+							<option value="MK">Macedonia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MG'">
+							<option value="MG" selected>Madagascar</option>
+						<mvt:else>
+							<option value="MG">Madagascar</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MW'">
+							<option value="MW" selected>Malawi</option>
+						<mvt:else>
+							<option value="MW">Malawi</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MY'">
+							<option value="MY" selected>Malaysia</option>
+						<mvt:else>
+							<option value="MY">Malaysia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MV'">
+							<option value="MV" selected>Maldives</option>
+						<mvt:else>
+							<option value="MV">Maldives</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ML'">
+							<option value="ML" selected>Mali</option>
+						<mvt:else>
+							<option value="ML">Mali</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MT'">
+							<option value="MT" selected>Malta</option>
+						<mvt:else>
+							<option value="MT">Malta</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MH'">
+							<option value="MH" selected>Marshall Islands</option>
+						<mvt:else>
+							<option value="MH">Marshall Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MQ'">
+							<option value="MQ" selected>Martinique</option>
+						<mvt:else>
+							<option value="MQ">Martinique</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MR'">
+							<option value="MR" selected>Mauritania</option>
+						<mvt:else>
+							<option value="MR">Mauritania</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MU'">
+							<option value="MU" selected>Mauritius</option>
+						<mvt:else>
+							<option value="MU">Mauritius</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'YT'">
+							<option value="YT" selected>Mayotte</option>
+						<mvt:else>
+							<option value="YT">Mayotte</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'HM'">
+							<option value="HM" selected>McDonald Islands</option>
+						<mvt:else>
+							<option value="HM">McDonald Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MX'">
+							<option value="MX" selected>Mexico</option>
+						<mvt:else>
+							<option value="MX">Mexico</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'FM'">
+							<option value="FM" selected>Micronesia</option>
+						<mvt:else>
+							<option value="FM">Micronesia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PM'">
+							<option value="PM" selected>Miquelon</option>
+						<mvt:else>
+							<option value="PM">Miquelon</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MD'">
+							<option value="MD" selected>Moldova</option>
+						<mvt:else>
+							<option value="MD">Moldova</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MC'">
+							<option value="MC" selected>Monaco</option>
+						<mvt:else>
+							<option value="MC">Monaco</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MN'">
+							<option value="MN" selected>Mongolia</option>
+						<mvt:else>
+							<option value="MN">Mongolia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ME'">
+							<option value="ME" selected>Montenegro</option>
+						<mvt:else>
+							<option value="ME">Montenegro</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MS'">
+							<option value="MS" selected>Montserrat</option>
+						<mvt:else>
+							<option value="MS">Montserrat</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MA'">
+							<option value="MA" selected>Morocco</option>
+						<mvt:else>
+							<option value="MA">Morocco</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MZ'">
+							<option value="MZ" selected>Mozambique</option>
+						<mvt:else>
+							<option value="MZ">Mozambique</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MM'">
+							<option value="MM" selected>Myanmar</option>
+						<mvt:else>
+							<option value="MM">Myanmar</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NA'">
+							<option value="NA" selected>Namibia</option>
+						<mvt:else>
+							<option value="NA">Namibia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NR'">
+							<option value="NR" selected>Nauru</option>
+						<mvt:else>
+							<option value="NR">Nauru</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NP'">
+							<option value="NP" selected>Nepal</option>
+						<mvt:else>
+							<option value="NP">Nepal</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NL'">
+							<option value="NL" selected>Netherlands</option>
+						<mvt:else>
+							<option value="NL">Netherlands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AN'">
+							<option value="AN" selected>Netherlands Antilles</option>
+						<mvt:else>
+							<option value="AN">Netherlands Antilles</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KN'">
+							<option value="KN" selected>Nevis</option>
+						<mvt:else>
+							<option value="KN">Nevis</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NC'">
+							<option value="NC" selected>New Caledonia</option>
+						<mvt:else>
+							<option value="NC">New Caledonia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NZ'">
+							<option value="NZ" selected>New Zealand</option>
+						<mvt:else>
+							<option value="NZ">New Zealand</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NI'">
+							<option value="NI" selected>Nicaragua</option>
+						<mvt:else>
+							<option value="NI">Nicaragua</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NE'">
+							<option value="NE" selected>Niger</option>
+						<mvt:else>
+							<option value="NE">Niger</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NG'">
+							<option value="NG" selected>Nigeria</option>
+						<mvt:else>
+							<option value="NG">Nigeria</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NU'">
+							<option value="NU" selected>Niue</option>
+						<mvt:else>
+							<option value="NU">Niue</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NF'">
+							<option value="NF" selected>Norfolk Island</option>
+						<mvt:else>
+							<option value="NF">Norfolk Island</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MP'">
+							<option value="MP" selected>Northern Mariana Islands</option>
+						<mvt:else>
+							<option value="MP">Northern Mariana Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'NO'">
+							<option value="NO" selected>Norway</option>
+						<mvt:else>
+							<option value="NO">Norway</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'OM'">
+							<option value="OM" selected>Oman</option>
+						<mvt:else>
+							<option value="OM">Oman</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PK'">
+							<option value="PK" selected>Pakistan</option>
+						<mvt:else>
+							<option value="PK">Pakistan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PW'">
+							<option value="PW" selected>Palau</option>
+						<mvt:else>
+							<option value="PW">Palau</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PS'">
+							<option value="PS" selected>Palestinian Territory, Occupied</option>
+						<mvt:else>
+							<option value="PS">Palestinian Territory, Occupied</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PA'">
+							<option value="PA" selected>Panama</option>
+						<mvt:else>
+							<option value="PA">Panama</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PG'">
+							<option value="PG" selected>Papua New Guinea</option>
+						<mvt:else>
+							<option value="PG">Papua New Guinea</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PY'">
+							<option value="PY" selected>Paraguay</option>
+						<mvt:else>
+							<option value="PY">Paraguay</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PE'">
+							<option value="PE" selected>Peru</option>
+						<mvt:else>
+							<option value="PE">Peru</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PH'">
+							<option value="PH" selected>Philippines</option>
+						<mvt:else>
+							<option value="PH">Philippines</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PN'">
+							<option value="PN" selected>Pitcairn</option>
+						<mvt:else>
+							<option value="PN">Pitcairn</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PL'">
+							<option value="PL" selected>Poland</option>
+						<mvt:else>
+							<option value="PL">Poland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PT'">
+							<option value="PT" selected>Portugal</option>
+						<mvt:else>
+							<option value="PT">Portugal</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ST'">
+							<option value="ST" selected>Principe</option>
+						<mvt:else>
+							<option value="ST">Principe</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PR'">
+							<option value="PR" selected>Puerto Rico</option>
+						<mvt:else>
+							<option value="PR">Puerto Rico</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'QA'">
+							<option value="QA" selected>Qatar</option>
+						<mvt:else>
+							<option value="QA">Qatar</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'RE'">
+							<option value="RE" selected>Reunion</option>
+						<mvt:else>
+							<option value="RE">Reunion</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'RO'">
+							<option value="RO" selected>Romania</option>
+						<mvt:else>
+							<option value="RO">Romania</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'RU'">
+							<option value="RU" selected>Russian Federation</option>
+						<mvt:else>
+							<option value="RU">Russian Federation</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'RW'">
+							<option value="RW" selected>Rwanda</option>
+						<mvt:else>
+							<option value="RW">Rwanda</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'BL'">
+							<option value="BL" selected>Saint Barthelemy</option>
+						<mvt:else>
+							<option value="BL">Saint Barthelemy</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SH'">
+							<option value="SH" selected>Saint Helena</option>
+						<mvt:else>
+							<option value="SH">Saint Helena</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'KN'">
+							<option value="KN" selected>Saint Kitts</option>
+						<mvt:else>
+							<option value="KN">Saint Kitts</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LC'">
+							<option value="LC" selected>Saint Lucia</option>
+						<mvt:else>
+							<option value="LC">Saint Lucia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'MF'">
+							<option value="MF" selected>Saint Martin &#40;French part&#41;</option>
+						<mvt:else>
+							<option value="MF">Saint Martin &#40;French part&#41;</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'PM'">
+							<option value="PM" selected>Saint Pierre</option>
+						<mvt:else>
+							<option value="PM">Saint Pierre</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VC'">
+							<option value="VC" selected>Saint Vincent</option>
+						<mvt:else>
+							<option value="VC">Saint Vincent</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'WS'">
+							<option value="WS" selected>Samoa</option>
+						<mvt:else>
+							<option value="WS">Samoa</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SM'">
+							<option value="SM" selected>San Marino</option>
+						<mvt:else>
+							<option value="SM">San Marino</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ST'">
+							<option value="ST" selected>Sao Tome</option>
+						<mvt:else>
+							<option value="ST">Sao Tome</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SA'">
+							<option value="SA" selected>Saudi Arabia</option>
+						<mvt:else>
+							<option value="SA">Saudi Arabia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SN'">
+							<option value="SN" selected>Senegal</option>
+						<mvt:else>
+							<option value="SN">Senegal</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'RS'">
+							<option value="RS" selected>Serbia</option>
+						<mvt:else>
+							<option value="RS">Serbia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SC'">
+							<option value="SC" selected>Seychelles</option>
+						<mvt:else>
+							<option value="SC">Seychelles</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SL'">
+							<option value="SL" selected>Sierra Leone</option>
+						<mvt:else>
+							<option value="SL">Sierra Leone</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SG'">
+							<option value="SG" selected>Singapore</option>
+						<mvt:else>
+							<option value="SG">Singapore</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SK'">
+							<option value="SK" selected>Slovakia</option>
+						<mvt:else>
+							<option value="SK">Slovakia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SI'">
+							<option value="SI" selected>Slovenia</option>
+						<mvt:else>
+							<option value="SI">Slovenia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SB'">
+							<option value="SB" selected>Solomon Islands</option>
+						<mvt:else>
+							<option value="SB">Solomon Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SO'">
+							<option value="SO" selected>Somalia</option>
+						<mvt:else>
+							<option value="SO">Somalia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ZA'">
+							<option value="ZA" selected>South Africa</option>
+						<mvt:else>
+							<option value="ZA">South Africa</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GS'">
+							<option value="GS" selected>South Georgia</option>
+						<mvt:else>
+							<option value="GS">South Georgia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GS'">
+							<option value="GS" selected>South Sandwich Islands</option>
+						<mvt:else>
+							<option value="GS">South Sandwich Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ES'">
+							<option value="ES" selected>Spain</option>
+						<mvt:else>
+							<option value="ES">Spain</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'LK'">
+							<option value="LK" selected>Sri Lanka</option>
+						<mvt:else>
+							<option value="LK">Sri Lanka</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SD'">
+							<option value="SD" selected>Sudan</option>
+						<mvt:else>
+							<option value="SD">Sudan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SR'">
+							<option value="SR" selected>Suriname</option>
+						<mvt:else>
+							<option value="SR">Suriname</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SJ'">
+							<option value="SJ" selected>Svalbard</option>
+						<mvt:else>
+							<option value="SJ">Svalbard</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SZ'">
+							<option value="SZ" selected>Swaziland</option>
+						<mvt:else>
+							<option value="SZ">Swaziland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SE'">
+							<option value="SE" selected>Sweden</option>
+						<mvt:else>
+							<option value="SE">Sweden</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'CH'">
+							<option value="CH" selected>Switzerland</option>
+						<mvt:else>
+							<option value="CH">Switzerland</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'SY'">
+							<option value="SY" selected>Syrian Arab Republic</option>
+						<mvt:else>
+							<option value="SY">Syrian Arab Republic</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TW'">
+							<option value="TW" selected>Taiwan</option>
+						<mvt:else>
+							<option value="TW">Taiwan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TJ'">
+							<option value="TJ" selected>Tajikistan</option>
+						<mvt:else>
+							<option value="TJ">Tajikistan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TZ'">
+							<option value="TZ" selected>Tanzania</option>
+						<mvt:else>
+							<option value="TZ">Tanzania</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TH'">
+							<option value="TH" selected>Thailand</option>
+						<mvt:else>
+							<option value="TH">Thailand</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VC'">
+							<option value="VC" selected>The Grenadines</option>
+						<mvt:else>
+							<option value="VC">The Grenadines</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TL'">
+							<option value="TL" selected>Timor-Leste</option>
+						<mvt:else>
+							<option value="TL">Timor-Leste</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TT'">
+							<option value="TT" selected>Tobago</option>
+						<mvt:else>
+							<option value="TT">Tobago</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TG'">
+							<option value="TG" selected>Togo</option>
+						<mvt:else>
+							<option value="TG">Togo</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TK'">
+							<option value="TK" selected>Tokelau</option>
+						<mvt:else>
+							<option value="TK">Tokelau</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TO'">
+							<option value="TO" selected>Tonga</option>
+						<mvt:else>
+							<option value="TO">Tonga</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TT'">
+							<option value="TT" selected>Trinidad</option>
+						<mvt:else>
+							<option value="TT">Trinidad</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TN'">
+							<option value="TN" selected>Tunisia</option>
+						<mvt:else>
+							<option value="TN">Tunisia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TR'">
+							<option value="TR" selected>Turkey</option>
+						<mvt:else>
+							<option value="TR">Turkey</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TM'">
+							<option value="TM" selected>Turkmenistan</option>
+						<mvt:else>
+							<option value="TM">Turkmenistan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TC'">
+							<option value="TC" selected>Turks Islands</option>
+						<mvt:else>
+							<option value="TC">Turks Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'TV'">
+							<option value="TV" selected>Tuvalu</option>
+						<mvt:else>
+							<option value="TV">Tuvalu</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'UG'">
+							<option value="UG" selected>Uganda</option>
+						<mvt:else>
+							<option value="UG">Uganda</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'UA'">
+							<option value="UA" selected>Ukraine</option>
+						<mvt:else>
+							<option value="UA">Ukraine</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'AE'">
+							<option value="AE" selected>United Arab Emirates</option>
+						<mvt:else>
+							<option value="AE">United Arab Emirates</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'GB'">
+							<option value="GB" selected>United Kingdom</option>
+						<mvt:else>
+							<option value="GB">United Kingdom</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'US'">
+							<option value="US" selected>United States</option>
+						<mvt:else>
+							<option value="US">United States</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'UY'">
+							<option value="UY" selected>Uruguay</option>
+						<mvt:else>
+							<option value="UY">Uruguay</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'UM'">
+							<option value="UM" selected>US Minor Outlying Islands</option>
+						<mvt:else>
+							<option value="UM">US Minor Outlying Islands</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'UZ'">
+							<option value="UZ" selected>Uzbekistan</option>
+						<mvt:else>
+							<option value="UZ">Uzbekistan</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VU'">
+							<option value="VU" selected>Vanuatu</option>
+						<mvt:else>
+							<option value="VU">Vanuatu</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VA'">
+							<option value="VA" selected>Vatican City State</option>
+						<mvt:else>
+							<option value="VA">Vatican City State</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VE'">
+							<option value="VE" selected>Venezuela</option>
+						<mvt:else>
+							<option value="VE">Venezuela</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VN'">
+							<option value="VN" selected>Vietnam</option>
+						<mvt:else>
+							<option value="VN">Vietnam</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VG'">
+							<option value="VG" selected>Virgin Islands &#40;British&#41;</option>
+						<mvt:else>
+							<option value="VG">Virgin Islands &#40;British&#41;</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'VI'">
+							<option value="VI" selected>Virgin Islands &#40;US&#41;</option>
+						<mvt:else>
+							<option value="VI">Virgin Islands &#40;US&#41;</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'WF'">
+							<option value="WF" selected>Wallis</option>
+						<mvt:else>
+							<option value="WF">Wallis</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'EH'">
+							<option value="EH" selected>Western Sahara</option>
+						<mvt:else>
+							<option value="EH">Western Sahara</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'YE'">
+							<option value="YE" selected>Yemen</option>
+						<mvt:else>
+							<option value="YE">Yemen</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ZM'">
+							<option value="ZM" selected>Zambia</option>
+						<mvt:else>
+							<option value="ZM">Zambia</option>
+						</mvt:if>
+						<mvt:if expr="g.ShipEstimate:ship_cntry EQ 'ZW'">
+							<option value="ZW" selected>Zimbabwe</option>
+						<mvt:else>
+							<option value="ZW">Zimbabwe</option>
+						</mvt:if>
+					</select>
+				</div>
+			</li>
+			<li class="c-form-list__item c-form-list__item--full u-text-center">
+				<input class="c-button c-button--large u-bg-black u-font-small u-text-uppercase" data-hook="calculate-shipping-estimate" type="submit" value="Calculate" title="Calculate Shipping">
+			</li>
+		</ul>
+		<div data-hook="shipping-estimate-results"></div>
+	</fieldset>
+</form>

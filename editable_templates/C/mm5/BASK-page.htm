@@ -1,0 +1,84 @@
+<mvt:comment>
+	/**
+	 * This controls the data return for the AJAX add-to-cart call.
+	*/
+</mvt:comment>
+<mvt:if expr="g.ajax EQ 1">
+	<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body id="js-&mvte:page:code;">
+		<mvt:item name="readytheme" param="contentsection( 'mini_basket' )" />
+	</body>
+	</html>
+	<mvt:exit>
+</mvt:if>
+
+<mvt:comment>
+	/**
+	 * This controls the `Delete Entire Cart` function.
+	*/
+</mvt:comment>
+<mvt:if expr="g.Clear_Cart">
+	<mvt:do file="g.Module_Library_DB" name="l.settings:result" value="Basket_Reset_Contents( g.Basket )" />
+	<mvt:assign name="l.result" value="miva_output_header( 'Location', l.settings:urls:BASK:auto )" />
+	<mvt:assign name="l.result" value="miva_output_header( 'Status', '302 Moved Temporarily' )" />
+</mvt:if>
+
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+	<mvt:comment>
+		<!-- If you are using Amazon Pay, this is where the `amazonpay` and `"amazonpay_button" param="head"` items go. -->
+		<mvt:item name="amazonpay" />
+		<mvt:item name="amazonpay_button" param="head" />
+	</mvt:comment>
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header">
+					<h1 class="c-heading-delta t-account-landing-section__heading">
+						<mvt:if expr="l.settings:global_minibasket:basket_count GT 1">
+							Your Cart: &mvte:global_minibasket:basket_count; Items
+						<mvt:else>
+							Your Cart: &mvte:global_minibasket:basket_count; Item
+						</mvt:if>
+					</h1>
+					<mvt:item name="hdft" param="header" file="BASK-header-item.htm" />
+					<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+					<mvt:comment>
+						<!-- If you are using PayPal Express, this is where the `PaypalErrorMsg` item goes. -->
+						<mvt:item name="PaypalErrorMsg"/>
+					</mvt:comment>
+				</div>
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
+					<mvt:item name="basket" file="BASK-basket-item.htm" />
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="BASK-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

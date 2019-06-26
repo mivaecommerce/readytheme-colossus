@@ -1,0 +1,80 @@
+/* ==========================================================================
+   EXTENSIONS / PRODUCT LAYOUT / PRODUCT LAYOUT
+   ========================================================================== */
+
+
+/**
+ * This is the default product layout for the product page.
+ */
+
+.x-product-layout {}
+
+	.x-product-layout-images {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+		.x-product-layout-images__image {
+			display: inline-block;
+			margin-bottom: calc(16px * 1.5);
+		}
+
+		.x-product-layout-images__thumbnail-list {}
+
+		.x-product-layout-images__thumbnail-image {
+			margin-bottom: 16px;
+		}
+
+
+	.x-product-layout-purchase {}
+
+		.x-product-layout-purchase__pricing-original {
+			padding-right: calc(16px * 1.5);
+		}
+
+			.x-product-layout-purchase__options-attribute {
+				margin-bottom: calc(16px / 2);
+			}
+
+				.x-product-layout-purchase__options-attribute .c-form-label {
+					font-size: 0.875rem;
+				}
+
+				.x-product-layout-purchase__swatches--active {
+					box-shadow: 0 0 0 2px #eaeaea, 0 0 3px 3px #707070;
+				}
+
+.x-radio-to-button {
+	margin: 0 1em 0.5em 0;
+	font-size: 0.875rem;
+}
+
+.x-radio-to-button .c-form-checkbox__caption {
+	display: block;
+	margin: 2px;
+	padding: 0.5em 1rem;
+	font-weight: 600;
+	outline: 1px solid currentColor;
+	opacity: 0.85;
+	transition: opacity ease-in-out 0.3s;
+}
+
+.x-radio-to-button .c-form-checkbox__caption::before,
+.x-radio-to-button .c-form-checkbox__caption::after {
+	display: none;
+}
+
+.x-radio-to-button .c-form-checkbox__input:hover + .c-form-checkbox__caption,
+.x-radio-to-button .c-form-checkbox__input:checked + .c-form-checkbox__caption {
+	outline-width: 2px;
+	opacity: 1;
+}
+
+.x-product-layout-purchase__options-attribute .x-custom-select-replacement {
+	max-width: 20rem;
+}
+
+.x-product-layout-purchase__options-attribute .x-custom-select__title {
+	padding-top: 0.875rem;
+	padding-bottom: 0.875rem;
+}

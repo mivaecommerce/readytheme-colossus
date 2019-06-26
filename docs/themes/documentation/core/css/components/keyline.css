@@ -1,0 +1,40 @@
+/* ==========================================================================
+   COMPONENTS / KEYLINE
+   ========================================================================== */
+
+/**
+ * Simple keyline component to provide horizontal rules between other elements.
+ * e.g. `<hr class="c-keyline">`
+ *
+ * 1. Reduce the `margin-bottom` by the same width as the keyline in order to
+ *    keep on our baseline grid.
+ */
+.c-keyline {
+	margin-bottom: calc(16px - 1px); /* [1] */
+	border: none;
+	border-bottom: 1px solid #c0c0c0;
+}
+
+
+/**
+ * Heavier keylines.
+ */
+.c-keyline--thick {
+	margin-bottom: calc(16px - calc(1px * 2)); /* [1] */
+	border-bottom-width: calc(1px * 2);
+}
+
+
+/**
+ * Smaller gaps underneath keylines.
+ */
+.c-keyline--small {
+	margin-bottom: calc((16px / 2) - 1px); /* [1] */
+}
+
+	/**
+	 * Adjust smaller gaps underneath thicker keylines.
+	 */
+	.c-keyline--small.c-keyline--thick {
+		margin-bottom: calc((16px / 2) - calc(1px * 2)); /* [1] */
+	}

@@ -1,0 +1,111 @@
+<mvt:assign name="g.http_referer" value="s.http_referer" />
+<mvt:if expr="'CTFM' CIN g.http_referer OR 'contact-form' CIN g.http_referer">
+	<mvt:exit>
+</mvt:if>
+
+<mvt:if expr="NOT ISNULL g.website">
+	<meta http-equiv="refresh" content="0;url=&mvte:urls:NTFD:auto;" />
+<mvt:else>
+	<mvt:assign name="g.eol" value="asciichar(13) $ asciichar(10)"/>
+	
+	<mvt:if expr="(ISNULL g.website) AND (NOT ISNULL g.human) AND (isdigit(g.human)) AND (g.human EQ crypto_base64_decode(g.verify))">
+
+		<mvt:comment>
+			<!--
+			This will create the From address in proper format: "Store Name" <store_email@store_domain>
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:from" value="asciichar(34) $ g.store:name $ asciichar(34) $ ' <' $ g.store:email $ '>'" />
+
+		<mvt:comment>
+			<!--
+			This will create the Reply-To address in proper format: "Visitor Name" <visitor_email@visitor_domain>
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:reply" value="asciichar(34) $ g.contactName $ asciichar(34) $ ' <' $ g.contactEmail $ '>'" />
+
+		<mvt:comment>
+			<!--
+			By default, this form is designed to send to the store email address.
+			You can change this by replacing g.store:email with 'my_email@my_domain.com'.
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:to" value="g.store:email" />
+		
+		<mvt:comment>
+			<!--
+			If you would like to CC the form, you can add an address or a comma separated list to CC to
+			multiple addresses.
+			<mvt:assign name="l.mail:cc" value="'my_email@my_domain.com'" />
+			- OR -
+			<mvt:assign name="l.mail:cc" value="'my_email@my_domain.com,my_other_email@my_domain.com'" />
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:cc" value="''" />
+
+		<mvt:comment>
+			<!--
+			If you would like to BCC the form, you can add an address or a comma separated list to BCC to
+			multiple addresses.
+			<mvt:assign name="l.mail:bcc" value="'my_email@my_domain.com'" />
+			- OR -
+			<mvt:assign name="l.mail:bcc" value="'my_email@my_domain.com,my_other_email@my_domain.com'" />
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:bcc" value="''" />
+		
+		<mvt:comment>
+			<!--
+			This will create a custom subject line for the email.
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:subject" value="'[' $ g.store:name $ ' Contact Form] ' $ g.contactSubject" />
+
+		<mvt:comment>
+			<!--
+			This will create the store message from user input.
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:message" value="'Message from: ' $ g.contactName $ g.eol $ g.eol $ 'Email Address: ' $ g.contactEmail $ g.eol $ g.eol $ 'Message:' $ g.eol $ g.contactMessage" />
+
+		<mvt:comment>
+			<!--
+			If you would like to send any additional SMTP headers, you can do that here.
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.mail:headers" value="l.mail:headers $ 'Reply-To:' $ l.mail:reply $ g.eol" />
+		<mvt:assign name="l.mail:headers" value="l.mail:headers $ 'Return-Path:' $ l.mail:from $ g.eol" />
+		<mvt:assign name="l.mail:headers" value="l.mail:headers $ 'MIME-Version: 1.0' $ g.eol" />
+		<mvt:assign name="l.mail:headers" value="l.mail:headers $ 'Content-Type: text/plain; charset=utf-8' $ g.eol" />
+
+
+		<mvt:comment>
+			<!--
+			This function will send an email to the store.
+			-->
+		</mvt:comment>
+		<mvt:do file="g.Module_Library_Utilities" name="g.sent" value="v9_SendEmail(l.mail)" />
+
+		<mvt:comment>
+			<!--
+			This function will send a confirmation email to the visitor.
+			If you do not wish to send a confirmation email, you can either `mvt:comment` this section
+			out or delete it all together.
+			-->
+		</mvt:comment>
+		<mvt:assign name="l.visitor_mail:from" value="asciichar(34) $ g.store:name $ asciichar(34) $ ' <' $ g.store:email $ '>'" />
+		<mvt:assign name="l.visitor_mail:to" value="asciichar(34) $ g.contactName $ asciichar(34) $ ' <' $ g.contactEmail $ '>'" />
+		<mvt:assign name="l.visitor_mail:subject" value="'[' $ g.store:name $ ' Contact Form] ' $ g.contactSubject" />
+		<mvt:assign name="l.visitor_mail:message" value="'Dear ' $ g.contactName $ ',' $ g.eol $ g.eol $ 'Thank you for contacting ' $ g.store:name $ '; your message has been received.' $ g.eol $ g.eol $ 'Your Message:' $ g.eol $ g.contactMessage" />
+		<mvt:assign name="l.visitor_mail:headers" value="'Reply-To:' $ asciichar(34) $ g.store:name $ asciichar(34) $ ' <' $ g.store:email $ '>' $ g.eol" />
+		<mvt:do file="g.Module_Library_Utilities" name="g.visitor_sent" value="v9_SendEmail(l.visitor_mail)" />
+
+		<mvt:if expr="g.sent">
+			<meta http-equiv="refresh" content="0;url=&mvte:urls:CTUS:auto_sep;status=submitted" />
+		<mvt:else>
+			<meta http-equiv="refresh" content="0;url=&mvte:urls:CTUS:auto_sep;status=error" />
+		</mvt:if>
+	<mvt:else>
+		<meta http-equiv="refresh" content="0;url=&mvte:urls:CTUS:auto_sep;status=error&amp;contactName=&mvte:global:contactName;&amp;contactEmail=&mvte:global:contactEmail;&amp;contactSubject=&mvte:global:contactSubject;&amp;contactMessage=&mvte:global:contactMessage;&amp;fault=has-error" />
+	</mvt:if>
+</mvt:if>

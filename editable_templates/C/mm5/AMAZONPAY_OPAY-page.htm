@@ -1,0 +1,113 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+	<mvt:item name="amazonpay" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass; t-page-opay">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="AMAZONPAY_OPAY-header-item.htm" />
+			<mvt:item name="customfields" param="Write_Basket('order_instructions', g.order_instructions)" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<section class="o-layout o-layout--wide o-layout--justify-between">
+						<div class="o-layout__item u-width-12 u-width-7--l">
+							<mvt:item name="readytheme" param="contentsection( 'checkout_steps' )" />
+							<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							<form method="post" action="&mvt:global:secure_sessionurl;">
+								<fieldset>
+									<legend>&mvt:page:name;</legend>
+									<input type="hidden" name="Action" value="AUTH" />
+									<input type="hidden" name="Screen" value="INVC" />
+									<input type="hidden" name="Store_Code" value="&mvte:global:Store_Code;" />
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full">
+											<mvt:item name="amazonpay_wallet" />
+										</li>
+									</ul>
+									<br>
+									<input type="hidden" name="PaymentMethod" value="&mvte:global:PaymentMethod;" />
+									<input type="hidden" name="PaymentAuthorizationToken" value="&mvte:global:Basket:auth_token;" />
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full o-layout o-layout--align-center u-flex">
+											<div class="o-layout__item u-text-right">
+												<span class="c-heading-delta u-text-uppercase u-text-bold">
+													<span class="c-heading--subheading">Current Total</span><br>
+													&mvt:basket:formatted_total;
+												</span>
+											</div>
+											<div class="o-layout__item t-payment-cta">
+												<input class="c-button c-button--huge c-button--full u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" type="submit" value="Complete Order">
+											</div>
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+							
+							<hr class="c-keyline">
+							
+							<section class="o-layout u-grids-1 u-grids-3--m t-checkout-customer-summary u-bg-gray-10">
+								<div class="o-layout__item">
+									<p class="c-heading-echo u-text-uppercase u-text-bold">Shipping Address</p>
+									<hr class="c-keyline">
+									<mvt:item name="amazonpay_address" />
+								</div>
+								<div class="o-layout__item">
+									<p class="c-heading-echo u-text-uppercase u-text-bold">Shipping Method</p>
+									<hr class="c-keyline">
+									<p class="u-font-small u-color-gray-40">
+										<mvt:foreach iterator="charge" array="basket:charges">
+											<mvt:if expr="l.settings:charge:type EQ 'SHIPPING'">
+												<mvt:eval expr="glosub(l.settings:charge:descrip, 'Shipping:', '')"/><br>
+											</mvt:if>
+										</mvt:foreach>
+										<a class="u-text-uppercase u-font-tiny u-color-black" href="&mvte:urls:AMAZONPAY_OSEL:secure;">Edit</a>
+									</p>
+								</div>
+								<div class="o-layout__item">
+									<p class="c-heading-echo u-text-uppercase u-text-bold">Delivery Notes</p>
+									<hr class="c-keyline">
+									<p class="u-font-small u-color-gray-40">
+										<mvt:if expr="g.order_instructions">
+											&mvte:global:order_instructions;<br>
+										</mvt:if>
+										<a class="u-text-uppercase u-font-tiny u-color-black" href="&mvte:urls:AMAZONPAY_OSEL:secure;">Edit</a>
+									</p>
+								</div>
+							</section>
+						</div>
+						<aside class="o-layout__item u-width-12 u-width-5--l u-width-4--w">
+							<mvt:item name="basket" file="AMAZONPAY_OPAY-basket-item.htm" />
+						</aside>
+					</section>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="AMAZONPAY_OPAY-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>

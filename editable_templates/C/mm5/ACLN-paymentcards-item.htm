@@ -1,0 +1,28 @@
+<mvt:if expr="l.settings:paymentcards:paymentcard_count EQ 0">
+	<div class="x-messages x-messages--info">No payment cards found.</div>
+	<mvt:exit />
+</mvt:if>
+
+<mvt:assign name="l.settings:card_count" value="0" />
+<mvt:foreach iterator="paymentcard" array="paymentcards:paymentcards">
+	<mvt:if expr="'AMERICAN EXPRESS' EQ toupper(l.settings:paymentcard:type)">
+		<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_amex.png'" />
+	<mvt:elseif expr="'VISA' EQ toupper(l.settings:paymentcard:type)">
+		<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_visa.png'" />
+	<mvt:elseif expr="'MASTERCARD' EQ toupper(l.settings:paymentcard:type)">
+		<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_mastercard.png'" />
+	<mvt:elseif expr="'DISCOVER' EQ toupper(l.settings:paymentcard:type)">
+		<mvt:assign name="l.settings:paymentcard:image" value="g.theme_path $ '/core/images/logo_discover.png'" />
+	<mvt:else>
+		<mvt:assign name="l.settings:paymentcard:image" value="''" />
+	</mvt:if>
+	<mvt:assign name="l.settings:card_count" value="l.settings:card_count + 1" />
+	<mvt:if expr="l.settings:card_count GT 1">
+		<mvt:foreachstop />
+	</mvt:if>
+	<div class="u-text-bold">
+		<img src="&mvt:paymentcard:image;" alt="&mvte:paymentcard:type;"> &mvte:paymentcard:lastfour;<br>
+		&mvte:paymentcard:fname; &mvte:paymentcard:lname;<br>
+		<span class="u-text-regular">Expires:</span> &mvte:paymentcard:exp_month;/&mvte:paymentcard:exp_year;
+	</div>
+</mvt:foreach>

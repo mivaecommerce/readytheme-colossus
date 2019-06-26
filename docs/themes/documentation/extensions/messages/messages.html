@@ -1,0 +1,60 @@
+<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+
+
+<mvt:comment><!-- Customer/Affiliate Creation/Editing --></mvt:comment>
+<mvt:if expr="g.NewAccount AND NOT l.settings:messages:error_message_count">
+	<p class="x-messages x-messages--success">Hello &mvte:global:Customer_ShipFirstName;. Your new account has been created. Please click here to <mvt:item name="cssui_links" param="storefront">Start Shopping</mvt:item>.</p>
+</mvt:if>
+<mvt:if expr="g.NewAffiliate AND NOT l.settings:messages:error_message_count">
+	<p class="x-messages x-messages--success">Congratulations &mvte:global:Affiliate_ContactName;. Your new account has been created.</p>
+</mvt:if>
+<mvt:if expr="g.updated EQ 'true' AND NOT l.settings:messages:information_message_count AND NOT l.settings:messages:error_message_count">
+	<p class="x-messages x-messages--success">Your Account Setting Have Been Updated</p>
+</mvt:if>
+
+<mvt:comment><!-- Customer/Affiliate Logging In --></mvt:comment>
+<mvt:if expr="g.Action EQ 'LOGN'">
+	<mvt:if expr="g.Customer_Login_Invalid OR g.Customer_Password_Invalid">
+		<p class="x-messages x-messages--error">
+			Invalid Email Address or Password.<br>
+			We were unable to locate your account. Please confirm your information and try again.<br>
+			If you have forgotten your password, click "Forgot Password" below.
+		</p>
+		<mvt:assign name="g.invalid_credentials" value="'has-error'" />
+	</mvt:if>
+	<mvt:if expr="g.Error_Messages EQ 'Customer not found'">
+		<p class="x-messages x-messages--error">
+			Invalid Email Address.<br>
+			We were unable to locate an account with that email address.
+		</p>
+	</mvt:if>
+</mvt:if>
+
+<mvt:comment><!-- Default Informational and Error Messages --></mvt:comment>
+<mvt:if expr="l.settings:messages:error_message_count AND g.Action NE 'LOGN'">
+	<p class="x-messages x-messages--error">
+		<mvt:foreach iterator="error" array="messages:error_messages">
+			&mvt:error;<br>
+		</mvt:foreach>
+	</p>
+</mvt:if>
+<mvt:if expr="l.settings:messages:information_message_count AND g.Action NE 'UCSB'">
+	<p class="x-messages x-messages--info">
+		<mvt:foreach iterator="message" array="messages:information_messages">
+			&mvt:message;<br>
+		</mvt:foreach>
+	</p>
+</mvt:if>
+
+<mvt:comment><!-- Subscription Update --></mvt:comment>
+<mvt:if expr="g.Action EQ 'UCSB'">
+	<p id="js-subscription-success" class="x-messages x-messages--success"><span class="u-icon-check"></span> Subscription Successfully Updated</p>
+</mvt:if>
+
+<mvt:comment><!-- Coupon Success Message --></mvt:comment>
+<mvt:if expr="g.Action EQ 'ACPN' AND ISNULL l.settings:messages:error_message_count">
+	<p class="x-messages x-messages--success">Your Promo Code Has Been Applied</p>
+</mvt:if>
+<mvt:if expr="g.Action EQ 'RCPN' AND ISNULL l.settings:messages:error_message_count">
+	<p class="x-messages x-messages--info">Your Promo Code Has Been Removed</p>
+</mvt:if>

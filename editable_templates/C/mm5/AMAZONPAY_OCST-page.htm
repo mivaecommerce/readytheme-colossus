@@ -1,0 +1,96 @@
+<mvt:item name="html_profile" file="cssui-html-profile-item.htm" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="&mvt:global:basehref;">
+	<mvt:if expr="NOT ISNULL l.settings:page:title">
+		<title>&mvt:page:title;</title>
+	<mvt:else>
+		<title>&mvt:store:name;: &mvt:page:name;</title>
+	</mvt:if>
+	<mvt:item name="head" param="css_list" />
+	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
+	<mvt:item name="amazonpay" />
+</head>
+<body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass; t-page-ocst">
+	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
+
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="header" file="AMAZONPAY_OCST-header-item.htm" />
+		</div>
+	</section>
+
+	<section class="o-layout">
+		<div class="o-layout__item u-width-12">
+			<section class="t-expanded-block t-account-landing-section u-bg-white">
+				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content u-width-12">
+					<section class="o-layout o-layout--wide o-layout--justify-between">
+						<div class="o-layout__item u-width-12 u-width-7--l">
+							<mvt:item name="readytheme" param="contentsection( 'messages' )" />
+							<mvt:item name="readytheme" param="contentsection( 'checkout_steps' )" />
+							<mvt:if expr="l.settings:basket:total GT 0">
+								<mvt:assign name="l.settings:action" value="'AMAZONPAY_ORDR'" />
+								<mvt:assign name="l.settings:url" value="l.settings:urls:OUSL:secure" />
+							<mvt:elseif expr="g.Store:req_frship">
+								<mvt:assign name="l.settings:action" value="'AMAZONPAY_ORDR'" />
+								<mvt:assign name="l.settings:url" value="l.settings:urls:OUSL:secure" />
+							<mvt:else>
+								<mvt:assign name="l.settings:action" value="'AMAZONPAY_ORDR,SHIP,CTAX,AUTH'" />
+								<mvt:assign name="l.settings:url" value="l.settings:urls:INVC:secure" />
+							</mvt:if>
+							<form method="post" action="&mvte:url;">
+								<fieldset>
+									<legend>&mvt:page:name;</legend>
+									<input type="hidden" name="Action" value="&mvte:action;" />
+									<ul class="c-form-list u-text-uppercase">
+										<mvt:foreach array="tax:fields" iterator="field">
+											<mvt:if expr="l.settings:field:invalid">
+												<li class="c-form-list__item u-text-bold is-error" data-classlist="c-form-select__dropdown c-form-input--large" data-hook="mvt-select" data-id="tax">
+													<label class="c-form-label u-font-small" for="tax">&mvt:field:prompt;</label>
+													<div class="c-form-select">
+														<mvt:item name="tax" param="field:code" />
+													</div>
+												</li>
+											<mvt:else>
+												<li class="c-form-list__item u-text-bold" data-classlist="c-form-select__dropdown c-form-input--large" data-hook="mvt-select" data-id="tax">
+													<label class="c-form-label u-font-small" for="tax">&mvt:field:prompt;</label>
+													<div class="c-form-select">
+														<mvt:item name="tax" param="field:code" />
+													</div>
+												</li>
+											</mvt:if>
+										</mvt:foreach>
+									</ul>
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full">
+											<mvt:item name="amazonpay_address" />
+										</li>
+									</ul>
+									<ul class="c-form-list">
+										<li class="c-form-list__item c-form-list__item--full u-text-center u-text-right--l">
+											<input class="c-button c-button--huge u-bg-primary u-color-black u-font-small u-text-medium u-text-uppercase" type="submit" value="Continue to Shipping">
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+						</div>
+						<aside class="o-layout__item u-width-12 u-width-5--l u-width-4--w">
+							<mvt:item name="basket" file="AMAZONPAY_OCST-basket-item.htm" />
+						</aside>
+					</section>
+				</div>
+			</section>
+		</div>
+	</section>
+	
+	<section class="o-layout">
+		<div class="o-layout__item">
+			<mvt:item name="hdft" param="footer" file="AMAZONPAY_OCST-footer-item.htm" />
+		</div>
+	</section>
+
+	<mvt:item name="hdft" param="global_footer" file="global-footer-item.htm" />
+</body>
+</html>
