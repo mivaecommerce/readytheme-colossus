@@ -27,10 +27,11 @@
 			<section class="t-expanded-block t-account-landing-section u-bg-white">
 				<div class="o-layout__item t-expanded-block__item t-account-landing-section__header u-width-12">
 					<mvt:item name="readytheme" param="contentsection( 'messages' )" />
-					<div class="o-layout o-layout--wide o-layout--justify-between u-text-center">
-						<div class="o-layout__item u-width-12 u-width-6--l t-customer-profile">
+					<div class="o-layout o-layout--wide o-layout--justify-around u-text-center">
+						<div class="o-layout__item u-width-12 u-width-4--l t-customer-profile">
 							<div class="t-account-landing-section__header">
-								<span class="c-heading-delta t-account-landing-section__heading">Log In or Register</span>
+								<span class="c-heading-delta t-account-landing-section__heading">Current Customer?</span>
+								<p class="u-font-small">Please sign in to continue your order.</p>
 							</div>
 							<form class="u-inline-block u-text-left" method="post" action="&mvte:urls:OCST:secure;" autocomplete="off">
 								<fieldset>
@@ -47,7 +48,6 @@
 										</li>
 										<li class="c-form-list__item c-form-list__item--full">
 											<input class="c-button c-button--full c-button--huge u-bg-gray-50 u-font-small u-text-bold u-text-uppercase" type="submit" value="Log In">
-											<a class="c-button c-button--full c-button--large u-bg-gray-10 u-color-gray-50 u-font-small u-text-uppercase" href="&mvte:urls:ACAD:secure_sep;Order=1" title="Create Your Account">Register</a>
 											<span class="u-font-small">
 												<a class="c-button c-button--full c-button--huge u-bg-white u-color-gray-50 u-font-tiny u-text-uppercase" data-mini-modal data-mini-modal-type="inline" data-mini-modal-content="data-forgot-password" href="&mvte:urls:FPWD:secure;" title="Forgot Your Password?">Forgot Password?</a>
 											</span>
@@ -56,8 +56,43 @@
 								</fieldset>
 							</form>
 						</div>
+						<div class="o-layout__item u-width-12 u-width-4--l t-customer-profile">
+							<div class="t-account-landing-section__header">
+								<span class="c-heading-delta t-account-landing-section__heading">New Customer?</span>
+								<p class="u-font-small">Please create an account to continue your order.</p>
+							</div>
+							<form class="u-inline-block u-text-left" method="post" action="&mvte:urls:CACT:secure;">
+								<fieldset>
+									<legend>Customer Log In</legend>
+									<input type="hidden" name="current_location" value="&mvte:urls:OCST:secure_sep;">
+									<input type="hidden" name="Order" value="&mvte:global:Order;">
+									<ul class="c-form-list">
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_fname">First Name</label>
+											<input id="l-register_fname" class="c-form-input c-form-input--large" type="text" name="register_fname" value="" autocomplete="name given-name" required>
+										</li>
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_lname">Last Name</label>
+											<input id="l-register_lname" class="c-form-input c-form-input--large" type="text" name="register_lname" autocomplete="name family-name" required>
+										</li>
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_email">Email Address</label>
+											<input id="l-register_email" class="c-form-input c-form-input--large" type="email" name="register_email" value="&mvte:global:register_email;" autocomplete="email" required>
+										</li>
+										<li class="c-form-list__item">
+											<label class="c-form-label u-font-tiny u-text-bold u-text-uppercase is-required" for="l-register_password">Password</label>
+											<input id="l-register_password" class="c-form-input c-form-input--large" type="password" name="register_password" autocomplete="new-password" required>
+										</li>
+										<li class="c-form-list__item u-text-right">
+											<input class="c-button c-button--full c-button--hollow c-button--huge u-bg-white u-color-gray-50 u-font-small u-text-bold u-text-uppercase" type="submit" value="Create My Account">
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+							<br>
+						</div>
 						<mvt:if expr="g.Basket:sub_count EQ 0">
-							<div class="o-layout__item u-width-12 u-width-6--l">
+							<div class="o-layout__item u-width-12 u-width-4--l">
 								<div class="t-account-landing-section__header">
 									<span class="c-heading-delta t-account-landing-section__heading">Guest Checkout</span>
 								</div>

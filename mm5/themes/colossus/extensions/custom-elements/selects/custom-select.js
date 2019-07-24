@@ -35,7 +35,57 @@ let changes = (function () {
 				filteredItems.push(listItems[i]);
 			}
 		}
-		activeList.querySelector('ul').scrollTo(0, filteredItems[0].offsetTop);
+		activeList.querySelector('ul').scrollTop = filteredItems[0].offsetTop;
+	}
+
+
+	/**
+	 * This function uses blur to detect browser auto-fill and updates the custom select accordingly.
+	 */
+	function detectAutofill(selectElement, customElement) {
+		let select = selectElement;
+		let selectElementTitle = select.getAttribute('data-label') ? selectElement.getAttribute('data-label') : '';
+		let customSelectTrigger = customElement.previousElementSibling;
+		let customList = customElement.querySelectorAll('li');
+		let lastValue = '';
+		let maxCheckCount = 10;
+		let checkCount = 0;
+
+		(function checkFunc() {
+			let value = select.options[select.selectedIndex].value;
+
+			if (value !== lastValue || value === '') {
+				lastValue = value;
+
+				for (let i = 0; i < customList.length; i++) {
+					customList[i].classList.remove('is-selected');
+					if (i === select.selectedIndex) {
+						customList[select.selectedIndex].classList.add('is-selected');
+						break;
+					}
+				}
+
+				if (selectElement.hasAttribute('data-append')){
+					customSelectTrigger.innerHTML = '<strong>' + select.options[select.selectedIndex].textContent.replace(/[<>]/gi, '') + '</strong> ' + selectElementTitle;
+				}
+				else {
+					customSelectTrigger.innerHTML = selectElementTitle + ' <strong>' + select.options[select.selectedIndex].textContent.replace(/[<>]/gi, '') + '</strong>';
+				}
+
+				customElement.scrollTop = customList[select.selectedIndex].offsetTop;
+			}
+
+			if (checkCount > maxCheckCount) {
+				return false;
+			}
+
+			checkCount++;
+
+			setTimeout(function () {
+				checkFunc();
+			}, 100);
+
+		}());
 	}
 
 	publicAPIs.init = function () {
@@ -66,9 +116,12 @@ let changes = (function () {
 				let customSelectContainer = document.createElement('div');
 				let customSelectTrigger = document.createElement('button');
 				let customSelectList = document.createElement('ul');
+				let selectedOption;
+				let nativeLabel;
 
 				if (selectElement.id) {
 					customSelectContainer.id = 'custom-' + selectElement.id;
+					nativeLabel = document.querySelector('label[for="' + selectElement.id +'"]').textContent;
 				}
 				customSelectContainer.setAttribute('data-hook', 'custom-select');
 				customSelectContainer.classList.add(mainClass);
@@ -76,9 +129,13 @@ let changes = (function () {
 					customSelectContainer.classList.add(disabledClass);
 				}
 				customSelectTrigger.setAttribute('type', 'button');
+				customSelectTrigger.setAttribute('aria-haspopup', 'listbox');
+				customSelectTrigger.setAttribute('aria-label', nativeLabel);
 				customSelectTrigger.classList.add(titleClass);
 				customSelectTrigger.innerHTML = selectElementTitle;
 				customSelectList.classList.add(listClass);
+				customSelectList.setAttribute('role', 'listbox');
+				customSelectList.setAttribute('tabindex', '-1');
 
 				if (selectElementTitle !== '') {
 					selectElementTitle = '<span>' + selectElementTitle + '</span>';
@@ -103,6 +160,7 @@ let changes = (function () {
 						else {
 							customSelectTrigger.innerHTML = selectElementTitle + ' <strong>' + selectOptions[optionsLength].textContent.replace(/[<>]/gi, '') + '</strong>';
 						}
+						selectedOption = li;
 					}
 
 					customSelectList.insertBefore(li, customSelectList.childNodes[0]);
@@ -115,6 +173,17 @@ let changes = (function () {
 				selectElement.classList.add('u-hidden');
 				selectElement.parentElement.classList.add('u-visible');
 				customSelectContainer.classList.add(loadedClass);
+
+				selectElement.addEventListener('input', function () {
+					detectAutofill(selectElement, customSelectList);
+				});
+
+				/**
+				 * Ensure the list starts with the selected option.
+				 */
+				if (selectedOption) {
+					customSelectList.scrollTop = selectedOption.offsetTop;
+				}
 
 				customSelectContainer.addEventListener('click', function (clickEvent) {
 					clickEvent.preventDefault();
@@ -153,21 +222,22 @@ let changes = (function () {
 
 						customSelectList.parentElement.classList.remove(openClass);
 					}
-
 				});
-
 			}
 
 
-			document.addEventListener("keypress", function (keyEntry) {
+			/**
+			 * Filter list to first matching return on `keypress`.
+			 */
+			document.addEventListener('keypress', function (keyEntry) {
 				if (activeContainer && activeContainer.classList.contains(openClass)) {
 					filterList(keyEntry.key, activeContainer);
 				}
 			}, false);
 
+
 			/**
 			 * Closes the current select on any click outside of it.
-			 *
 			 */
 			document.addEventListener('mousedown', function (mouseEvent) {
 				let mouseEventTarget = mouseEvent.target;

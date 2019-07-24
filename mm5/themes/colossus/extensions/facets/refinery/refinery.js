@@ -64,10 +64,14 @@
 			requiredSpace = breakWidths[numOfVisibleItems - 1];
 			numOfVisibleItems2 = $visibleLinks.children('[data-hook="refinery-set"]').length;
 
-			if ((numOfVisibleItems2 > maxDisplay)) {
+			if (numOfVisibleItems2 > maxDisplay) {
 				// There is not enough space
 				$visibleLinks.children('[data-hook="refinery-set"]').last().prependTo($hiddenLinks);
 				numOfVisibleItems -= 1;
+				$facets.addClass('is-loaded');
+				this.checkFacetOverflow();
+			}
+			else if (numOfVisibleItems2 <= maxDisplay) {
 				$facets.addClass('is-loaded');
 				this.checkFacetOverflow();
 			}

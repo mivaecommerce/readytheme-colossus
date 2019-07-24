@@ -124,15 +124,15 @@
 /**
  * For buttons whose state is toggled.
  */
-.c-button:disabled,
+.c-button[disabled],
 .c-button.is-disabled,
 .c-button.is-disabled:hover,
 .c-button.is-disabled:active,
 .c-button.is-disabled:focus {
-	color: #fff;
-	background-color: #c0c0c0;
-	border-color: #c0c0c0;
+	box-shadow: none;
 	cursor: not-allowed;
+	opacity: 0.5;
+	pointer-events: none;
 }
 
   

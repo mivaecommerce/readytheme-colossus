@@ -313,7 +313,11 @@
 				<tr>
 					<td>
 						<br>
-						<a class="c-button c-button--full c-button--huge u-bg-primary u-color-black u-text-bold u-text-uppercase" href="&mvte:urls:OINF:auto;">Secure Checkout</a>
+						<mvt:if expr="g.Basket:sub_count GT 0 AND g.Basket:cust_id EQ 0">
+							<a class="c-button c-button--full c-button--huge u-bg-primary u-color-black u-text-bold u-text-uppercase" href="&mvte:urls:ORDL:auto;">Secure Checkout</a>
+						<mvt:else>
+							<a class="c-button c-button--full c-button--huge u-bg-primary u-color-black u-text-bold u-text-uppercase" href="&mvte:urls:OINF:auto;">Secure Checkout</a>
+						</mvt:if>
 						<br>
 						<hr class="c-keyline">
 						<mvt:comment>

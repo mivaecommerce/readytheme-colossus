@@ -37,7 +37,7 @@
 
 		if (purchaseForm.getAttribute('data-status') !== 'submitting') {
 			purchaseForm.setAttribute('data-status', 'submitting');
-			purchaseButton.setAttribute('disabled', 'disabled');
+			purchaseButton.classList.add('is-disabled');
 
 			if (purchaseButton.nodeName.toLowerCase() === 'input') {
 				purchaseButton.value = 'Processing...';
@@ -114,14 +114,26 @@
 					}
 
 					// Reset button text and form status
-					purchaseButton.removeAttribute('disabled');
+					purchaseButton.classList.remove('is-disabled');
 
+					purchaseButton.style.backgroundColor = '#307962';
+					purchaseButton.style.color = '#fff';
 					if (purchaseButton.nodeName.toLowerCase() === 'input') {
-						purchaseButton.value = purchaseButtonText;
+						purchaseButton.value = 'Product Added';
 					}
 					else{
-						purchaseButton.textContent = purchaseButtonText;
+						purchaseButton.textContent = 'Product Added';
 					}
+
+					setTimeout(function () {
+						if (purchaseButton.nodeName.toLowerCase() === 'input') {
+							purchaseButton.value = purchaseButtonText;
+						}
+						else{
+							purchaseButton.textContent = purchaseButtonText;
+						}
+						purchaseButton.removeAttribute('style');
+					}, 3000);
 
 					purchaseForm.setAttribute('data-status', 'idle');
 				}

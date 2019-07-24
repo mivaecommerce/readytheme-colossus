@@ -1,0 +1,169 @@
+<mvt:if expr="l.settings:customercredithistory:total_count EQ 0">
+	<p class="x-messages x-messages--info">No account credit entries.</p>
+	<mvt:exit />
+</mvt:if>
+
+<mvt:if expr="l.settings:customercredithistory:total_count GT 1">
+	<div class="o-layout o-layout--align-center o-layout--justify-between">
+		<span class="o-layout__item c-heading-delta t-account-landing-section__heading u-width-12 u-width-8--m">Credit History</span>
+		<section class="o-layout__item t-account-filtering u-width-12 u-width-4--m">
+			<form class="t-account-filtering__sort-by">
+				<fieldset>
+					<legend>Number of Credit Entries to Show</legend>
+					<ul class="c-form-list">
+						<li class="c-form-list__item">
+							<label class="c-form-label u-font-tiny u-text-uppercase u-text-normal u-hidden" for="l-per_page">View</label>
+							<div class="c-form-select">
+								<select id="l-per_page" class="c-form-select__dropdown u-font-small u-text-uppercase u-text-bold" data-hook="custom-select" data-label="Per Page" data-append name="Per_Page" onchange="window.location.href='&mvtj:urls:_self:auto_sep;Per_Page=' + encodeURIComponent( this.options[ this.selectedIndex ].value ) + '&amp;Sort_By=' + encodeURIComponent( '&mvtj:global:Sort_By;' );">
+									<mvt:if expr="g.Per_Page EQ 12">
+										<option value="12" selected="selected">12</option>
+									<mvt:else>
+										<option value="12">12</option>
+									</mvt:if>
+									<mvt:if expr="g.Per_Page EQ 24">
+										<option value="24" selected="selected">24</option>
+									<mvt:else>
+										<option value="24">24</option>
+									</mvt:if>
+									<mvt:if expr="g.Per_Page EQ 48">
+										<option value="48" selected="selected">48</option>
+									<mvt:else>
+										<option value="48">48</option>
+									</mvt:if>
+									<mvt:if expr="g.Per_Page EQ -1">
+										<option value="-1" selected="selected">View All</option>
+									<mvt:else>
+										<option value="-1">View All</option>
+									</mvt:if>
+								</select>
+							</div>
+						</li>
+					</ul>
+				</fieldset>
+			</form>
+			<form class="t-account-filtering__sort-by">
+				<fieldset>
+					<legend>Sort Credit Entries By</legend>
+					<ul class="c-form-list">
+						<li class="c-form-list__item">
+							<label class="c-form-label u-font-tiny u-text-uppercase u-text-normal u-hidden" for="l-sort_by">Sort</label>
+							<div class="c-form-select">
+								<select id="l-sort_by" class="c-form-select__dropdown u-font-small u-text-uppercase u-text-bold" data-hook="custom-select" data-label="Sort By" onchange="window.location.href='&mvtj:urls:_self:auto_sep;Per_Page=' + encodeURIComponent( '&mvtj:global:Per_Page;' ) + '&amp;Sort_By=' + encodeURIComponent( this.options[ this.selectedIndex ].value );">
+									<mvt:if expr="ISNULL g.Sort_By">
+										<option value="id" selected="selected">Default</option>
+									<mvt:else>
+										<option value="id">Default</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'orderid_asc'">
+										<option value="orderid_asc" selected="selected">Order Ascending</option>
+									<mvt:else>
+										<option value="orderid_asc">Order Ascending</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'orderid_desc'">
+										<option value="orderid_desc" selected="selected">Order Descending</option>
+									<mvt:else>
+										<option value="orderid_desc">Order Descending</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'amount_asc'">
+										<option value="amount_asc" selected="selected">Amount Ascending</option>
+									<mvt:else>
+										<option value="amount_asc">Amount Ascending</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'amount_desc'">
+										<option value="amount_desc" selected="selected">Amount Descending</option>
+									<mvt:else>
+										<option value="amount_desc">Amount Descending</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'dtstamp_asc'">
+										<option value="dtstamp_asc" selected="selected">Date Ascending</option>
+									<mvt:else>
+										<option value="dtstamp_asc">Date Ascending</option>
+									</mvt:if>
+									<mvt:if expr="g.Sort_By EQ 'dtstamp_desc'">
+										<option value="dtstamp_desc" selected="selected">Date Descending</option>
+									<mvt:else>
+										<option value="dtstamp_desc">Date Descending</option>
+									</mvt:if>
+								</select>
+							</div>
+						</li>
+					</ul>
+				</fieldset>
+			</form>
+		</section>
+	</div>
+
+<br>
+</mvt:if>
+
+<section class="o-layout">
+	<div class="o-layout__item">
+		<table class="c-table-responsive">
+			<thead class="c-table-responsive_thead">
+				<tr class="c-table-responsive__row u-color-black u-font-tiny u-text-bold u-text-uppercase">
+					<th class="c-table-responsive__cell" scope="col">Order #</th>
+					<th class="c-table-responsive__cell" scope="col">Transaction Reference</th>
+					<th class="c-table-responsive__cell" scope="col">Description</th>
+					<th class="c-table-responsive__cell" scope="col">Date</th>
+					<th class="c-table-responsive__cell" scope="col">Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<mvt:foreach iterator="credit_entry" array="customercredithistory:items">
+					<tr class="c-table-responsive__row u-color-gray-50">
+						<td class="c-table-responsive__cell c-table-responsive__cell--flex" data-label="Order #">
+							<mvt:if expr="l.settings:credit_entry:order_id EQ 0">
+								N/A
+							<mvt:else>
+								&mvte:credit_entry:order_id;
+							</mvt:if>
+						</td>
+						<td class="c-table-responsive__cell c-table-responsive__cell--flex" data-label="Transaction">&mvte:credit_entry:txref;</td>
+						<td class="c-table-responsive__cell c-table-responsive__cell--flex" data-label="Description">&mvte:credit_entry:descrip;</td>
+						<td class="c-table-responsive__cell c-table-responsive__cell--flex" data-label="Date">&mvt:credit_entry:formatted_dtstamp;</td>
+						<td class="c-table-responsive__cell c-table-responsive__cell--flex" data-label="Amount">&mvt:credit_entry:formatted_amount;</td>
+					</tr>
+				</mvt:foreach>
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<mvt:if expr="l.settings:customercredithistory:page_links:last_page GT 1">
+	<nav class="x-pagination x-pagination--centered t-pagination">
+		<ul class="o-list-inline">
+			<mvt:if expr="l.settings:customercredithistory:page_links:current_page NE 1">
+				<li class="o-list-inline__item">
+					<a class="u-color-gray-40 u-icon-chevron-left t-pagination__button" href="&mvte:urls:_self:auto_sep;&mvte:customercredithistory:page_links:prev_link_params;" title="Go to the previous page."></a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="u-color-gray-40 u-icon-chevron-left t-pagination__button" title="You are on the first page."></span>
+				</li>
+			</mvt:if>
+			<li class="o-list-inline__item o-layout--grow">
+				<div class="c-form-select">
+					<select class="c-form-select__dropdown u-font-small u-text-uppercase u-text-bold u-color-gray-40" name="Sort_By" onchange="window.location.href=this.options[ this.selectedIndex ].value">
+						<mvt:foreach iterator="pages" array="customercredithistory:page_links:pages">
+							<mvt:if expr="l.settings:customercredithistory:page_links:current_page EQ l.settings:pages:page_num">
+								<option value="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;" selected>Page &mvte:pages:page_num; of &mvte:customercredithistory:page_links:last_page;</option>
+							<mvt:else>
+								<option value="&mvte:urls:_self:auto_sep;&mvte:pages:link_params;">Page &mvte:pages:page_num; of &mvte:customercredithistory:page_links:last_page;</option>
+							</mvt:if>
+						</mvt:foreach>
+					</select>
+				</div>
+			</li>
+			<mvt:if expr="l.settings:customercredithistory:page_links:current_page NE l.settings:customercredithistory:page_links:last_page">
+				<li class="o-list-inline__item">
+					<a class="u-color-gray-40 u-icon-chevron-right t-pagination__button" href="&mvte:urls:_self:auto_sep;&mvte:customercredithistory:page_links:next_link_params;" title="Go to the next page."></a>
+				</li>
+			<mvt:else>
+				<li class="o-list-inline__item">
+					<span class="u-color-gray-40 u-icon-chevron-right t-pagination__button" title="You are on the last page."></span>
+				</li>
+			</mvt:if>
+		</ul>
+	</nav>
+	<!-- end .x-pagination -->
+</mvt:if>
