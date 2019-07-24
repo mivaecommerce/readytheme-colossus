@@ -76,7 +76,7 @@ friendly way.
 
 - Chrome (_latest 2_)
 - Firefox (_latest 2_)
-- Safari (_11+_)
+- Safari (_latest 2_)
 	> Versions of Safari lower than 11 have minimal support, this theme may not work in versions lower than 10. Generally, the site will operate, however there are layout inconsistencies due to the way the browsers supports flex-box and sizing calculations.
 - iOS Safari (_latest 2_)
 - Opera (_latest 2_)

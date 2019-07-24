@@ -77,36 +77,51 @@
 	function allowRemoveUpdate() {
 		var quantities = document.querySelectorAll('[data-hook="group-quantity"]');
 
+		function toggleRemove(row, qty) {
+			var removeToggle = row.previousElementSibling;
+			var groupForm = document.querySelector('[data-hook="' + row.getAttribute('data-group') + '"]');
+
+			if (removeToggle.dataset.hook !== 'remove') {
+				if (qty > '1') {
+					if (groupForm) {
+						groupForm.elements['Action'].value = 'QTYG';
+					}
+					removeToggle.classList.remove('u-icon-remove');
+					removeToggle.classList.add('u-icon-subtract');
+					removeToggle.setAttribute('data-action', 'decrement');
+				}
+				else if (qty === '1') {
+					if (groupForm) {
+						groupForm.elements['Action'].value = 'QTYG';
+					}
+					removeToggle.classList.remove('u-icon-subtract');
+					removeToggle.classList.add('u-icon-remove');
+					removeToggle.setAttribute('data-action', 'remove');
+				}
+				else {
+					if (groupForm) {
+						groupForm.elements['Action'].value = 'RGRP';
+					}
+					removeToggle.classList.remove('u-icon-subtract');
+					removeToggle.classList.add('u-icon-remove');
+					removeToggle.setAttribute('data-action', 'remove');
+				}
+			}
+		}
+
 		if (quantities) {
 			for (var id = 0; id < quantities.length; id++) {
 				var quantityLine = quantities[id];
-				var removeToggle = quantityLine.previousElementSibling;
-				var groupForm = document.querySelector('[data-hook="' + quantityLine.getAttribute('data-group') + '"]');
 
-				if (removeToggle.dataset.hook !== 'remove') {
-					if (quantityLine.value > '1') {
-						if (groupForm) {
-							groupForm.elements['Action'].value = 'QTYG';
-						}
-						removeToggle.classList.remove('u-icon-remove');
-						removeToggle.classList.add('u-icon-subtract');
-						removeToggle.setAttribute('data-action', 'decrement');
-					}
-					else {
-						if (groupForm) {
-							groupForm.elements['Action'].value = 'RGRP';
-						}
-						removeToggle.classList.remove('u-icon-subtract');
-						removeToggle.classList.add('u-icon-remove');
-						removeToggle.setAttribute('data-action', 'remove');
-					}
-				}
+				toggleRemove(quantityLine, quantityLine.value);
 
 				quantityLine.addEventListener('change', function (event) {
+					toggleRemove(this, this.value);
 					groupSubmit(event, this);
 				});
 
 				quantityLine.addEventListener('input', function (event) {
+					toggleRemove(this, this.value);
 					groupSubmit(event, this);
 				});
 			}
