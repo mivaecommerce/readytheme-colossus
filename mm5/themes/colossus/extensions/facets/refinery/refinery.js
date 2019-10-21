@@ -17,20 +17,15 @@
 	let $facets = $.hook('refinery');
 	let $refinerySetToggles = $.hook('refinery-set-toggle');
 	let $triggerArea = $.hook('refinery__view-target');
-	let $displayButton = $.hook('refinery__view-button');
 	let $visibleLinks = $.hook('refinery__list');
 	let $hiddenLinks = $.hook('refinery__overflow');
 	let $annex = $.hook('refinery-annex');
 	let numOfItems = 0;
 	let totalSpace = 176;
-	let breakWidths = [];
-	let availableSpace;
 	let numOfVisibleItems;
-	let requiredSpace;
 	let rangeSliders = document.querySelectorAll('[data-mm-facet-rangeslider-name]');
 	let minDisplayWidth = 1040;
 	let maxDisplay;
-	let numOfVisibleItems2;
 
 	/**
 	 * Check the total space required for the facet sets and how many there are.
@@ -39,7 +34,6 @@
 		$visibleLinks.children().each(function () {
 			totalSpace += $(this).outerWidth(true) + (parseInt($visibleLinks.css('padding-left')));
 			numOfItems += 1;
-			breakWidths.push(totalSpace);
 		});
 	}
 
@@ -59,21 +53,16 @@
 				maxDisplay = 2;
 			}
 
-			availableSpace = $visibleLinks.outerWidth(true) - parseInt($visibleLinks.css('padding-right'));
-			numOfVisibleItems = $visibleLinks.children().length;
-			requiredSpace = breakWidths[numOfVisibleItems - 1];
-			numOfVisibleItems2 = $visibleLinks.children('[data-hook="refinery-set"]').length;
+			numOfVisibleItems = $visibleLinks.children('[data-hook="refinery-set"]').length;
 
-			if (numOfVisibleItems2 > maxDisplay) {
+			if (numOfVisibleItems > maxDisplay) {
 				// There is not enough space
 				$visibleLinks.children('[data-hook="refinery-set"]').last().prependTo($hiddenLinks);
-				numOfVisibleItems -= 1;
 				$facets.addClass('is-loaded');
 				this.checkFacetOverflow();
 			}
-			else if (numOfVisibleItems2 <= maxDisplay) {
+			else if (numOfVisibleItems <= maxDisplay) {
 				$facets.addClass('is-loaded');
-				this.checkFacetOverflow();
 			}
 
 			// Update the button accordingly
@@ -169,15 +158,6 @@
 				toggleAnnex(event);
 			}
 		});
-
-		// Close the annex when the `Esc` key is pressed
-		/*$(document).keydown(function (event) {
-			let key = event.key || event.keyCode;
-
-			if (key === 'Escape' || key === 27) {
-				toggleAnnex(event);
-			}
-		});*/
 
 		initElement.checkFacetOverflow();
 

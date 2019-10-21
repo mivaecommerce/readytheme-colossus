@@ -57,19 +57,24 @@
 	<mvt:assign name="l.settings:product:stripped_descrip" value="miva_html_strip(l.settings:product:descrip, '')"/>
 
 	<div itemscope itemtype="http://schema.org/Product">
+		<mvt:if expr="NOT ISNULL l.settings:product:sku">
+			<meta itemprop="mpn" content="&mvte:product:sku;" />
+			<meta itemprop="sku" content="&mvte:product:sku;" />
+		<mvt:else>
+			<meta itemprop="mpn" content="&mvte:product:code;" />
+			<meta itemprop="sku" content="&mvte:product:code;" />
+		</mvt:if>
 		<meta itemprop="name" content="&mvte:product:name;" />
 		<meta itemprop="image" content="&mvt:global:socialImage;" />
 		<meta itemprop="category" content="&mvte:category:name;" />
 		<meta itemprop="description" content="&mvte:product:stripped_descrip;" />
 		<mvt:if expr="NOT ISNULL l.settings:product:customfield_values:customfields:brand">
 			<meta itemprop="brand" content="&mvte:product:customfield_values:customfields:brand;" />
-		</mvt:if>
-		<mvt:if expr="NOT ISNULL l.settings:product:sku">
-			<meta itemprop="sku" content="&mvte:product:sku;" />
 		<mvt:else>
-			<meta itemprop="sku" content="&mvte:product:code;" />
+			<meta itemprop="brand" content="&mvte:global:store:name;" />
 		</mvt:if>
 		<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+			<meta itemprop="url" content="&mvte:product:link;" />
 			<mvt:if expr="NOT ISNULL l.settings:product:sku">
 				<meta itemprop="sku" content="&mvte:product:sku;" />
 			<mvt:else>
@@ -79,18 +84,29 @@
 			<mvt:item name="attributemachine" param="body_deferred" />
 			<script>
 				if (typeof am&mvt:product:id; !== 'undefined') {
-					var attrMachCall = am&mvt:product:id;,
-						attrPossible = amPossible&mvt:product:id;;
-				};
+					var attrMachCall = am&mvt:product:id;;
+					var attrPossible = amPossible&mvt:product:id;;
+				}
 			</script>
 			<meta itemprop="priceCurrency" content="USD" />
 			<meta itemprop="seller" content="&mvte:global:store:name;" />
 			<meta itemprop="itemCondition" content="new" />
-			<mvt:if expr="l.settings:product:inv_active OR l.settings:attributemachine:product:inv_active">
-				<meta itemprop="availability" content="&mvte:product:inv_short;" />
-				<meta itemprop="inventoryLevel" content="&mvte:product:inv_available;" />
+			
+			<mvt:if expr="l.settings:attributemachine:product:inv_level">
+				<mvt:assign name="l.availability_inv_level" value="l.settings:attributemachine:product:inv_level"/>
+				<mvt:do name="l.formatted_variant_price" file="g.Module_Root $ g.Store:currncy_mod:module" value="CurrencyModule_AddFormatting( g.Store:currncy_mod, l.settings:attributemachine:product:price )" />
+				<meta itemprop="price" content="&mvt:attributemachine:product:price;"/>
+			<mvt:else>
+				<mvt:assign name="l.availability_inv_level" value="l.settings:product:inv_level"/>
+				<meta itemprop="price" content="&mvt:product:price;"/>
 			</mvt:if>
-			<meta itemprop="url" content="&mvte:product:link;" />
+			<mvt:if expr="l.availability_inv_level EQ 'low'">
+				<meta itemprop="availability" content="LimitedAvailability"/>
+			<mvt:elseif expr="l.availability_inv_level EQ 'out'">
+				<meta itemprop="availability" content="OutOfStock"/>
+			<mvt:else>
+				<meta itemprop="availability" content="InStock"/>
+			</mvt:if>
 		</div>
 	</div>
 	<!-- End: Google Rich Snippets -->
