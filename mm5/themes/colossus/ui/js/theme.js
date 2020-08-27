@@ -132,7 +132,7 @@ var themeFunctionality = {
 		 * base of `data-` attributes.
 		 */
 		function observeDeferred() {
-			'use stict';
+			'use strict';
 
 			const deferredDOMItems = document.querySelectorAll('[data-defer]');
 			const deferredImages = document.querySelectorAll('[data-src]');
@@ -206,12 +206,6 @@ var themeFunctionality = {
 			}
 		}, false);
 		observeDeferred();
-
-
-		/**
-		 * Load and initialize the Custom Select extension
-		 */
-		$.loadScript(theme_path + 'extensions/custom-elements/selects/custom-select.js');
 
 
 	},

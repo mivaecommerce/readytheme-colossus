@@ -112,17 +112,28 @@
 		if (quantities) {
 			for (var id = 0; id < quantities.length; id++) {
 				var quantityLine = quantities[id];
+				var updateTimeout = null;
 
 				toggleRemove(quantityLine, quantityLine.value);
 
 				quantityLine.addEventListener('change', function (event) {
-					toggleRemove(this, this.value);
-					groupSubmit(event, this);
+					var input = this;
+					
+					clearTimeout(updateTimeout);
+					updateTimeout = setTimeout(function () {
+						toggleRemove(input, input.value);
+						groupSubmit(event, input);
+					}, 500);
 				});
 
 				quantityLine.addEventListener('input', function (event) {
-					toggleRemove(this, this.value);
-					groupSubmit(event, this);
+					var input = this;
+					
+					clearTimeout(updateTimeout);
+					updateTimeout = setTimeout(function () {
+						toggleRemove(input, input.value);
+						groupSubmit(event, input);
+					}, 500);
 				});
 			}
 		}
