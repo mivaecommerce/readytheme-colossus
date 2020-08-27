@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+<<<<<<< HEAD
+[1.0.3]: https://github.com/mivaecommerce/readytheme-shadows/compare/v1.0.2...v1.0.3
+## [1.0.3] - 2020-08-27
+
+#### Fixed
+This maintenance release addresses all issues contained in the v1.0.3 milestone.
+- [Milestone v1.0.3](https://github.com/mivaecommerce/readytheme-shadows/milestone/3?closed=1)
+Additionally, the Custom Select extension has been removed due to issues with iOS as well as some minor updates to make Colossus ready for Miva 10.
+
+
+=======
+>>>>>>> master
 [1.0.2]: https://github.com/mivaecommerce/readytheme-shadows/compare/v1.0.1...v1.0.2
 ## [1.0.2] - 2019-10-21
 

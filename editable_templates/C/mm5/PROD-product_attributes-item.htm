@@ -48,7 +48,7 @@
 			<label class="c-form-label u-block &mvt:required_attribute_classes;" for="&mvt:attribute_ID;" title="&mvt:attribute:prompt;">
 				&mvt:attribute:prompt; <span data-hook="update-selection-label">&nbsp;</span>
 			</label>
-			<div class="c-form-select u-invisible">
+			<div class="c-form-select">
 				<select id="&mvt:attribute_ID;" class="c-form-select__dropdown c-form-input--large" data-attribute="&mvte:attribute:code;" name="Product_Attributes[&mvt:attribute:index;]:value" &mvt:required_attribute;>
 					<mvt:foreach iterator="option" array="attribute:options">
 						<mvt:if expr="((g.Product_Attributes[l.settings:attribute:index]:value EQ 0) AND (l.settings:option:id EQ l.settings:attribute:default_id)) OR (g.Product_Attributes[l.settings:attribute:index]:value EQ l.settings:option:code)">

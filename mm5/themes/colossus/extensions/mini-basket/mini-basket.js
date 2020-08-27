@@ -74,6 +74,7 @@ var miniBasket = (function (document) {
 		event.preventDefault();
 		// Prevent window scrolling
 		document.documentElement.classList.toggle('u-overflow-hidden');
+		document.documentElement.classList.toggle('x-mini-basket-is-active');
 		// Open the menu element
 		menuElement.classList.toggle('x-mini-basket--open');
 	};

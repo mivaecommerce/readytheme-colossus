@@ -1241,6 +1241,13 @@ p {
 
 /* Slick Slider Overrides
 	=========================================== */
+.slick-slider:not(.slick-initialized) {
+	opacity: 0;
+	overflow: hidden;
+	visibility: hidden;
+	transition: opacity ease-out 0.3s;
+}
+
 .slick-slider.slick-initialized {
 	opacity: 1;
 	overflow: visible;

@@ -28,10 +28,10 @@
 					</section>
 					
 					<section class="o-layout u-grids-2 u-grids-3--l x-product-list">
-						<mvt:do name="l.result" file="g.Module_Library_DB" value="CategoryList_Load_Parent('', l.settings:parent_categories)" />
+						<mvt:do name="l.result" file="g.Module_Library_DB" value="Runtime_CategoryList_Load_Parent('', l.settings:parent_categories)" />
 						<mvt:foreach iterator="parent" array="parent_categories">
 							<mvt:assign name="l.settings:catalog_item" value="''" />
-							<mvt:do name="l.result" file="g.Module_Library_DB" value="Category_Load_Code(l.settings:parent:code, l.settings:catalog)" />
+							<mvt:do name="l.result" file="g.Module_Library_DB" value="Runtime_Category_Load_Code(l.settings:parent:code, l.settings:catalog)" />
 							<mvt:do name="l.module_loaded" file="g.Module_Library_DB" value="Module_Load_Code('cmp-cssui-cattree', l.module)" />
 							<mvt:if expr="l.module_loaded">
 								<mvt:do name="l.result" file="g.Module_Root $ l.module:module" value="CSSUI_CatTree_Load(l.settings:catalog:id, l.settings:catalog_item)" />

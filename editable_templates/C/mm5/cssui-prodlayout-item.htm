@@ -64,13 +64,11 @@
 						</li>
 						<li class="c-form-list__item c-form-list__item--full">
 							<p class="x-product-layout-purchase__pricing">
-								<mvt:if expr="l.settings:product:base_price GT l.settings:product:price">
-								</mvt:if>
 								<span class="x-product-layout-purchase__pricing-current">
 									<span id="price-value" itemprop="price" content="&mvt:product:price;">&mvt:product:formatted_price;</span>
 								</span>
 								<span class="x-product-layout-purchase__pricing-original">
-									<span id="price-value-additional" data-prompt="regular:"></span>
+									<span id="price-value-additional" data-prompt="regular:"><mvt:if expr="l.settings:product:base_price GT l.settings:product:price">&mvt:product:formatted_base_price;</mvt:if></span>
 								</span>
 							</p>
 							<div id="product-discounts" class="x-product-layout-purchase__product-discounts u-font-small">

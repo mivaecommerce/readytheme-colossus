@@ -39,11 +39,6 @@
 	</mvt:if>
 	<mvt:item name="head" param="css_list" />
 	<mvt:item name="head" param="head_tag" file="cssui-global-head-item.htm" />
-	<mvt:comment>
-		<!-- If you are using Amazon Pay, this is where the `amazonpay` and `"amazonpay_button" param="head"` items go. -->
-		<mvt:item name="amazonpay" />
-		<mvt:item name="amazonpay_button" param="head" />
-	</mvt:comment>
 </head>
 <body id="js-&mvte:page:code;" class="o-site-wrapper t-page-&mvt:global:pageClass;">
 	<mvt:item name="hdft" param="global_header" file="global-header-item.htm" />
@@ -61,10 +56,6 @@
 					</h1>
 					<mvt:item name="hdft" param="header" file="BASK-header-item.htm" />
 					<mvt:item name="readytheme" param="contentsection( 'messages' )" />
-					<mvt:comment>
-						<!-- If you are using PayPal Express, this is where the `PaypalErrorMsg` item goes. -->
-						<mvt:item name="PaypalErrorMsg"/>
-					</mvt:comment>
 				</div>
 				<div class="o-layout__item t-expanded-block__item t-account-landing-section__content">
 					<mvt:item name="basket" file="BASK-basket-item.htm" />

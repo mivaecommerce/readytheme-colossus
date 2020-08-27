@@ -586,9 +586,10 @@ var elementsUI = {
 			$('[data-id="cvv"]').find('input').attr('type', 'tel');
 
 			$.hook('mvt-select').find('select').each(function () {
-				var wrapDiv = document.createElement('div'),
-					select = this;
+				var wrapDiv = document.createElement('div');
+				var select = this;
 
+				select.attr('data-no-custom', '');
 				wrapDiv.classList.add('c-form-select');
 				select.parentNode.insertBefore(wrapDiv, select);
 				wrapDiv.appendChild(select);
